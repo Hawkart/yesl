@@ -18,6 +18,13 @@
             <div class="registration-login-form">
 
                 <div class="title h6">{{ __('Register') }}</div>
+
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}" class="content">
                     @csrf
 
@@ -90,13 +97,18 @@
                                 </select>
                             </div>
 
-                            <div class="remember">
+                            <div class="form-group label-floating remember">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }}>
                                         I accept the <a href="{{ route('terms') }}">Terms and Conditions</a> of the website
                                     </label>
                                 </div>
+                                @if ($errors->has('terms'))
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $errors->first('terms') }}</strong>
+                                    </span>
+                                @endif
                             </div>
 
                             <button type="submit" class="btn btn-purple btn-lg full-width">

@@ -26,3 +26,30 @@ Route::group(['prefix' => 'admin'], function () {
  */
 Auth::routes();
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
+
+Route::patch('/users',  ['as' => 'users.update', 'uses' => 'UserController@update', 'middleware' => 'auth']);
+Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword', 'middleware' => 'auth']);
+
+/**
+ * Personal cabinet
+ */
+Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
+
+    Route::get('/', function(){
+        return redirect()->route('settings.personal');
+    })->name('settings');
+
+    Route::get('/personal', ['as' => 'settings.personal', 'uses' => 'UserController@edit']);
+    Route::get('/password', ['as' => 'settings.password', 'uses' => 'UserController@password']);
+
+    /*
+    Route::get('/profile', ['as' => 'profile', 'uses' => 'UserController@edit']);
+    Route::patch('/profile/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
+    Route::get('/accounts', ['as' => 'accounts', 'uses' => 'LkController@accounts']);
+    Route::get('/withdrawals/verify', ['as' => 'withdrawals.verify.form','uses' => 'LkController@withdrawalsVerify']);
+    Route::get('/withdrawals/verify/{token}', 'WithdrawalController@verifyGet');
+    Route::get('/withdrawals', ['as' => 'withdrawals', 'uses' => 'LkController@withdrawals']);
+    Route::get('/subpartners', ['as' => 'subpartners', 'uses' => 'LkController@subpartners']);
+    Route::get('/balance', ['as' => 'balance', 'uses' => 'LkController@balance']);
+    Route::get('/robots', ['as' => 'lk-robots', 'uses' => 'LkController@robots']);*/
+});

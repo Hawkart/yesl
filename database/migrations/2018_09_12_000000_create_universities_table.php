@@ -27,6 +27,7 @@ class CreateUniversitiesTable extends Migration
             $table->string('title', 191);
             $table->string('url', 191);
             $table->text('json');
+            $table->string('domain')->nullable();
             $table->string('address')->nullable();
             $table->nullableTimestamps();
         });

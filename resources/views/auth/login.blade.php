@@ -30,6 +30,11 @@
                 </ul>-->
 
                 <div class="title h6">{{ __('Login') }}</div>
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" class="content">
                     @csrf
                     <div class="row">

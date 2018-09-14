@@ -42,10 +42,20 @@
 
 <body>
 
+<div id="app">
 @include('_partials.dashboard.sidebar')
 @include('_partials.dashboard.header')
 @yield('content')
 @include('_partials.dashboard.modals')
+</div>
+
+<script src="{{ mix('/js/app.js') }}"></script>
+
+<style>
+    .alert-dismissible .close{
+        margin: 0;
+    }
+</style>
 
 <!-- JS Scripts -->
 <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>

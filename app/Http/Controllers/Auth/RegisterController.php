@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\University;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -53,8 +54,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $messages = [];
-
         $rules = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -65,7 +64,7 @@ class RegisterController extends Controller
             'date_birth' => 'required|date_format:Y-m-d|before:today'
         ];
 
-        return Validator::make($data, $rules, $messages);
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -76,7 +75,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $u = [
+            'name' => trim($data['first_name']." ".$data['last_name']),
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
@@ -84,12 +84,21 @@ class RegisterController extends Controller
             'gender' => intval($data['gender']),
             'date_birth' => Carbon::parse($data['date_birth']),
             'confirmation_code' => str_random(10)
-        ]);
+        ];
+
+        //Check if email from university
+        $domain = substr($data['email'], strrpos($data['email'], '@') + 1);
+        $universities = University::where('domain', $domain);
+        if($universities->count()>0)
+        {
+            $u['university_id'] =  $universities->first()->id;
+        }
+
+        return User::create($u);
     }
 
     public function register(Request $request)
     {
-        // Laravel validation
         $this->validator($request->all())->validate();
 
         DB::beginTransaction();

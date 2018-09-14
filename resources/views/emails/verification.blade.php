@@ -100,17 +100,9 @@ $style = [
                                         </tr>
                                     </table>
 
-
-                                    <!-- Outro -->
-
-                                    <p style="{{ $style['paragraph'] }}">
-                                        Спасибо!
-                                    </p>
-
-
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        ,<br>{{ config('app.name') }}
+                                        <br>{{ config('app.name') }}
                                     </p>
                                 </td>
                             </tr>
