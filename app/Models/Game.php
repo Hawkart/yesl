@@ -4,38 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property int $genre_id
- * @property boolean $active
- * @property int $giantbomb_id
- * @property int $twitch_id
- * @property string $title
- * @property string $alias
- * @property string $images
- * @property string $logo
- * @property string $body
- * @property string $site_url
- * @property string $rules
- * @property int $video_count
- * @property boolean $online
- * @property int $min_players
- * @property string $overlay
- * @property int $cross_block
- * @property string $social_provider
- * @property string $logo_mini
- * @property Genre $genre
- * @property Fight[] $fights
- * @property GameRole[] $gameRoles
- * @property Profile[] $profiles
- * @property Tournament[] $tournaments
- */
 class Game extends Model
 {
+    public $timestamps = false;
+
     /**
      * @var array
      */
-    protected $fillable = ['genre_id', 'active', 'giantbomb_id', 'twitch_id', 'title', 'alias', 'images', 'logo', 'body', 'site_url', 'rules', 'video_count', 'online', 'min_players', 'overlay', 'cross_block', 'social_provider', 'logo_mini'];
+    protected $fillable = ['genre_id', 'active', 'giantbomb_id', 'twitch_id', 'title',
+        'alias', 'images', 'logo', 'body', 'site_url', 'rules', 'video_count', 'online',
+        'min_players', 'overlay', 'cross_block', 'social_provider', 'logo_mini'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -56,7 +34,7 @@ class Game extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function gameRoles()
+    public function roles()
     {
         return $this->hasMany('App\Models\GameRole');
     }
@@ -75,5 +53,61 @@ class Game extends Model
     public function tournaments()
     {
         return $this->hasMany('App\Models\Tournament');
+    }
+
+    /**
+     * Get the teams which play the game.
+     *
+     * @Relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function teams()
+    {
+        return $this->hasMany('App\Models\Team');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function universities()
+    {
+        return $this->belongsToMany('App\Models\University');
+    }
+
+    /**
+     * Get group of game
+     */
+    public function group()
+    {
+        return $this->morphOne('App\Models\Group', 'groupable');
+    }
+
+    /**
+     * Scope a query to only active scopes.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', '=', 1);
+    }
+
+    public function scopeSearch($query, $request)
+    {
+        if(!empty($request['id']))
+        {
+            $query->where('id', (int)$request['id']);
+        }
+        if(!empty($request['title']))
+        {
+            $query->where('title', 'like', "%".$request['title']."%");
+        }
+        if(!empty($request['genre_id']))
+        {
+            $query->where('genre_id', $request['genre_id']);
+        }
+        return $query;
     }
 }

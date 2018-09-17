@@ -58,7 +58,6 @@
 </style>
 
 <!-- JS Scripts -->
-<script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
 <script src="{{ asset('js/jquery.appear.js') }}"></script>
 <script src="{{ asset('js/jquery.mousewheel.js') }}"></script>
 <script src="{{ asset('js/perfect-scrollbar.js') }}"></script>
@@ -94,7 +93,6 @@
 
 <script src="{{ asset('js/base-init.js') }}"></script>
 <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>
-
 <script src="{{ asset('Bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
 </body>
 </html>

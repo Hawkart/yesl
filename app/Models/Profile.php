@@ -4,22 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property int $game_id
- * @property int $user_id
- * @property string $nickname
- * @property boolean $type
- * @property string $created_at
- * @property string $updated_at
- * @property Game $game
- * @property User $user
- * @property Fight[] $fights
- * @property Fight[] $fights
- * @property ProfileTeam[] $profileTeams
- * @property ProfileTeam[] $profileTeams
- * @property Team[] $teams
- */
 class Profile extends Model
 {
     /**
@@ -46,7 +30,7 @@ class Profile extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function fights()
+    public function canceledFights()
     {
         return $this->hasMany('App\Models\Fight', 'cancel_user_id');
     }
@@ -54,32 +38,16 @@ class Profile extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function fights()
+    public function createdFights()
     {
         return $this->hasMany('App\Models\Fight', 'created_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function profileTeams()
-    {
-        return $this->hasMany('App\Models\ProfileTeam');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function profileTeams()
-    {
-        return $this->hasMany('App\Models\ProfileTeam', 'sender_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function teams()
     {
-        return $this->hasMany('App\Models\Team', 'coach_id');
+        return $this->belongsToMany('App\Models\Team');
     }
 }

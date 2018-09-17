@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserPasswordUpdateRequest;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
@@ -32,6 +32,11 @@ class UserController extends Controller
         return view('home');
     }
 
+    /**
+     * Show the personal form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function edit()
     {
         $this->seo()->setTitle('Personal settings');
@@ -39,6 +44,11 @@ class UserController extends Controller
         return view('lk.personal', compact('user'));
     }
 
+    /**
+     * Show the password form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function password()
     {
         $this->seo()->setTitle('Change password');
@@ -47,6 +57,13 @@ class UserController extends Controller
         return view('lk.password', compact('user'));
     }
 
+
+    /**
+     * Update user personal data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -65,10 +82,9 @@ class UserController extends Controller
     }
 
     /**
-     * Update user's passsword.
+     * Update user's password.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return Response
      */
     public function updatePassword(UserPasswordUpdateRequest $request)
@@ -88,5 +104,19 @@ class UserController extends Controller
         return response()->json([
             'error' => 'Something wrong'
         ], 422);
+    }
+
+    /**
+     * Update user's passsword.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function profiles()
+    {
+        $user = Auth::user();
+        $games = Game::all();
+
+        return view('lk.profiles', compact(['user', 'games']));
     }
 }

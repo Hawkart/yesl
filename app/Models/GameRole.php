@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GameRole extends Model
 {
+    public $timestamps = false;
+    protected $table = 'game_roles';
+
     /**
      * @var array
      */

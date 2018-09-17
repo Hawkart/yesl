@@ -43,4 +43,22 @@ class University extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function games()
+    {
+        return $this->belongsToMany('App\Models\Game');
+    }
+
+    /**
+     * Get group of university
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function group()
+    {
+        return $this->morphOne('App\Models\Group', 'groupable');
+    }
 }

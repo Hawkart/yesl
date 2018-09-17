@@ -14,6 +14,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/terms', 'HomeController@index')->name('terms');
 
+
 /**
  * Admin
  */
@@ -27,6 +28,9 @@ Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 
+/**
+ * Users
+ */
 Route::patch('/users',  ['as' => 'users.update', 'uses' => 'UserController@update', 'middleware' => 'auth']);
 Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword', 'middleware' => 'auth']);
 
@@ -41,6 +45,7 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
 
     Route::get('/personal', ['as' => 'settings.personal', 'uses' => 'UserController@edit']);
     Route::get('/password', ['as' => 'settings.password', 'uses' => 'UserController@password']);
+    Route::get('/profiles', ['as' => 'settings.games_profiles', 'uses' => 'UserController@profiles']);
 
     /*
     Route::get('/profile', ['as' => 'profile', 'uses' => 'UserController@edit']);

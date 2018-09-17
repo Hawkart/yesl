@@ -4,20 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property int $profile_id
- * @property int $team_id
- * @property int $sender_id
- * @property boolean $status
- * @property string $start_at
- * @property string $end_at
- * @property string $created_at
- * @property string $updated_at
- * @property Profile $profile
- * @property Profile $profile
- * @property Team $team
- */
 class ProfileTeam extends Model
 {
     /**
@@ -35,7 +21,7 @@ class ProfileTeam extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function profile()
+    public function profiles()
     {
         return $this->belongsTo('App\Models\Profile');
     }
@@ -44,6 +30,14 @@ class ProfileTeam extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function profile()
+    {
+        return $this->belongsTo('App\Models\Profile');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sender()
     {
         return $this->belongsTo('App\Models\Profile', 'sender_id');
     }
