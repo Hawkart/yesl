@@ -15,6 +15,13 @@ class GameUniversity extends Model
     protected $fillable = ['game_id', 'university_id'];
 
     /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => \App\Events\GameUniversityCreatedEvent::class,
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function game()

@@ -3,15 +3,32 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Group extends Model
 {
+    use Sluggable;
+
     public $timestamps = true;
 
     /**
      * @var array
      */
-    protected $fillable = ['title', 'image', 'owner_id', 'description'];
+    protected $fillable = ['title', 'image', 'cover', 'owner_id', 'description', 'groupable_type', 'groupable_id', 'slug'];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     /**
      * Get all of the owning groupable models.
@@ -34,6 +51,6 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User', 'group_users');
     }
 }

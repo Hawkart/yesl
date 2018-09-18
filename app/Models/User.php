@@ -61,6 +61,13 @@ class User extends VoyagerUser
     ];
 
     /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => \App\Events\UserUpdatedEvent::class,
+    ];
+
+    /**
      * Boot the model.
      *
      * @return void
@@ -68,6 +75,7 @@ class User extends VoyagerUser
     public static function boot()
     {
         parent::boot();
+
         static::creating(function ($user)
         {
             if(empty($user->nickname))
@@ -89,7 +97,7 @@ class User extends VoyagerUser
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      * @Relation
      */
     public function university()
@@ -111,6 +119,14 @@ class User extends VoyagerUser
     public function posts()
     {
         return $this->hasMany('App\Models\Post', 'author_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\Models\Group', 'group_users');
     }
 
     /**

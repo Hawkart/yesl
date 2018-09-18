@@ -16,6 +16,13 @@ class Game extends Model
         'min_players', 'overlay', 'cross_block', 'social_provider', 'logo_mini'];
 
     /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => \App\Events\GameCreatedEvent::class,
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function genre()

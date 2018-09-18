@@ -34,6 +34,13 @@ Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 Route::patch('/users',  ['as' => 'users.update', 'uses' => 'UserController@update', 'middleware' => 'auth']);
 Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword', 'middleware' => 'auth']);
 
+
+/**
+ * Groups
+ */
+Route::get('/groups', 'GroupController@index')->name('groups');
+Route::get('/groups/{slug}', 'GroupController@show')->name('group');
+
 /**
  * Personal cabinet
  */

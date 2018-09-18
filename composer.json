@@ -14,6 +14,7 @@
         "barryvdh/laravel-debugbar": "^3.1.2",
         "camroncade/timezone": "0.1",
         "cmgmyr/messenger": "^2.14",
+        "cviebrock/eloquent-sluggable": "4.5",
         "cyber-duck/laravel-excel": "^1.2",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "doctrine/dbal": "^2.5",

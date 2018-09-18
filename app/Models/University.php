@@ -3,13 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class University extends Model
 {
+    use Sluggable;
+
+    public $timestamps = true;
+
     /**
      * @var array
      */
-    protected $fillable = ['title', 'url', 'json', 'address', 'domain', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'url', 'json', 'address', 'domain', 'slug'];
 
     /**
      * The attributes that should be cast to native types.
@@ -19,6 +24,27 @@ class University extends Model
     protected $casts = [
         'json' => 'array'
     ];
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => \App\Events\UniversityCreatedEvent::class,
+    ];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

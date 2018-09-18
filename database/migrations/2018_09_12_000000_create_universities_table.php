@@ -25,6 +25,8 @@ class CreateUniversitiesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('title', 191);
+            $table->string('image')->nullable();
+            $table->string('slug')->index();
             $table->string('url', 191);
             $table->text('json');
             $table->string('domain')->nullable();

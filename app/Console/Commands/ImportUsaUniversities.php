@@ -2,6 +2,7 @@
 namespace App\Console\Commands;
 
 use App\Models\University;
+use App\Models\Group;
 use Illuminate\Console\Command;
 use Storage;
 use DB;
@@ -30,6 +31,7 @@ class ImportUsaUniversities extends Command
     public function handle()
     {
         DB::statement("SET foreign_key_checks=0");
+        Group::truncate();
         University::truncate();
         DB::statement("SET foreign_key_checks=1");
 
@@ -39,7 +41,7 @@ class ImportUsaUniversities extends Command
 
         foreach($data as $key=>$str)
         {
-            if($key==0)  continue;
+            if($key==0) continue;
             $this->addUniversity($str);
         }
     }

@@ -9,7 +9,14 @@ class Profile extends Model
     /**
      * @var array
      */
-    protected $fillable = ['game_id', 'user_id', 'nickname', 'type', 'created_at', 'updated_at'];
+    protected $fillable = ['game_id', 'user_id', 'nickname', 'type'];
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => \App\Events\ProfileCreatedEvent::class,
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
