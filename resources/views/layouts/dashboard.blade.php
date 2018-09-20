@@ -12,23 +12,22 @@
     {!! SEO::generate(true) !!}
 
     <!-- Main Font -->
-    <script src="{{ asset('js/webfontloader.min.js') }}"></script>
-
+    <!--<script src="{{ asset('/js/webfontloader.min.js') }}"></script>
     <script>
         WebFont.load({
             google: {
                 families: ['Roboto:300,400,500,700:latin']
             }
         });
-    </script>
+    </script>-->
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons:latin">
 
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-
-    <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-reboot.css') }}">
@@ -55,6 +54,24 @@
     .alert-dismissible .close{
         margin: 0;
     }
+    .choose-photo-item .checkbox .checkbox-material .check {
+        background: #fff;
+    }
+    .choose-photo-item .checkbox .checkbox-material {
+        position: absolute;
+        top: 10px;
+        right: 30px;
+        left: auto;
+    }
+    .choose-photo-item.game-choose{
+        width: 25%;
+    }
+    #game-list-container{
+        position: relative;
+        width: 100%;
+        height: 400px;
+        margin-bottom: 20px;
+    }
 </style>
 
 <!-- JS Scripts -->
@@ -69,7 +86,6 @@
 <script src="{{ asset('js/ScrollMagic.js') }}"></script>
 <script src="{{ asset('js/jquery.waypoints.js') }}"></script>
 <script src="{{ asset('js/jquery.countTo.js') }}"></script>
-<script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/material.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-select.js') }}"></script>
 <script src="{{ asset('js/smooth-scroll.js') }}"></script>

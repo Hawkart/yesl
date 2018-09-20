@@ -4,14 +4,14 @@
 
         <div class="row">
             <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="form-group label-floating is-empty">
+                <div class="form-group label-floating" :class="{ 'is-empty': form.password=='' }">
                     <label class="control-label">Your New Password</label>
                     <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
                     <has-error :form="form" field="password"/>
                 </div>
             </div>
             <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="form-group label-floating is-empty">
+                <div class="form-group label-floating" :class="{ 'is-empty': form.password_confirmation=='' }">
                     <label class="control-label">Confirm New Password</label>
                     <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
                     <has-error :form="form" field="password_confirmation"/>

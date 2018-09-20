@@ -36,10 +36,23 @@ Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'Us
 
 
 /**
+ * Games
+ */
+Route::get('/games', 'GameController@index')->name('games');
+Route::get('/games/{slug}', 'GameController@show')->name('game');
+
+/**
  * Groups
  */
 Route::get('/groups', 'GroupController@index')->name('groups');
 Route::get('/groups/{slug}', 'GroupController@show')->name('group');
+
+/**
+ * Profiles
+ */
+Route::get('/profiles', 'ProfileController@index');
+Route::post('/profiles', 'ProfileController@store');
+
 
 /**
  * Personal cabinet

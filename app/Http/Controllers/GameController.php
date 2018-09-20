@@ -12,8 +12,6 @@ use Storage;
 use Image;
 use File;
 use Cache;
-use ApiHandler;
-use App\Acme\Helpers\ApiHelper;
 use DB;
 
 class GameController extends Controller
@@ -25,7 +23,14 @@ class GameController extends Controller
      */
     public function index(Request $request)
     {
+        $games = Game::all();
 
+        if ($request->expectsJson())
+        {
+            return response()->json($games, 200);
+        }else{
+
+        }
     }
 
     /**

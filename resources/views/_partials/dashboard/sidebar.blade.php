@@ -16,18 +16,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="03-Newsfeed.html">
+                    <a href="/">
                         <svg class="olymp-newsfeed-icon left-menu-icon" data-toggle="tooltip" data-placement="right"   data-original-title="NEWSFEED"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-newsfeed-icon"></use></svg>
                     </a>
                 </li>
                 <li>
-                    <a href="16-FavPagesFeed.html">
-                        <svg class="olymp-star-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="FAV PAGE"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="17-FriendGroups.html">
-                        <svg class="olymp-happy-faces-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="FRIEND GROUPS"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon"></use></svg>
+                    <a href="{{route('groups')}}">
+                        <svg class="olymp-happy-faces-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="GROUPS"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon"></use></svg>
                     </a>
                 </li>
                 <li>
@@ -70,12 +65,12 @@
     </div>
 
     <div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1">
-        <a href="02-ProfilePage.html" class="logo">
+        <a href="/" class="logo">
             <div class="img-wrap">
                 <img src="/img/logo.png" alt="Olympus">
             </div>
             <div class="title-block">
-                <h6 class="logo-title">olympus</h6>
+                <h6 class="logo-title">YESL</h6>
             </div>
         </a>
 
@@ -88,21 +83,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="03-Newsfeed.html">
+                    <a href="/">
                         <svg class="olymp-newsfeed-icon left-menu-icon" data-toggle="tooltip" data-placement="right"   data-original-title="NEWSFEED"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-newsfeed-icon"></use></svg>
                         <span class="left-menu-title">Newsfeed</span>
                     </a>
                 </li>
                 <li>
-                    <a href="16-FavPagesFeed.html">
-                        <svg class="olymp-star-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="FAV PAGE"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
-                        <span class="left-menu-title">Fav Pages Feed</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="17-FriendGroups.html">
-                        <svg class="olymp-happy-faces-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="FRIEND GROUPS"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon"></use></svg>
-                        <span class="left-menu-title">Friend Groups</span>
+                    <a href="{{route('groups')}}">
+                        <svg class="olymp-happy-faces-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="GROUPS"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon"></use></svg>
+                        <span class="left-menu-title">Groups</span>
                     </a>
                 </li>
                 <li>

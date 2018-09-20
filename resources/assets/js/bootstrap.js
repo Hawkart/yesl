@@ -14,6 +14,10 @@ try {
     require('bootstrap');
 } catch (e) {}
 
+import VueMaterial from 'vue-material'
+//import 'vue-material/dist/vue-material.min.css'
+Vue.use(VueMaterial)
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -54,3 +58,128 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+/**
+ ** Global methods
+ **/
+Vue.mixin({
+    methods: {
+        getImageLink(image, t = false)
+        {
+            if(image!==undefined && image!=null && image!="")
+            {
+                if(!image.includes("http:") && !image.includes("https:"))
+                {
+                    image = '/storage/'+image;
+                }
+            }else{
+
+                if(t)
+                {
+                    switch(t)
+                    {
+                        case 'overlay_team':
+                            image = '/storage/default/overlay_team.jpg';
+                            break;
+                        case 'overlay_game':
+                            image = '/storage/default/overlay_game.jpg';
+                            break;
+                        case 'overlay_user':
+                            image = '/storage/default/overlay_user.jpg';
+                            break;
+
+                        case 'avatar_user':
+                            image = '/storage/default/avatar_user.jpg';
+                            break;
+                        case 'avatar_team':
+                            image = '/storage/default/avatar_team.jpg';
+                            break;
+                    }
+                }else{
+                    image = '/storage/default/avatar_user.jpg';
+                }
+
+            }
+
+            return image;
+        },
+        updateUrlParameter(urlQueryString, key, value)
+        {
+            var newParam = key + '=' + value,
+                params = '?' + newParam;
+
+            var updateRegex = new RegExp('([\?&])' + key + '[^&]*');
+            var removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+
+            if(urlQueryString)
+            {
+                if( typeof value == 'undefined' || value == null || value == '' ) { // Remove param if value is empty
+
+                    params = urlQueryString.replace(removeRegex, "$1");
+                    params = params.replace( /[&;]$/, "" );
+
+                } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
+
+                    params = urlQueryString.replace(updateRegex, "$1" + newParam);
+
+                } else { // Otherwise, add it to end of query string
+
+                    params = urlQueryString + '&' + newParam;
+                }
+            }else{
+                params = '?' + newParam;
+            }
+
+            return params;
+        },
+        UrlToArray: function(url) {
+            var request = {};
+            var pairs = url.substring(url.indexOf('?') + 1).split('&');
+            for (var i = 0; i < pairs.length; i++) {
+                if(!pairs[i])
+                    continue;
+                var pair = pairs[i].split('=');
+                request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            }
+            return request;
+        },
+        ArrayToUrl: function(array) {
+            var pairs = [];
+            for (var key in array)
+                if (array.hasOwnProperty(key))
+
+                    pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(array[key]));
+            return pairs.join('&');
+        },
+        UrlParamsMerge: function(queryStartParams)
+        {
+            if(location.search)
+            {
+                var paramsArray = this.UrlToArray(location.search);
+
+                for (var prop in paramsArray)
+                {
+                    if (paramsArray.hasOwnProperty(prop))
+                    {
+                        queryStartParams[prop] = paramsArray[prop];
+                    }
+                }
+
+                if(parseInt(paramsArray['_limit'])>0)
+                    paramsArray['_offset'] = (parseInt(paramsArray['page'])-1)*parseInt(paramsArray['_limit']);
+            }
+
+            var query = this.ArrayToUrl(queryStartParams);
+
+            return query;
+        },
+        materialInit()
+        {
+            $.material.init();
+            $('.checkbox > label').on('click', function () {
+                $(this).closest('.checkbox').addClass('clicked');
+            });
+        }
+    }
+});

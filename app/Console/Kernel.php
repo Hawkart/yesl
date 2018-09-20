@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\ImportUsaUniversities::class,
-        Commands\ImportGamesAndGenres::class
+        Commands\ImportGamesAndGenres::class,
+        Commands\GroupableCheckCreate::class
     ];
 
     /**

@@ -116,7 +116,8 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $games = Game::all();
+        $profiles = $user->profiles()->with(['game'])->get();
 
-        return view('lk.profiles', compact(['user', 'games']));
+        return view('lk.profiles', compact(['user', 'games', 'profiles']));
     }
 }

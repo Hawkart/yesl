@@ -23,18 +23,18 @@ class ProfileCreatedListener
         $game = $profile->game;
 
         $groups = [];
-        $groups[] = $game->group()->first();
+        $groups[] = $game->group()->first()->id;
 
         if(intval($user->university_id)>0)
         {
-            $groups[] = $user->university->group()->first();
+            $groups[] = $user->university->group()->first()->id;
 
             $gu = GameUniversity::where("university_id", $user->university_id)
                                     ->where('game_id', $game->id);
 
             if($gu->count()>0)
             {
-                $groups[] = $gu->first()->group()->first();
+                $groups[] = $gu->first()->group()->first()->id;
             }
         }
 

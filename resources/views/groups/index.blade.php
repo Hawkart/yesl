@@ -27,7 +27,7 @@
                         <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
                             <div class="ui-block">
 
-                                <div class="friend-item">
+                                <div class="friend-item" data-mh="choose-item">
                                     <div class="friend-header-thumb">
                                         <img src="{{ Storage::disk('public')->url($group->cover) }}" alt="cover image">
                                     </div>

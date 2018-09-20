@@ -18,6 +18,9 @@ class Profile extends Model
         'created' => \App\Events\ProfileCreatedEvent::class,
     ];
 
+    const PLAYER = 0;
+    const REFEREE = 1;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
