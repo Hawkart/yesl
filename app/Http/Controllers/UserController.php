@@ -115,9 +115,8 @@ class UserController extends Controller
     public function profiles()
     {
         $user = Auth::user();
-        $games = Game::all();
         $profiles = $user->profiles()->with(['game'])->get();
 
-        return view('lk.profiles', compact(['user', 'games', 'profiles']));
+        return view('lk.profiles.index', compact(['user', 'profiles']));
     }
 }

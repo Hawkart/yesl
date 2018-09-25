@@ -3,13 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Profile extends Model
 {
+    use SoftDeletes;
+
     /**
      * @var array
      */
-    protected $fillable = ['game_id', 'user_id', 'nickname', 'type'];
+    protected $fillable = ['game_id', 'user_id', 'nickname', 'type', 'link'];
+
+    /**
+     * The attributes that should be mutated to dates.
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * @var array
@@ -20,6 +30,16 @@ class Profile extends Model
 
     const PLAYER = 0;
     const REFEREE = 1;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Order by name ASC
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('created_at', 'desc');
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

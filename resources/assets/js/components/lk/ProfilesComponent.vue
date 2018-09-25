@@ -5,7 +5,16 @@
             <h6 class="title">Games Profiles</h6>
 
             <div class="align-right">
-                <a href="#" data-toggle="modal" data-target="#create-photo-album" class="btn btn-primary btn-md-2">Create profile  +<div class="ripple-container"></div></a>
+                <a href="#" data-toggle="modal" data-target="#create-photo-album" class="btn btn-primary btn-md-2">Create profile  +</a>
+            </div>
+        </div>
+
+        <div class="row" v-if="message">
+            <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                <div role="alert" class="alert alert-success alert-dismissible">
+                    <button type="button" aria-label="Close" class="close" @click.prevent="close"><span aria-hidden="true">×</span></button>
+                    <div>{{message}}</div>
+                </div>
             </div>
         </div>
 
@@ -18,41 +27,27 @@
                     <a href="#" class="h6 notification-friend">{{profile.nickname}}</a>
                 </div>
                 <span class="notification-icon">
-                    <a href="#" class="accept-request">
-                        <span class="icon-add without-text">
-                            <svg class="olymp-happy-face-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                    </a>
-
-                    <a href="#" class="accept-request request-del">
-                        <span class="icon-minus">
-                            <svg class="olymp-happy-face-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                    </a>
+                    <a :href="'/settings/profiles/'+profile.id" class="btn btn-blue btn-sm">Edit</a>
+                    <a @click.prevent="del(profile.id)" class="btn btn-grey-lighter btn-sm">Delete</a>
                 </span>
-
-                <div class="more">
-                    <svg class="olymp-three-dots-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
-                </div>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-    import Form from 'vform'
-    import VButton from "../Button";
+    import axios from 'axios'
 
     export default {
-        components: {VButton},
         props: ['profiles'],
         data: () => ({
-            form: new Form({
-                password: '',
-                password_confirmation: ''
-            }),
             message: null
         }),
+        created(){
+            Event.listen('ProfileNew', (profiles) => {
+                this.profiles = profiles;
+            })
+        },
         methods: {
             update()
             {
@@ -61,6 +56,25 @@
                         this.message = data.message;
                         this.form.reset()
                     })
+            },
+            del(id){
+                axios.delete('/profiles/'+id)
+                    .then(({ data }) => {
+                        this.message = data.message;
+
+                        var profiles = this.profiles.filter(function(profile) {
+                            if(profile.id!=id)
+                                return true;
+
+                            return false;
+                        });
+
+                        this.profiles = profiles;
+                    })
+            },
+            close()
+            {
+                this.message = '';
             }
         }
     }

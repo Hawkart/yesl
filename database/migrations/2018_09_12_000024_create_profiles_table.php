@@ -28,6 +28,7 @@ class CreateProfilesTable extends Migration
             $table->tinyInteger('type');
             $table->unsignedInteger('game_id')->default('0');
             $table->unsignedInteger('user_id');
+            $table->string('link')->nullable();
 
             $table->index(["game_id"], 'profiles_game_id_foreign');
 
@@ -44,6 +45,8 @@ class CreateProfilesTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
+
+            $table->softDeletes();
         });
     }
 

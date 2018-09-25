@@ -96,6 +96,8 @@
                         this.profiles = data.data;
                         this.message = data.message;
                         this.form.reset()
+
+                        Event.fire("ProfileNew", this.profiles);
                     })
             }
         }

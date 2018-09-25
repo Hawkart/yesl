@@ -42,22 +42,51 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+
+import Cookies from 'js-cookie'
+import Echo from "laravel-echo"
+window.io = require('socket.io-client');
+
+window.Echo = new Echo({
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6002',
+    auth:
+        {
+            headers: {
+                Authorization: 'Bearer ' + token.content,
+            },
+        }
+});
+
 /**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+ **  Filters
+ ***/
+var truncateFilter = function(text, length, clamp){
+    clamp = clamp || '...';
+    var node = document.createElement('div');
+    node.innerHTML = text;
+    var content = node.textContent;
+    return content.length > length ? content.slice(0, length) + clamp : content;
+};
+Vue.filter('truncate', truncateFilter);
 
-// import Echo from 'laravel-echo'
+/**
+ **  Event bus
+ **/
+window.Event = new class {
 
-// window.Pusher = require('pusher-js');
+    constructor() {
+        this.vue = new Vue()
+    }
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+    fire(event, data = null) {
+        this.vue.$emit(event, data)
+    }
+
+    listen(event, callback) {
+        this.vue.$on(event, callback)
+    }
+}
 
 
 /**

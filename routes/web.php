@@ -51,8 +51,10 @@ Route::get('/groups/{slug}', 'GroupController@show')->name('group');
  * Profiles
  */
 Route::get('/profiles', 'ProfileController@index');
+Route::get('/profiles/{id}', 'ProfileController@edit');
 Route::post('/profiles', 'ProfileController@store');
-
+Route::patch('/profiles/{id}',  ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+Route::delete('/profiles/{id}',  ['as' => 'profile.delete', 'uses' => 'ProfileController@destroy']);
 
 /**
  * Personal cabinet
@@ -66,6 +68,7 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
     Route::get('/personal', ['as' => 'settings.personal', 'uses' => 'UserController@edit']);
     Route::get('/password', ['as' => 'settings.password', 'uses' => 'UserController@password']);
     Route::get('/profiles', ['as' => 'settings.games_profiles', 'uses' => 'UserController@profiles']);
+    Route::get('/profiles/{id}', ['as' => 'settings.profile.edit', 'uses' => 'ProfileController@edit']);
 
     /*
     Route::get('/profile', ['as' => 'profile', 'uses' => 'UserController@edit']);

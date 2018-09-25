@@ -72,6 +72,9 @@
         height: 400px;
         margin-bottom: 20px;
     }
+    .friend-requests .notification-icon {
+        margin-top: 20px;
+    }
 </style>
 
 <!-- JS Scripts -->
