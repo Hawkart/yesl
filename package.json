@@ -24,6 +24,9 @@
     "vform": "^0.8.1"
   },
   "dependencies": {
+    "emoji-vue": "^0.2.3",
+    "moment": "^2.22.2",
+    "vue-infinite-loading": "^2.3.3",
     "vue-material": "^1.0.0-beta-10.2"
   }
 }

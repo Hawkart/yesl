@@ -75,6 +75,17 @@
     .friend-requests .notification-icon {
         margin-top: 20px;
     }
+    .news-feed-form .author-thumb{
+        top: 18px;
+    }
+    .emoji-picker-container{
+        width: 100% !important;
+        padding-left: 60px;
+        padding-right: 7px;
+    }
+    .emoji-wysiwyg-editor{
+        width: 100% !important;
+    }
 </style>
 
 <!-- JS Scripts -->

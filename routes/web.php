@@ -33,7 +33,7 @@ Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
  */
 Route::patch('/users',  ['as' => 'users.update', 'uses' => 'UserController@update', 'middleware' => 'auth']);
 Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword', 'middleware' => 'auth']);
-
+Route::get('/users/{id}/groups', ['as' => 'user.groups', 'uses' => 'UserController@groups']);
 
 /**
  * Games
@@ -44,8 +44,11 @@ Route::get('/games/{slug}', 'GameController@show')->name('game');
 /**
  * Groups
  */
-Route::get('/groups', 'GroupController@index')->name('groups');
+Route::get('/groups', ['as' => 'my.groups', 'uses' => 'UserController@myGroups', 'middleware' => 'auth']);
+Route::get('/groups/search', 'GroupController@index')->name('groups');
+Route::get('/groups/popular', 'GroupController@show')->name('groups.popular');
 Route::get('/groups/{slug}', 'GroupController@show')->name('group');
+Route::get('/groups/{id}/posts', 'GroupController@posts')->name('group.posts');
 
 /**
  * Profiles
@@ -53,8 +56,13 @@ Route::get('/groups/{slug}', 'GroupController@show')->name('group');
 Route::get('/profiles', 'ProfileController@index');
 Route::get('/profiles/{id}', 'ProfileController@edit');
 Route::post('/profiles', 'ProfileController@store');
-Route::patch('/profiles/{id}',  ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-Route::delete('/profiles/{id}',  ['as' => 'profile.delete', 'uses' => 'ProfileController@destroy']);
+Route::patch('/profiles/{id}', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+Route::delete('/profiles/{id}', ['as' => 'profile.delete', 'uses' => 'ProfileController@destroy']);
+
+/**
+ * Posts
+ */
+Route::resource('posts','PostController');
 
 /**
  * Personal cabinet
@@ -69,15 +77,4 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
     Route::get('/password', ['as' => 'settings.password', 'uses' => 'UserController@password']);
     Route::get('/profiles', ['as' => 'settings.games_profiles', 'uses' => 'UserController@profiles']);
     Route::get('/profiles/{id}', ['as' => 'settings.profile.edit', 'uses' => 'ProfileController@edit']);
-
-    /*
-    Route::get('/profile', ['as' => 'profile', 'uses' => 'UserController@edit']);
-    Route::patch('/profile/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
-    Route::get('/accounts', ['as' => 'accounts', 'uses' => 'LkController@accounts']);
-    Route::get('/withdrawals/verify', ['as' => 'withdrawals.verify.form','uses' => 'LkController@withdrawalsVerify']);
-    Route::get('/withdrawals/verify/{token}', 'WithdrawalController@verifyGet');
-    Route::get('/withdrawals', ['as' => 'withdrawals', 'uses' => 'LkController@withdrawals']);
-    Route::get('/subpartners', ['as' => 'subpartners', 'uses' => 'LkController@subpartners']);
-    Route::get('/balance', ['as' => 'balance', 'uses' => 'LkController@balance']);
-    Route::get('/robots', ['as' => 'lk-robots', 'uses' => 'LkController@robots']);*/
 });

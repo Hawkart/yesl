@@ -42,7 +42,8 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-
+import moment from 'moment'
+Vue.prototype.moment = moment
 import Cookies from 'js-cookie'
 import Echo from "laravel-echo"
 window.io = require('socket.io-client');

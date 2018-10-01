@@ -60,7 +60,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $userGames = $user->profiles()->pluck('game_id')->toArray();
         $profiles = [];
-        
+
         if($request->has('games'))
         {
             $games = $request->get('games');

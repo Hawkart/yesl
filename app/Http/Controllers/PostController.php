@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
+use App\Models\Post;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Storage;
 use Image;
 use File;
 use Cache;
 
-class GroupController extends Controller
+class PostController extends Controller
 {
     use SEOToolsTrait;
 
@@ -31,11 +33,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::orderBy('id', 'desc')->paginate(12);
 
-        $this->seo()->setTitle("Groups");
-
-        return view('groups.search', compact('groups'));
     }
 
     /**
@@ -56,7 +54,42 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $groups = $user->groups()->pluck('group_id')->toArray();
+
+        $group_id = 0;
+        if($request->has('group_id'))
+        {
+            $group_id = intval($request->get('group_id'));
+
+            if($group_id>0 && !in_array($group_id, $groups))
+            {
+                return response()->json([
+                    'error' => 'You are not a member of this group!'
+                ], 422);
+            }
+        }
+
+        if(empty($request->get('text')))
+        {
+            return response()->json([
+                'text' => "Post couldn't be empty!"
+            ], 422);
+        }
+
+        $post = Post::create([
+            'user_id' => $user->id,
+            'group_id' => $group_id,
+            'text' => $request->get('text')
+        ]);
+
+        if($post)
+        {
+            return response()->json([
+                'data' => Post::with(['user', 'likes', 'comments', 'likes.user', 'comments.user'])->findOrFail($post->id),
+                'message' => "Post successfully created."
+            ], 200);
+        }
     }
 
     /**
@@ -67,12 +100,7 @@ class GroupController extends Controller
      */
     public function show($slug, Request $request)
     {
-        $group = Group::where('slug', $slug)
-            ->firstOrFail();
 
-        $this->seo()->setTitle($group->title);
-
-        return view ('groups.detail', compact('group'));
     }
 
     /**
@@ -107,23 +135,5 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Get posts of group
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function posts($id, Request $request)
-    {
-        $group = Group::findOrFail($id);
-        $posts = $group->posts()
-            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user'])
-            ->orderBy('id', 'desc')
-            ->paginate(10);
-
-        return response()->json($posts);
     }
 }

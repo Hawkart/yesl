@@ -4,44 +4,49 @@
     <div class="container">
         <div class="row">
             <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
+                <div class="ui-block">
+                    <post-form-component :group_id="{{$group->id}}" :user="{{json_encode(Auth::user()->toArray())}}"></post-form-component>
+                </div>
 
+                <post-list-component :group_id="{{$group->id}}"></post-list-component>
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
-                    <div class="post-thumb">
+                    <div class="post-thumb mb-0" style="height: 300px">
                         <img src="{{ Storage::disk('public')->url($group->image) }}" alt="cover image">
                     </div>
                     <div class="ui-block-content">
 
                         <h6 class="title">{{$group->title}}</h6>
-                        <!-- W-Personal-Info -->
 
-                        <ul class="widget w-personal-info item-block">
-                            <li>
-                                <span class="text">We are Rock Band from Los Angeles, now based in San Francisco, come and listen to us play!</span>
-                            </li>
-                            <li>
-                                <span class="title">Created:</span>
-                                <span class="text">September 17th, 2013</span>
-                            </li>
-                            <li>
-                                <span class="title">Based in:</span>
-                                <span class="text">San Francisco, California</span>
-                            </li>
-                            <li>
-                                <span class="title">Contact:</span>
-                                <a href="#" class="text">greengoo_gigs@youmail.com</a>
-                            </li>
-                            <li>
-                                <span class="title">Website:</span>
-                                <a href="#" class="text">www.ggrock.com</a>
-                            </li>
-                            <li>
-                                <span class="title">Favourites:</span>
-                                <a href="#" class="text">5630 </a>
-                            </li>
-                        </ul>
+                        @if($group->groupable instanceof \App\Models\University)
+                            <a href="#" class="post-category bg-blue-light">The college</a>
 
+                            <ul class="widget w-personal-info item-block">
+                                <li>
+                                    <span class="title">Address:</span>
+                                    <span class="text">{{$group->groupable->address}}</span>
+                                </li>
+                                <li>
+                                    <span class="title">Website:</span>
+                                    <a href="//{{$group->groupable->url}}" target="_blank" class="text">{{$group->groupable->url}}</a>
+                                </li>
+                            </ul>
+                        @elseif($group->groupable instanceof \App\Models\Game)
+                            <a href="#" class="post-category bg-primary">The game</a>
+
+                            <ul class="widget w-personal-info item-block">
+                                <li>
+                                    <span class="text">{{$group->groupable->body}}</span>
+                                </li>
+                                <li>
+                                    <span class="title">Genre:</span>
+                                    <span class="text">{{$group->groupable->genre->title}}</span>
+                                </li>
+                            </ul>
+                        @else
+                            <a href="#" class="post-category bg-purple">The college's game</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -70,6 +75,18 @@
                                 @endif
                             @endif
                         </ul>
+                        <button type="submit" class="btn btn-purple btn-xs full-width mt-lg-3 mb-0">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Similar groups</h6>
+                    </div>
+                    <div class="ui-block-content">
+
                     </div>
                 </div>
             </div>

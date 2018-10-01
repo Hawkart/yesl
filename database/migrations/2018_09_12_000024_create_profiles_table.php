@@ -35,7 +35,6 @@ class CreateProfilesTable extends Migration
             $table->index(["user_id"], 'profiles_user_id_foreign');
             $table->nullableTimestamps();
 
-
             $table->foreign('game_id', 'profiles_game_id_foreign')
                 ->references('id')->on('games')
                 ->onDelete('restrict')

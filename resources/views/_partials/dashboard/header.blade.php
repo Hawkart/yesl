@@ -172,51 +172,7 @@
                             </ul>
 
                             <div class="ui-block-title ui-block-title-small">
-                                <h6 class="title">Chat Settings</h6>
-                            </div>
-
-                            <ul class="chat-settings">
-                                <li>
-                                    <a href="#">
-                                        <span class="icon-status online"></span>
-                                        <span>Online</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="icon-status away"></span>
-                                        <span>Away</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="icon-status disconected"></span>
-                                        <span>Disconnected</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <span class="icon-status status-invisible"></span>
-                                        <span>Invisible</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="ui-block-title ui-block-title-small">
-                                <h6 class="title">Custom Status</h6>
-                            </div>
-
-                            <form class="form-group with-button custom-status">
-                                <input class="form-control" placeholder="" type="text" value="Space Cowboy">
-
-                                <button class="bg-purple">
-                                    <svg class="olymp-check-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-check-icon"></use></svg>
-                                </button>
-                            </form>
-
-                            <div class="ui-block-title ui-block-title-small">
-                                <h6 class="title">About Olympus</h6>
+                                <h6 class="title">About</h6>
                             </div>
 
                             <ul>
@@ -258,10 +214,6 @@
 
 </header>
 
-<!-- ... end Header-BP -->
-
-
-<!-- Responsive Header-BP -->
 
 <header class="header header-responsive" id="site-header-responsive">
 
@@ -303,7 +255,6 @@
         </ul>
     </div>
 
-    <!-- Tab panes -->
     <div class="tab-content tab-content-responsive">
 
         <div class="tab-pane " id="request" role="tabpanel">

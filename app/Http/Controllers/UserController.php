@@ -107,7 +107,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update user's passsword.
+     * Profiles of user
      *
      * @param  \Illuminate\Http\Request  $request
      * @return Response
@@ -118,5 +118,33 @@ class UserController extends Controller
         $profiles = $user->profiles()->with(['game'])->get();
 
         return view('lk.profiles.index', compact(['user', 'profiles']));
+    }
+
+    /**
+     * Groups of auth user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function myGroups()
+    {
+        $user = Auth::user();
+        $groups = $user->groups()->orderBy('id', 'desc')->paginate(12);
+
+        return view('groups.index', compact(['user', 'groups']));
+    }
+
+    /**
+     * Groups of user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function groups($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        $groups = $user->profiles()->paginate(12);
+
+        return view('lk.groups.index', compact(['user', 'groups']));
     }
 }

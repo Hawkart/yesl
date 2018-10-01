@@ -2,7 +2,7 @@
     <div class="ui-block">
         <div class="your-profile">
             <div class="ui-block-title ui-block-title-small">
-                <h6 class="title">Your PROFILE</h6>
+                <h6 class="title">MENU</h6>
             </div>
 
             <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -10,7 +10,7 @@
                     <div class="card-header" role="tab" id="headingOne">
                         <h6 class="mb-0">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Profile Settings
+                                Groups
                                 <svg class="olymp-dropdown-arrow-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
                             </a>
                         </h6>
@@ -19,38 +19,25 @@
                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                         <ul class="your-profile-menu">
                             <li>
-                                <a href="{{route('settings')}}">Personal Information</a>
+                                <a href="{{route('my.groups')}}">My groups</a>
                             </li>
                             <li>
-                                <a href="{{route('settings.password')}}">Change Password</a>
+                                <a href="{{route('groups')}}">Search groups</a>
                             </li>
                             <li>
-                                <a href="{{route('settings.games_profiles')}}">Games profiles</a>
+                                <a href="{{route('groups.popular')}}">Popular groups</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="ui-block-title">
-                <a href="33-YourAccount-Notifications.html" class="h6 title">Notifications</a>
-                <a href="#" class="items-round-little bg-primary">8</a>
-            </div>
-            <div class="ui-block-title">
-                <a href="34-YourAccount-ChatMessages.html" class="h6 title">Chat / Messages</a>
-            </div>
-            <div class="ui-block-title">
-                <a href="35-YourAccount-FriendsRequests.html" class="h6 title">Friend Requests</a>
-                <a href="#" class="items-round-little bg-blue">4</a>
-            </div>
+    <div class="ui-block">
+        <div class="your-profile">
             <div class="ui-block-title ui-block-title-small">
-                <h6 class="title">FAVOURITE PAGE</h6>
-            </div>
-            <div class="ui-block-title">
-                <a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Create Fav Page</a>
-            </div>
-            <div class="ui-block-title">
-                <a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Fav Page Settings</a>
+                <h6 class="title">Recommendations</h6>
             </div>
         </div>
     </div>
