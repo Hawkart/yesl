@@ -86,6 +86,10 @@
     .emoji-wysiwyg-editor{
         width: 100% !important;
     }
+    .post-add-icon.active{
+        fill:#ff5e3a;
+        color:#ff5e3a;
+    }
 </style>
 
 <!-- JS Scripts -->

@@ -82,6 +82,7 @@
                         this.message = data.message;
                         Event.fire("PostNew"+this.group_id, data.data);
                         this.form.reset();
+                        this.text = '';
                     })
             },
             onInput(event) {

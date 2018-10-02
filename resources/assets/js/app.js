@@ -6,8 +6,13 @@ Vue.component('change-password-component', require('./components/lk/ChangePasswo
 Vue.component('profiles-component', require('./components/lk/ProfilesComponent'));
 Vue.component('profiles-add-component', require('./components/lk/ProfilesAddComponent'));
 Vue.component('profiles-edit-component', require('./components/lk/ProfilesEditComponent'));
-Vue.component('post-form-component', require('./components/PostFormComponent'));
-Vue.component('post-list-component', require('./components/PostListComponent'));
+Vue.component('post-form', require('./components/PostForm'));
+Vue.component('post-list', require('./components/PostList'));
+Vue.component('post', require('./components/Post'));
+Vue.component('like', require('./components/Like'));
+Vue.component('comment-form', require('./components/CommentForm'));
+Vue.component('comment-list', require('./components/CommentList.vue'));
+Vue.component('comment', require('./components/Comment'));
 
 import {
     HasError,

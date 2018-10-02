@@ -24,7 +24,7 @@ class Comment extends Model
      */
     public function reply()
     {
-        return $this->belongsTo('App\Models\Post');
+        return $this->belongsTo('App\Models\Comment');
     }
 
     /**
@@ -42,6 +42,19 @@ class Comment extends Model
      */
     public function likes()
     {
-        return $this->morphMany('App\Models\Like', 'likable');
+        return $this->morphMany('App\Models\Like', 'likeable');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'reply_id');
+    }
+
+    /*public function newCollection(array $models = [])
+    {
+        return new CommentCollection($models);
+    }*/
 }

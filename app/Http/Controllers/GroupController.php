@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Group;
+use App\Models\Game;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Storage;
 use Image;
@@ -70,9 +71,20 @@ class GroupController extends Controller
         $group = Group::where('slug', $slug)
             ->firstOrFail();
 
+        $similar_groups = [];
+        if($group->groupable instanceof \App\Models\Game)
+        {
+            $genre_id = $group->groupable->genre_id;
+            $games = Game::where('genre_id', $genre_id)->where('id', "<>", $group->groupable->id)->limit(5)->get();
+            foreach($games as $game)
+            {
+                $similar_groups[] = $game->group;
+            }
+        }
+
         $this->seo()->setTitle($group->title);
 
-        return view ('groups.detail', compact('group'));
+        return view ('groups.detail', compact(['group', 'similar_groups']));
     }
 
     /**
@@ -120,7 +132,7 @@ class GroupController extends Controller
     {
         $group = Group::findOrFail($id);
         $posts = $group->posts()
-            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user'])
+            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes'])
             ->orderBy('id', 'desc')
             ->paginate(10);
 

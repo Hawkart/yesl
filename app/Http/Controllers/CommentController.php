@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Group;
+use App\Models\Comment;
 use App\Models\Post;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Storage;
@@ -12,7 +12,7 @@ use Image;
 use File;
 use Cache;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     use SEOToolsTrait;
 
@@ -54,42 +54,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $groups = $user->groups()->pluck('group_id')->toArray();
-
-        $group_id = 0;
-        if($request->has('group_id'))
-        {
-            $group_id = intval($request->get('group_id'));
-
-            if($group_id>0 && !in_array($group_id, $groups))
-            {
-                return response()->json([
-                    'error' => 'You are not a member of this group!'
-                ], 422);
-            }
-        }
-
-        if(empty($request->get('text')))
-        {
-            return response()->json([
-                'text' => "Post couldn't be empty!"
-            ], 422);
-        }
-
-        $postBody = $this->parseUsernames($request->get('text'));
-
-        $post = Post::create([
-            'user_id' => $user->id,
-            'group_id' => $group_id,
-            'text' => $postBody
+        $request->validate([
+            'comment' => 'required|string',
+            'post_id' => 'required|integer',
         ]);
 
-        if($post)
+        $post_id = $request->get('post_id');
+        $post = Post::findOrFail($post_id);
+        $postBody = $this->parseUsernames($request->get('comment'));
+
+        $comment = $post->comments()->create([
+            'user_id' => Auth::user()->id,
+            'post_id' => $post_id,
+            'reply_id' => intval($request->get('reply_id')),
+            'comment' => $postBody
+        ]);
+
+        if($comment)
         {
+            $comment->load(['user', 'likes', 'likes.user']);
+
             return response()->json([
-                'data' => Post::with(['user', 'likes', 'comments', 'likes.user', 'comments.user'])->findOrFail($post->id),
-                'message' => "Post successfully created."
+                'data' => $comment,
+                'message' => "Comment successfully created."
             ], 200);
         }
     }

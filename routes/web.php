@@ -65,6 +65,16 @@ Route::delete('/profiles/{id}', ['as' => 'profile.delete', 'uses' => 'ProfileCon
 Route::resource('posts','PostController');
 
 /**
+ * Comments
+ */
+Route::resource('comments','CommentController');
+
+/**
+ * Likes
+ */
+Route::resource('likes','LikeController');
+
+/**
  * Personal cabinet
  */
 Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {

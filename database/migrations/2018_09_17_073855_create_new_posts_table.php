@@ -35,7 +35,7 @@ class CreateNewPostsTable extends Migration
             $table->increments('id');
             $table->integer('post_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('reply_id')->nullbale();
+            $table->integer('reply_id')->index()->nullable();
             $table->text('comment');
             $table->timestamps();
 
@@ -44,22 +44,25 @@ class CreateNewPostsTable extends Migration
         });
 
         Schema::create('likes', function (Blueprint $table) {
-            $table->morphs('likable');
+            $table->increments('id');
+            $table->morphs('likeable');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
 
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->primary(['likable_type', 'likable_id', 'user_id']);
+            $table->primary(['likeable_type', 'likeable_id', 'user_id']);
         });
 
         Schema::create('post_attachments', function (Blueprint $table) {
+            $table->increments('id');
             $table->morphs('attachable');
             $table->integer('post_id')->unsigned();
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('CASCADE');
         });
 
         Schema::create('comment_attachments', function (Blueprint $table) {
+            $table->increments('id');
             $table->morphs('attachable');
             $table->integer('comment_id')->unsigned();
             $table->foreign('comment_id')->references('id')->on('comments')->onDelete('CASCADE');

@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
                 <div class="ui-block">
-                    <post-form-component :group_id="{{$group->id}}" :user="{{json_encode(Auth::user()->toArray())}}"></post-form-component>
+                    <post-form :group_id="{{$group->id}}" :user="{{json_encode(Auth::user()->toArray())}}"></post-form>
                 </div>
 
-                <post-list-component :group_id="{{$group->id}}"></post-list-component>
+                <post-list :group_id="{{$group->id}}" :user="{{json_encode(Auth::user()->toArray())}}"></post-list>
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
@@ -85,9 +85,21 @@
                     <div class="ui-block-title">
                         <h6 class="title">Similar groups</h6>
                     </div>
-                    <div class="ui-block-content">
-
-                    </div>
+                    @if(count($similar_groups)>0)
+                    <ul class="widget w-friend-pages-added notification-list friend-requests">
+                        @foreach($similar_groups as $sgroup)
+                        <li class="inline-items">
+                            <div>
+                                <img src="{{ Storage::disk('public')->url($sgroup->image) }}" alt="{{$sgroup->title}}" width="36">
+                            </div>
+                            <div class="notification-event mt-lg-3">
+                                <a href="{!! route('group', ['slug' => $sgroup->slug]) !!}" class="h6 notification-friend">{{$sgroup->title}}</a>
+                                <!--<span class="chat-message-item">{{$group->groupable->body}}</span>-->
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
                 </div>
             </div>
         </div>

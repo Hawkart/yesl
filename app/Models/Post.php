@@ -34,7 +34,7 @@ class Post extends Model
      */
     public function likes()
     {
-        return $this->morphMany('App\Models\Like', 'likable');
+        return $this->morphMany('App\Models\Like', 'likeable');
     }
 
     /**
@@ -42,6 +42,6 @@ class Post extends Model
      */
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany('App\Models\Comment')->whereNull('reply_id');
     }
 }
