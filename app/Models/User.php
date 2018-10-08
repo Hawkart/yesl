@@ -10,10 +10,14 @@ use Carbon\Carbon;
 use Cache;
 use File;
 use Image;
+// These two come from Media Library
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\Models\Media;
 
-class User extends VoyagerUser
+class User extends VoyagerUser implements HasMedia
 {
-    use Notifiable, Messagable, Friendable;
+    use Notifiable, Messagable, Friendable, HasMediaTrait;
 
     /**
      * The database table used by the model.
@@ -89,6 +93,22 @@ class User extends VoyagerUser
         });
     }
 
+    /**
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     *
+     * example: Auth::user()->getMedia('avatars')->first()->getUrl('thumb')
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(50)
+            ->height(50);
+    }
+
+    /**
+     * Verify user after confirmation of email.
+     */
     public function verified()
     {
         $this->verified = 1;

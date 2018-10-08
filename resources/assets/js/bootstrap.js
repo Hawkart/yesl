@@ -42,6 +42,9 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+const VueUploadComponent = require('vue-upload-component')
+Vue.component('file-upload', VueUploadComponent)
+
 import moment from 'moment'
 Vue.prototype.moment = moment
 import Cookies from 'js-cookie'

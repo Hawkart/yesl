@@ -75,6 +75,12 @@ Route::resource('comments','CommentController');
 Route::resource('likes','LikeController');
 
 /**
+ * Upload
+ */
+Route::post('/upload', 'UploadController@store');
+Route::delete('/upload', 'UploadController@delete');
+
+/**
  * Personal cabinet
  */
 Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {

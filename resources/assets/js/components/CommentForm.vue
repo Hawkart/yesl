@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="save" @keydown="form.onKeydown($event)" class="comment-form inline-items">
 
-        <alert-success :form="form" :message="message"/>
+        <alert-success :form="form" :message="message" class="w-100"/>
 
         <div class="post__author author vcard inline-items">
             <img :src="getImageLink(user.avatar)" :alt="user.name" width="36">

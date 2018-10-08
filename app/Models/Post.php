@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
+    use HasMediaTrait;
+
     /**
      * @var array
      */
@@ -43,5 +47,15 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany('App\Models\Comment')->whereNull('reply_id');
+    }
+
+    /**
+     * Get media
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function media()
+    {
+        return $this->morphMany('App\Models\Media', 'model');
     }
 }

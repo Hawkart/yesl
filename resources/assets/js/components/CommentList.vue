@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul class="comments-list">
-            <comment v-for="comment in comments" :comment="comment" :user="user"/>
+            <comment v-for="comment in comments" :key="comment.id" :comment="comment" :user="user"/>
         </ul>
 
         <a href="#" class="more-comments" v-if="comments.length>1">View more comments <span>+</span></a>

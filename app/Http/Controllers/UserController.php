@@ -82,6 +82,31 @@ class UserController extends Controller
     }
 
     /**
+     * Update user's avatar.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function updateAvatar(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->has('avatar'))
+        {
+            $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+
+            return response()->json([
+                'data' => $user,
+                'message' => "Avatar successfully updated."
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'No image.'
+        ], 422);
+    }
+
+    /**
      * Update user's password.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -97,7 +122,7 @@ class UserController extends Controller
         {
             return response()->json([
                 'data' => $user,
-                'message' => "Password is updated."
+                'message' => "Password successfully updated."
             ]);
         }
 

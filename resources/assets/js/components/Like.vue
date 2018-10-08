@@ -19,6 +19,8 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         props: ['likeable_type', 'likeable_id', 'likes', 'user'],
         methods: {

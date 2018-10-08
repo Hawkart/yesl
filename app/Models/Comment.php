@@ -53,6 +53,16 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'reply_id');
     }
 
+    /**
+     * Get media
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function media()
+    {
+        return $this->morphMany('App\Models\Media', 'model');
+    }
+
     /*public function newCollection(array $models = [])
     {
         return new CommentCollection($models);

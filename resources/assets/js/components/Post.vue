@@ -53,6 +53,12 @@
                 </div>
             </div>-->
 
+            <div class="post-block-photo js-zoom-gallery" v-if="post.media!=null && post.media.length>0">
+                <a :href="'/storage/'+media.id+'/'+media.file_name" class="col col-3-width" v-for="media in post.media">
+                    <img :src="'/storage/'+media.id+'/'+media.file_name" :alt="media.file">
+                </a>
+            </div>
+
             <div class="post-additional-info inline-items">
 
                 <like likeable_type="Post" :likeable_id="post.id" :likes="post.likes" :user="user"/>

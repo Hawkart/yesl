@@ -87,8 +87,21 @@ class PostController extends Controller
 
         if($post)
         {
+            $images = $request->get('images');
+            if(!empty($images))
+            {
+                foreach($images as $image)
+                {
+                    $post
+                        ->addMedia(public_path('/images/').$image)
+                        ->toMediaCollection('images');
+                }
+            }
+
+            $post->load(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'media']);
+
             return response()->json([
-                'data' => Post::with(['user', 'likes', 'comments', 'likes.user', 'comments.user'])->findOrFail($post->id),
+                'data' => $post,
                 'message' => "Post successfully created."
             ], 200);
         }

@@ -90,6 +90,10 @@
         fill:#ff5e3a;
         color:#ff5e3a;
     }
+    .post-block-photo a{
+        height: 120px;
+        margin-bottom: 10px;
+    }
 </style>
 
 <!-- JS Scripts -->

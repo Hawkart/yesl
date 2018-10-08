@@ -1,6 +1,6 @@
 <template>
     <div id="newsfeed-items-grid">
-        <post :user="user" :post="post" v-for="post in posts" v-if="posts!=null && posts.length>0"/>
+        <post :user="user" :post="post" v-for="post in posts" :key="post.id" v-if="posts!=null && posts.length>0"/>
 
         <infinite-loading @infinite="infiniteHandler">
             <span slot="no-more">
