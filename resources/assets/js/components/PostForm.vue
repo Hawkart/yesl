@@ -16,9 +16,10 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Thumb</th>
-                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Uploading</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,14 +27,11 @@
                         <td>
                             <img v-if="file.thumb" :src="file.thumb" width="60" height="auto" />
                             <span v-else>No Image</span>
-
+                        </td>
+                        <td>
                             <div class="progress" v-if="file.active || file.progress !== '0.00'">
                                 <div :class="{'progress-bar': true, 'progress-bar-striped': true, 'bg-danger': file.error, 'progress-bar-animated': file.active}" role="progressbar" :style="{width: file.progress + '%'}">{{file.progress}}%</div>
                             </div>
-
-                            <a class="dropdown-item" href="#" @click.prevent="$refs.upload.remove(file)">Remove</a>
-                        </td>
-                        <td>
                             <div class="filename">
                                 {{file.name}}
                             </div>
@@ -42,9 +40,32 @@
                         <td v-else-if="file.success">success</td>
                         <td v-else-if="file.active">active</td>
                         <td v-else></td>
+                        <td>
+                            <a class="btn-md-2" href="#" @click.prevent="$refs.upload.remove(file)">Remove</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="links" v-if="links!=null && links.length>0">
+                <link-prevue :url="link" v-for="link in links">
+                    <template slot-scope="props">
+                        <div class="post-video">
+                            <div class="video-thumb mt-lg-4 ml-lg-3">
+                                <img :src="props.img" :alt="props.title">
+                            </div>
+
+                            {{doSomething(props)}}
+
+                            <div class="video-content">
+                                <a v-bind:href="props.url" class="h4 title">{{props.title}}</a>
+                                <p>{{props.description}}</p>
+                                <a v-bind:href="props.url" class="link-site">{{link}}</a>
+                            </div>
+                        </div>
+                    </template>
+                </link-prevue>
             </div>
 
             <div class="add-options-message">
@@ -70,13 +91,13 @@
                     <svg class="olymp-camera-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-camera-icon"></use></svg>
                 </file-upload>
 
-                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
+                <!--<a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
                     <svg class="olymp-computer-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
                 </a>
 
                 <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD LOCATION">
                     <svg class="olymp-small-pin-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-small-pin-icon"></use></svg>
-                </a>
+                </a>-->
 
                 <v-button :loading="form.busy" type="primary" :large="false" additional="btn-md-2">Post</v-button>
             </div>
@@ -118,12 +139,14 @@
     import VueEmoji from 'emoji-vue'
     import FileUpload from 'vue-upload-component'
     import axios from 'axios'
+    import LinkPrevue from 'link-prevue'
 
     export default {
         components: {
             VButton,
             VueEmoji,
-            FileUpload
+            FileUpload,
+            LinkPrevue
         },
         props: ['group_id', 'user'],
         data: () => ({
@@ -132,7 +155,8 @@
             }),
             message: null,
             text: '',
-
+            links: [],
+            parsedLinks: [],
             files: [],
             accept: 'image/png,image/gif,image/jpeg,image/webp',
             extensions: 'gif,jpg,jpeg,png,webp',
@@ -172,6 +196,22 @@
                     }
                 }
 
+                if(this.links.length>0)
+                {
+                    this.form.links = [];
+                    for (var i = 0; i < this.links.length; i++)
+                    {
+                        for (var k = 0; k < this.parsedLinks.length; k++)
+                        {
+                            if(this.links[i]==this.parsedLinks[k].url)
+                            {
+                                this.form.links.push(this.parsedLinks[k]);
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 this.form.post('/posts')
                     .then(({ data }) => {
                         this.message = data.message;
@@ -179,10 +219,25 @@
                         this.form.reset();
                         this.text = '';
                         this.files = [];
+                        this.links = [];
+                        this.parsedLinks = [];
                     })
             },
             onInput(event) {
                 this.form.text = event.data;
+                this.links = this.getURLsFromString(this.form.text);
+            },
+            getURLsFromString(text) {
+                var re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%\/.\w-]*)?\??(?:[-+=&;%@.\w]*)#?\w*)?)/gm;
+                var m;
+                var arr = [];
+                while ((m = re.exec(text)) !== null) {
+                    if (m.index === re.lastIndex) {
+                        re.lastIndex++;
+                    }
+                    arr.push(m[0]);
+                }
+                return arr;
             },
             /**
              * Has changed
@@ -256,6 +311,10 @@
                     }
                 }
             },
+            doSomething(prevue) {
+                if(prevue!==null)
+                    this.parsedLinks.push(prevue);
+            }
         }
     }
 </script>

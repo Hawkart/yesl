@@ -13,7 +13,16 @@ class Post extends Model implements HasMedia
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'group_id', 'text'];
+    protected $fillable = ['user_id', 'group_id', 'parent_id', 'text', 'additional'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'additional' => 'array'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -29,6 +38,22 @@ class Post extends Model implements HasMedia
     public function group()
     {
         return $this->belongsTo('App\Models\Group');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Post');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reposts()
+    {
+        return $this->hasMany('App\Models\Post', 'parents_id');
     }
 
     /**

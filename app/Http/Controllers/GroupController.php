@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
+use App\Models\GroupUser;
 use App\Models\Game;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Storage;
@@ -32,7 +34,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::orderBy('id', 'desc')->paginate(12);
+        $groups = Group::orderBy('id', 'desc')->search($request)->paginate(12);
 
         $this->seo()->setTitle("Groups");
 
@@ -137,5 +139,62 @@ class GroupController extends Controller
             ->paginate(10);
 
         return response()->json($posts);
+    }
+
+    /**
+     * Get posts of group
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function checkUserIsMember($id, Request $request)
+    {
+        $gu = GroupUser::where("group_id", $id)->where('user_id', Auth::id());
+        if($gu->count()>0)
+        {
+            return response()->json($gu->first());
+        }else{
+            return response()->json([]);
+        }
+    }
+
+    /**
+     * Get posts of group
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function join($id, Request $request)
+    {
+        $user = Auth::user();
+        $group = Group::findOrFail($id);
+        /*$gu = GroupUser::withTrashed()->where("group_id", $id)->where('user_id', Auth::id())->first();
+
+        if($gu)
+        {
+            if ($gu->trashed()) {
+                $gu->restore();
+            }else{
+                $gu->delete();
+            }
+        }else{
+            $user->groups()->attach($group->id);
+        }*/
+
+        $gu = GroupUser::where("group_id", $id)->where('user_id', Auth::id())->first();
+
+        $m = 'Something wrong';
+        if($gu)
+        {
+            $user->groups()->detach($group->id);
+            $m = "You have successfully unsubscribed!";
+        }else{
+            $user->groups()->attach($group->id);
+            $m = "You have successfully subscribed!";
+        }
+
+        return response()->json(['message' => $m], 200);
     }
 }

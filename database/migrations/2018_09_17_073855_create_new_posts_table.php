@@ -25,9 +25,12 @@ class CreateNewPostsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('group_id')->nullbale();
             //$table->text('attachments')->nullbale();
+            $table->integer('parent_id')->unsigned()->default(0);
             $table->text('text')->nullbale();
+            $table->text('additional')->nullbale();
             $table->timestamps();
 
+            $table->foreign('parent_id')->references('id')->on('posts')->onDelete('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
 
@@ -37,6 +40,7 @@ class CreateNewPostsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('reply_id')->index()->nullable();
             $table->text('comment');
+            $table->text('additional')->nullbale();
             $table->timestamps();
 
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('CASCADE');

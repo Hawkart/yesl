@@ -75,9 +75,25 @@
                                 @endif
                             @endif
                         </ul>
-                        <button type="submit" class="btn btn-purple btn-xs full-width mt-lg-3 mb-0">
-                            Subscribe
-                        </button>
+                        <group-subscribe :group_id = "{{$group->id}}" :user_id="{{Auth::id()}}"></group-subscribe>
+                    </div>
+                </div>
+
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Administrators</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <ul class="widget w-friend-pages-added notification-list friend-requests">
+                            <li class="inline-items pa-0 border-0">
+                                <div>
+                                    <img src="{{ Storage::disk('public')->url($group->owner->avatar) }}" alt="{{$group->owner->name}}" width="44">
+                                </div>
+                                <div class="notification-event mt-lg-3">
+                                    <a href="{!! route('user', ['slug' => $group->owner->nickname]) !!}" class="h6 notification-friend">{{$group->owner->name}}</a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 

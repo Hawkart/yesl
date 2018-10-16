@@ -77,12 +77,19 @@ class PostController extends Controller
             ], 422);
         }
 
+        $additional = [];
+        if($request->has('links'))
+        {
+            $additional['links'] = $request->get('links');
+        }
+
         $postBody = $this->parseUsernames($request->get('text'));
 
         $post = Post::create([
             'user_id' => $user->id,
             'group_id' => $group_id,
-            'text' => $postBody
+            'text' => $postBody,
+            'additional' => $additional
         ]);
 
         if($post)
@@ -131,6 +138,17 @@ class PostController extends Controller
                 }
             }
         }
+
+        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $postBody, $urls);
+        //dd($urls);
+        if (!empty($urls))
+        {
+            foreach ($urls[0] as $url)
+            {
+                $postBody = str_replace($url, '<a href="' . $url . '" target="_blank">'.$url.'</a>', $postBody);
+            }
+        }
+
         return $postBody;
     }
 

@@ -94,6 +94,79 @@
         height: 120px;
         margin-bottom: 10px;
     }
+
+    /*Upload avatar*/
+    .top-header.top-header-favorit .top-header-author{
+        transform: none;
+        max-width: 100%;
+        z-index: 100;
+    }
+    .top-header.top-header-favorit .author-thumb{
+        position: relative;
+    }
+    .fileupload{
+        position: absolute;
+        top: 50px;
+        left: 40px;
+    }
+    .fileupload:hover{
+        color:#ff5e3a;
+    }
+    .fileupload span{
+        display: none;
+    }
+    .top-header-thumb .author-thumb:hover span{
+        display: block;
+        border: 1px solid;
+        padding: 3px 6px;
+        border-radius: 3px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .top-header-thumb .top-header-overlay{
+        z-index: 100;
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+    .top-header-thumb .top-header-overlay .fileupload{
+        right: 40px;
+        top: 40px;
+        left: inherit;
+        z-index: 101;
+    }
+
+    .top-header-thumb .top-header-overlay .fileupload span{
+        display: block;
+        border: 1px solid;
+        padding: 3px 6px;
+        border-radius: 3px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .g-core-image-upload-form input{
+        cursor: pointer;
+    }
+
+    .add-options-message{
+        border-top: 1px solid #e6ecf5;
+    }
+    .links{
+        padding: 0 25px;
+    }
+    .post .links{
+        padding: 0;
+    }
+    .post .links img{
+        max-height: 130px;
+        max-width: 200px;
+        width: auto;
+    }
+    .pa-0{
+        padding: 0!important;
+    }
 </style>
 
 <!-- JS Scripts -->

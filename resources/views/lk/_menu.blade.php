@@ -11,7 +11,7 @@
                         <h6 class="mb-0">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 Profile Settings
-                                <svg class="olymp-dropdown-arrow-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
+                                <svg class="olymp-dropdown-arrow-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
                             </a>
                         </h6>
                     </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="ui-block-title">
+            <!--<div class="ui-block-title">
                 <a href="33-YourAccount-Notifications.html" class="h6 title">Notifications</a>
                 <a href="#" class="items-round-little bg-primary">8</a>
             </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="ui-block-title">
                 <a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Fav Page Settings</a>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

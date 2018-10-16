@@ -13,6 +13,9 @@ Vue.component('like', require('./components/Like'));
 Vue.component('comment-form', require('./components/CommentForm'));
 Vue.component('comment-list', require('./components/CommentList.vue'));
 Vue.component('comment', require('./components/Comment'));
+Vue.component('avatar-upload', require('./components/AvatarUpload'));
+Vue.component('overlay-upload', require('./components/OverlayUpload'));
+Vue.component('group-subscribe', require('./components/GroupSubscribe'));
 
 import {
     HasError,

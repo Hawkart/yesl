@@ -11,7 +11,7 @@
                         <h6 class="mb-0">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 Groups
-                                <svg class="olymp-dropdown-arrow-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
+                                <svg class="olymp-dropdown-arrow-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
                             </a>
                         </h6>
                     </div>
@@ -24,9 +24,9 @@
                             <li>
                                 <a href="{{route('groups')}}">Search groups</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="{{route('groups.popular')}}">Popular groups</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -34,11 +34,11 @@
         </div>
     </div>
 
-    <div class="ui-block">
+    <!--<div class="ui-block">
         <div class="your-profile">
             <div class="ui-block-title ui-block-title-small">
                 <h6 class="title">Recommendations</h6>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>

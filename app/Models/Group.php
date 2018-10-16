@@ -61,4 +61,20 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Post', 'group_id');
     }
+
+    /**
+     * Search by params
+     */
+    public function scopeSearch($query, $request)
+    {
+        if(!empty($request['id']))
+        {
+            $query->where('id', (int)$request['id']);
+        }
+        if(!empty($request['q']))
+        {
+            $query->where('title', 'like', "%".$request['q']."%");
+        }
+        return $query;
+    }
 }

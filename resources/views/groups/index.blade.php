@@ -13,7 +13,7 @@
                         <div class="h6 title">My Groups ({{$groups->total()}})</div>
                         <form class="w-search">
                             <div class="form-group with-button">
-                                <input class="form-control" type="text" placeholder="Search Groups...">
+                                <input class="form-control" name="q" type="text" placeholder="Search Groups..." value="{{ app('request')->input('q') }}">
                                 <button>
                                     <svg class="olymp-magnifying-glass-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon"></use></svg>
                                 </button>
@@ -56,9 +56,9 @@
                                                 {{ str_limit($group->title, 50, '...') }}
                                             </a>
 
-                                            <button type="submit" class="btn btn-purple btn-md full-width">
+                                            <!--<button type="submit" class="btn btn-purple btn-md full-width">
                                                 Subscribe
-                                            </button>
+                                            </button>-->
                                         </div>
                                     </article>
                                 </div>

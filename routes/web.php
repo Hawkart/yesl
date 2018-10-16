@@ -33,7 +33,10 @@ Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
  */
 Route::patch('/users',  ['as' => 'users.update', 'uses' => 'UserController@update', 'middleware' => 'auth']);
 Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword', 'middleware' => 'auth']);
+Route::get('/users/{slug}', 'UserController@show')->name('user');
 Route::get('/users/{id}/groups', ['as' => 'user.groups', 'uses' => 'UserController@groups']);
+Route::post('/users/avatar', 'UserController@updateAvatar');
+Route::post('/users/overlay', 'UserController@updateOverlay');
 
 /**
  * Games
@@ -49,6 +52,9 @@ Route::get('/groups/search', 'GroupController@index')->name('groups');
 Route::get('/groups/popular', 'GroupController@show')->name('groups.popular');
 Route::get('/groups/{slug}', 'GroupController@show')->name('group');
 Route::get('/groups/{id}/posts', 'GroupController@posts')->name('group.posts');
+Route::post('/groups/{id}/checkin', 'GroupController@checkUserIsMember');
+Route::post('/groups/{id}/users', 'GroupController@join');
+//Route::get('/groups/{id}/users', 'GroupController@users')->name('group.users');
 
 /**
  * Profiles

@@ -34,29 +34,28 @@
 
             </div>
 
-            <p>{{post.text}}</p>
-
-            <!--<div class="post-video">
-                <div class="video-thumb">
-                    <img src="img/video-youtube1.jpg" alt="photo">
-                    <a href="https://youtube.com/watch?v=excVFQ2TWig" class="play-video">
-                        <svg class="olymp-play-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-play-icon"></use></svg>
-                    </a>
-                </div>
-
-                <div class="video-content">
-                    <a href="#" class="h4 title">Iron Maid - ChillGroves</a>
-                    <p>Lorem ipsum dolor sit amet, consectetur ipisicing elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua...
-                    </p>
-                    <a href="#" class="link-site">YOUTUBE.COM</a>
-                </div>
-            </div>-->
+            <p v-html="post.text"></p>
 
             <div class="post-block-photo js-zoom-gallery" v-if="post.media!=null && post.media.length>0">
                 <a :href="'/storage/'+media.id+'/'+media.file_name" class="col col-3-width" v-for="media in post.media">
                     <img :src="'/storage/'+media.id+'/'+media.file_name" :alt="media.file">
                 </a>
+            </div>
+
+            <div class="links" v-if="post.additional!=null && post.additional.links.length>0">
+                <template v-for="link in post.additional.links">
+                    <div class="post-video">
+                        <div class="video-thumb mt-lg-4 ml-lg-3">
+                            <img :src="link.img" :alt="link.title">
+                        </div>
+
+                        <div class="video-content">
+                            <a v-bind:href="link.url" class="h4 title">{{link.title}}</a>
+                            <p>{{link.description}}</p>
+                            <a v-bind:href="link.url" class="link-site">{{link.url}}</a>
+                        </div>
+                    </div>
+                </template>
             </div>
 
             <div class="post-additional-info inline-items">

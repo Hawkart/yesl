@@ -9,7 +9,16 @@ class Comment extends Model
     /**
      * @var array
      */
-    protected $fillable = ['post_id', 'user_id', 'comment', 'reply_id', 'created_at', 'updated_at'];
+    protected $fillable = ['post_id', 'user_id', 'comment', 'reply_id', 'additional', 'created_at', 'updated_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'additional' => 'array'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
