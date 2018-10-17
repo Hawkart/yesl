@@ -12,7 +12,7 @@
                 <has-error :form="form" field="text"/>
             </div>
 
-            <div class="table-responsive" v-if="files.length>0">
+            <div class="table-responsive" v-if="files!=null && files.length>0">
                 <table class="table table-hover">
                     <thead>
                     <tr>

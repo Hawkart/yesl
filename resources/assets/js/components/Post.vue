@@ -42,7 +42,7 @@
                 </a>
             </div>
 
-            <div class="links" v-if="post.additional!=null && post.additional.links.length>0">
+            <div class="links" v-if="post.additional!=null && post.additional.links!=null && post.additional.links.length>0">
                 <template v-for="link in post.additional.links">
                     <div class="post-video">
                         <div class="video-thumb mt-lg-4 ml-lg-3">
