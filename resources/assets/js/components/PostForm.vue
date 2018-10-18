@@ -2,6 +2,7 @@
 
     <div class="news-feed-form">
         <alert-success :form="form" :message="message"/>
+        <alert-errors :form="form"/>
         <form @submit.prevent="save" @keydown="form.onKeydown($event)">
             <div class="author-thumb">
                 <img :src="getImageLink(user.avatar)" :alt="user.name" width="36">
@@ -49,7 +50,7 @@
             </div>
 
             <div class="links" v-if="links!=null && links.length>0">
-                <link-prevue :url="link" v-for="link in links">
+                <link-prevue :url="link" v-for="link in links" :key="link">
                     <template slot-scope="props">
                         <div class="post-video">
                             <div class="video-thumb mt-lg-4 ml-lg-3">

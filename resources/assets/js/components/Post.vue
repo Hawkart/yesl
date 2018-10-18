@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                <div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+                <!--<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
                     <ul class="more-dropdown">
                         <li>
                             <a href="#">Edit Post</a>
@@ -30,7 +30,7 @@
                             <a href="#">Select as Featured</a>
                         </li>
                     </ul>
-                </div>
+                </div>-->
 
             </div>
 

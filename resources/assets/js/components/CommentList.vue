@@ -1,10 +1,10 @@
 <template>
     <div>
-        <ul class="comments-list">
-            <comment v-for="comment in comments" :key="comment.id" :comment="comment" :user="user"/>
+        <ul class="comments-list" v-if="comments.length>0">
+            <comment v-for="(comment, index) in comments" :key="comment.id" :comment="comment" :user="user" v-if="(index<1 && !show_comments) || show_comments"/>
         </ul>
 
-        <a href="#" class="more-comments" v-if="comments.length>1">View more comments <span>+</span></a>
+        <a href="#" class="more-comments" v-on:click.prevent="show_comments=!show_comments" v-if="comments.length>1 && !show_comments">View more comments({{comments.length-1}}) <span>+</span></a>
     </div>
 </template>
 
@@ -16,5 +16,9 @@
                 this.comments.unshift(comment);
             })
         },
+        data: () => ({
+            per_page: 10,
+            show_comments: false
+        })
     }
 </script>

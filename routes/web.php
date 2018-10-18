@@ -34,6 +34,8 @@ Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 Route::patch('/users',  ['as' => 'users.update', 'uses' => 'UserController@update', 'middleware' => 'auth']);
 Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword', 'middleware' => 'auth']);
 Route::get('/users/{slug}', 'UserController@show')->name('user');
+Route::get('/users/{id}/feeds', 'UserController@feeds');
+Route::get('/users/{id}/wall', 'UserController@wall');
 Route::get('/users/{id}/groups', ['as' => 'user.groups', 'uses' => 'UserController@groups']);
 Route::post('/users/avatar', 'UserController@updateAvatar');
 Route::post('/users/overlay', 'UserController@updateOverlay');

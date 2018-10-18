@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserPasswordUpdateRequest;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
@@ -256,5 +257,47 @@ class UserController extends Controller
         $groups = $user->profiles()->paginate(12);
 
         return view('lk.groups.index', compact(['user', 'groups']));
+    }
+
+
+    /**
+     * Feeds of current user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function feeds($id, Request $request)
+    {
+        //$user = Auth::user();
+        $user = User::findOrFail($id);
+        $groups = $user->groups()->pluck('group_id')->toArray();
+
+        $posts = Post::whereIn('group_id', $groups)
+            ->where('user_id', '<>', $user->id)
+            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media'])
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return response()->json($posts);
+    }
+
+    /**
+     * Wall of current user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function wall($id, Request $request)
+    {
+        //$user = Auth::user();
+        $user = User::findOrFail($id);
+
+        $posts = Post::where('group_id', 0)
+            ->where('user_id', $user->id)
+            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media'])
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return response()->json($posts);
     }
 }

@@ -11,7 +11,25 @@
                 </div>
             </div>
         </div>
-        <p>{{comment.comment}}</p>
+
+        <p v-html="comment.comment"></p>
+
+        <div class="links pa-0" v-if="comment.additional!=null && comment.additional.links!=null && comment.additional.links.length>0">
+            <template v-for="link in comment.additional.links">
+                <div class="post-video">
+                    <div class="video-thumb mt-lg-4">
+                        <img :src="link.img" :alt="link.title">
+                    </div>
+
+                    <div class="video-content">
+                        <a v-bind:href="link.url" class="h4 title">{{link.title}}</a>
+                        <p>{{link.description}}</p>
+                        <a v-bind:href="link.url" class="link-site">{{link.url}}</a>
+                    </div>
+                </div>
+            </template>
+        </div>
+
         <like likeable_type="Comment" :likeable_id="comment.id" :likes="comment.likes" :user="user"/>
         <a href="#" class="reply">Reply</a>
     </li>

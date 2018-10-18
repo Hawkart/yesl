@@ -140,7 +140,6 @@ class PostController extends Controller
         }
 
         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $postBody, $urls);
-        //dd($urls);
         if (!empty($urls))
         {
             foreach ($urls[0] as $url)

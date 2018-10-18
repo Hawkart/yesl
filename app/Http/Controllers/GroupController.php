@@ -84,9 +84,13 @@ class GroupController extends Controller
             }
         }
 
+        $user = Auth::user();
+        $groups = $user->groups()->pluck('group_id')->toArray();
+        $can_post = in_array($group->id, $groups);
+
         $this->seo()->setTitle($group->title);
 
-        return view ('groups.detail', compact(['group', 'similar_groups']));
+        return view ('groups.detail', compact(['group', 'similar_groups', 'can_post']));
     }
 
     /**

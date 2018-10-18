@@ -63,11 +63,18 @@ class CommentController extends Controller
         $post = Post::findOrFail($post_id);
         $postBody = $this->parseUsernames($request->get('comment'));
 
+        $additional = [];
+        if($request->has('links'))
+        {
+            $additional['links'] = $request->get('links');
+        }
+
         $comment = $post->comments()->create([
             'user_id' => Auth::user()->id,
             'post_id' => $post_id,
             'reply_id' => intval($request->get('reply_id')),
-            'comment' => $postBody
+            'comment' => $postBody,
+            'additional' => $additional
         ]);
 
         if($comment)
@@ -105,6 +112,16 @@ class CommentController extends Controller
                 }
             }
         }
+
+        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $postBody, $urls);
+        if (!empty($urls))
+        {
+            foreach ($urls[0] as $url)
+            {
+                $postBody = str_replace($url, '<a href="' . $url . '" target="_blank">'.$url.'</a>', $postBody);
+            }
+        }
+
         return $postBody;
     }
 

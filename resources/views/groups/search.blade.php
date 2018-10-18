@@ -55,25 +55,7 @@
                                                 <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h4 post-title" title="{{$group->title}}">
                                                     {{ str_limit($group->title, 50, '...') }}
                                                 </a>
-
-                                                @if($group->users()->count()>0)
-                                                    <ul class="friends-harmonic">
-                                                        @foreach($group->users as $user)
-                                                            <li>
-                                                                <a href="#">
-                                                                    <img src="{{ Storage::disk('public')->url($user->avatar) }}" alt="friend">
-                                                                </a>
-                                                            </li>
-                                                        @endforeach
-
-                                                        @if(count($group->users)>8)
-                                                            <li>
-                                                                <a href="#" class="all-users bg-blue">+{{count($group->users)-8}}</a>
-                                                            </li>
-                                                        @endif
-                                                    </ul>
-                                                @endif
-
+                                                
                                                 <!--<button type="submit" class="btn btn-purple btn-md full-width">
                                                     Subscribe
                                                 </button>-->

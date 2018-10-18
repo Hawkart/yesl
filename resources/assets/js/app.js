@@ -16,6 +16,7 @@ Vue.component('comment', require('./components/Comment'));
 Vue.component('avatar-upload', require('./components/AvatarUpload'));
 Vue.component('overlay-upload', require('./components/OverlayUpload'));
 Vue.component('group-subscribe', require('./components/GroupSubscribe'));
+Vue.component('feed-list', require('./components/FeedList'));
 
 import {
     HasError,

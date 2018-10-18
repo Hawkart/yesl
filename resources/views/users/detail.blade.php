@@ -54,9 +54,11 @@
                                     <svg class="olymp-happy-face-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
                                 </a>-->
 
-                                <a href="#" class="btn btn-control bg-purple">
-                                    <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
-                                </a>
+                                @if($user->id!=Auth::user()->id)
+                                    <a href="#" class="btn btn-control bg-purple">
+                                        <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+                                    </a>
+                                @endif
 
                                 @if($user->id==Auth::user()->id)
                                     <div class="btn btn-control bg-primary more">
@@ -64,13 +66,7 @@
 
                                         <ul class="more-dropdown more-with-triangle triangle-bottom-right">
                                             <li>
-                                                <a href="#" data-toggle="modal" data-target="#update-header-photo">Update Profile Photo</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-toggle="modal" data-target="#update-header-photo">Update Header Photo</a>
-                                            </li>
-                                            <li>
-                                                <a href="29-YourAccount-AccountSettings.html">Account Settings</a>
+                                                <a href="{{route('settings.personal')}}">Account Settings</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -88,6 +84,13 @@
         <div class="row">
             <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
 
+                @if($user->id==Auth::user()->id)
+                    <div class="ui-block">
+                        <post-form group_id="0" :user="{{json_encode(Auth::user()->toArray())}}"></post-form>
+                    </div>
+                @endif
+
+                <post-list group_id="0" :user="{{json_encode(Auth::user()->toArray())}}" type="wall"></post-list>
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
 

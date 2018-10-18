@@ -3,6 +3,9 @@
         <post :user="user" :post="post" v-for="post in posts" :key="post.id" v-if="posts!=null && posts.length>0"/>
 
         <infinite-loading @infinite="infiniteHandler">
+            <span slot="no-results">
+              There is no news yet :(
+            </span>
             <span slot="no-more">
               There is no more posts
             </span>
@@ -16,31 +19,14 @@
 
     export default {
         components: {InfiniteLoading},
-        props: ['group_id', 'user', 'type'],
+        props: ['user'],
         data: () => ({
             posts: [],
             per_page: 10
         }),
-        created(){
-            Event.listen("PostNew"+this.group_id, (post) => {
-                this.posts.unshift(post);   //add to start
-
-                if(this.posts.length>this.per_page)
-                    this.posts.pop();   //delete last element
-            })
-        },
         methods: {
             infiniteHandler($state) {
-
-                if(this.type=='wall')
-                {
-                    var url = '/users/'+this.user.id+'/wall';
-                }else if(this.type=='group')
-                {
-                    var url = '/groups/'+this.group_id+'/posts';
-                }
-
-                axios.get(url, {
+                axios.get('/users/'+this.user.id+'/feeds', {
                     params: {
                         page: this.posts.length / this.per_page + 1,
                     },
