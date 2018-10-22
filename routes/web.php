@@ -37,8 +37,34 @@ Route::get('/users/{slug}', 'UserController@show')->name('user');
 Route::get('/users/{id}/feeds', 'UserController@feeds');
 Route::get('/users/{id}/wall', 'UserController@wall');
 Route::get('/users/{id}/groups', ['as' => 'user.groups', 'uses' => 'UserController@groups']);
+Route::get('/users/{id}/threads', ['as' => 'user.threads', 'uses' => 'UserController@threads']);
+Route::post('/users/{id}/threads', ['as' => 'user.threads.search', 'uses' => 'UserController@threads']);
 Route::post('/users/avatar', 'UserController@updateAvatar');
 Route::post('/users/overlay', 'UserController@updateOverlay');
+
+
+/**
+ * Messages
+ */
+/*Route::group(['prefix' => 'im', 'middleware' => 'auth'], function () {
+    Route::get('/', ['as' => 'messages', 'uses' => 'MessageController@index']);
+    Route::get('create', ['as' => 'messages.create', 'uses' => 'MessageController@create']);
+    Route::post('/', ['as' => 'messages.store', 'uses' => 'MessageController@store']);
+    Route::get('{id}', ['as' => 'messages.show', 'uses' => 'MessageController@show']);
+    Route::put('{id}', ['as' => 'messages.update', 'uses' => 'MessageController@update']);
+});*/
+
+/**
+ * Channels
+ */
+Route::get('/im', ['as' => 'im', 'uses' => 'ThreadController@index']);
+Route::group(['prefix' => 'channels', 'middleware' => 'auth'], function () {
+    Route::get('/', ['as' => 'channels.list', 'uses' => 'ThreadController@index']);
+    Route::post('/', ['as' => 'channels.store', 'uses' => 'ThreadController@store']);
+    Route::get('/{channel_id}/participants', ['as' => 'channels.participants', 'uses' => 'ThreadController@participants']);
+    Route::get('/{channel_id}/messages', ['as' => 'channels.messages', 'uses' => 'ThreadController@messages']);
+    Route::post('/{channel_id}/messages', ['as' => 'channels.messages.store', 'uses' => 'ThreadController@messageStore']);
+});
 
 /**
  * Games

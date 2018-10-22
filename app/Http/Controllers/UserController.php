@@ -10,6 +10,9 @@ use App\Http\Requests\UserPasswordUpdateRequest;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Illuminate\Support\Facades\Storage;
 use Image;
+use Cmgmyr\Messenger\Models\Message;
+use Cmgmyr\Messenger\Models\Participant;
+use Cmgmyr\Messenger\Models\Thread;
 
 class UserController extends Controller
 {
@@ -249,6 +252,7 @@ class UserController extends Controller
      * Groups of user.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return Response
      */
     public function groups($id, Request $request)
@@ -264,6 +268,7 @@ class UserController extends Controller
      * Feeds of current user.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function feeds($id, Request $request)
@@ -285,6 +290,7 @@ class UserController extends Controller
      * Wall of current user.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function wall($id, Request $request)
@@ -299,5 +305,70 @@ class UserController extends Controller
             ->paginate(10);
 
         return response()->json($posts);
+    }
+
+    /**
+     * Wall of current user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function threads($id, Request $request)
+    {
+        if(Auth::user()->id!=$id)
+        {
+            return response()->json([
+                'message' => "You couldn't view chats of another user!"
+            ], 422);
+        }
+
+        if($request->has('q'))
+        {
+            $q = $request->get('q');
+            $threads = [];
+
+            $threads['users'] = User::where("name", 'like', "%".$q."%")
+                ->where('id', '<>', $id)->get();
+
+            $threads['channels'] = Thread::forUser($id)
+                ->where("subject", "like", "%".$q."%")
+                ->with(['participants.user'])
+                ->latest('updated_at')
+                ->distinct()->get();
+
+            foreach($threads['users'] as $key=>$participant)
+            {
+                //check if exists chat between two users
+                if(Thread::between([$id, $participant->id])->count()>0)
+                {
+                    unset($threads['users'][$key]);
+                }
+            }
+
+            foreach($threads['channels'] as &$thread)
+            {
+                $thread->participantsString = $thread->participantsString();
+                $thread->userUnreadMessagesCount = $thread->userUnreadMessagesCount($id);
+                $thread->latestMessage = $thread->getLatestMessageAttribute();
+            }
+
+        }else{
+            $threads = Thread::forUser($id)
+                ->with(['participants.user'])
+                ->latest('updated_at')
+                ->distinct()->get();
+
+            foreach($threads as &$thread)
+            {
+                $thread->participantsString = $thread->participantsString();
+                $thread->userUnreadMessagesCount = $thread->userUnreadMessagesCount($id);
+                $thread->latestMessage = $thread->getLatestMessageAttribute();
+            }
+        }
+
+        //$threads = Thread::forUserWithNewMessages($id)->latest('updated_at')->get();
+
+        return response()->json($threads, 200);
     }
 }

@@ -167,6 +167,9 @@
     .pa-0{
         padding: 0!important;
     }
+    .author-thumb img{
+        max-width: 100%;
+    }
 </style>
 
 <!-- JS Scripts -->

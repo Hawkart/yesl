@@ -55,7 +55,7 @@
                                                 <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h4 post-title" title="{{$group->title}}">
                                                     {{ str_limit($group->title, 50, '...') }}
                                                 </a>
-                                                
+
                                                 <!--<button type="submit" class="btn btn-purple btn-md full-width">
                                                     Subscribe
                                                 </button>-->

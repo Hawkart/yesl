@@ -33,7 +33,7 @@
                 ],
                 [
                     'title' => 'MESSAGES',
-                    'url' => '/',
+                    'url' => '/im',
                     'svg' => 'olymp-chat---messages-icon',
                     'xlink' => '/svg-icons/sprites/icons.svg#olymp-chat---messages-icon',
                     'li_class' => ''

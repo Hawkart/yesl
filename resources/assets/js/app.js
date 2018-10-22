@@ -18,6 +18,8 @@ Vue.component('overlay-upload', require('./components/OverlayUpload'));
 Vue.component('group-subscribe', require('./components/GroupSubscribe'));
 Vue.component('feed-list', require('./components/FeedList'));
 
+Vue.component('chat', require('./components/Chat'));
+
 import {
     HasError,
     AlertError,
