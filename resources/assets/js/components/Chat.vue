@@ -66,14 +66,17 @@
         created() {
             this.getThreads();
             this.fetchMessages();
-            this.fetchParticipants();
+            //this.fetchParticipants();
 
             for (let channel of this.channels)
             {
                 window.Echo.private("channel_"+channel.id.toString())
                     .listen('MessageSent', data => {
-                        this.messages.push(data.data);
-                        this.isTyping = false;
+                        if(this.activeChannel.id==channel.id)
+                        {
+                            this.messages.push(data.data);
+                            this.isTyping = false;
+                        }
                     })
                     .listenForWhisper('typing', (e) => {
                         this.isTyping = e;
@@ -85,10 +88,6 @@
                         }, 2000)
                     });
             }
-
-            /*this.$nextTick(() => {
-                this.$el.querySelector("#chatsDisplay").scrollTop = 0;
-            });*/
         },
         methods: {
             getThreads: function()

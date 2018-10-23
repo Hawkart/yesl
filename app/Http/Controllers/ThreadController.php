@@ -124,7 +124,7 @@ class ThreadController extends Controller
         $thread->latestMessage = $thread->getLatestMessageAttribute();
 
         // Dispatch an event. Will be broadcasted over Redis.
-        //event(new MessageSent($thread->id, $message));
+        event(new MessageSent($thread->id, $message));
 
         return response()->json([
             'message' => $message,

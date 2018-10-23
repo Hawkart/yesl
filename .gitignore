@@ -13,4 +13,5 @@ yarn-error.log
 .env
 bugs.txt
 todo.txt
+laravel-echo-server.json
 .phpunit.result.cache
