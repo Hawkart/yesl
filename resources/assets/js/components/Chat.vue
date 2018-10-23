@@ -2,14 +2,11 @@
 
     <div class="row">
         <div class="col col-md-12 col-sm-12" v-bind:class="isActiveChannel">
-            <perfect-scrollbar id="chatsDisplay">
-                <chat-channel-list :channels="channels"
-                               :active-channel="activeChannel"
-                               :user="user"
-                               @channelChanged="onChannelChanged"
-                               @channelUserChanged="onChannelUserChanged"></chat-channel-list>
-
-            </perfect-scrollbar>
+            <chat-channel-list :channels="channels"
+                           :active-channel="activeChannel"
+                           :user="user"
+                           @channelChanged="onChannelChanged"
+                           @channelUserChanged="onChannelUserChanged"></chat-channel-list>
         </div>
 
         <div class="col col-xl-7 col-lg-6 col-md-12 col-sm-12 padding-l-0" v-if="activeChannel!=null">
@@ -36,7 +33,6 @@
     import ChatNewMessage from "./ChatNewMessage";
     import ChatChannelList from "./ChatChannelList";
     import ChatParticipants from "./ChatParticipants";
-    import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 
     export default {
         props: ['user'],
@@ -44,8 +40,7 @@
             ChatParticipants,
             ChatChannelList,
             ChatMessages,
-            ChatNewMessage,
-            PerfectScrollbar
+            ChatNewMessage
         },
         computed: {
             isActiveChannel: function() {

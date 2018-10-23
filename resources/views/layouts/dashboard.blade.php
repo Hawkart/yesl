@@ -172,8 +172,21 @@
         max-width: 100%;
     }
 
-    .chat-field .ps, #chatsDisplay.ps{
-        height: 450px;
+    .chat-field .ps{
+        height: 350px;
+    }
+    #chatsDisplay.ps{
+        height: 560px;
+    }
+
+    .notification-list li.active{
+        background-color: #fafbfd;
+    }
+    .notification-list li{
+        padding: 15px 25px;
+    }
+    .chat-message-field .chat-message-item{
+        margin-top: 5px;
     }
 </style>
 

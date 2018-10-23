@@ -9,21 +9,23 @@
                 </v-button>
             </div>
         </form>
-        <ul class="notification-list chat-message">
-            <template v-if="search!==null && search.users">
-                <chat-search-users :users="search.users" @channelUserChanged="onChannelUserChanged"></chat-search-users>
-                <chat-search-chats :channels="search.channels" @channelChanged="onChannelChanged"></chat-search-chats>
-            </template>
-            <template v-else-if="channels.length>0">
-                <chat-channel :user="user" :channel="channel" :key="channel.id" :activeChannel="activeChannel" v-for="channel in channels" @channelChanged="onChannelChanged"/>
-            </template>
-            <template v-else>
-                <li>
-                    Sorry, no active chats.
-                </li>
-            </template>
-        </ul>
-    </div>
+        <perfect-scrollbar id="chatsDisplay">
+            <ul class="notification-list chat-message">
+                <template v-if="search!==null && search.users">
+                    <chat-search-users :users="search.users" @channelUserChanged="onChannelUserChanged"></chat-search-users>
+                    <chat-search-chats :channels="search.channels" @channelChanged="onChannelChanged"></chat-search-chats>
+                </template>
+                <template v-else-if="channels.length>0">
+                    <chat-channel :user="user" :channel="channel" :key="channel.id" :activeChannel="activeChannel" v-for="channel in channels" @channelChanged="onChannelChanged"/>
+                </template>
+                <template v-else>
+                    <li>
+                        Sorry, no active chats.
+                    </li>
+                </template>
+            </ul>
+        </perfect-scrollbar>
+  </div>
 </template>
 
 <script>
@@ -32,6 +34,7 @@
     import ChatSearchUsers from "./ChatSearchUsers";
     import ChatChannel from "./ChatChannel";
     import ChatSearchChats from "./ChatSearchChats";
+    import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 
     export default {
         props: ['channels', 'activeChannel', 'user'],
@@ -39,7 +42,8 @@
             VButton,
             ChatSearchUsers,
             ChatSearchChats,
-            ChatChannel
+            ChatChannel,
+            PerfectScrollbar
         },
         data: () => ({
             form: new Form({

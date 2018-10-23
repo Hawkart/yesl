@@ -4,7 +4,7 @@
 
         <form @submit.prevent="sendMessage" @keydown="form.onKeydown($event)">
 
-            <div class="form-group label-floating is-empty">
+            <div class="form-group label-floating is-empty mb-0">
                 <label class="control-label">Write your reply here...</label>
                 <textarea class="form-control" placeholder="" v-model="form.message"
                           @keyup.enter.prevent="sendMessage" @keydown="actionUser"
@@ -13,7 +13,7 @@
                 <has-error :form="form" field="message"/>
             </div>
 
-            <div class="add-options-message">
+            <div class="add-options-message border-0">
                 <v-button :loading="form.busy" type="primary" :large="false" additional="btn-sm">
                     Post Reply
                 </v-button>
