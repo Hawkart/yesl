@@ -10,7 +10,7 @@ use Cmgmyr\Messenger\Models\Thread;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use App\Events\MessageSent;
+use App\Events\MessageSent;
 
 class ThreadController extends Controller
 {
