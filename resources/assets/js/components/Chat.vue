@@ -2,15 +2,17 @@
 
     <div class="row">
         <div class="col col-md-12 col-sm-12" v-bind:class="isActiveChannel">
-            <chat-channel-list :channels="channels"
-                           :active-channel="activeChannel"
-                           :user="user"
-                           @channelChanged="onChannelChanged"
-                           @channelUserChanged="onChannelUserChanged"></chat-channel-list>
+            <perfect-scrollbar id="chatsDisplay">
+                <chat-channel-list :channels="channels"
+                               :active-channel="activeChannel"
+                               :user="user"
+                               @channelChanged="onChannelChanged"
+                               @channelUserChanged="onChannelUserChanged"></chat-channel-list>
+
+            </perfect-scrollbar>
         </div>
 
         <div class="col col-xl-7 col-lg-6 col-md-12 col-sm-12 padding-l-0" v-if="activeChannel!=null">
-
             <div class="chat-field">
                 <div class="ui-block-title">
                     <h6 class="title" v-if="!activeChannel.is_user">{{activeChannel.subject}}</h6>
@@ -19,9 +21,7 @@
                         <svg class="olymp-three-dots-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
                     </a>
                 </div>
-                <div class="mCustomScrollbar" data-mcs-theme="dark">
-                    <chat-messages :messages="messages" :isTyping="isTyping":user="user"></chat-messages>
-                </div>
+                <chat-messages :messages="messages" :isTyping="isTyping":user="user"></chat-messages>
                 <chat-new-message :active-channel="activeChannel" :user="user"
                                   @messageAdded="onMessageAdded"></chat-new-message>
             </div>
@@ -36,6 +36,7 @@
     import ChatNewMessage from "./ChatNewMessage";
     import ChatChannelList from "./ChatChannelList";
     import ChatParticipants from "./ChatParticipants";
+    import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 
     export default {
         props: ['user'],
@@ -43,7 +44,8 @@
             ChatParticipants,
             ChatChannelList,
             ChatMessages,
-            ChatNewMessage
+            ChatNewMessage,
+            PerfectScrollbar
         },
         computed: {
             isActiveChannel: function() {
@@ -83,6 +85,10 @@
                         }, 2000)
                     });
             }
+
+            /*this.$nextTick(() => {
+                this.$el.querySelector("#chatsDisplay").scrollTop = 0;
+            });*/
         },
         methods: {
             getThreads: function()
@@ -116,7 +122,6 @@
 
                 this.fetchMessages();
                 this.fetchParticipants();
-                this.chatScrollInit();
             },
             onChannelUserChanged(participant)
             {
@@ -139,8 +144,6 @@
                     };
                     this.channels.unshift(this.activeChannel);
                 }
-
-                this.chatScrollInit();
             },
             onMessageAdded(data) {
 
@@ -154,14 +157,8 @@
                 });
 
                 this.messages.push(data.message);
-            },
-            chatScrollInit()
-            {
-                this.$nextTick(function () {
-                    $('.mCustomScrollbar').perfectScrollbar({wheelPropagation:false});
-                    this.materialInit();
-                });
             }
         },
     }
 </script>
+<style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>

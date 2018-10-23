@@ -170,6 +170,10 @@
     .author-thumb img{
         max-width: 100%;
     }
+
+    .chat-field .ps, #chatsDisplay.ps{
+        height: 450px;
+    }
 </style>
 
 <!-- JS Scripts -->
