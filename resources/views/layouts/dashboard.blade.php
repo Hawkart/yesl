@@ -26,7 +26,7 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
-            'echoPort' => env('LARAVEL_ECHO_PORT', '')
+            'echoPort' => env('LARAVEL_ECHO_SERVER_PORT', '')
         ]) !!};
     </script>
 

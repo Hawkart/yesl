@@ -62,35 +62,35 @@
             this.getThreads();
             this.fetchMessages();
             //this.fetchParticipants();
-
-            for (let channel of this.channels)
-            {
-                window.Echo.private("channel_"+channel.id.toString())
-                    .listen('MessageSent', data => {
-                        alert(data.data);
-                        console.log(data);
-                        if(this.activeChannel.id==channel.id)
-                        {
-                            this.messages.push(data.data);
-                            this.isTyping = false;
-                        }
-                    })
-                    .listenForWhisper('typing', (e) => {
-                        this.isTyping = e;
-
-                        if(this.typingTimer) clearTimeout(this.typingTimer);
-
-                        this.typingTimer = setTimeout(() =>{
-                            this.isTyping = false;
-                        }, 2000)
-                    });
-            }
         },
         methods: {
             getThreads: function()
             {
                 axios.get('/users/'+this.user.id+'/threads').then((response) => {
                     this.$set(this, 'channels', response.data);
+
+                    for (let channel of this.channels)
+                    {
+                        window.Echo.private("channel_"+channel.id.toString())
+                            .listen('MessageSent', data => {
+                                alert(data.data);
+                                console.log(data);
+                                if(this.activeChannel.id==channel.id)
+                                {
+                                    this.messages.push(data.data);
+                                    this.isTyping = false;
+                                }
+                            })
+                            .listenForWhisper('typing', (e) => {
+                                this.isTyping = e;
+
+                                if(this.typingTimer) clearTimeout(this.typingTimer);
+
+                                this.typingTimer = setTimeout(() =>{
+                                    this.isTyping = false;
+                                }, 2000)
+                            });
+                    }
                 });
             },
             fetchMessages()
