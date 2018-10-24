@@ -53,13 +53,7 @@ window.io = require('socket.io-client');
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: window.location.hostname + ':'+window.Laravel.echoPort,
-    auth:
-        {
-            headers: {
-                Authorization: 'Bearer ' + token.content,
-            },
-        }
+    host: window.location.hostname + ':'+window.Laravel.echoPort
 });
 
 /**

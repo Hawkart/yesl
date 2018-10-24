@@ -67,6 +67,8 @@
             {
                 window.Echo.private("channel_"+channel.id.toString())
                     .listen('MessageSent', data => {
+                        alert(data.data);
+                        console.log(data);
                         if(this.activeChannel.id==channel.id)
                         {
                             this.messages.push(data.data);

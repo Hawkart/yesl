@@ -60,7 +60,7 @@
             },
             actionUser()
             {
-                if(this.activeChannel.is_user===null) {
+                if(!this.activeChannel.is_user) {
                     window.Echo.private("channel_" + this.activeChannel.id.toString())
                         .whisper('typing', {
                             'user': this.user

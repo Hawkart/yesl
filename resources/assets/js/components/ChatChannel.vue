@@ -7,9 +7,9 @@
             <div class="notification-event">
                 <a href="javascript:void(0)"
                    class="h6 notification-friend"
-                   :class="{ 'active': (activeChannel!==null && channel.id == activeChannel.id) }"
                    @click="setChannel(channel)">
-                    {{channel.participants[0].user.name}}
+                    <template v-if="channel.participants[0].user.id!=user.id">{{channel.participants[0].user.name}}</template>
+                    <template v-else>{{channel.participants[1].user.name}}</template>
                 </a>
                 ({{channel.userUnreadMessagesCount}} unread)
                 <span class="chat-message-item">{{ channel.latestMessage.body | truncate(100, '...')}}</span>
@@ -27,7 +27,6 @@
             <div class="notification-event">
                 <a href="javascript:void(0)"
                    class="h6 notification-friend"
-                   :class="{ 'active': (activeChannel!==null && channel.participant.id == activeChannel.participant.id) }"
                    @click="setChannel(channel)">
                     {{channel.participant.name}}
                 </a>
