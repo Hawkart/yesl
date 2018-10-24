@@ -53,7 +53,7 @@ window.io = require('socket.io-client');
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: 'https://yesl.tv:6004'//window.location.hostname + ":"+window.Laravel.echoPort
+    host: window.location.hostname + ":" +window.Laravel.echoPort
 });
 
 /**
