@@ -53,7 +53,7 @@ window.io = require('socket.io-client');
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: window.location.hostname + ':'+window.Laravel.echoPort
+    host: window.location.hostname + ':6004'//+window.Laravel.echoPort
 });
 
 /**
