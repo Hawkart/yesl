@@ -73,8 +73,8 @@
                     {
                         window.Echo.private("channel_"+channel.id.toString())
                             .listen('MessageSent', data => {
-                                alert(data.data);
-                                console.log(data);
+                                //alert(data.data);
+                                //console.log(data);
                                 if(this.activeChannel.id==channel.id)
                                 {
                                     this.messages.push(data.data);
@@ -82,13 +82,16 @@
                                 }
                             })
                             .listenForWhisper('typing', (e) => {
-                                this.isTyping = e;
 
-                                if(this.typingTimer) clearTimeout(this.typingTimer);
+                                if(this.activeChannel.id==channel.id) {
+                                    this.isTyping = e;
 
-                                this.typingTimer = setTimeout(() =>{
-                                    this.isTyping = false;
-                                }, 2000)
+                                    if (this.typingTimer) clearTimeout(this.typingTimer);
+
+                                    this.typingTimer = setTimeout(() => {
+                                        this.isTyping = false;
+                                    }, 2000)
+                                }
                             });
                     }
                 });
