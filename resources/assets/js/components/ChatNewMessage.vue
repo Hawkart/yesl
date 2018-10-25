@@ -7,7 +7,10 @@
             <div class="form-group label-floating is-empty mb-0">
                 <label class="control-label">Write your reply here...</label>
                 <textarea class="form-control" placeholder="" v-model="form.message"
-                          @keyup.enter.prevent="sendMessage" @keydown="actionUser"
+                          @keydown.enter.exact.prevent
+                          @keyup.enter.exact="sendMessage"
+                          @keydown.enter.shift.exact="newline"
+                          @keydown="actionUser"
                           :class="{ 'is-invalid': form.errors.has('message') }"></textarea>
 
                 <has-error :form="form" field="message"/>
@@ -43,6 +46,9 @@
         }),
 
         methods: {
+            newline() {
+                this.form.message = `${this.form.message}\n`;
+            },
             sendMessage()
             {
                 var thread_id = 0;
