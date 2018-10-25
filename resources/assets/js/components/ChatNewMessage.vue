@@ -53,10 +53,13 @@
                     thread_id = this.activeChannel.id;
                 }
 
-                this.form.post('/channels/'+thread_id+'/messages').then((response) => {
-                    this.$emit('messageAdded', response.data);
-                    this.form.reset();
-                });
+                if(this.form.message!="" && !this.form.busy)
+                {
+                    this.form.post('/channels/'+thread_id+'/messages').then((response) => {
+                        this.$emit('messageAdded', response.data);
+                        this.form.reset();
+                    });
+                }
             },
             actionUser()
             {

@@ -188,6 +188,19 @@
     .chat-message-field .chat-message-item{
         margin-top: 5px;
     }
+
+    .comment-form .reply_on{
+        margin-right: 15px;
+        float: right;
+        margin-bottom: 0;
+        margin-top: 17px;
+        padding: .8rem 1.1rem;
+        font-size: .688rem;
+    }
+
+    .close-reply svg{
+        height: .688rem;
+    }
 </style>
 
 <!-- JS Scripts -->

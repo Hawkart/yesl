@@ -33,7 +33,7 @@ class Comment extends Model
      */
     public function reply()
     {
-        return $this->belongsTo('App\Models\Comment');
+        return $this->belongsTo('App\Models\Comment', 'reply_id');
     }
 
     /**
@@ -71,9 +71,4 @@ class Comment extends Model
     {
         return $this->morphMany('App\Models\Media', 'model');
     }
-
-    /*public function newCollection(array $models = [])
-    {
-        return new CommentCollection($models);
-    }*/
 }

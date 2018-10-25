@@ -1,9 +1,9 @@
 <template>
-    <li class="comment-item">
+    <li class="comment-item" :id="'comment-'+comment.id">
         <div class="post__author author vcard inline-items">
             <img :src="getImageLink(comment.user.avatar)" :alt="comment.user.name">
             <div class="author-date">
-                <a class="h6 post__author-name fn" :href="'/users/'+comment.user.nickname">{{comment.user.name}}</a>
+                <a class="h6 post__author-name fn" :href="'/users/'+comment.user.nickname">{{comment.user.name}} </a> <template v-if="comment.reply_id>0">answer to <a href="#" @click.prevent="scrollToComment(comment.reply_id)">{{comment.reply.user.name}}</a></template>
                 <div class="post__date">
                     <time class="published" datetime="moment.utc(comment.created_at, 'YYYY-MM-DD h:mm:ss').local().format('YYYY-MM-DD h:mm:ss')">
                         {{moment.utc(comment.created_at, "YYYY-MM-DD h:mm:ss").local().format("MMMM Do, h:mm a") }}
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <p v-html="comment.comment"></p>
+        <p><!--<template v-if="comment.reply_id>0"><a href="#" @click.prevent="scrollToComment(comment.reply_id)">{{comment.reply.user.name}}</a>, </template>--><span v-html="comment.comment"></span></p>
 
         <div class="links pa-0" v-if="comment.additional!=null && comment.additional.links!=null && comment.additional.links.length>0">
             <template v-for="link in comment.additional.links">
@@ -31,12 +31,23 @@
         </div>
 
         <like likeable_type="Comment" :likeable_id="comment.id" :likes="comment.likes" :user="user"/>
-        <a href="#" class="reply">Reply</a>
+        <a href="#" class="reply" @click.prevent="makeReply(comment)">Reply</a>
     </li>
 </template>
 
 <script>
     export default {
-        props: ['comment', 'user']
+        props: ['comment', 'user'],
+        methods: {
+            makeReply(comment) {
+                this.$emit('setReply', comment);
+            },
+            scrollToComment(reply_id)
+            {
+                var topOfElement = document.querySelector('#comment-'+reply_id).offsetTop ;
+                console.log(topOfElement);
+                window.scroll({ top: topOfElement, behavior: "smooth" });
+            }
+        }
     }
 </script>

@@ -91,8 +91,8 @@
 
         </article>
 
-        <comment-list :comments="post.comments" :post_id="post.id" :user="user" v-if="show_comments"></comment-list>
-        <comment-form :post_id="post.id" :user="user" reply_id="0" v-if="show_comments"></comment-form>
+        <comment-list :comments="post.comments" :post_id="post.id" :user="user" v-if="show_comments" @setReply="onSetReply"></comment-list>
+        <comment-form :post_id="post.id" :user="user" :reply="reply_on" v-if="show_comments" @deleteReply="onDeleteReply"></comment-form>
         <!-- v-on:commented="updateComment"-->
     </div>
 </template>
@@ -104,14 +104,27 @@
         data: () => ({
             posts: [],
             per_page: 10,
-            show_comments: false
+            show_comments: false,
+            reply_on: []
         }),
         created(){
             if(this.post.comments.length>0)
                 this.show_comments = true;
         },
         methods: {
+            onSetReply(comment) {
+                this.reply_on = comment;
 
+                var topOfElement = document.querySelector('#comment-form-'+comment.post_id).offsetTop - 10;
+                window.scroll({ top: topOfElement, behavior: "smooth" });
+
+                //var element_to_scroll_to = document.getElementById('comment-form-'+comment.post_id);
+                //element_to_scroll_to.scrollIntoView();
+            },
+            onDeleteReply()
+            {
+                this.reply_on = [];
+            }
         }
     }
 </script>

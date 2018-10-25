@@ -79,7 +79,7 @@ class CommentController extends Controller
 
         if($comment)
         {
-            $comment->load(['user', 'likes', 'likes.user']);
+            $comment->load(['user', 'likes', 'likes.user', 'reply.user']);
 
             return response()->json([
                 'data' => $comment,

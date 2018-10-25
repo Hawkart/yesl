@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="save" @keydown="form.onKeydown($event)" class="comment-form inline-items">
+    <form @submit.prevent="save" @keydown="form.onKeydown($event)" class="comment-form inline-items" :id="'comment-form-'+post_id">
 
         <alert-success :form="form" :message="message" class="w-100"/>
         <alert-errors :form="form" class="w-100"/>
@@ -92,6 +92,12 @@
         </div>
 
         <v-button :loading="form.busy" type="primary" :large="false" additional="btn-md-2">Post Comment</v-button>
+        <div class="reply_on btn-md-2 c-grey btn-transparent custom-color" v-if="reply_on!==undefined && reply_on.id>0">
+            {{reply_on.user.name}}
+            <a href="#" class="close-reply" @click.prevent="deleteReply">
+                <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
+            </a>
+        </div>
     </form>
 </template>
 
@@ -110,7 +116,7 @@
             FileUpload,
             LinkPrevue
         },
-        props: ['post_id', 'user', 'reply_id'],
+        props: ['post_id', 'user', 'reply'],
         data: () => ({
             form: new Form({
                 comment: ''
@@ -142,12 +148,19 @@
             autoCompress: 1024 * 1024,
             uploadAuto: true,
             isOption: false,
+            reply_on: this.reply
         }),
         methods: {
             save()
             {
                 this.form.post_id = this.post_id;
-                this.form.reply_id = this.reply_id;
+
+                if(this.reply_on.id!==null)
+                {
+                    this.form.reply_id = this.reply_on.id;
+                }else{
+                    this.form.reply_id = 0;
+                }
 
                 this.form.images = [];
 
@@ -183,6 +196,7 @@
                         this.files = [];
                         this.links = [];
                         this.parsedLinks = [];
+                        this.$emit('deleteReply');
                     })
             },
             onInput(event) {
@@ -276,6 +290,19 @@
             doSomething(prevue) {
                 if(prevue!==null)
                     this.parsedLinks.push(prevue);
+            },
+            deleteReply()
+            {
+                this.$emit('deleteReply');
+                //console.log('deleteReply');
+                //this.reply_on = [];
+                //console.log(this.reply_on);
+            }
+        },
+        watch: {
+            reply: function(newVal, oldVal) { // watch it
+                this.reply_on = this.reply;
+                //console.log('Prop changed: ', newVal, ' | was: ', oldVal)
             }
         }
     }

@@ -12,7 +12,10 @@
         <div class="col col-xl-7 col-lg-6 col-md-12 col-sm-12 padding-l-0" v-if="activeChannel!=null">
             <div class="chat-field">
                 <div class="ui-block-title">
-                    <h6 class="title" v-if="!activeChannel.is_user">{{activeChannel.subject}}</h6>
+                    <h6 class="title" v-if="!activeChannel.is_user">
+                        <template v-if="activeChannel.participants[0].user.id!=user.id">{{activeChannel.participants[0].user.name}}</template>
+                        <template v-else>{{activeChannel.participants[1].user.name}}</template>
+                    </h6>
                     <h6 class="title" v-else>{{activeChannel.participant.name}}</h6>
                     <a href="#" class="more">
                         <svg class="olymp-three-dots-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
@@ -73,8 +76,6 @@
                     {
                         window.Echo.private("channel_"+channel.id.toString())
                             .listen('MessageSent', data => {
-                                //alert(data.data);
-                                //console.log(data);
                                 if(this.activeChannel.id==channel.id)
                                 {
                                     this.messages.push(data.data);
