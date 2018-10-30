@@ -90,12 +90,7 @@ class ThreadController extends Controller
             $users = User::whereIn('id', $participants)->get();
 
             $u = [$user->id, $participants[0]];
-            $th = Thread::whereHas('participants', function (Builder $q) use ($u) {
-                $q->whereIn('user_id', $u)
-                    ->select($this->getConnection()->raw('DISTINCT(thread_id)'))
-                    ->groupBy('thread_id')
-                    ->havingRaw('COUNT(thread_id)=' . count($u));
-            });
+            $th = Thread::between($u);
 
             if($th->count()>0)
             {

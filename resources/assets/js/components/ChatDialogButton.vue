@@ -12,7 +12,7 @@
 
         methods: {
             setPrivateParticipant() {
-                Event.fire("PrivateDialogMessage", participant);
+                Event.fire("PrivateDialogMessage", this.participant);
             }
         }
     }

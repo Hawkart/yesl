@@ -205,6 +205,10 @@
     .back-to-top{
         right: 15px;
     }
+
+    .chat-dialog-form{
+        width: 600px;
+    }
 </style>
 
 <!-- JS Scripts -->
