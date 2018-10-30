@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
+use Illuminate\Database\Eloquent\Builder;
 
 class ThreadController extends Controller
 {
@@ -87,21 +88,37 @@ class ThreadController extends Controller
         }else{
             $participants = $request->get('participants');
             $users = User::whereIn('id', $participants)->get();
-            $subject = $users[0]->name;
 
-            $thread = Thread::create([
-                'subject' => $subject,
-            ]);
+            $u = [$user->id, $participants[0]];
+            $th = Thread::whereHas('participants', function (Builder $q) use ($u) {
+                $q->whereIn('user_id', $u)
+                    ->select($this->getConnection()->raw('DISTINCT(thread_id)'))
+                    ->groupBy('thread_id')
+                    ->havingRaw('COUNT(thread_id)=' . count($u));
+            });
 
-            // Recipients
-            $thread->addParticipant($participants);
+            if($th->count()>0)
+            {
+                $thread = $th->first();
+                $thread->activateAllParticipants();
+                $participants = [];
+            }else{
+                $subject = $users[0]->name;
 
-            // Sender
-            Participant::create([
-                'thread_id' => $thread->id,
-                'user_id' => $user->id,
-                'last_read' => new Carbon,
-            ]);
+                $thread = Thread::create([
+                    'subject' => $subject,
+                ]);
+
+                // Recipients
+                $thread->addParticipant($participants);
+
+                // Sender
+                Participant::create([
+                    'thread_id' => $thread->id,
+                    'user_id' => $user->id,
+                    'last_read' => new Carbon,
+                ]);
+            }
         }
 
         // Message

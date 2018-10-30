@@ -47,7 +47,7 @@
 
         methods: {
             newline() {
-                this.form.message = `${this.form.message}\n`;
+                this.form.message = `${this.form.message}\r\n`;
             },
             sendMessage()
             {

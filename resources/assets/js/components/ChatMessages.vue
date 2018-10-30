@@ -20,12 +20,12 @@
                         </span>
                     </div>
                 </li>
-                <li v-if="isTyping && isTyping.user.id!=user.id" class="friend">
+                <li v-if="isTyping && isTyping.user!=undefined &&  isTyping.user.id!=user.id" class="friend">
                     <div class="author-thumb">
                         <img :src="getImageLink(isTyping.user.avatar)" :title="isTyping.user.nickname" :alt="isTyping.user.nickname">
                     </div>
                     <div class="notification-event w-100">
-                        <a :href="'/users/'+isTyping.user.nickname" class="h6 notification-friend">{{message.user.name}}</a>
+                        <a :href="'/users/'+isTyping.user.nickname" class="h6 notification-friend">{{isTyping.user.name}}</a>
                         <span class="notification-date">
                             &nbsp;
                         </span>

@@ -201,6 +201,10 @@
     .close-reply svg{
         height: .688rem;
     }
+
+    .back-to-top{
+        right: 15px;
+    }
 </style>
 
 <!-- JS Scripts -->
