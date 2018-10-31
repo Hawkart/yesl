@@ -12,9 +12,11 @@ class University extends Model
     public $timestamps = true;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
      * @var array
      */
-    protected $fillable = ['title', 'url', 'json', 'address', 'domain', 'slug'];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.

@@ -21,6 +21,7 @@ Vue.component('feed-list', require('./components/FeedList'));
 Vue.component('chat', require('./components/Chat'));
 Vue.component('chat-dialog-form', require('./components/ChatDialogForm'));
 Vue.component('chat-dialog-button', require('./components/ChatDialogButton'));
+Vue.component('chat-notify-icon', require('./components/ChatNotifyIcon'));
 
 import {
     HasError,
