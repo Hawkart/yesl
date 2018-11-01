@@ -27,7 +27,7 @@
                             @if(!empty($group->groupable->location_lat))
                                 <pin-popup-google-map :university="{{json_encode($group->groupable->toArray())}}"></pin-popup-google-map>
                             @endif
-                        
+
                             <ul class="widget w-personal-info item-block">
                                 <li>
                                     <span class="title">Address:</span>

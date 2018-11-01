@@ -1,7 +1,5 @@
 <template>
-    <div class="container">
-        <div class="google-map" :id="name"></div>
-    </div>
+    <div class="google-map" :id="name"></div>
 </template>
 
 <script>

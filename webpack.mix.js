@@ -1,15 +1,28 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix')
+//const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+mix.config.vue.esModule = true
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix
+    .js('resources/assets/js/app.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css')
+
+    .sourceMaps()
+    .disableNotifications()
+
+if (mix.inProduction) {
+    mix.version()
+}
+
+mix.webpackConfig({
+    plugins: [
+        //new BundleAnalyzerPlugin()
+    ],
+    resolve: {
+        extensions: ['.js', '.json', '.vue'],
+    },
+    output: {
+        publicPath: mix.config.hmr ? '//localhost:8080' : '/',
+        jsonpFunction: 'webpackJsonp'
+    }
+})
