@@ -30,6 +30,8 @@
         ]) !!};
     </script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key={{getenv('GOOGLE_MAPS_KEY', '')}}"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-reboot.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap.css') }}">
@@ -206,8 +208,14 @@
         right: 15px;
     }
 
-    .chat-dialog-form{
+    .chat-dialog-form, .map-popup{
         width: 600px;
+    }
+    .pin-google{
+        font-size: 18px;
+        margin-left: 5px;
+        color: #7c5ac2;
+        padding: 4px 9px;
     }
 </style>
 

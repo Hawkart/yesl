@@ -210,11 +210,10 @@
 
 
 <profiles-add-component></profiles-add-component>
+<chat-dialog-form></chat-dialog-form>
+<popup-google-map></popup-google-map>
 
 <a class="back-to-top" href="#">
     <img src="/svg-icons/back-to-top.svg" alt="arrow" class="back-icon">
 </a>
 
-<!-- Window-popup-CHAT for responsive min-width: 768px -->
-<chat-dialog-form></chat-dialog-form>
-<!-- ... end Window-popup-CHAT for responsive min-width: 768px -->

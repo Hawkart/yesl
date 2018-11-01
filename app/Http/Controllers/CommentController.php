@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Storage;
 use Image;
@@ -102,7 +103,7 @@ class CommentController extends Controller
         {
             foreach ($usernames[1] as $username)
             {
-                if (!User::whereUsername($username)->get()->isEmpty())
+                if (!User::where('nickname', $username)->get()->isEmpty())
                 {
                     $postBody = preg_replace("/(@\\w+)/", '<a href="/users/' . $username . '">${1}</a>', $postBody);
                     // Notify
@@ -113,14 +114,7 @@ class CommentController extends Controller
             }
         }
 
-        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $postBody, $urls);
-        if (!empty($urls))
-        {
-            foreach ($urls[0] as $url)
-            {
-                $postBody = str_replace($url, '<a href="' . $url . '" target="_blank">'.$url.'</a>', $postBody);
-            }
-        }
+        $postBody = preg_replace("#(https?|ftp)://\S+[^\s.,>)\];'\"!?]#",'<a href="\\0" target="_blank">\\0</a>',$postBody);
 
         return $postBody;
     }

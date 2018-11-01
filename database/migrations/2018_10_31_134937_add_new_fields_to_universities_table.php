@@ -14,7 +14,6 @@ class AddNewFieldsToUniversitiesTable extends Migration
     public function up()
     {
         Schema::table('universities', function (Blueprint $table) {
-            $table->string('image')->nullable();
             $table->integer('score_id');
             $table->integer('ope8_id');
             $table->integer('ope6_id');

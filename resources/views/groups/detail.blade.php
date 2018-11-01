@@ -15,15 +15,19 @@
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
                     <div class="post-thumb mb-0" style="height: 300px">
-                        <img src="{{ Storage::disk('public')->url($group->image) }}" alt="cover image">
+                        <img src="{{ Storage::disk('public')->url($group->image) }}" alt="{{$group->title}}">
                     </div>
                     <div class="ui-block-content">
 
                         <h6 class="title">{{$group->title}}</h6>
 
                         @if($group->groupable instanceof \App\Models\University)
-                            <a href="#" class="post-category bg-blue-light">The college</a>
+                            <a href="#" class="post-category bg-blue-light mb-xxl-1">The college</a>
 
+                            @if(!empty($group->groupable->location_lat))
+                                <pin-popup-google-map :university="{{json_encode($group->groupable->toArray())}}"></pin-popup-google-map>
+                            @endif
+                        
                             <ul class="widget w-personal-info item-block">
                                 <li>
                                     <span class="title">Address:</span>
@@ -37,7 +41,7 @@
                         @elseif($group->groupable instanceof \App\Models\Game)
                             <a href="#" class="post-category bg-primary">The game</a>
 
-                            <ul class="widget w-personal-info item-block">
+                            <ul class="widget w-personal-info item-bloc mb-xxl-1k">
                                 <li>
                                     <span class="text">{{$group->groupable->body}}</span>
                                 </li>
@@ -99,11 +103,12 @@
                     </div>
                 </div>
 
+                @if(count($similar_groups)>0)
                 <div class="ui-block">
                     <div class="ui-block-title">
                         <h6 class="title">Similar groups</h6>
                     </div>
-                    @if(count($similar_groups)>0)
+
                     <ul class="widget w-friend-pages-added notification-list friend-requests">
                         @foreach($similar_groups as $sgroup)
                         <li class="inline-items">
@@ -117,8 +122,9 @@
                         </li>
                         @endforeach
                     </ul>
-                    @endif
                 </div>
+                @endif
+
             </div>
         </div>
     </div>
