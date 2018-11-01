@@ -9,20 +9,6 @@
         data: function () {
             return {
                 map: '',
-                /*markers: [
-                    {
-                        position: {
-                            latitude: 59.93,
-                            longitude: 30.32
-                        }
-                    },
-                    {
-                        position: {
-                            latitude: 59.928,
-                            longitude: 30.32
-                        }
-                    }
-                ]*/
             }
         },
         computed: {
@@ -31,25 +17,34 @@
             }
         },
         mounted: function () {
-            /*eslint-disable */
-            const element = document.getElementById(this.name)
-            const options = {
-                zoom: 14,
-                center: new google.maps.LatLng(this.markers[0].position.latitude, this.markers[0].position.longitude)
-            }
-            this.map = new google.maps.Map(element, options)
-
-            this.markers.forEach((marker) => {
-                const position = new google.maps.LatLng(marker.position.latitude, marker.position.longitude)
-                marker.map = this.map
-                marker.position = position
-                new google.maps.Marker(marker)
-            })
-            /*eslint-enable */
+            this.init();
         },
         methods: {
+            init()
+            {
+                if(this.markers.length>0)
+                {
+                    const element = document.getElementById(this.name)
+                    const options = {
+                        zoom: 14,
+                        center: new google.maps.LatLng(this.markers[0].position.latitude, this.markers[0].position.longitude)
+                    }
+                    this.map = new google.maps.Map(element, options)
 
-        }
+                    this.markers.forEach((marker) => {
+                        const position = new google.maps.LatLng(marker.position.latitude, marker.position.longitude)
+                        marker.map = this.map
+                        marker.position = position
+                        new google.maps.Marker(marker)
+                    })
+                }
+            }
+        },
+        watch: {
+            markers() {
+                this.init();
+            }
+        },
     }
 </script>
 
