@@ -83,7 +83,6 @@ class ThreadController extends Controller
         if($channel_id>0)
         {
             $thread = Thread::findOrFail($channel_id);
-            $thread->activateAllParticipants();
             $participants = [];
         }else{
             $participants = $request->get('participants');
@@ -95,7 +94,6 @@ class ThreadController extends Controller
             if($th->count()>0)
             {
                 $thread = $th->first();
-                $thread->activateAllParticipants();
                 $participants = [];
             }else{
                 $subject = $users[0]->name;
@@ -128,12 +126,18 @@ class ThreadController extends Controller
 
         $message = Message::where("id", $message->id)
             ->with(['user'])->first()->toArray();
-            //->with(['user', 'thread'])->first()->toArray();
 
         $thread->load(['participants.user']);
         $thread->participantsString = $thread->participantsString();
         $thread->userUnreadMessagesCount = $thread->userUnreadMessagesCount($user->id);
         $thread->latestMessage = $thread->getLatestMessageAttribute();
+
+        /*$unreads = [];
+        $threads = Thread::forUser($user->id)->get();
+        foreach($threads as $channel)
+        {
+            $unreads[$channel->id] = $channel->userUnreadMessagesCount($user->id);
+        }*/
 
         // Dispatch an event. Will be broadcasted over Redis.
         event(new MessageSent($thread->id, $message));

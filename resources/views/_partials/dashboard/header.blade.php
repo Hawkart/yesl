@@ -72,8 +72,8 @@
 
 
             <div class="control-icon more has-items">
-                <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
-                <div class="label-avatar bg-purple">2</div>
+
+                <chat-notify-icon :user="{{json_encode(Auth::user()->toArray())}}"></chat-notify-icon>
                 {{--
                 <div class="more-dropdown more-with-triangle triangle-top-center">
                     <div class="ui-block-title ui-block-title-small">
@@ -240,8 +240,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#chat" role="tab">
                     <div class="control-icon has-items">
-                        <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
-                        <div class="label-avatar bg-purple">2</div>
+                        <chat-notify-icon :user="{{json_encode(Auth::user()->toArray())}}"></chat-notify-icon>
                     </div>
                 </a>
             </li>

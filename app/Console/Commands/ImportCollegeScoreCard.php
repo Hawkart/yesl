@@ -27,6 +27,13 @@ class ImportCollegeScoreCard extends Command
     protected $description = 'Import USA University.';
 
     /**
+     * The console command description.
+     *
+     * @var array
+     */
+    protected $naces = [];
+
+    /**
      * Execute the console command.
      *
      * @return mixed
@@ -38,6 +45,9 @@ class ImportCollegeScoreCard extends Command
         Group::truncate();
         GroupUser::truncate();
         DB::statement("SET foreign_key_checks=1");
+
+        $nace = 'Albright College;Ashland University;Averett University;Bellevue University;Bloomfield College;Boise State University;Brescia University;Campbellsville University;Cazenovia College;Central Maine Community College;Central Methodist University;Centralia College;Cincinnati Christian University;Coker College;College of St. Joseph;Columbia College - Missouri;Culver-Stockton College;Daemen College;Dakota Wesleyan University;Defiance College;Delaware Valley University;DeSales University;Dickinson State University;East Coast Polytechnic Institute;Edinboro University;Embry-Riddle Aeronautical University (Arizona Campus);Ferrum College;Florida Southern College;Fontbonne University;Georgia Southern University;Georgia State University;Grand View University;Harrisburg University;Hartwick College;Hastings College;Hawkeye Community College;Illinois College;Illinois Wesleyan University;Indiana Institute of Technology;Iowa Central Community College;Jarvis Christian College;Juniata College;Kansas Wesleyan University;Keuka College;King University - Tennessee;Lackawanna College;Lawrence Technological University;Lebanon Valley College;Lees-McRae College;Limestone College;Lindenwood University;Lourdes University;Marietta College;Maryville University;McPherson College;Menlo College;Miami University;Midland University;Missouri Valley College;Montreat College;Morningside College;Mount St. Joseph University;Mount Vernon Nazarene University;New England College;New Mexico State University;Northern Virginia Community College;Northwest Christian University;Ohio Northern University;Oregon Institute of Technology;Park University;Principia College;Randolph-Macon College;Robert Morris University - Illinois;Sacred Heart University;Savannah College of Art & Design;Schreiner University;Shawnee State University;Shenandoah University;Siena Heights University;Simpson University;Southern New Hampshire University;Southwestern Oregon Community College;Spalding University;St. Ambrose University;St. Clair College;St. Louis College of Pharmacy;St. Thomas Aquinas College;St. Thomas University - Florida;Stephens College;Stevenson University;SUNY Canton;Texas Wesleyan University;Trine University;Union County College;University of Akron;University of Antelope Valley;University of Jamestown;University of North Texas;University of Oklahoma;University of Pikeville;University of Providence (Formerly University of Great Falls);University of Saint Mary;University of South Carolina - Sumter;University of South Carolina - Union;University of Texas at Dallas;Upper Iowa University;Viterbo University;West Virginia Wesleyan College;Western Kentucky University;Wichita State University';
+        $this->naces = explode(";", $nace);
 
         $page = 0;
         do{
@@ -61,7 +71,7 @@ class ImportCollegeScoreCard extends Command
         $api_url = 'https://api.data.gov/ed/collegescorecard/v1/schools';
         $key = getenv('COLLEGESCORECARD_KEY', '');
         $fields = ['id', 'ope8_id', 'ope6_id', 'school.name', 'school.city', 'school.state', 'school.zip',
-            'school.accreditor', 'school.school_url', 'school.price_calculator_url', 'school.main_campus', 'school.branches',
+            'school.accreditor', 'school.school_url', 'school.price_calculator_url', 'school.main_campus', 'school.branches', 'school.degrees_awarded.highest',
             'school.ownership', 'school.state_fips', 'school.region_id', 'location.lat', 'location.lon',
             'latest.admissions.admission_rate.overall', 'latest.admissions.sat_scores.average.overall', 'school.online_only',
             'latest.student.size', 'latest.student.enrollment.all', 'school.operating', 'latest.cost.tuition.in_state', 'latest.cost.tuition.out_of_state',
@@ -109,6 +119,7 @@ class ImportCollegeScoreCard extends Command
             $domain = str_ireplace('www.', '', parse_url($url, PHP_URL_HOST));
 
             University::create([
+                'nace' => in_array($university['school.name'], $this->naces),
                 'title' => $university['school.name'],
                 'url' => $url,
                 'address' => $university['school.zip'].", ".$university['school.city'].", ".$university['school.state'],
@@ -122,6 +133,7 @@ class ImportCollegeScoreCard extends Command
                 'zip' =>  $university['school.zip'],
                 'accreditor' =>  $university['school.accreditor'],
                 'price_calculator_url' =>  $university['school.price_calculator_url'],
+                'degrees_awarded_highest' => $university['school.degrees_awarded.highest'],
                 'main_campus' =>  $university['school.main_campus'],
                 'branches' =>  $university['school.branches'],
                 'ownership' =>  $university['school.ownership'],
