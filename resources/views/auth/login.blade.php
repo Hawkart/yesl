@@ -73,7 +73,7 @@
                                 </a>
                             </div>
 
-                            <button type="submit" class="btn btn-lg btn-purple full-width">
+                            <button type="submit" class="btn btn-lg btn-primary full-width">
                                 {{ __('Login') }}
                             </button>
 

@@ -30,7 +30,7 @@
                                         <article class="hentry blog-post" data-mh="choose-item">
                                             <div class="post-thumb">
                                                 <a href="{!! route('group', ['slug' => $group->slug]) !!}">
-                                                    <img src="{{ Storage::disk('public')->url($group->image) }}" alt="cover image">
+                                                    <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="cover image">
                                                 </a>
                                             </div>
 
@@ -56,7 +56,7 @@
                                                     {{ str_limit($group->title, 50, '...') }}
                                                 </a>
 
-                                                <!--<button type="submit" class="btn btn-purple btn-md full-width">
+                                                <!--<button type="submit" class="btn btn-primary btn-md full-width">
                                                     Subscribe
                                                 </button>-->
                                             </div>

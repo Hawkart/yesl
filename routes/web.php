@@ -84,6 +84,13 @@ Route::post('/groups/{id}/checkin', 'GroupController@checkUserIsMember');
 Route::post('/groups/{id}/users', 'GroupController@join');
 //Route::get('/groups/{id}/users', 'GroupController@users')->name('group.users');
 
+
+/**
+ * Groups
+ */
+Route::get('/universities', 'GroupController@universities')->name('universities');
+Route::get('/universities/{slug}', 'GroupController@university')->name('university');
+
 /**
  * Profiles
  */

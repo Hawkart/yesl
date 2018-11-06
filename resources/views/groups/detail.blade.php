@@ -15,7 +15,7 @@
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
                     <div class="post-thumb mb-0" style="height: 300px">
-                        <img src="{{ Storage::disk('public')->url($group->image) }}" alt="{{$group->title}}">
+                        <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}">
                     </div>
                     <div class="ui-block-content">
 

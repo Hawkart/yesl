@@ -1,6 +1,6 @@
 <template>
     <a href="#" class="post-add-icon inline-items" v-bind:class="{'active': checkUserLiked()}" @click.prevent="makeLike">
-        <svg class="olymp-heart-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-heart-icon"></use></svg>
+        <img src="/svg-icons/sprites/Like_post.svg"style="width: 22px; height: 22px;">
         <span>{{ likes.length }}</span>
     </a>
 

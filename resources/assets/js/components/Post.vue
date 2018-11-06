@@ -64,12 +64,12 @@
 
                 <div class="comments-shared">
                     <a href="#" class="post-add-icon inline-items" v-on:click.prevent="show_comments=!show_comments">
-                        <svg class="olymp-speech-balloon-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+                        <img src="/svg-icons/sprites/Comments_post.svg" title="comment" style="width: 22px; height: 22px;">
                         <span>{{ post.comments.length }}</span>
                     </a>
 
                     <a href="#" class="post-add-icon inline-items">
-                        <svg class="olymp-share-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+                        <img src="/svg-icons/sprites/Repost_post.svg" title="repost" style="width: 22px; height: 22px;">
                         <span>0</span>
                     </a>
                 </div>

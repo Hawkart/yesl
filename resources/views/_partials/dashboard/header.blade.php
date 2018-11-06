@@ -110,7 +110,7 @@
 
 
             <div class="control-icon more has-items">
-                <svg class="olymp-thunder-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-thunder-icon"></use></svg>
+                <img src="/svg-icons/sprites/Notifications.svg" style="width: 28px; height: 28px;">
                 <div class="label-avatar bg-primary">8</div>
 
                 {{--
@@ -248,7 +248,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
                     <div class="control-icon has-items">
-                        <svg class="olymp-thunder-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-thunder-icon"></use></svg>
+                        <img src="/svg-icons/sprites/Notifications.svg" style="width: 28px; height: 28px;">
                         <div class="label-avatar bg-primary">8</div>
                     </div>
                 </a>

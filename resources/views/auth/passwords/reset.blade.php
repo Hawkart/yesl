@@ -43,7 +43,7 @@
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-lg btn-purple full-width">
+                                <button type="submit" class="btn btn-lg btn-primary full-width">
                                     {{ __('Reset Password') }}
                                 </button>
                             </div>

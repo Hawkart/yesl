@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Traits\Excludable;
 
 class University extends Model
 {
-    use Sluggable;
+    use Sluggable, Excludable;
 
     public $timestamps = true;
 

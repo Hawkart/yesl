@@ -111,7 +111,7 @@
                                 @endif
                             </div>
 
-                            <button type="submit" class="btn btn-purple btn-lg full-width">
+                            <button type="submit" class="btn btn-primary btn-lg full-width">
                                 {{ __('Register') }}
                             </button>
                         </div>

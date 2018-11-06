@@ -1,6 +1,6 @@
 <template>
     <div>
-        <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+        <img src="/svg-icons/sprites/Message_top.svg" style="width: 28px; height: 28px;">
         <div class="label-avatar bg-purple" v-if="count>0">{{count}}</div>
     </div>
 </template>

@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-grid.css') }}">
 
     <!-- Main Styles CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fonts.min.css') }}">
 </head>
 
@@ -212,10 +212,42 @@
         width: 600px;
     }
     .pin-google{
-        font-size: 18px;
-        margin-left: 5px;
         color: #7c5ac2;
         padding: 4px 9px;
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+        display: inline-block;
+        text-align: center;
+        line-height: 20px;
+        position: relative;
+        top: -1px;
+        margin-left: 0;
+    }
+
+    .university-overlay{
+        max-height: 300px;
+        overflow: hidden;
+        border-radius: 5px;
+    }
+
+    .verified{
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+        background-color: #6ec4f7;
+        color: #fff;
+        font-size: 6px;
+        display: inline-block;
+        text-align: center;
+        line-height: 16px;
+        position: relative;
+        top: -6px;
+        margin-left: 5px;
+    }
+
+    .left-menu .left-menu-icon{
+        margin-right: 0;
     }
 </style>
 

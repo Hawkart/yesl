@@ -20,64 +20,71 @@
                 [
                     'title' => 'MY PAGE',
                     'url' => '/users/'.Auth::user()->nickname,
-                    'svg' => 'olymp-manage-widgets-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon',
+                    'svg' => 'MyPage',
+                    'xlink' => '/svg-icons/sprites/MyPage.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'NEWSFEED',
                     'url' => '/',
                     'svg' => 'olymp-newsfeed-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-newsfeed-icon',
+                    'xlink' => '/svg-icons/sprites/NewsFeed.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'MESSAGES',
                     'url' => '/im',
                     'svg' => 'olymp-chat---messages-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-chat---messages-icon',
+                    'xlink' => '/svg-icons/sprites/Messages.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'GROUPS',
                     'url' => route('groups'),
                     'svg' => 'olymp-happy-faces-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-happy-faces-icon',
+                    'xlink' => '/svg-icons/sprites/Groups.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'FRIENDS',
                     'url' => '/',
                     'svg' => 'olymp-newsfeed-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-newsfeed-icon',
+                    'xlink' => '/svg-icons/sprites/Friends.svg',
                     'li_class' => ''
                 ],
                 [
-                    'title' => 'COLLEGES',
-                    'url' => '/',
+                    'title' => 'UNIVERSITIES',
+                    'url' => route('universities'),
                     'svg' => 'olymp-newsfeed-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-newsfeed-icon',
+                    'xlink' => '/svg-icons/sprites/Universities.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'GAMES',
                     'url' => '/',
                     'svg' => 'olymp-newsfeed-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-newsfeed-icon',
+                    'xlink' => '/svg-icons/sprites/Games.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'TEAMS',
                     'url' => '/',
                     'svg' => 'olymp-newsfeed-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-newsfeed-icon',
+                    'xlink' => '/svg-icons/sprites/Teams.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'TOURNAMENTS',
                     'url' => '/',
                     'svg' => 'olymp-newsfeed-icon',
-                    'xlink' => '/svg-icons/sprites/icons.svg#olymp-newsfeed-icon',
+                    'xlink' => '/svg-icons/sprites/Tournaments.svg',
+                    'li_class' => ''
+                ],
+                [
+                    'title' => 'Financial Aid',
+                    'url' => '/',
+                    'svg' => 'olymp-newsfeed-icon',
+                    'xlink' => '/svg-icons/sprites/Donations.svg',
                     'li_class' => ''
                 ],
             ];
@@ -85,13 +92,20 @@
 
         <div class="mCustomScrollbar" data-mcs-theme="dark">
             <ul class="left-menu">
-                @foreach($menus as $menu)
+                @foreach($menus as $key=>$menu)
                     <li>
+                        @if($key==0)
+                            <a href="#" class="js-sidebar-open">
+                                <svg class="olymp-menu-icon left-menu-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-menu-icon" data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}"></use></svg>
+                            </a>
+                        @else
                         <a href="{{$menu['url']}}" class="{{$menu['li_class']}}">
-                            <svg class="{{$menu['svg']}} left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}">
+                            <!--<svg class="{{$menu['svg']}} left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}">
                                 <use xlink:href="{{$menu['xlink']}}"></use>
-                            </svg>
+                            </svg>-->
+                            <img src="{{$menu['xlink']}}" data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}" style="width: 24px; height: 24px;">
                         </a>
+                        @endif
                     </li>
                 @endforeach
             </ul>
@@ -119,9 +133,7 @@
                             </a>
                         @else
                             <a href="{{$menu['url']}}" class="{{$menu['li_class']}}">
-                                <svg class="{{$menu['svg']}} left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}">
-                                    <use xlink:href="{{$menu['xlink']}}"></use>
-                                </svg>
+                                <img src="{{$menu['xlink']}}" data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}" style="width: 24px; height: 24px;">
                                 <span class="left-menu-title">{{ ucfirst(strtolower($menu['title'])) }}</span>
                             </a>
                         @endif

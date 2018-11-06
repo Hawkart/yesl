@@ -6,7 +6,7 @@
                 <v-button :loading="form.busy" type="primary" :large="false" additional="btn-xs full-width mt-lg-3 mb-0">Unsubscribe</v-button>
             </template>
             <template v-else>
-                <v-button :loading="form.busy" type="purple" :large="false" additional="btn-xs full-width mt-lg-3 mb-0">Subscribe</v-button>
+                <v-button :loading="form.busy" type="primary" :large="false" additional="btn-xs full-width mt-lg-3 mb-0">Subscribe</v-button>
             </template>
         </form>
     </div>

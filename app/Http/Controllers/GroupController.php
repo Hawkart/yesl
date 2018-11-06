@@ -42,6 +42,38 @@ class GroupController extends Controller
     }
 
     /**
+     * Display a listing of the universities.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function universities(Request $request)
+    {
+        $groups = Group::orderBy('id', 'desc')
+            ->where('groupable_type', 'App\Models\University')
+            ->search($request)->paginate(12);
+
+        $this->seo()->setTitle("Universities");
+
+        return view('universities.index', compact('groups'));
+    }
+
+    /**
+     * Display a listing of the games.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function games(Request $request)
+    {
+        $groups = Group::orderBy('id', 'desc')
+            ->where('groupable_type', 'App\Models\Game')
+            ->search($request)->paginate(12);
+
+        $this->seo()->setTitle("Games");
+
+        return view('universities.index', compact('groups'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -91,6 +123,37 @@ class GroupController extends Controller
         $this->seo()->setTitle($group->title);
 
         return view ('groups.detail', compact(['group', 'similar_groups', 'can_post']));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function university($slug, Request $request)
+    {
+        $group = Group::where('slug', $slug)
+            ->firstOrFail();
+
+        $similar_groups = [];
+        if($group->groupable instanceof \App\Models\Game)
+        {
+            $genre_id = $group->groupable->genre_id;
+            $games = Game::where('genre_id', $genre_id)->where('id', "<>", $group->groupable->id)->limit(5)->get();
+            foreach($games as $game)
+            {
+                $similar_groups[] = $game->group;
+            }
+        }
+
+        $user = Auth::user();
+        $groups = $user->groups()->pluck('group_id')->toArray();
+        $can_post = in_array($group->id, $groups) && $group->owner_id==$user->id;
+
+        $this->seo()->setTitle($group->title);
+
+        return view ('universities.detail', compact(['group', 'similar_groups', 'can_post']));
     }
 
     /**
