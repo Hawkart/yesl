@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
@@ -48,13 +49,15 @@ class GroupController extends Controller
      */
     public function universities(Request $request)
     {
-        $groups = Group::orderBy('id', 'desc')
+        $groups = Group::orderBy('title', 'asc')
             ->where('groupable_type', 'App\Models\University')
             ->search($request)->paginate(12);
 
+        $states = array_merge(['0' => 'Select state'], University::$states);
+
         $this->seo()->setTitle("Universities");
 
-        return view('universities.index', compact('groups'));
+        return view('universities.index', compact('groups', 'states'));
     }
 
     /**

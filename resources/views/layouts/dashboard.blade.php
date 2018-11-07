@@ -249,6 +249,10 @@
     .left-menu .left-menu-icon{
         margin-right: 0;
     }
+
+    .modal-content{
+        width: 100%;
+    }
 </style>
 
 <!-- JS Scripts -->

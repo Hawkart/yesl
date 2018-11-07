@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\University;
 
 class Group extends Model
 {
@@ -36,6 +37,15 @@ class Group extends Model
     public function groupable()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Get all of the owning groupable models.
+     */
+    public function university()
+    {
+        return $this->belongsTo(University::class, 'groupable_id')
+            ->where('groups.groupable_type', University::class);
     }
 
     /**
@@ -74,6 +84,12 @@ class Group extends Model
         if(!empty($request['q']))
         {
             $query->where('title', 'like', "%".$request['q']."%");
+        }
+        if(!empty($request['state']))
+        {
+            $query->whereHas('university', function($q) use ($request){
+                $q->where('state', $request['state']);
+            });
         }
         return $query;
     }

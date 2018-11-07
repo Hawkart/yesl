@@ -33,7 +33,7 @@ class GameController extends Controller
         {
             return response()->json($games, 200);
         }else{
-            $groups = Group::orderBy('id', 'desc')
+            $groups = Group::orderBy('id', 'asc')
                 ->where('groupable_type', 'App\Models\Game')
                 ->search($request)->paginate(12);
 

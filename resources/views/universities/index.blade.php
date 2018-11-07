@@ -76,13 +76,11 @@
                             </div>
                             <div class="ui-block-content">
                                 <form class="form-horizontal mt-10" method="GET">
-                                    @csrf
-
                                     <div class="row">
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group label-floating is-select">
                                                 <label class="control-label">State</label>
-                                                {{ Form::select('state', [], app('request')->input('state'), ['class' => 'selectpicker form-control']) }}
+                                                {{ Form::select('state', $states, app('request')->input('state'), ['class' => 'selectpicker form-control']) }}
                                             </div>
                                         </div>
 

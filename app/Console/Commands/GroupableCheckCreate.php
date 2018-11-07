@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 use App\Models\Game;
 use App\Models\University;
 use App\Models\GameUniversity;
+use App\Models\GroupUser;
 use App\Models\User;
 use App\Models\Group;
 use Illuminate\Console\Command;
