@@ -7,7 +7,6 @@
 
     <div class="header-content-wrapper">
 
-        {{--
         <form class="search-bar w-search notification-list friend-requests">
             <div class="form-group with-button">
                 <input class="form-control js-user-search" placeholder="Search here people or pages..." type="text">
@@ -16,8 +15,6 @@
                 </button>
             </div>
         </form>
-        <a href="#" class="link-find-friend">Find Friends</a>
-        --}}
 
         <div class="control-block">
 

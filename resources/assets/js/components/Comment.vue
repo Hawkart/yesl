@@ -1,9 +1,24 @@
 <template>
     <li class="comment-item" :id="'comment-'+comment.id">
         <div class="post__author author vcard inline-items">
-            <img :src="getImageLink(comment.user.avatar)" :alt="comment.user.name">
+
+            <img :src="getImageLink(group.image)" :alt="group.title" v-if="group!=undefined && comment.user.id==group.owner_id">
+            <img :src="getImageLink(comment.user.avatar)" :alt="comment.user.name" v-else>
+
             <div class="author-date">
-                <a class="h6 post__author-name fn" :href="'/users/'+comment.user.nickname">{{comment.user.name}} </a> <template v-if="comment.reply_id>0">answer to <a href="#" @click.prevent="scrollToComment(comment.reply_id)">{{comment.reply.user.name}}</a></template>
+
+                <template v-if="group!=undefined && comment.user.id==group.owner_id">
+                    <a class="h6 post__author-name fn" :href="'/universities/'+group.slug" v-if="group.groupable_type='App\Models\University'">{{group.title}}</a>
+                    <a class="h6 post__author-name fn" :href="'/games/'+group.slug" v-else-if="group.groupable_type='App\Models\Game'">{{group.title}}</a>
+                </template>
+                <template v-else>
+                    <a class="h6 post__author-name fn" :href="'/users/'+comment.user.nickname">{{comment.user.name}} </a>
+                </template>
+
+                <template v-if="comment.reply_id>0">answer to <a href="#" @click.prevent="scrollToComment(comment.reply_id)">
+                    <span v-if="group!=undefined && comment.user.id==group.owner_id">{{group.title}}</span>
+                    <span v-else>{{comment.reply.user.name}}</span>
+                </a></template>
                 <div class="post__date">
                     <time class="published" datetime="moment.utc(comment.created_at, 'YYYY-MM-DD h:mm:ss').local().format('YYYY-MM-DD h:mm:ss')">
                         {{moment.utc(comment.created_at, "YYYY-MM-DD h:mm:ss").local().format("MMMM Do, h:mm a") }}
@@ -37,7 +52,7 @@
 
 <script>
     export default {
-        props: ['comment', 'user'],
+        props: ['comment', 'user', 'group'],
         methods: {
             makeReply(comment) {
                 this.$emit('setReply', comment);

@@ -1,6 +1,6 @@
 <template>
     <div id="newsfeed-items-grid">
-        <post :user="user" :post="post" v-for="post in posts" :key="post.id" v-if="posts!=null && posts.length>0"/>
+        <post :user="user" :group = "group" :post="post" v-for="post in posts" :key="post.id" v-if="posts!=null && posts.length>0"/>
 
         <infinite-loading @infinite="infiniteHandler">
             <span slot="no-more">
@@ -16,12 +16,15 @@
 
     export default {
         components: {InfiniteLoading},
-        props: ['group_id', 'user', 'type'],
+        props: ['group', 'user', 'type'],
         data: () => ({
+            group_id : 0,
             posts: [],
             per_page: 10
         }),
         created(){
+            this.group_id = this.group.length>0 ? this.group.id : 0;
+
             Event.listen("PostNew"+this.group_id, (post) => {
                 this.posts.unshift(post);   //add to start
 
@@ -31,13 +34,14 @@
         },
         methods: {
             infiniteHandler($state) {
+                console.log(this.group);
 
                 if(this.type=='wall')
                 {
                     var url = '/users/'+this.user.id+'/wall';
                 }else if(this.type=='group')
                 {
-                    var url = '/groups/'+this.group_id+'/posts';
+                    var url = '/groups/'+this.group.id+'/posts';
                 }
 
                 axios.get(url, {

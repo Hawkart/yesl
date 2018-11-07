@@ -13,7 +13,7 @@
                             <div class="h6 title">Universities ({{$groups->total()}})</div>
                             <form class="w-search">
                                 <div class="form-group with-button">
-                                    <input class="form-control" name="q" type="text" placeholder="Search Groups..." value="{{ app('request')->input('q') }}">
+                                    <input class="form-control" name="q" type="text" placeholder="Search universities..." value="{{ app('request')->input('q') }}">
                                     <button>
                                         <svg class="olymp-magnifying-glass-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon"></use></svg>
                                     </button>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    @if($groups->count())
+                    @if($groups->count()>0)
                         <div class="row">
                             <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             @foreach($groups as $group)
@@ -73,6 +73,24 @@
                         <div class="your-profile">
                             <div class="ui-block-title ui-block-title-small">
                                 <h6 class="title">FILTER</h6>
+                            </div>
+                            <div class="ui-block-content">
+                                <form class="form-horizontal mt-10" method="GET">
+                                    @csrf
+
+                                    <div class="row">
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group label-floating is-select">
+                                                <label class="control-label">State</label>
+                                                {{ Form::select('state', [], app('request')->input('state'), ['class' => 'selectpicker form-control']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <button class="btn btn-primary full-width mb-0">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

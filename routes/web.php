@@ -67,12 +67,6 @@ Route::group(['prefix' => 'channels', 'middleware' => 'auth'], function () {
 });
 
 /**
- * Games
- */
-Route::get('/games', 'GameController@index')->name('games');
-Route::get('/games/{slug}', 'GameController@show')->name('game');
-
-/**
  * Groups
  */
 Route::get('/groups', ['as' => 'my.groups', 'uses' => 'UserController@myGroups', 'middleware' => 'auth']);
@@ -86,10 +80,17 @@ Route::post('/groups/{id}/users', 'GroupController@join');
 
 
 /**
- * Groups
+ * Universities
  */
 Route::get('/universities', 'GroupController@universities')->name('universities');
 Route::get('/universities/{slug}', 'GroupController@university')->name('university');
+
+/**
+ * Games
+ */
+Route::get('/games', 'GameController@index')->name('games');
+//Route::get('/games', 'GroupController@games')->name('games');
+Route::get('/games/{slug}', 'GroupController@game')->name('game');
 
 /**
  * Profiles

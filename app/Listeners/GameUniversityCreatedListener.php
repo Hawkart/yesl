@@ -22,11 +22,13 @@ class GameUniversityCreatedListener
         if(!$user = Auth::user())
             $user = User::where('role_id', 1)->first();
 
-        Group::create([
+        $group = Group::create([
             'title' => $gameUniversity->university->title.". ".$gameUniversity->game->title,
             'owner_id' => $user->id,
             'groupable_type' => 'App\Models\GameUniversity',
             "groupable_id" => $gameUniversity->id
         ]);
+
+        $user->groups()->attach($group->id);
     }
 }

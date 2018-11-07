@@ -8,14 +8,18 @@ use App\Acme\Helpers\TwitchHelper;
 use Illuminate\Support\Str;
 use App\Models\Genre;
 use App\Models\Game;
+use App\Models\Group;
 use Storage;
 use Image;
 use File;
 use Cache;
 use DB;
+use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 
 class GameController extends Controller
 {
+    use SEOToolsTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +33,13 @@ class GameController extends Controller
         {
             return response()->json($games, 200);
         }else{
+            $groups = Group::orderBy('id', 'desc')
+                ->where('groupable_type', 'App\Models\Game')
+                ->search($request)->paginate(12);
 
+            $this->seo()->setTitle("Games");
+
+            return view('games.index', compact('groups'));
         }
     }
 
@@ -118,6 +128,7 @@ class GameController extends Controller
         $count = 0;
         $limit = 100;
         $offset = 0;
+
         do{
             $responseTwitch = $twitchClient->getTopGames((int)$limit, (int)$offset);
             $total = intval($responseTwitch['_total']);
@@ -150,6 +161,10 @@ class GameController extends Controller
                     {
                         $genre_id = 1;
                     }
+
+                    $aliases =  explode(PHP_EOL, $game->getAliases());
+
+                    if(!$this->checkAllowed($game->getName(), $aliases)) continue;
 
                     //Make logo
                     $logo = null;
@@ -204,8 +219,6 @@ class GameController extends Controller
                     if($logo===NULL && count($arImages)>0)
                         $logo = $arImages[0];
 
-                    $aliases =  explode(PHP_EOL, $game->getAliases());
-
                     $data = [
                         'active'      => true,
                         'title'       => $game->getName(),
@@ -230,5 +243,37 @@ class GameController extends Controller
             echo $count." ".$total."\r\n";
 
         } while ($count<$total);
+    }
+
+    public function checkAllowed($title, $aliases)
+    {
+        $names = ['Gears of War', 'Call Of Duty', 'HALO', 'League of Legends', 'Street Fighter', 'CS:GO', 'HEARTHSTONE', 'OVERWATCH', 'WORLD OF WARCRAFT',
+            'Star Wars Battlefront', 'DOTA2', 'FIFA', 'FORTNITE', 'PUBG', 'SMITE', 'PALADINS', 'Heroes of the Storm', 'Brawlhalla', 'Starcraft',
+            'Super Smash Bros', 'Tom Clancy\'s Rainbow Six Siege', 'Brawl Stars', 'Clash Royale', 'Metal Slug', 'Rocket League', 'Tekken', 'World of Tanks'
+        ];
+
+        $allowed = false;
+        foreach($names as $name)
+        {
+            if(stripos($title, $name)==0 && stripos($title, $name)!==false)
+            {
+                $allowed = true;
+                break;
+            }
+
+            foreach($aliases as $alias)
+            {
+                if(stripos($alias, $name)==0 && stripos($alias, $name)!==false)
+                {
+                    $allowed = true;
+                    break;
+                }
+            }
+
+            if($allowed)
+                break;
+        }
+
+        return $allowed;
     }
 }

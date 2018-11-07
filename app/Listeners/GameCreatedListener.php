@@ -22,12 +22,14 @@ class GameCreatedListener
         if(!$user = Auth::user())
             $user = User::where('role_id', 1)->first();
 
-        Group::create([
+        $group = Group::create([
             'title' => $game->title,
             'image' => $game->logo,
             'owner_id' => $user->id,
             'groupable_type' => 'App\Models\Game',
             "groupable_id" => $game->id
         ]);
+
+        $user->groups()->attach($group->id);
     }
 }

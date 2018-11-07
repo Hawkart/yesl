@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul class="comments-list" v-if="comments.length>0">
-            <comment v-for="(comment, index) in comments" :key="comment.id" :comment="comment" :user="user" v-if="(index<1 && !show_comments) || show_comments" @setReply="onSetReply"/>
+            <comment v-for="(comment, index) in comments" :key="comment.id" :comment="comment" :group="group" :user="user" v-if="(index<1 && !show_comments) || show_comments" @setReply="onSetReply"/>
         </ul>
 
         <a href="#" class="more-comments" @click.prevent="show_comments=!show_comments" v-if="comments.length>1 && !show_comments">View more comments({{comments.length-1}}) <span>+</span></a>
@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        props: ['comments', 'user', 'post_id'],
+        props: ['comments', 'user', 'post_id', 'group'],
         created(){
             Event.listen("CommentNew"+this.post_id, (comment) => {
                 this.comments.unshift(comment);

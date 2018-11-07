@@ -33,6 +33,30 @@ class GroupableCheckCreate extends Command
      */
     public function handle()
     {
+        DB::statement("SET foreign_key_checks=0");
+        Group::truncate();
+        GroupUser::truncate();
+        DB::statement("SET foreign_key_checks=1");
+
+        $universities = University::where('nace', 1)->get();
+
+        foreach($universities as $university)
+        {
+            if($university->group()->count()==0)
+            {
+                $user = User::where('role_id', 1)->first();
+
+                $group = Group::create([
+                    'title' => $university->title,
+                    'owner_id' => $user->id,
+                    'groupable_type' => 'App\Models\University',
+                    "groupable_id" => $university->id
+                ]);
+
+                $user->groups()->attach($group->id);
+            }
+        }
+
         $games = Game::all();
         foreach($games as $game)
         {
@@ -40,13 +64,15 @@ class GroupableCheckCreate extends Command
             {
                 $user = User::where('role_id', 1)->first();
 
-                Group::create([
+                $group = Group::create([
                     'title' => $game->title,
                     'image' => $game->logo,
                     'owner_id' => $user->id,
                     'groupable_type' => 'App\Models\Game',
                     "groupable_id" => $game->id
                 ]);
+
+                $user->groups()->attach($group->id);
             }
         }
 
@@ -57,12 +83,14 @@ class GroupableCheckCreate extends Command
             {
                 $user = User::where('role_id', 1)->first();
 
-                Group::create([
+                $group =  Group::create([
                     'title' => $gameUniversity->university->title.". ".$gameUniversity->game->title,
                     'owner_id' => $user->id,
                     'groupable_type' => 'App\Models\GameUniversity',
                     "groupable_id" => $gameUniversity->id
                 ]);
+
+                $user->groups()->attach($group->id);
             }
         }
     }

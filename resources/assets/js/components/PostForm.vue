@@ -5,7 +5,8 @@
         <alert-errors :form="form"/>
         <form @submit.prevent="save" @keydown="form.onKeydown($event)">
             <div class="author-thumb">
-                <img :src="getImageLink(user.avatar)" :alt="user.name" width="36">
+                <img :src="getImageLink(user.avatar)" :alt="user.name" width="36" v-if="group.owner_id!=user.id">
+                <img :src="getImageLink(group.image)" :alt="group.title" width="36" v-else>
             </div>
             <!--<div class="form-group with-icon label-floating">-->
             <div class="form-group label-floating">
@@ -89,7 +90,7 @@
                         @input-filter="inputFilter"
                         @input-file="inputFile"
                         ref="upload">
-                    <svg class="olymp-camera-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-camera-icon"></use></svg>
+                    <img src="/svg-icons/sprites/Photo.svg" style="width: 22px; height: 22px;">
                 </file-upload>
 
                 <!--<a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
@@ -149,8 +150,9 @@
             FileUpload,
             LinkPrevue
         },
-        props: ['group_id', 'user'],
+        props: ['user', 'group'],
         data: () => ({
+            group_id : 0,
             form: new Form({
                 text: ''
             }),
@@ -183,6 +185,9 @@
             isOption: false,
 
     }),
+        created(){
+            this.group_id = this.group.length>0 ? this.group.id : 0;
+        },
         methods: {
             save()
             {

@@ -4,10 +4,20 @@
         <article class="hentry post video">
 
             <div class="post__author author vcard inline-items">
-                <img :src="getImageLink(post.user.avatar)" :alt="post.user.name">
+
+                <img :src="getImageLink(group.image)" :alt="group.title" v-if="group!=undefined && post.user.id==group.owner_id">
+                <img :src="getImageLink(post.user.avatar)" :alt="post.user.name" v-else>
 
                 <div class="author-date">
-                    <a class="h6 post__author-name fn" href="#">{{post.user.name}}</a><!-- shared a <a href="#">link</a>-->
+
+                    <template v-if="group!=undefined && post.user.id==group.owner_id">
+                        <a class="h6 post__author-name fn" :href="'/universities/'+group.slug" v-if="group.groupable_type='App\Models\University'">{{group.title}}</a>
+                        <a class="h6 post__author-name fn" :href="'/games/'+group.slug" v-else-if="group.groupable_type='App\Models\Game'">{{group.title}}</a>
+                    </template>
+                    <template v-else>
+                        <a class="h6 post__author-name fn" :href="'/users/'+post.user.nickname">{{post.user.name}}</a><!-- shared a <a href="#">link</a>-->
+                    </template>
+
                     <div class="post__date">
                         <time class="published" datetime="moment.utc(post.created_at, 'YYYY-MM-DD h:mm:ss').local().format('YYYY-MM-DD h:mm:ss')">
                             {{moment.utc(post.created_at, "YYYY-MM-DD h:mm:ss").local().format("MMMM Do, h:mm a") }}
@@ -91,8 +101,8 @@
 
         </article>
 
-        <comment-list :comments="post.comments" :post_id="post.id" :user="user" v-if="show_comments" @setReply="onSetReply"></comment-list>
-        <comment-form :post_id="post.id" :user="user" :reply="reply_on" v-if="show_comments" @deleteReply="onDeleteReply"></comment-form>
+        <comment-list :comments="post.comments" :post_id="post.id" :group="group" :user="user" v-if="show_comments" @setReply="onSetReply"></comment-list>
+        <comment-form :post_id="post.id" :group="group" :user="user" :reply="reply_on" v-if="show_comments" @deleteReply="onDeleteReply"></comment-form>
         <!-- v-on:commented="updateComment"-->
     </div>
 </template>
@@ -100,7 +110,7 @@
 
 <script>
     export default {
-        props: ['post', 'user'],
+        props: ['post', 'user', 'group'],
         data: () => ({
             posts: [],
             per_page: 10,

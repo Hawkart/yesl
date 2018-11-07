@@ -21,11 +21,11 @@
             <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
                 @if($can_post)
                     <div class="ui-block">
-                        <post-form :group_id="{{$group->id}}" :user="{{json_encode(Auth::user()->toArray())}}"></post-form>
+                        <post-form :user="{{json_encode(Auth::user()->toArray())}}" :group="{{json_encode($group->toArray())}}"></post-form>
                     </div>
                 @endif
 
-                <post-list :group_id="{{$group->id}}" :user="{{json_encode(Auth::user()->toArray())}}" type="group"></post-list>
+                <post-list :user="{{json_encode(Auth::user()->toArray())}}" :group="{{json_encode($group->toArray())}}" type="group"></post-list>
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">

@@ -61,7 +61,7 @@
                 ],
                 [
                     'title' => 'GAMES',
-                    'url' => '/',
+                    'url' => route('games'),
                     'svg' => 'olymp-newsfeed-icon',
                     'xlink' => '/svg-icons/sprites/Games.svg',
                     'li_class' => ''

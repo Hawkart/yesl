@@ -137,14 +137,33 @@ class GroupController extends Controller
             ->firstOrFail();
 
         $similar_groups = [];
-        if($group->groupable instanceof \App\Models\Game)
+        $user = Auth::user();
+        $groups = $user->groups()->pluck('group_id')->toArray();
+        $can_post = in_array($group->id, $groups) && $group->owner_id==$user->id;
+
+        $this->seo()->setTitle($group->title);
+
+        return view ('universities.detail', compact(['group', 'similar_groups', 'can_post']));
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function game($slug, Request $request)
+    {
+        $group = Group::where('slug', $slug)
+            ->firstOrFail();
+
+        $similar_groups = [];
+        $genre_id = $group->groupable->genre_id;
+        $games = Game::where('genre_id', $genre_id)->where('id', "<>", $group->groupable->id)->limit(5)->get();
+        foreach($games as $game)
         {
-            $genre_id = $group->groupable->genre_id;
-            $games = Game::where('genre_id', $genre_id)->where('id', "<>", $group->groupable->id)->limit(5)->get();
-            foreach($games as $game)
-            {
-                $similar_groups[] = $game->group;
-            }
+            $similar_groups[] = $game->group;
         }
 
         $user = Auth::user();
@@ -153,7 +172,7 @@ class GroupController extends Controller
 
         $this->seo()->setTitle($group->title);
 
-        return view ('universities.detail', compact(['group', 'similar_groups', 'can_post']));
+        return view ('games.detail', compact(['group', 'similar_groups', 'can_post']));
     }
 
     /**

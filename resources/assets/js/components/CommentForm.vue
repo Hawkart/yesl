@@ -5,7 +5,8 @@
         <alert-errors :form="form" class="w-100"/>
 
         <div class="post__author author vcard inline-items">
-            <img :src="getImageLink(user.avatar)" :alt="user.name" width="36">
+            <img :src="getImageLink(group.image)" :alt="group.title" width="36" v-if="group!=undefined && user.id==group.owner_id">
+            <img :src="getImageLink(user.avatar)" :alt="user.name" width="36" v-else>
 
             <div class="form-group with-icon-right">
                 <textarea v-model="form.comment" @change="onInput" :class="{ 'is-invalid': form.errors.has('comment') }" name="comment" class="form-control" placeholder="Add the comment..."></textarea>
@@ -29,7 +30,7 @@
                             @input-filter="inputFilter"
                             @input-file="inputFile"
                             ref="comment">
-                        <svg class="olymp-camera-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-camera-icon"></use></svg>
+                        <img src="/svg-icons/sprites/Photo.svg" style="width: 22px; height: 22px;">
                     </file-upload>
                 </div>
             </div>
@@ -116,7 +117,7 @@
             FileUpload,
             LinkPrevue
         },
-        props: ['post_id', 'user', 'reply'],
+        props: ['post_id', 'user', 'reply', 'group'],
         data: () => ({
             form: new Form({
                 comment: ''
@@ -155,7 +156,7 @@
             {
                 this.form.post_id = this.post_id;
 
-                if(this.reply_on.id!==null)
+                if(this.reply_on!=null && this.reply_on.id!==null)
                 {
                     this.form.reply_id = this.reply_on.id;
                 }else{
