@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use App\Models\University;
+use App\Models\Game;
 
 class Group extends Model
 {
@@ -49,6 +50,15 @@ class Group extends Model
     }
 
     /**
+     * Get all of the owning groupable models.
+     */
+    public function game()
+    {
+        return $this->belongsTo(Game::class, 'groupable_id')
+            ->where('groups.groupable_type', Game::class);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function owner()
@@ -89,6 +99,12 @@ class Group extends Model
         {
             $query->whereHas('university', function($q) use ($request){
                 $q->where('state', $request['state']);
+            });
+        }
+        if(!empty($request['genre_id']))
+        {
+            $query->whereHas('game', function($q) use ($request){
+                $q->where('genre_id', $request['genre_id']);
             });
         }
         return $query;

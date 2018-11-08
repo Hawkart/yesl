@@ -57,6 +57,22 @@
                             <div class="ui-block-title ui-block-title-small">
                                 <h6 class="title">FILTER</h6>
                             </div>
+                            <div class="ui-block-content">
+                                <form class="form-horizontal mt-10" method="GET">
+                                    <div class="row">
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group label-floating is-select">
+                                                <label class="control-label">Genre</label>
+                                                {{ Form::select('genre_id', $genres, app('request')->input('genre_id'), ['class' => 'selectpicker form-control']) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <button class="btn btn-primary full-width mb-0">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

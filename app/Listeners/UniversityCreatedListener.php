@@ -24,6 +24,7 @@ class UniversityCreatedListener
 
         $group = Group::create([
             'title' => $university->title,
+            'image' => $university->logo,
             'owner_id' => $user->id,
             'groupable_type' => 'App\Models\University',
             "groupable_id" => $university->id

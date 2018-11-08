@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
         Commands\ImportGamesAndGenres::class,
         Commands\GroupableCheckCreate::class,
         Commands\ExportUniversities::class,
-        Commands\ImportCollegeScoreCard::class
+        Commands\ImportCollegeScoreCard::class,
+        Commands\ParseUniversityLogo::class
     ];
 
     /**

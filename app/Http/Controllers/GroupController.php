@@ -53,7 +53,17 @@ class GroupController extends Controller
             ->where('groupable_type', 'App\Models\University')
             ->search($request)->paginate(12);
 
-        $states = array_merge(['0' => 'Select state'], University::$states);
+        $st = University::$states;
+        $states_id = University::pluck('state')->toArray();
+        $states_id = array_unique($states_id);
+        $states = ['0' => 'Select state'];
+        foreach($st as $key=>$value)
+        {
+            if(in_array($key, $states_id))
+            {
+                $states[$key] = $value;
+            }
+        }
 
         $this->seo()->setTitle("Universities");
 
