@@ -5,13 +5,13 @@
         <alert-errors :form="form" class="w-100"/>
 
         <div class="post__author author vcard inline-items">
-            <img :src="getImageLink(group.image)" :alt="group.title" width="36" v-if="group!=undefined && user.id==group.owner_id">
+            <img :src="getImageLink(group.image)" :alt="group.title" width="36" v-if="group && user.id==group.owner_id">
             <img :src="getImageLink(user.avatar)" :alt="user.name" width="36" v-else>
 
             <div class="form-group with-icon-right">
                 <textarea v-model="form.comment" @change="onInput" :class="{ 'is-invalid': form.errors.has('comment') }" name="comment" class="form-control" placeholder="Add the comment..."></textarea>
                 <has-error :form="form" field="comment"/>
-                <div class="add-options-message">
+                <div class="add-options-message border-0">
                     <file-upload
                             class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD PHOTOS"
                             :post-action="postAction"

@@ -23,7 +23,7 @@
             per_page: 10
         }),
         created(){
-            this.group_id = this.group.length>0 ? this.group.id : 0;
+            this.group_id = this.group ? this.group.id : 0;
 
             Event.listen("PostNew"+this.group_id, (post) => {
                 this.posts.unshift(post);   //add to start
@@ -34,7 +34,6 @@
         },
         methods: {
             infiniteHandler($state) {
-                console.log(this.group);
 
                 if(this.type=='wall')
                 {

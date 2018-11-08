@@ -56,11 +56,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $groups = $user->groups()->pluck('group_id')->toArray();
 
         $group_id = 0;
         if($request->has('group_id'))
         {
+            $groups = $user->groups()->pluck('group_id')->toArray();
             $group_id = intval($request->get('group_id'));
 
             if($group_id>0 && !in_array($group_id, $groups))
@@ -71,11 +71,17 @@ class PostController extends Controller
             }
         }
 
-        if(empty($request->get('text')))
+        if(empty($request->get('text')) && !$request->has('links') && !$request->has('images'))
         {
             return response()->json([
                 'text' => "Post couldn't be empty!"
             ], 422);
+        }
+
+        $parent_id = 0;
+        if($request->has('parent_id'))
+        {
+            $parent_id = $request->get('parent_id');
         }
 
         $additional = [];
@@ -90,19 +96,20 @@ class PostController extends Controller
             'user_id' => $user->id,
             'group_id' => $group_id,
             'text' => $postBody,
-            'additional' => $additional
+            'additional' => $additional,
+            'parent_id' => $parent_id
         ]);
 
         if($post)
         {
-            $images = $request->get('images');
-            if(!empty($images))
-            {
-                foreach($images as $image)
-                {
-                    $post
-                        ->addMedia(public_path('/images/').$image)
-                        ->toMediaCollection('images');
+            if($request->has('images')) {
+                $images = $request->get('images');
+                if (!empty($images)) {
+                    foreach ($images as $image) {
+                        $post
+                            ->addMedia(public_path('/images/') . $image)
+                            ->toMediaCollection('images');
+                    }
                 }
             }
 

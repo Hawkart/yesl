@@ -25,6 +25,15 @@ class Post extends Model implements HasMedia
     ];
 
     /**
+     * The attributes that should be appended.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'repostCount'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -53,7 +62,15 @@ class Post extends Model implements HasMedia
      */
     public function reposts()
     {
-        return $this->hasMany('App\Models\Post', 'parents_id');
+        return $this->hasMany('App\Models\Post', 'parent_id');
+    }
+
+    /**
+     * @return int
+     */
+    public function getRepostCountAttribute()
+    {
+        return $this->reposts()->count();
     }
 
     /**

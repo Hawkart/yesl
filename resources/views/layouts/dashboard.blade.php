@@ -208,9 +208,26 @@
         right: 15px;
     }
 
-    .chat-dialog-form, .map-popup{
+    .chat-dialog-form, .map-popup, .repost-dialog-form{
         width: 600px;
     }
+
+    .repost-dialog-form .btn{
+        float: right;
+        margin-bottom: 0;
+        margin-top: 15px;
+    }
+
+    .news-feed-form .author-thumb img{
+        width: 40px;
+        height: 40px;
+    }
+
+    .comments-list .post__author img{
+        width: 30px;
+        height: 30px;
+    }
+
     .pin-google{
         color: #7c5ac2;
         padding: 4px 9px;

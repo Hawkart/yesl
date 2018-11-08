@@ -15,7 +15,7 @@
                     <a class="h6 post__author-name fn" :href="'/users/'+comment.user.nickname">{{comment.user.name}} </a>
                 </template>
 
-                <template v-if="comment.reply_id>0">answer to <a href="#" @click.prevent="scrollToComment(comment.reply_id)">
+                <template v-if="comment.reply_id>0">answered to <a href="#" @click.prevent="scrollToComment(comment.reply_id)" class="h6 post__author-name fn">
                     <span v-if="group!=undefined && comment.user.id==group.owner_id">{{group.title}}</span>
                     <span v-else>{{comment.reply.user.name}}</span>
                 </a></template>

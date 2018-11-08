@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-
     <section class="blog-post-wrap">
         <div class="container">
 

@@ -33,14 +33,14 @@ class GameController extends Controller
         {
             return response()->json($games, 200);
         }else{
-            $groups = Group::orderBy('id', 'desc')
+            $groups = Group::orderBy('id', 'asc')
                 ->where('groupable_type', 'App\Models\Game')
                 ->search($request)->paginate(12);
 
             $genres_id = Game::pluck('genre_id')->toArray();
             $genres_id = array_unique($genres_id);
             $genres = Genre::whereIn('id', $genres_id)->pluck('title', 'id')->toArray();
-            $genres = array_merge(['0' => 'Select genres'], $genres);
+            $genres = ['0' => 'Select genres'] + $genres;
 
             $this->seo()->setTitle("Games");
 

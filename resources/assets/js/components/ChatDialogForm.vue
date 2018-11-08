@@ -4,9 +4,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="title">Chat</h6>
-                    <div class="more">
-                        <svg class="olymp-little-delete js-chat-open"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-little-delete"></use></svg>
-                    </div>
                 </div>
                 <div class="modal-body">
 
@@ -17,9 +14,6 @@
                         <div class="form-group label-floating is-empty mb-0">
                             <label class="control-label">Write your message here...</label>
                             <textarea class="form-control" placeholder="" v-model="form.message"
-                                      @keydown.enter.exact.prevent
-                                      @keyup.enter.exact="sendMessage"
-                                      @keydown.enter.shift.exact="newline"
                                       :class="{ 'is-invalid': form.errors.has('message') }"></textarea>
 
                             <has-error :form="form" field="message"/>
@@ -71,9 +65,6 @@
         },
 
         methods: {
-            newline() {
-                this.form.message = `${this.form.message}\r\n`;
-            },
             sendMessage()
             {
                 if(this.form.message!="" && !this.form.busy)

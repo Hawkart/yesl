@@ -233,7 +233,8 @@ class GroupController extends Controller
     {
         $group = Group::findOrFail($id);
         $posts = $group->posts()
-            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.reply.user', 'comments.likes', 'media'])
+            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.reply.user', 'comments.likes', 'media',
+                'parent', 'parent.user', 'parent.group', 'parent.media'])
             ->orderBy('id', 'desc')
             ->paginate(10);
 
