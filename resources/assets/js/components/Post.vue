@@ -5,14 +5,14 @@
 
             <div class="post__author author vcard inline-items">
 
-                <img :src="getImageLink(group.image)" :alt="group.title" v-if="group!=undefined && post.user.id==group.owner_id">
+                <img :src="getImageLink(post.group.image)" :alt="post.group.title" v-if="post.group_id>0 && post.user.id==post.group.owner_id">
                 <img :src="getImageLink(post.user.avatar)" :alt="post.user.name" v-else>
 
                 <div class="author-date">
 
-                    <template v-if="group!=undefined && post.user.id==group.owner_id">
-                        <a class="h6 post__author-name fn" :href="'/universities/'+group.slug" v-if="group.groupable_type='App\Models\University'">{{group.title}}</a>
-                        <a class="h6 post__author-name fn" :href="'/games/'+group.slug" v-else-if="group.groupable_type='App\Models\Game'">{{group.title}}</a>
+                    <template v-if="post.group_id>0 && post.user.id==post.group.owner_id">
+                        <a class="h6 post__author-name fn" :href="'/universities/'+post.group.slug" v-if="post.group.groupable_type=='App\\Models\\University'">{{post.group.title}}</a>
+                        <a class="h6 post__author-name fn" :href="'/games/'+post.group.slug" v-else-if="post.group.groupable_type=='App\\Models\\Game'">{{post.group.title}}</a>
                     </template>
                     <template v-else>
                         <a class="h6 post__author-name fn" :href="'/users/'+post.user.nickname">{{post.user.name}}</a><!-- shared a <a href="#">link</a>-->
@@ -69,24 +69,17 @@
             </div>
 
             <template v-if="post.parent_id>0">
-
-
-
                 <ul class="children single-children">
                     <li class="comment-item">
-                        <div class="post-block-photo js-zoom-gallery" v-if="post.parent.media!=null && post.parent.media.length>0">
-                            <a :href="'/storage/'+media.id+'/'+media.file_name" class="col col-3-width" v-for="media in post.parent.media">
-                                <img :src="'/storage/'+media.id+'/'+media.file_name" :alt="media.file">
-                            </a>
-                        </div>
+
                         <div class="post__author author vcard inline-items">
-                            <img :src="getImageLink(post.parent.group.image)" :alt="post.parent.group.title" v-if="post.parent.group && post.parent.user.id==post.parent.owner_id">
+                            <img :src="getImageLink(post.parent.group.image)" :alt="post.parent.group.title" v-if="post.parent.group_id>0 && post.parent.user.id==post.parent.group.owner_id">
                             <img :src="getImageLink(post.parent.user.avatar)" :alt="post.parent.user.name" v-else>
 
                             <div class="author-date">
-                                <template v-if="post.parent.group && post.parent.user.id==post.parent.owner_id">
-                                    <a class="h6 post__author-name fn" :href="'/universities/'+post.parent.group.slug" v-if="post.parent.group.groupable_type='App\Models\University'">{{post.parent.group.title}}</a>
-                                    <a class="h6 post__author-name fn" :href="'/games/'+post.parent.group.slug" v-else-if="post.parent.group.groupable_type='App\Models\Game'">{{post.parent.group.title}}</a>
+                                <template v-if="post.parent.group && post.parent.user.id==post.parent.group.owner_id">
+                                    <a class="h6 post__author-name fn" :href="'/universities/'+post.parent.group.slug" v-if="post.parent.group.groupable_type=='App\\Models\\University'">{{post.parent.group.title}}</a>
+                                    <a class="h6 post__author-name fn" :href="'/games/'+post.parent.group.slug" v-else-if="post.parent.group.groupable_type=='App\\Models\\Game'">{{post.parent.group.title}}</a>
                                 </template>
                                 <template v-else>
                                     <a class="h6 post__author-name fn" :href="'/users/'+post.parent.user.nickname">{{post.parent.user.name}}</a><!-- shared a <a href="#">link</a>-->
@@ -98,6 +91,12 @@
                                     </time>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="post-block-photo js-zoom-gallery" v-if="post.parent.media!=null && post.parent.media.length>0">
+                            <a :href="'/storage/'+media.id+'/'+media.file_name" class="col col-3-width" v-for="media in post.parent.media">
+                                <img :src="'/storage/'+media.id+'/'+media.file_name" :alt="media.file">
+                            </a>
                         </div>
 
                         <p v-html="post.parent.text"></p>
@@ -138,8 +137,8 @@
 
         </article>
 
-        <comment-list :comments="post.comments" :post_id="post.id" :group="group" :user="user" v-if="show_comments" @setReply="onSetReply"></comment-list>
-        <comment-form :post_id="post.id" :group="group" :user="user" :reply="reply_on" v-if="show_comments" @deleteReply="onDeleteReply"></comment-form>
+        <comment-list :comments="post.comments" :post_id="post.id" :group="post.group" :user="user" v-if="show_comments" @setReply="onSetReply"></comment-list>
+        <comment-form :post_id="post.id" :group="post.group" :user="user" :reply="reply_on" v-if="show_comments" @deleteReply="onDeleteReply"></comment-form>
         <!-- v-on:commented="updateComment"-->
     </div>
 </template>
@@ -147,7 +146,7 @@
 
 <script>
     export default {
-        props: ['post', 'user', 'group'],
+        props: ['post', 'user'],
         data: () => ({
             posts: [],
             per_page: 10,

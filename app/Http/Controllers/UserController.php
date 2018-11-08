@@ -279,7 +279,7 @@ class UserController extends Controller
 
         $posts = Post::whereIn('group_id', $groups)
             ->where('user_id', '<>', $user->id)
-            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media',
+            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media', 'group',
                 'parent', 'parent.user', 'parent.group', 'parent.media'])
             ->orderBy('id', 'desc')
             ->paginate(10);
@@ -301,7 +301,7 @@ class UserController extends Controller
 
         $posts = Post::where('group_id', 0)
             ->where('user_id', $user->id)
-            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media',
+            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media', 'group',
                 'parent', 'parent.user', 'parent.group', 'parent.media'])
             ->orderBy('id', 'desc')
             ->paginate(10);

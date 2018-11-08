@@ -113,7 +113,8 @@ class PostController extends Controller
                 }
             }
 
-            $post->load(['user', 'likes', 'comments', 'likes.user', 'comments.reply', 'comments.reply.user', 'comments.user', 'media']);
+            $post->load(['user', 'likes', 'comments', 'likes.user', 'comments.reply', 'comments.reply.user', 'comments.user', 'media', 'group',
+                'parent', 'parent.user', 'parent.group', 'parent.media']);
 
             return response()->json([
                 'data' => $post,

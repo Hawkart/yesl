@@ -8,8 +8,8 @@
             <div class="author-date">
 
                 <template v-if="group!=undefined && comment.user.id==group.owner_id">
-                    <a class="h6 post__author-name fn" :href="'/universities/'+group.slug" v-if="group.groupable_type='App\Models\University'">{{group.title}}</a>
-                    <a class="h6 post__author-name fn" :href="'/games/'+group.slug" v-else-if="group.groupable_type='App\Models\Game'">{{group.title}}</a>
+                    <a class="h6 post__author-name fn" :href="'/universities/'+group.slug" v-if="group.groupable_type=='App\\Models\\University'">{{group.title}}</a>
+                    <a class="h6 post__author-name fn" :href="'/games/'+group.slug" v-else-if="group.groupable_type=='App\\Models\\Game'">{{group.title}}</a>
                 </template>
                 <template v-else>
                     <a class="h6 post__author-name fn" :href="'/users/'+comment.user.nickname">{{comment.user.name}} </a>
