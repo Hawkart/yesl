@@ -275,6 +275,22 @@
     .modal-content{
         width: 100%;
     }
+
+    .__image_body{
+        border: 3px solid #fff;
+        cursor: pointer;
+    }
+
+    .university-article .post-thumb{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .university-article .post-thumb a{
+        width: 100%;
+    }
 </style>
 
 <!-- JS Scripts -->
@@ -293,7 +309,6 @@
 <script src="{{ asset('js/bootstrap-select.js') }}"></script>
 <script src="{{ asset('js/smooth-scroll.js') }}"></script>
 <script src="{{ asset('js/selectize.js') }}"></script>
-<script src="{{ asset('js/swiper.jquery.js') }}"></script>
 <script src="{{ asset('js/moment.js') }}"></script>
 <script src="{{ asset('js/daterangepicker.js') }}"></script>
 <script src="{{ asset('js/simplecalendar.js') }}"></script>
@@ -305,10 +320,6 @@
 <script src="{{ asset('js/circle-progress.js') }}"></script>
 <script src="{{ asset('js/loader.js') }}"></script>
 <script src="{{ asset('js/run-chart.js') }}"></script>
-<script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
-<script src="{{ asset('js/jquery.gifplayer.js') }}"></script>
-<script src="{{ asset('js/mediaelement-and-player.js') }}"></script>
-<script src="{{ asset('js/mediaelement-playlist-plugin.min.js') }}"></script>
 
 <script src="{{ asset('js/base-init.js') }}"></script>
 <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>

@@ -24,27 +24,29 @@
 
                     @if($groups->count()>0)
                         <div class="row">
-                            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             @foreach($groups as $group)
+                                <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <div class="ui-block">
+                                        <article class="hentry blog-post university-article" data-mh="choose-item-2">
+                                            <div class="post-thumb" data-mh="choose-item">
+                                                <a href="{!! route('university', ['slug' => $group->slug]) !!}">
+                                                    <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}">
+                                                </a>
+                                            </div>
 
-                                <div class="ui-block">
-                                    <div class="birthday-item inline-items badges">
-                                        <div class="author-thumb">
-                                            <a href="{!! route('university', ['slug' => $group->slug]) !!}">
-                                                <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}" width="40">
-                                            </a>
-                                        </div>
-                                        <div class="birthday-author-name">
-                                            <a href="{!! route('university', ['slug' => $group->slug]) !!}" class="h6 author-name" title="{{$group->title}}">
-                                                {{$group->title }}
-                                            </a>
+                                            <div class="post-content">
+                                                <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h5 post-title" title="{{$group->title}}">
+                                                    {{ str_limit($group->title, 50, '...') }}
+                                                </a>
 
-                                            <div class="birthday-date">{{$group->users()->count()}} members</div>
-                                        </div>
+                                                <div class="comments-shared">
+                                                    {{$group->users()->count()}} members
+                                                </div>
+                                            </div>
+                                        </article>
                                     </div>
                                 </div>
                             @endforeach
-                            </div>
                         </div>
 
                         <div class="row">

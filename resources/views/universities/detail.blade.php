@@ -217,10 +217,10 @@
                         <ul class="widget w-friend-pages-added notification-list friend-requests">
                             <li class="inline-items pa-0 border-0">
                                 <div>
-                                    <img src="{{ Storage::disk('public')->url($group->owner->avatar) }}" alt="{{$group->owner->name}}" width="44">
+                                    <img src="{{ Storage::disk('public')->url($group->owner->avatar) }}" alt="{{$group->owner->name}}" width="40">
                                 </div>
-                                <div class="notification-event mt-lg-3">
-                                    <a href="{!! route('user', ['slug' => $group->owner->nickname]) !!}" class="h6 notification-friend">{{$group->owner->name}}</a>
+                                <div class="notification-event mt-lg-1">
+                                    <a href="{!! route('user', ['slug' => $group->owner->nickname]) !!}" class="h6 notification-friend">Admin of {{$group->title}}</a>
                                 </div>
                             </li>
                         </ul>

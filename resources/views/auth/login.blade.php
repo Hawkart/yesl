@@ -41,7 +41,7 @@
                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group label-floating {{ old('email') ? ' ' : 'is-empty' }}">
                                 <label class="control-label">{{ __('E-Mail Address') }}</label>
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autocomplete="off" autocapitalize="off" required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-group label-floating is-empty">
                                 <label class="control-label">{{ __('Password') }}</label>
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="off" autocapitalize="off" required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">

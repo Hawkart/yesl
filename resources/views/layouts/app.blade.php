@@ -45,7 +45,7 @@
 
     @include('_partials.landing.header')
 
-    <div class="content-bg-wrap"></div>
+    <!--<div class="content-bg-wrap"></div>-->
 
     <div class="container" id="vue-app">
         @yield('content')
@@ -160,6 +160,9 @@
         padding-left: 0;
         border-radius: 0;
         min-height: 200px;
+    }
+    body{
+        background: #003a50;
     }
 </style>
 

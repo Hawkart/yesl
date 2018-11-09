@@ -46,10 +46,8 @@
 
             <p v-html="post.text"></p>
 
-            <div class="post-block-photo js-zoom-gallery" v-if="post.media!=null && post.media.length>0">
-                <a :href="'/storage/'+media.id+'/'+media.file_name" class="col col-3-width" v-for="media in post.media">
-                    <img :src="'/storage/'+media.id+'/'+media.file_name" :alt="media.file">
-                </a>
+            <div class="post-block-photo" v-if="post.media!=null && post.media.length>0">
+                <photo-grid :box-height="'300px'" :box-width="'100%'" :excess-text="'+ {{count}}'" v-on:clickExcess="triggerClick" :images="post.media"/>
             </div>
 
             <div class="links" v-if="post.additional!=null && post.additional.links!=null && post.additional.links.length>0">
@@ -94,9 +92,7 @@
                         </div>
 
                         <div class="post-block-photo js-zoom-gallery" v-if="post.parent.media!=null && post.parent.media.length>0">
-                            <a :href="'/storage/'+media.id+'/'+media.file_name" class="col col-3-width" v-for="media in post.parent.media">
-                                <img :src="'/storage/'+media.id+'/'+media.file_name" :alt="media.file">
-                            </a>
+                            <photo-grid :box-height="'300px'" :box-width="'100%'" :excess-text="'+ {{count}}'" v-on:clickExcess="triggerClick" :images="post.parent.media"/>
                         </div>
 
                         <p v-html="post.parent.text"></p>
@@ -156,7 +152,6 @@
 
         <comment-list :comments="post.comments" :post_id="post.id" :group="post.group" :user="user" v-if="show_comments" @setReply="onSetReply"></comment-list>
         <comment-form :post_id="post.id" :group="post.group" :user="user" :reply="reply_on" v-if="show_comments" @deleteReply="onDeleteReply"></comment-form>
-        <!-- v-on:commented="updateComment"-->
     </div>
 </template>
 
@@ -187,7 +182,7 @@
             },
             makeRepost() {
                 Event.fire('SetRepostPopup', this.post);
-            },
+            }
         }
     }
 </script>

@@ -25,6 +25,7 @@ Vue.component('chat-notify-icon', require('./components/ChatNotifyIcon'));
 Vue.component('pin-popup-google-map', require('./components/PinPopupGoogleMap'))
 Vue.component('popup-google-map', require('./components/PopupGoogleMap'))
 Vue.component('repost-popup', require('./components/RepostPopup'))
+Vue.component('photo-grid', require('./components/PhotoGrid'))
 
 import {
     HasError,

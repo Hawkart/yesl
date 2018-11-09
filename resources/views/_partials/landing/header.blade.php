@@ -5,12 +5,12 @@
 
             <a href="{{url('/')}}" class="logo">
                 <div class="img-wrap">
-                    <img src="/img/logo.png" alt="Olympus">
-                    <img src="/img/logo-colored-small.png" alt="Olympus" class="logo-colored">
+                    <img src="/img/logo.png" alt="CampusTeam">
+                    <img src="/img/logo-colored-small.png" alt="CampusTeam" class="logo-colored">
                 </div>
                 <div class="title-block">
-                    <h6 class="logo-title">olympus</h6>
-                    <div class="sub-title">SOCIAL NETWORK</div>
+                    <h6 class="logo-title">Campus</h6>
+                    <div class="sub-title">TEAM</div>
                 </div>
             </a>
 
