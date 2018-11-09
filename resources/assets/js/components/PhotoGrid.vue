@@ -176,7 +176,7 @@
         background: rgba(0, 0, 0, 0.5) !important;
     }
     .__image_body.__triple:first-child{
-        width: 100%;
+        height: 100%;
     }
     .__image_body{
         width: 50%;
