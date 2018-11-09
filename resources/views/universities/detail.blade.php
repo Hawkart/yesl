@@ -6,7 +6,41 @@
         <div class="row">
             <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="ui-block">
+
+                    <div class="top-header top-header-favorit">
+                        <div class="top-header-thumb">
+                            <div class="top-header-overlay">
+                                <img src="{{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/top-header1.jpg' }}" alt="{{$group->title}}">
+                            </div>
+                            <div class="top-header-author">
+
+                                <div class="author-thumb">
+                                    <img src="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="{{$group->title}}">
+                                </div>
+
+                                <div class="author-content">
+                                    <a href="#" class="h3 author-name">{{$group->title}} <span class="verified"><i class="fa fa-check" aria-hidden="true" title="Verified"></i></span></a>
+                                    <div class="country">
+                                        <span class="title">Address:</span>
+                                        <span class="text">{{$group->groupable->address}}
+                                            @if(!empty($group->groupable->location_lat))
+                                                <pin-popup-google-map :university="{{json_encode($group->groupable->toArray())}}"></pin-popup-google-map>
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-section" style="padding: 30px 0">
+                            <div class="control-block-button">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--
                     <div class="top-header top-header-favorit university-overlay" style="background-image: url({{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/top-header1.jpg' }})"></div>
+                    -->
                 </div>
             </div>
         </div>
@@ -25,22 +59,22 @@
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
-                    <div class="post-thumb mb-0" style="max-height: 300px">
+                    <!--<div class="post-thumb mb-0" style="max-height: 300px">
                         <img src="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="{{$group->title}}">
-                    </div>
+                    </div>-->
+                        <div class="ui-block-title"><h6 class="title">Info</h6></div>
                     <div class="ui-block-content">
-
-                        <h5 class="title">{{$group->title}} <span class="verified"><i class="fa fa-check" aria-hidden="true" title="Verified"></i></span></h5>
+                        <!--<h5 class="title">{{$group->title}} <span class="verified"><i class="fa fa-check" aria-hidden="true" title="Verified"></i></span></h5>-->
 
                         <ul class="widget w-personal-info item-block">
-                            <li>
+                            <!--<li>
                                 <span class="title">Address:</span>
                                 <span class="text">{{$group->groupable->address}}
                                     @if(!empty($group->groupable->location_lat))
                                         <pin-popup-google-map :university="{{json_encode($group->groupable->toArray())}}"></pin-popup-google-map>
                                     @endif
                                 </span>
-                            </li>
+                            </li>-->
                             @if(!empty($group->groupable->url))
                                 <li>
                                     <span class="title">Website:</span>

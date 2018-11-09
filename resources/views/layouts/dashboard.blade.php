@@ -131,6 +131,7 @@
         z-index: 100;
         max-height: 300px;
         overflow: hidden;
+        height: 300px;
     }
 
     .top-header-thumb .top-header-overlay .fileupload{
