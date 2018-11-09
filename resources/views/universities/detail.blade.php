@@ -6,11 +6,7 @@
         <div class="row">
             <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="ui-block">
-                    <div class="top-header top-header-favorit university-overlay">
-                        <div class="top-header-thumb">
-                            <img src="{{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/top-header1.jpg' }}" alt="{{$group->title}}">
-                        </div>
-                    </div>
+                    <div class="top-header top-header-favorit university-overlay" style="background-image: url({{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/top-header1.jpg' }})"></div>
                 </div>
             </div>
         </div>
@@ -29,7 +25,7 @@
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
-                    <div class="post-thumb mb-0" style="height: 300px">
+                    <div class="post-thumb mb-0" style="max-height: 300px">
                         <img src="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="{{$group->title}}">
                     </div>
                     <div class="ui-block-content">

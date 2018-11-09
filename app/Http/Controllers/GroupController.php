@@ -54,7 +54,7 @@ class GroupController extends Controller
             ->search($request)->paginate(12);
 
         $st = University::$states;
-        $states_id = University::pluck('state')->toArray();
+        $states_id = University::where('nace', 1)->pluck('state')->toArray();
         $states_id = array_unique($states_id);
         $states = ['0' => 'Select state'];
         foreach($st as $key=>$value)

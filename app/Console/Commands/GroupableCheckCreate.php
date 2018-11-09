@@ -48,6 +48,8 @@ class GroupableCheckCreate extends Command
                 $user = User::where('role_id', 1)->first();
 
                 $group = Group::create([
+                    'image' => $university->logo,
+                    'cover' => $university->overlay,
                     'title' => $university->title,
                     'owner_id' => $user->id,
                     'groupable_type' => 'App\Models\University',

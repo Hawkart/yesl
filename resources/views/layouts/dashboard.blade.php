@@ -246,6 +246,10 @@
         max-height: 300px;
         overflow: hidden;
         border-radius: 5px;
+        height: 300px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
     }
 
     .verified{

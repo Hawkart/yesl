@@ -100,6 +100,23 @@
                         </div>
 
                         <p v-html="post.parent.text"></p>
+
+                        <div class="links" v-if="post.parent.additional!=null && post.parent.additional.links!=null && post.parent.additional.links.length>0">
+                            <template v-for="link in post.parent.additional.links">
+                                <div class="post-video">
+                                    <div class="video-thumb mt-lg-4 ml-lg-3">
+                                        <img :src="link.img" :alt="link.title">
+                                    </div>
+
+                                    <div class="video-content">
+                                        <a v-bind:href="link.url" class="h4 title">{{link.title}}</a>
+                                        <p>{{link.description}}</p>
+                                        <a v-bind:href="link.url" class="link-site">{{link.url}}</a>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
                      </li>
                 </ul>
             </template>

@@ -43,7 +43,7 @@ class ParseUniversityLogo extends Command
             $params = [
                 'source' => 'Jobs',
                 'version' => 'New',
-                'input' => 'Albright',//str_replace(" ","+", 'Albright'),
+                'input' => str_replace(" ","+", 'Albright'),
                 'rf' => 'full'
             ];
 

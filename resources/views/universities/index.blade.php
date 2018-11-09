@@ -31,7 +31,7 @@
                                     <div class="birthday-item inline-items badges">
                                         <div class="author-thumb">
                                             <a href="{!! route('university', ['slug' => $group->slug]) !!}">
-                                                <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}">
+                                                <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}" width="40">
                                             </a>
                                         </div>
                                         <div class="birthday-author-name">
@@ -41,17 +41,6 @@
 
                                             <div class="birthday-date">{{$group->users()->count()}} members</div>
                                         </div>
-
-
-                                        <!--
-                                        <div class="skills-item">
-                                            <div class="place inline-items">
-                                                <svg class="olymp-add-a-place-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-add-a-place-icon"></use></svg>
-                                                <span>Gotham Bar</span>
-                                            </div>
-                                        </div>
-                                        -->
-
                                     </div>
                                 </div>
                             @endforeach
