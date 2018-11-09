@@ -84,11 +84,11 @@
 
                 @if($user->id==Auth::user()->id)
                     <div class="ui-block">
-                        <post-form :group="[]" :user="{{json_encode(Auth::user()->toArray())}}"></post-form>
+                        <post-form :group="[]" :user="{{json_encode($user->toArray())}}"></post-form>
                     </div>
                 @endif
 
-                <post-list :group="[]" :user="{{json_encode(Auth::user()->toArray())}}" type="wall"></post-list>
+                <post-list :group="[]" :user="{{json_encode($user->toArray())}}" type="wall"></post-list>
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
 
