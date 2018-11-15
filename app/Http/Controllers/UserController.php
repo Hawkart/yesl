@@ -13,6 +13,7 @@ use Image;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
 use Cmgmyr\Messenger\Models\Thread;
+use Hootlex\Friendships\Models\Friendship;
 
 class UserController extends Controller
 {
@@ -277,9 +278,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $groups = $user->groups()->pluck('group_id')->toArray();
 
-        $posts = Post::whereIn('group_id', $groups)
-            ->where('user_id', '<>', $user->id)
-            ->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media', 'group',
+        $friends = $user->getFriends()->pluck('id')->toArray();
+
+        $posts = Post::where('user_id', '<>', $user->id)
+            ->whereIn('group_id', $groups)
+            ->orWhere(function ($query) use ($friends) {
+                $query->whereIn('user_id',  $friends)
+                    ->where('group_id', 0);
+            })->with(['user', 'likes', 'comments', 'likes.user', 'comments.user', 'comments.likes', 'media', 'group',
                 'parent', 'parent.user', 'parent.group', 'parent.media'])
             ->orderBy('id', 'desc')
             ->paginate(10);
@@ -372,5 +378,184 @@ class UserController extends Controller
         //$threads = Thread::forUserWithNewMessages($id)->latest('updated_at')->get();
 
         return response()->json($threads, 200);
+    }
+
+    /**
+     * Add friend request
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function befriend(Request $request)
+    {
+        $user = Auth::user();
+        $friend = User::findOrFail($request->get('id'));
+
+        $result = [];
+        if(!$user->hasFriendRequestFrom($friend) && !$user->hasSentFriendRequestTo($friend) && !$user->getFriendship($friend))
+        {
+            $result = $user->befriend($friend);
+        }
+
+        return response()->json($result, 200);
+    }
+
+    /**
+     * Accept friend request
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function acceptFriendRequest(Request $request)
+    {
+        $user = Auth::user();
+        $friend = User::findOrFail($request->get('id'));
+
+        $result = [];
+        //if($user->hasFriendRequestFrom($friend))
+        if(Friendship::betweenModels($user, $friend)->whereSender($friend)->exists())
+        {
+            $result = $user->acceptFriendRequest($friend);
+        }
+
+        return response()->json($result, 200);
+    }
+
+    /**
+     * Accept friend request
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function denyFriendRequest(Request $request)
+    {
+        $user = Auth::user();
+        $friend = User::findOrFail($request->get('id'));
+
+        $result = [];
+        if($user->hasFriendRequestFrom($friend))
+        {
+            $result = $user->denyFriendRequest($friend);
+        }
+
+        return response()->json($result, 200);
+    }
+
+    /**
+     * Remove from friend list
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function unfriend(Request $request)
+    {
+        $user = Auth::user();
+        $friend = User::findOrFail($request->get('id'));
+
+        $result = [];
+        if($user->isFriendWith($friend))
+        {
+            $result = $user->unfriend($friend);
+        }
+
+        return response()->json($result, 200);
+    }
+
+    /**
+     * Friends of current user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function friends(Request $request)
+    {
+        $friends = Auth::user()->getFriends(12);
+        return response()->json($friends, 200);
+    }
+
+    /**
+     * Possible friends of current user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     *
+     * TODO: Add university peoples if possible empty
+     */
+    public function possibleFriends(Request $request)
+    {
+        $user = Auth::user();
+
+        //exclude friends, current user and pendings
+        $friends = $user->getFriends()->pluck('id')->toArray();
+        //$friendships = $user->getPendingFriendships();
+        //$friends = array_merge($friends, $friendships->pluck('sender_id')->toArray());
+        //$friends = array_merge($friends, $friendships->pluck('recipient_id')->toArray());
+
+        $recipients = $user->getPendingOutgoingFriends()->pluck('recipient_id')->toArray();
+        $senders = $user->getPendingIncomingFriends()->pluck('sender_id')->toArray();
+
+        $friends = array_merge($friends, $recipients);
+        $friends = array_merge($friends, $senders);
+
+        $friends[] = $user->id;
+        $friends = array_unique($friends);
+
+        $possibles = [];
+        if(!$request->has('q'))
+            $possibles = $user->getFriendsOfFriends(12);
+
+        if(!isset($possibles['total']) || $possibles['total']==0)
+        {
+            $possibles = User::orderBy('name', 'asc')
+                ->whereNotIn('id', $friends)
+                ->search($request)
+                ->verified()
+                ->paginate(12);
+        }
+
+        $possibles->getCollection()->transform(function ($friend) use ($user) {
+            $friend['mutualCount'] = $user->getMutualFriendsCount($friend);
+            return $friend;
+        });
+
+        return response()->json($possibles, 200);
+    }
+
+    /**
+     * Pending incoming friend requests
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function friendRequestsIn(Request $request)
+    {
+        $user = Auth::user();
+        $requests = $user->getPendingIncomingFriends()->where('status', '<>', \Hootlex\Friendships\Status::ACCEPTED)->with(['sender'])->paginate(12);
+
+        $requests->getCollection()->transform(function ($friendship) use ($user) {
+            $friendship['sender']['mutualCount'] = $user->getMutualFriendsCount($friendship['sender']);
+            return $friendship;
+        });
+
+        return response()->json($requests, 200);
+    }
+
+    /**
+     * Pending Outgoing friend requests
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function friendRequestsOut(Request $request)
+    {
+        $user = Auth::user();
+        $requests = $user->getPendingOutgoingFriends(\Hootlex\Friendships\Status::PENDING)->with(['recipient'])->paginate(12);
+
+        $requests->getCollection()->transform(function ($friendship) use ($user) {
+            $friendship['recipient']['mutualCount'] = $user->getMutualFriendsCount($friendship['recipient']);
+            return $friendship;
+        });
+
+        return response()->json($requests, 200);
     }
 }

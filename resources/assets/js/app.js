@@ -27,6 +27,12 @@ Vue.component('popup-google-map', require('./components/PopupGoogleMap'))
 Vue.component('repost-popup', require('./components/RepostPopup'))
 Vue.component('photo-grid', require('./components/PhotoGrid'))
 
+Vue.component('friend-list', require('./components/FriendList'));
+Vue.component('friend-possible-search', require('./components/FriendPossibleSearch'));
+Vue.component('friend-possible-widget', require('./components/FriendPossibleWidget'));
+Vue.component('friend-requests-in', require('./components/FriendRequestsIn'));
+Vue.component('friend-requests-out', require('./components/FriendRequestsOut'));
+
 import {
     HasError,
     AlertError,

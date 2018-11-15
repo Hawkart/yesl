@@ -291,6 +291,29 @@
     .university-article .post-thumb a{
         width: 100%;
     }
+
+    .form-group.with-button button{
+        color: #fff;
+        background-color: #002650;
+        border-color: #002650;
+    }
+
+    .accept-request{
+        background-color: #002650;/*003a50;*/
+    }
+
+    .left-menu li a{
+        position: relative;
+    }
+
+    .left-menu li a .label-avatar{
+        width: 19px;
+        height: 19px;
+        line-height: 19px;
+        top: 8px;
+        right: 10px;
+    }
+
 </style>
 
 <!-- JS Scripts -->

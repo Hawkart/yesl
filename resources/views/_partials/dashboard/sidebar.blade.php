@@ -47,7 +47,7 @@
                 ],
                 [
                     'title' => 'FRIENDS',
-                    'url' => '/',
+                    'url' => route('friends'),
                     'svg' => 'olymp-newsfeed-icon',
                     'xlink' => '/svg-icons/sprites/Friends.svg',
                     'li_class' => ''
@@ -88,6 +88,8 @@
                     'li_class' => ''
                 ],
             ];
+
+            $pendingFriendsCount = Auth::user()->getPendingIncomingFriends(0)->count();
         @endphp
 
         <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -104,6 +106,9 @@
                                 <use xlink:href="{{$menu['xlink']}}"></use>
                             </svg>-->
                             <img src="{{$menu['xlink']}}" data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}" style="width: 24px; height: 24px;">
+                            @if($menu['url']==route('friends') && $pendingFriendsCount>0)
+                                <span class="label-avatar bg-primary">{{$pendingFriendsCount}}</span>
+                            @endif
                         </a>
                         @endif
                     </li>

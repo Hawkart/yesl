@@ -1,14 +1,13 @@
 <template>
-    <a href="#"  data-toggle="modal" data-target="#chat-dialog-form" class="btn btn-control bg-purple"
-       @click.prevent="setPrivateParticipant">
-        <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+    <a href="#"  data-toggle="modal" data-target="#chat-dialog-form" class="btn" v-bind:class="classes" @click.prevent="setPrivateParticipant">
+        <slot></slot>
     </a>
 </template>
 
 
 <script>
     export default {
-        props: ['participant'],
+        props: ['participant', 'classes'],
 
         methods: {
             setPrivateParticipant() {

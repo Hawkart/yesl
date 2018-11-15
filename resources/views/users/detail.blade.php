@@ -55,7 +55,9 @@
                                 </a>-->
 
                                 @if($user->id!=Auth::user()->id)
-                                    <chat-dialog-button :participant='{{json_encode($user->toArray()) }}'></chat-dialog-button>
+                                    <chat-dialog-button :participant='{{json_encode($user->toArray()) }}' :classes="'btn-control bg-purple'">
+                                        <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+                                    </chat-dialog-button>
                                 @endif
 
                                 @if($user->id==Auth::user()->id)

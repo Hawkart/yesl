@@ -42,18 +42,6 @@ Route::post('/users/{id}/threads', ['as' => 'user.threads.search', 'uses' => 'Us
 Route::post('/users/avatar', 'UserController@updateAvatar');
 Route::post('/users/overlay', 'UserController@updateOverlay');
 
-
-/**
- * Messages
- */
-/*Route::group(['prefix' => 'im', 'middleware' => 'auth'], function () {
-    Route::get('/', ['as' => 'messages', 'uses' => 'MessageController@index']);
-    Route::get('create', ['as' => 'messages.create', 'uses' => 'MessageController@create']);
-    Route::post('/', ['as' => 'messages.store', 'uses' => 'MessageController@store']);
-    Route::get('{id}', ['as' => 'messages.show', 'uses' => 'MessageController@show']);
-    Route::put('{id}', ['as' => 'messages.update', 'uses' => 'MessageController@update']);
-});*/
-
 /**
  * Channels
  */
@@ -136,3 +124,38 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
     Route::get('/profiles', ['as' => 'settings.games_profiles', 'uses' => 'UserController@profiles']);
     Route::get('/profiles/{id}', ['as' => 'settings.profile.edit', 'uses' => 'ProfileController@edit']);
 });
+
+/**
+ * Friends
+ */
+Route::group(['prefix' => 'friends', 'middleware' => 'auth'], function () {
+    Route::get('/', ['as' => 'friends', 'uses' => 'FriendController@index']);
+    Route::get('/possible', ['as' => 'friends.possible', 'uses' => 'FriendController@possible']);
+    Route::get('/find', ['as' => 'friends.find', 'uses' => 'FriendController@find']);
+    Route::get('/requests/in', ['as' => 'friends.requests.in', 'uses' => 'FriendController@requestsIn']);
+    Route::get('/requests/out', ['as' => 'friends.requests.out', 'uses' => 'FriendController@requestsOut']);
+});
+
+/**
+ * Friendships
+ */
+Route::group(['prefix' => 'friendships', 'middleware' => 'auth'], function () {
+    Route::delete('/{id}', 'FriendshipController@destroy');
+});
+
+/**
+ * Me
+ */
+Route::group(['prefix' => 'me', 'middleware' => 'auth'], function () {
+    Route::get('/friends', ['uses' => 'UserController@friends']);
+    Route::get('/possibleFriends', ['uses' => 'UserController@possibleFriends']);
+    Route::get('/friendRequestsIn', ['uses' => 'UserController@friendRequestsIn']);
+    Route::get('/friendRequestsOut', ['uses' => 'UserController@friendRequestsOut']);
+    Route::post('/addFriend', ['uses' => 'UserController@befriend']);
+    Route::post('/unfriend', ['uses' => 'UserController@unfriend']);
+    Route::post('/acceptFriend', ['uses' => 'UserController@acceptFriendRequest']);
+    Route::post('/denyFriend', ['uses' => 'UserController@denyFriendRequest']);
+});
+
+Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
+Route::get('500', ['as' => '500', 'uses' => 'ErrorController@fatal']);

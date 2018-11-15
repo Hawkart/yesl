@@ -14,6 +14,7 @@ use Image;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\Models\Media;
+use Hootlex\Friendships\Models\Friendship;
 
 class User extends VoyagerUser implements HasMedia
 {
@@ -181,5 +182,53 @@ class User extends VoyagerUser implements HasMedia
     public function commentatorOfFights()
     {
         return $this->hasMany('App\Models\Fight', 'commentator_id');
+    }
+
+    /**
+     * Search by params
+     */
+    public function scopeSearch($query, $request)
+    {
+        if(!empty($request['q']))
+        {
+            $query->where('name', 'like', "%".$request['q']."%");
+        }
+        return $query;
+    }
+
+    /**
+     * Verified users
+     */
+    public function scopeVerified($query)
+    {
+        $query->where('verified', 1);
+        return $query;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Friendship[]
+     */
+    public function getPendingIncomingFriends($status = null)
+    {
+        $query = Friendship::whereRecipient($this);
+
+        if (!is_null($status)) {
+            $query->where('status', $status);
+        }
+
+        return $query;
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Friendship[]
+     */
+    public function getPendingOutgoingFriends($status = null)
+    {
+        $query = Friendship::whereSender($this);
+
+        if (!is_null($status)) {
+            $query->where('status', $status);
+        }
+
+        return $query;
     }
 }
