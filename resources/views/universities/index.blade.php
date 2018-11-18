@@ -30,7 +30,7 @@
                                         <article class="hentry blog-post university-article" data-mh="choose-item-2">
                                             <div class="post-thumb" data-mh="choose-item">
                                                 <a href="{!! route('university', ['slug' => $group->slug]) !!}">
-                                                    <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}">
+                                                    <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg'  }}" alt="{{$group->title}}">
                                                 </a>
                                             </div>
 

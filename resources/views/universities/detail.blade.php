@@ -10,12 +10,12 @@
                     <div class="top-header top-header-favorit">
                         <div class="top-header-thumb">
                             <div class="top-header-overlay">
-                                <img src="{{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/top-header1.jpg' }}" alt="{{$group->title}}">
+                                <img src="{{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/university-overlay-default.jpg' }}" alt="{{$group->title}}">
                             </div>
                             <div class="top-header-author">
 
                                 <div class="author-thumb">
-                                    <img src="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="{{$group->title}}">
+                                    <img src="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg' }}" alt="{{$group->title}}">
                                 </div>
 
                                 <div class="author-content">
