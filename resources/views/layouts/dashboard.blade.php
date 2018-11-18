@@ -131,7 +131,7 @@
         z-index: 100;
         max-height: 300px;
         overflow: hidden;
-        height: 300px;
+        /*height: 300px;*/
     }
 
     .top-header-thumb .top-header-overlay .fileupload{
@@ -148,6 +148,10 @@
         border-radius: 3px;
         color: #fff;
         cursor: pointer;
+    }
+
+    .friend-header-thumb{
+        max-height: 150px;
     }
 
     .g-core-image-upload-form input{
@@ -247,7 +251,7 @@
         max-height: 300px;
         overflow: hidden;
         border-radius: 5px;
-        height: 300px;
+        /*height: 300px;*/
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;

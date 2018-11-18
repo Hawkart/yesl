@@ -40,7 +40,7 @@
                                                 </a>
 
                                                 <div class="comments-shared">
-                                                    {{$group->users()->count()}} members
+                                                    {{$group->groupable->enrollment_all}} students
                                                 </div>
                                             </div>
                                         </article>
