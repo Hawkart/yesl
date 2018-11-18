@@ -35,7 +35,7 @@
                                             </div>
 
                                             <div class="post-content">
-                                                <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h5 post-title" title="{{$group->title}}">
+                                                <a href="{!! route('university', ['slug' => $group->slug]) !!}" class="h5 post-title" title="{{$group->title}}">
                                                     {{ str_limit($group->title, 50, '...') }}
                                                 </a>
 
