@@ -28,7 +28,7 @@
                             <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="ui-block">
                                     <article class="hentry blog-post" data-mh="choose-item">
-                                        <div class="post-thumb" data-mh="choose-item">
+                                        <div class="post-thumb">
                                             <a href="{!! route('group', ['slug' => $group->slug]) !!}">
                                                 <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="cover image">
                                             </a>

@@ -62,9 +62,19 @@ class UserController extends Controller
         $user = User::where('nickname', $slug)
             ->firstOrFail();
 
+        $groups = $user->groups()->paginate(10);
+        $friends = $user->getFriends(10);
+
+        if(Auth::user()->id!=$user->id)
+        {
+            $mutual = $user->getMutualFriends(Auth::user());
+        }else{
+            $mutual = [];
+        }
+
         $this->seo()->setTitle($user->name);
 
-        return view ('users.detail', compact(['user']));
+        return view ('users.detail', compact(['user', 'groups', 'friends', 'mutual']));
     }
 
     /**
@@ -259,7 +269,7 @@ class UserController extends Controller
     public function groups($id, Request $request)
     {
         $user = User::findOrFail($id);
-        $groups = $user->profiles()->paginate(12);
+        $groups = $user->groups()->paginate(12);
 
         return view('lk.groups.index', compact(['user', 'groups']));
     }

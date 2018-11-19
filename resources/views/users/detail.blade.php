@@ -10,7 +10,9 @@
                             @if($user->id==Auth::user()->id)
                                 <overlay-upload :user='{{json_encode($user->toArray()) }}'></overlay-upload>
                             @else
-                                <img src="{{ $user->overlay ? Storage::disk('public')->url($user->overlay) : "/img/top-header2.jpg" }}" alt="{{$user->name}}">
+                                <div class="top-header-overlay">
+                                    <img src="{{ $user->overlay ? Storage::disk('public')->url($user->overlay) : "/img/top-header2.jpg" }}" alt="{{$user->name}}">
+                                </div>
                             @endif
                             <div class="top-header-author">
                                 @if($user->id==Auth::user()->id)
@@ -30,20 +32,17 @@
                             <div class="row">
                                 <div class="col col-xl-8 m-auto col-lg-8 col-md-12">
                                     <ul class="profile-menu">
-                                        <!--<li>
-                                            <a href="12-FavouritePage.html" class="active">Timeline</a>
-                                        </li>-->
                                         <li>
-                                            <a href="13-FavouritePage-About.html">About</a>
+                                            <a href="#">About</a>
                                         </li>
                                         <li>
-                                            <a href="07-ProfilePage-Photos.html">Groups</a>
+                                            <a href="#">Groups ({{$groups->total()}})</a>
                                         </li>
                                         <li>
-                                            <a href="09-ProfilePage-Videos.html">Friends</a>
+                                            <a href="#">Friends ({{$friends->total()}})</a>
                                         </li>
                                         <li>
-                                            <a href="14-FavouritePage-Statistics.html">Teams</a>
+                                            <a href="#">Teams</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -82,7 +81,47 @@
 
     <div class="container">
         <div class="row">
-            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
+
+            <div class="col col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                @if($groups->total()>0)
+                    <div class="ui-block">
+                        <div class="ui-block-title">
+                            <h6 class="title">Your Groups ({{count($groups)}})</h6>
+                        </div>
+                        <div class="ui-block-content">
+                            <ul class="widget w-faved-page">
+                                @foreach($groups as $group)
+                                    <li>
+                                        @if($group->groupable instanceof \App\Models\University)
+                                            <a href="{!! route('university', ['slug' => $group->slug]) !!}">
+                                                <img src="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg' }}" title="{{$group->title}}">
+                                            </a>
+                                        @elseif($group->groupable instanceof \App\Models\Game)
+                                            <a href="{!! route('game', ['slug' => $group->slug]) !!}">
+                                                <img src="{{ Storage::disk('public')->url($group->image) }}" title="{{$group->title}}">
+                                            </a>
+                                        @else
+                                            <a href="{!! route('group', ['slug' => $group->slug]) !!}">
+                                                <img src="{{ Storage::disk('public')->url($group->image) }}" title="{{$group->title}}">
+                                            </a>
+                                        @endif
+
+
+                                    </li>
+                                @endforeach
+
+                                @if($groups->total()>$groups->perPage())
+                                    <li class="all-users">
+                                        <a href="#">+{{$groups->total()-$groups->perPage()}}</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            </div>
+
+            <div class="col col-xl-6 col-lg-12 col-sm-12 col-12">
 
                 @if($user->id==Auth::user()->id)
                     <div class="ui-block">
@@ -92,12 +131,56 @@
 
                 <post-list :group="[]" :user="{{json_encode($user->toArray())}}" type="wall"></post-list>
             </div>
-            <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
 
-            </div>
 
-            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="col col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                @if($friends->total()>0)
+                    <div class="ui-block">
+                        <div class="ui-block-title">
+                            <h6 class="title">Your Friends ({{$friends->total()}})</h6>
+                        </div>
+                        <div class="ui-block-content">
+                            <ul class="widget w-faved-page">
+                                @foreach($friends as $friend)
+                                    <li>
+                                        <a href="/users/{{$friend->nickname}}">
+                                            <img src="{{ Storage::disk('public')->url($friend->avatar) }}" title="{{$friend->name}}">
+                                        </a>
+                                    </li>
+                                @endforeach
+                                @if($friends->total()>$friends->perPage())
+                                    <li class="all-users">
+                                        <a href="#">+{{$friends->total()-$friends->perPage()}}</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                @endif
 
+                @if(count($mutual)>0)
+                    <div class="ui-block">
+                        <div class="ui-block-title">
+                            <h6 class="title">Mutual Friends ({{count($mutual)}})</h6>
+                        </div>
+                        <div class="ui-block-content">
+                            <ul class="widget w-faved-page">
+                                @foreach($mutual as $friend)
+                                    <li>
+                                        <a href="/users/{{$friend->nickname}}">
+                                            <img src="{{ Storage::disk('public')->url($friend->avatar) }}" title="{{$friend->name}}">
+                                        </a>
+                                    </li>
+                                @endforeach
+                                @if(count($mutual)>8)
+                                    <li class="all-users">
+                                        <a href="#">+{{count($mutual)-8}}</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
