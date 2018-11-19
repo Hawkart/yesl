@@ -11,7 +11,6 @@
                     <template v-if="channel.participants[0].user.id!=user.id">{{channel.participants[0].user.name}}</template>
                     <template v-else>{{channel.participants[1].user.name}}</template>
                 </a>
-                ({{channel.userUnreadMessagesCount}} unread)
                 <span class="chat-message-item">{{ channel.latestMessage.body | truncate(100, '...')}}</span>
                 <span class="notification-date">
                     <time class="published" datetime="moment.utc(channel.latestMessage.created_at, 'YYYY-MM-DD h:mm:ss').local().format('YYYY-MM-DD h:mm:ss')">
@@ -34,10 +33,11 @@
             </div>
         </template>
 
-        <span class="notification-icon"><svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg></span>
-        <div class="more">
-            <svg class="olymp-three-dots-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
-        </div>
+        <span class="notification-icon">
+            <span class="items-round-little bg-breez inline-block mr-xxl-2" v-if="channel.userUnreadMessagesCount>0">{{channel.userUnreadMessagesCount}}</span>
+            <a href="#" @click.prevent="setChannel(channel)" class="btn btn-sm btn-primary mb-0">
+                <img src="/svg-icons/sprites/Message_top.svg" style="width: 20px; height: 20px;" class="mr-xxl-2"> Message</a>
+        </span>
     </li>
 </template>
 

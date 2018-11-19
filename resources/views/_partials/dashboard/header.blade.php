@@ -176,6 +176,12 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="/users/{{Auth::user()->nickname}}">
+                                        <img src="/svg-icons/sprites/MyPage.svg" style="margin-right: 15px; width: 20px; height: 20px;">
+                                        <span>My page</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <svg class="olymp-logout-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-logout-icon"></use></svg>
                                         <span>Log Out</span>
