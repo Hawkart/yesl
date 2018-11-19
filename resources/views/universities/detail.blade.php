@@ -189,8 +189,8 @@
                             <img src="{{ Storage::disk('public')->url($group->groupable->es_team_image) }}" alt="{{$group->groupable->es_team_title}}">
                         </div>
                         <div class="ui-block-content">
-                            <button type="submit" class="btn btn-primary btn-xs full-width mt-lg-3">WRITE LETTER to COACH</button>
-                            <button type="submit" class="btn btn-info btn-xs full-width mt-lg-3">APPLY TO THE TEAM</button>
+                            <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
+                            <button type="submit" class="btn btn-success btn-xs full-width mt-lg-1">APPLY TO THE TEAM</button>
                         </div>
                     </div>
                 @endif

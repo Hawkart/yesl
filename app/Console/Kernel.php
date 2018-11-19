@@ -20,7 +20,8 @@ class Kernel extends ConsoleKernel
         Commands\ImportCollegeScoreCard::class,
         Commands\ParseUniversityLogo::class,
         Commands\ImportUniversityLogos::class,
-        Commands\UniversityNaceSelect::class
+        Commands\UniversityNaceSelect::class,
+        Commands\ImportUniversityTeamLogos::class
     ];
 
     /**
