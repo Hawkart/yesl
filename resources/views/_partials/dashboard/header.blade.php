@@ -67,10 +67,20 @@
             </div>
             --}}
 
+            @php
+                $unreadMessageCount = Auth::user()->unreadMessagesCount();
+                $requestInCount = Auth::user()->getPendingIncomingFriends(0)->count();
+            @endphp
 
             <div class="control-icon more has-items">
 
-                <chat-notify-icon :user="{{json_encode(Auth::user()->toArray())}}"></chat-notify-icon>
+                <!--<chat-notify-icon :user="{{json_encode(Auth::user()->toArray())}}"></chat-notify-icon>-->
+
+                <a href="/im"><img src="/svg-icons/sprites/Message_top.svg" style="width: 28px; height: 28px;"></a>
+                @if($unreadMessageCount>0)
+                    <div class="label-avatar bg-purple">{{$unreadMessageCount}}</div>
+                @endif
+
                 {{--
                 <div class="more-dropdown more-with-triangle triangle-top-center">
                     <div class="ui-block-title ui-block-title-small">
@@ -108,7 +118,9 @@
 
             <div class="control-icon more has-items">
                 <img src="/svg-icons/sprites/Notifications.svg" style="width: 28px; height: 28px;">
-                <div class="label-avatar bg-primary">8</div>
+                @if($requestInCount>0)
+                    <div class="label-avatar bg-primary">{{$requestInCount}}</div>
+                @endif
 
                 {{--
                 <div class="more-dropdown more-with-triangle triangle-top-center">

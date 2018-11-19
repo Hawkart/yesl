@@ -10,7 +10,7 @@
                 </div>
                 <div class="title-block">
                     <h6 class="logo-title">Campus</h6>
-                    <div class="sub-title">TEAM</div>
+                    <div class="logo-title">TEAM</div>
                 </div>
             </a>
 

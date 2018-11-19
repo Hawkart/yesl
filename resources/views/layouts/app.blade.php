@@ -45,7 +45,7 @@
 
     @include('_partials.landing.header')
 
-    <!--<div class="content-bg-wrap"></div>-->
+    <div class="content-bg-wrap"></div>
 
     <div class="container" id="vue-app">
         @yield('content')
@@ -163,6 +163,15 @@
     }
     body{
         background: #003a50;
+    }
+    .landing-page .content-bg-wrap{
+        -webkit-animation: sidedownscroll 100s linear infinite;
+        animation: sidedownscroll 100s linear infinite;
+    }
+
+    .landing-page .content-bg-wrap:before {
+        background-color: #003a50;
+        opacity: 0.55;
     }
 </style>
 

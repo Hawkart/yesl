@@ -30,7 +30,8 @@
                     </div>
                 </div>
             </div>
-            <div id="accordion-2" role="tablist" aria-multiselectable="true">
+
+            <!--<div id="accordion-2" role="tablist" aria-multiselectable="true">
                 <div class="card">
                     <div class="card-header" role="tab" id="headingTwo">
                         <h6 class="mb-0">
@@ -49,7 +50,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

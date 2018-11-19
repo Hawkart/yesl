@@ -12,6 +12,10 @@
                         </h6>
                     </div>
 
+                    @php
+                        $requestInCount = Auth::user()->getPendingIncomingFriends(0)->count();
+                    @endphp
+
                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                         <ul class="your-profile-menu">
                             <li>
@@ -21,7 +25,11 @@
                                 <a href="{{route('friends.requests.in')}}">Friend requests</a>
                                 <ul class="pl-xxl-4">
                                     <li>
-                                        <a href="{{route('friends.requests.in')}}">Incoming</a>
+                                        <a href="{{route('friends.requests.in')}}">Incoming
+                                            @if($requestInCount>0)
+                                                <span class="items-round-little bg-breez inline-block float-right">{{$requestInCount}}</span>
+                                            @endif
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="{{route('friends.requests.out')}}">Outgoing</a>

@@ -56,13 +56,13 @@
 
                                 @if($user->id!=Auth::user()->id)
                                     <chat-dialog-button :participant='{{json_encode($user->toArray()) }}' :classes="'btn-control bg-purple'">
-                                        <svg class="olymp-chat---messages-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+                                        <img src="/svg-icons/sprites/Message_top.svg" style="width: 28px; height: 28px; margin-bottom: 5px;">
                                     </chat-dialog-button>
                                 @endif
 
                                 @if($user->id==Auth::user()->id)
                                     <div class="btn btn-control bg-primary more">
-                                        <svg class="olymp-settings-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-settings-icon"></use></svg>
+                                        <img src="/svg-icons/sprites/Teams_enjoy.svg" style="width: 28px; height: 28px; margin-bottom: 5px;">
 
                                         <ul class="more-dropdown more-with-triangle triangle-bottom-right">
                                             <li>

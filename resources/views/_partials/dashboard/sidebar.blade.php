@@ -90,6 +90,7 @@
             ];
 
             $pendingFriendsCount = Auth::user()->getPendingIncomingFriends(0)->count();
+            $unreadMessageCount = Auth::user()->unreadMessagesCount(); //newThreadsCount();
         @endphp
 
         <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -108,6 +109,10 @@
                             <img src="{{$menu['xlink']}}" data-toggle="tooltip" data-placement="right"   data-original-title="{{$menu['title']}}" style="width: 24px; height: 24px;">
                             @if($menu['url']==route('friends') && $pendingFriendsCount>0)
                                 <span class="label-avatar bg-primary">{{$pendingFriendsCount}}</span>
+                            @endif
+
+                            @if($menu['url']=='/im' && $unreadMessageCount>0)
+                                <span class="label-avatar bg-purple">{{$unreadMessageCount}}</span>
                             @endif
                         </a>
                         @endif

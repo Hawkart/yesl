@@ -6,7 +6,8 @@
         <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="landing-content">
                 <h1>Are you looking for Esports scholarship ?</h1>
-                <p>Here you will find the offers for Esports athletes gathered from more than 100 universities.<br/>
+                <h3>Here you will find the offers for Esports athletes gathered from more than 100 universities.</h3>
+                <p>
                     Esports athletes are the privileged persons in US colleges.<br/>
                     Everything is being done to make you play as well as you possibly can.<br/>
                     Your academic schedule is well-planned around your Esports schedule.

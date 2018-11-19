@@ -182,6 +182,19 @@
             </div>
 
             <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+
+                @if(!empty($group->groupable->es_team_image))
+                    <div class="ui-block">
+                        <div class="post-thumb mb-0" style="max-height: 300px">
+                            <img src="{{ Storage::disk('public')->url($group->groupable->es_team_image) }}" alt="{{$group->groupable->es_team_title}}">
+                        </div>
+                        <div class="ui-block-content">
+                            <button type="submit" class="btn btn-primary btn-xs full-width mt-lg-3">WRITE LETTER to COACH</button>
+                            <button type="submit" class="btn btn-info btn-xs full-width mt-lg-3">APPLY TO THE TEAM</button>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="ui-block">
                     <div class="ui-block-title">
                         <h6 class="title">Members ({{$group->users()->count()}})</h6>
@@ -192,7 +205,7 @@
 
                                 @foreach($group->users as $user)
                                     <li>
-                                        <a href="#">
+                                        <a href="/users/{{$user->nickname}}">
                                             <img src="{{ Storage::disk('public')->url($user->avatar) }}" title="{{$user->name}}">
                                         </a>
                                     </li>
