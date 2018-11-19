@@ -39,6 +39,24 @@
     <!-- Main Styles CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fonts.min.css') }}">
+    <style>
+        .registration-login-form{
+            padding-left: 0;
+            border-radius: 0;
+            min-height: 200px;
+        }
+        body{
+            background: #003a50;
+        }
+        .landing-page .content-bg-wrap{
+            -webkit-animation: sidedownscroll 100s linear infinite;
+            animation: sidedownscroll 100s linear infinite;
+        }
+
+        .landing-page .content-bg-wrap:before {
+            background-color: rgba(0,58,80,0.8);
+        }
+    </style>
 </head>
 
 <body class="landing-page">
@@ -154,26 +172,5 @@
             el: '#vue-app'
         });
     </script>
-
-<style>
-    .registration-login-form{
-        padding-left: 0;
-        border-radius: 0;
-        min-height: 200px;
-    }
-    body{
-        background: #003a50;
-    }
-    .landing-page .content-bg-wrap{
-        -webkit-animation: sidedownscroll 100s linear infinite;
-        animation: sidedownscroll 100s linear infinite;
-    }
-
-    .landing-page .content-bg-wrap:before {
-        background-color: #003a50;
-        opacity: 0.55;
-    }
-</style>
-
 </body>
 </html>
