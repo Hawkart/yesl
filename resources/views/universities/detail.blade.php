@@ -87,46 +87,7 @@
                                     <a href="//{{$group->groupable->price_calculator_url}}" target="_blank" class="text">{{$group->groupable->price_calculator_url}}</a>
                                 </li>
                             @endif
-                            @if(!empty($group->groupable->accreditor))
-                                <li>
-                                    <span class="title">Accreditor for institution:</span>
-                                    <span class="text">{{$group->groupable->accreditor}}</span>
-                                </li>
-                            @endif
-
-                            @if(!empty($group->groupable->main_campus))
-                                <li>
-                                    <span class="title">Flag for main campus:</span>
-                                    <span class="text">{{$group->groupable->main_campus ? "Yes" : "No"}}</span>
-                                </li>
-                            @endif
-
-                            @if($group->groupable->branches>0)
-                                <li>
-                                    <span class="title">Number of branch campuses:</span>
-                                    <span class="text">{{$group->groupable->branches}}</span>
-                                </li>
-                            @endif
-
-                            @if($group->groupable->degrees_awarded_highest)
-                                <li>
-                                    <span class="title">Highest degree awarded:</span>
-                                    <span class="text">
-                                        @if($group->groupable->degrees_awarded_highest==0)
-                                            Non-degree-granting
-                                        @elseif($group->groupable->degrees_awarded_highest==1)
-                                            Certificate degree
-                                        @elseif($group->groupable->degrees_awarded_highest==2)
-                                            Associate degree
-                                        @elseif($group->groupable->degrees_awarded_highest==3)
-                                            Bachelor's degree
-                                        @elseif($group->groupable->degrees_awarded_highest==4)
-                                            Graduate degree
-                                        @endif
-                                    </span>
-                                </li>
-                            @endif
-
+                            
                             @if($group->groupable->ownership)
                                 <li>
                                     <span class="title">Control of institution:</span>

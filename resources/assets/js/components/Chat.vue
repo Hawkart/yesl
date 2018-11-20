@@ -74,28 +74,32 @@
 
                     for (let channel of this.channels)
                     {
-                        window.Echo.private("channel_"+channel.id.toString())
-                            .listen('MessageSent', data => {
-                                if(this.activeChannel.id==channel.id)
-                                {
-                                    this.messages.push(data.data);
-                                    this.isTyping = false;
-                                }
-                            })
-                            .listenForWhisper('typing', (e) => {
-
-                                if(this.activeChannel.id==channel.id) {
-                                    this.isTyping = e;
-
-                                    if (this.typingTimer) clearTimeout(this.typingTimer);
-
-                                    this.typingTimer = setTimeout(() => {
-                                        this.isTyping = false;
-                                    }, 2000)
-                                }
-                            });
+                        this.setChannelEcho(channel);
                     }
                 });
+            },
+            setChannelEcho(channel)
+            {
+                window.Echo.private("channel_"+channel.id.toString())
+                    .listen('MessageSent', data => {
+                        if(this.activeChannel.id==channel.id)
+                        {
+                            this.messages.push(data.data);
+                            this.isTyping = false;
+                        }
+                    })
+                    .listenForWhisper('typing', (e) => {
+
+                        if(this.activeChannel.id==channel.id) {
+                            this.isTyping = e;
+
+                            if (this.typingTimer) clearTimeout(this.typingTimer);
+
+                            this.typingTimer = setTimeout(() => {
+                                this.isTyping = false;
+                            }, 2000)
+                        }
+                    });
             },
             fetchMessages()
             {
@@ -153,6 +157,7 @@
                     {
                         this.channels[i] = data.thread;
                         this.activeChannel = data.thread;
+                        this.setChannelEcho(data.thread);
                     }
                 });
 

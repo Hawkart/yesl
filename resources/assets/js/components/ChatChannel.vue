@@ -36,7 +36,7 @@
         <span class="notification-icon">
             <span class="items-round-little bg-breez inline-block mr-xxl-2" v-if="channel.userUnreadMessagesCount>0">{{channel.userUnreadMessagesCount}}</span>
             <a href="#" @click.prevent="setChannel(channel)" class="btn btn-sm btn-primary mb-0">
-                <img src="/svg-icons/sprites/Message_top.svg" style="width: 20px; height: 20px;" class="mr-xxl-2"> Message</a>
+                <img src="/svg-icons/sprites/Message_top.svg" style="width: 20px; height: 20px;" class="mr-xxl-2"><template v-if="activeChannel===null"> Message</template></a>
         </span>
     </li>
 </template>
