@@ -87,7 +87,7 @@
                                     <a href="//{{$group->groupable->price_calculator_url}}" target="_blank" class="text">{{$group->groupable->price_calculator_url}}</a>
                                 </li>
                             @endif
-                            
+
                             @if($group->groupable->ownership)
                                 <li>
                                     <span class="title">Control of institution:</span>

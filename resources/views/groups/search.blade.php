@@ -27,10 +27,10 @@
                             @foreach($groups as $group)
                                 <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
                                     <div class="ui-block">
-                                        <article class="hentry blog-post" data-mh="choose-item">
-                                            <div class="post-thumb">
+                                        <article class="hentry blog-post" data-mh="choose-item-2">
+                                            <div class="post-thumb" data-mh="choose-item">
                                                 <a href="{!! route('group', ['slug' => $group->slug]) !!}">
-                                                    <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="cover image">
+                                                    <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="cover image">
                                                 </a>
                                             </div>
 
@@ -48,17 +48,17 @@
                                                     </div>
 
                                                     <div class="comments-shared" style="float:right; margin-top: 4px">
-                                                        {{$group->users()->count()}} members
+                                                        @if($group->groupable instanceof \App\Models\University)
+                                                            <i class="fas fa-users"></i> {{ intval($group->groupable->enrollment_all) }}
+                                                        @else
+                                                            <i class="fas fa-users"></i> {{$group->users()->count()}}
+                                                        @endif
                                                     </div>
                                                 </div>
 
                                                 <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h4 post-title" title="{{$group->title}}">
                                                     {{ str_limit($group->title, 50, '...') }}
                                                 </a>
-
-                                                <!--<button type="submit" class="btn btn-primary btn-md full-width">
-                                                    Subscribe
-                                                </button>-->
                                             </div>
                                         </article>
                                     </div>

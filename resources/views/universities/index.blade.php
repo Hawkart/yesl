@@ -40,7 +40,7 @@
                                                 </a>
 
                                                 <div class="comments-shared">
-                                                    {{$group->groupable->enrollment_all}} students
+                                                    <i class="fas fa-users"></i>  {{$group->groupable->enrollment_all}}
                                                 </div>
                                             </div>
                                         </article>

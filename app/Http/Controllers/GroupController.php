@@ -35,7 +35,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::orderBy('id', 'desc')->search($request)->paginate(12);
+        $groups = Group::orderBy('title', 'desc')->search($request)->paginate(12);
 
         $this->seo()->setTitle("Groups");
 
