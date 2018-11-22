@@ -3,10 +3,10 @@
         <alert-success :form="form" :message="message"/>
         <form @submit.prevent="save" @keydown="form.onKeydown($event)">
             <template v-if="is_subscribed">
-                <v-button :loading="form.busy" type="primary" :large="false" additional="btn-xs full-width mt-lg-3 mb-0">Unsubscribe</v-button>
+                <v-button :loading="form.busy" type="primary" :large="false" additional="btn-xs full-width mt-lg-3 mb-0">Unfollow</v-button>
             </template>
             <template v-else>
-                <v-button :loading="form.busy" type="primary" :large="false" additional="btn-xs full-width mt-lg-3 mb-0">Subscribe</v-button>
+                <v-button :loading="form.busy" type="primary" :large="false" additional="btn-xs full-width mt-lg-3 mb-0">Follow</v-button>
             </template>
         </form>
     </div>

@@ -14,7 +14,6 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/terms', 'HomeController@index')->name('terms');
 
-
 /**
  * Admin
  */

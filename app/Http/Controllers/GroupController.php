@@ -13,6 +13,7 @@ use Storage;
 use Image;
 use File;
 use Cache;
+use App\Acme\Helpers\TwitterHelper;
 
 class GroupController extends Controller
 {
@@ -154,9 +155,12 @@ class GroupController extends Controller
         $groups = $user->groups()->pluck('group_id')->toArray();
         $can_post = in_array($group->id, $groups) && $group->owner_id==$user->id;
 
+
+        $twitts = TwitterHelper::getByStr($group->groupable->twitter_str);
+
         $this->seo()->setTitle($group->title);
 
-        return view ('universities.detail', compact(['group', 'similar_groups', 'can_post']));
+        return view ('universities.detail', compact(['group', 'similar_groups', 'can_post', 'twitts']));
     }
 
 

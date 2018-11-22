@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
         Commands\ParseUniversityLogo::class,
         Commands\ImportUniversityLogos::class,
         Commands\UniversityNaceSelect::class,
-        Commands\ImportUniversityTeamLogos::class
+        Commands\ImportUniversityTeamLogos::class,
     ];
 
     /**
