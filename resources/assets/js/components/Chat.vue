@@ -55,7 +55,7 @@
                 channels: [],
                 participants: [],
                 socket: null,
-                messages: null,
+                messages: [],
                 activeChannel: null,
                 isTyping: false,
                 typingTimer: false
@@ -82,7 +82,7 @@
             {
                 window.Echo.private("channel_"+channel.id.toString())
                     .listen('MessageSent', data => {
-                        if(this.activeChannel.id==channel.id)
+                        if(this.activeChannel.id==channel.id && data!=null)
                         {
                             this.messages.push(data.data);
                             this.isTyping = false;
@@ -131,10 +131,11 @@
             {
                 //check if channel exists in list
                 var exists = false;
+                var _self = this;
                 this.channels.forEach(function(channel, i) {
                     if(channel.is_user && participant.id==channel.participant.id)
                     {
-                        this.activeChannel = channel;
+                        _self.activeChannel = channel;
                         exists = true;
                     }
                 });
@@ -152,12 +153,13 @@
             onMessageAdded(data) {
 
                 //check if channel was created
+                var _self = this;
                 this.channels.forEach(function(channel, i) {
                     if(channel.is_user && data.participants[0]==channel.participant.id)
                     {
-                        this.channels[i] = data.thread;
-                        this.activeChannel = data.thread;
-                        this.setChannelEcho(data.thread);
+                        _self.channels[i] = data.thread;
+                        _self.activeChannel = data.thread;
+                        _self.setChannelEcho(data.thread);
                     }
                 });
 

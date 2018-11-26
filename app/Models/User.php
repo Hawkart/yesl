@@ -15,10 +15,11 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\Models\Media;
 use Hootlex\Friendships\Models\Friendship;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class User extends VoyagerUser implements HasMedia
 {
-    use Notifiable, Messagable, Friendable, HasMediaTrait;
+    use Notifiable, Messagable, Friendable, HasMediaTrait, Sluggable;
 
     /**
      * The database table used by the model.
@@ -73,6 +74,20 @@ class User extends VoyagerUser implements HasMedia
     ];
 
     /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'nickname' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+
+    /**
      * Boot the model.
      *
      * @return void
@@ -83,8 +98,8 @@ class User extends VoyagerUser implements HasMedia
 
         static::creating(function ($user)
         {
-            if(empty($user->nickname))
-                $user->nickname = substr($user->email, 0,strrpos($user->email, '@'));
+            //if(empty($user->nickname))
+                //$user->nickname = trim($user->first_name." ".$user->last_name);
 
             if(empty($user->name))
                 $user->name = trim($user->first_name." ".$user->last_name);

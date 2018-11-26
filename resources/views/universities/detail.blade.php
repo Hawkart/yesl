@@ -207,7 +207,7 @@
                             <div class="author-folder">
                                 <img src="{{ $group->groupable->es_team_image ? Storage::disk('public')->url($group->groupable->es_team_image) : '/img/twitter-avatar1.png' }}" width="40">
                                 <div class="author">
-                                    <a href="#" class="author-name">@{{ $twitterTitle }}</a>
+                                    <a href="#" class="author-name">{{"@".$twitterTitle }}</a>
                                     <time class="group published">
                                         {{Carbon\Carbon::parse($twitt['created_at'])->diffForHumans()}}
                                     </time>

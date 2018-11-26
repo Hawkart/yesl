@@ -96,7 +96,7 @@
             position: relative;
         }
         .fileupload{
-            position: absolute;
+            position: absolute !important;
             top: 50px;
             left: 40px;
         }
