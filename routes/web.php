@@ -27,6 +27,10 @@ Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 
+
+Route::get('/mailbox', '\App\Acme\Helpers\MailgunHelper@send2');
+
+
 /**
  * Users
  */

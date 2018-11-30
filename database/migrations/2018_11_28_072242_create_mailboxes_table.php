@@ -15,31 +15,18 @@ class CreateMailboxesTable extends Migration
     {
         Schema::create('mailboxes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('subject');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::create('mailbox_messages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('mailbox_id')->unsigned();
-            $table->integer('user_id')->nullable();
-            $table->integer('user_email')->nullable();
-            $table->integer('user_name')->nullable();
+            $table->string('message_ex_id')->nullable();
+            $table->boolean('is_send')->default(0);
             $table->string('subject')->nullable();
+            $table->integer('sender_id')->nullable();
+            $table->string('sender_type')->nullable();
+            $table->integer('recipient_id')->nullable();
+            $table->string('recipient_type')->nullable();
             $table->text('body');
-            $table->text('attachments');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::create('mailbox_participants', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('mailbox_id')->unsigned();
-            $table->integer('user_id')->nullable();
-            $table->integer('user_email')->nullable();
-            $table->integer('user_name')->nullable();
-            $table->timestamp('last_read')->nullable();
+            $table->text('attachments')->nullable();
+            $table->text('json')->nullable();
+            $table->integer('reply_id')->nullable();
+            $table->boolean('is_read')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

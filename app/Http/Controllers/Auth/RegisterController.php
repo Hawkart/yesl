@@ -13,6 +13,7 @@ use App\Mail\EmailVerification;
 use DB;
 use Mail;
 use Illuminate\Http\Request;
+use App\Acme\Helpers\MailgunHelper;
 
 class RegisterController extends Controller
 {
@@ -119,7 +120,31 @@ class RegisterController extends Controller
 
     public function verify($token)
     {
-        User::where('confirmation_code', $token)->firstOrFail()->verified();
+        $result = [];
+        $user = User::where('confirmation_code', $token)->firstOrFail();
+
+        $pass = str_random(10);
+        $mailbox = $user->nickname.'@'.getenv('MAILGUN_DOMAIN', '');
+
+        try
+        {
+            $result = MailgunHelper::create([
+                'account'  => $user->nickname,
+                'password' => $pass
+            ]);
+        }
+        catch(Exception $e) {
+        }
+
+        if($result)
+        {
+            $user->update([
+                'mailbox_email' => $mailbox,
+                'mailbox_password' => $pass
+            ]);
+            $user->verified();
+        }
+
         return redirect('login')->with('status', "Your mail has been verified!");
     }
 }
