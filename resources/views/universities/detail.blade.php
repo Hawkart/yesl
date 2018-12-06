@@ -63,7 +63,7 @@
                     <div class="ui-block-content">
                         <ul class="widget w-personal-info item-block">
                             <li>
-                                <a href="#" class="btn btn-success btn-sm full-width" target="_blank">APPLY NOW</a>
+                                <a href="#" class="btn btn-success btn-sm full-width" id="apply-university-ga" target="_blank">APPLY NOW</a>
                             </li>
 
                             @if(!empty($group->groupable->admission_rate_overall))
@@ -161,7 +161,7 @@
                         </div>
                         <div class="ui-block-content">
                             <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
-                            <button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0">APPLY TO THE TEAM</button>
+                            <button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>
                         </div>
                     </div>
                 @endif
