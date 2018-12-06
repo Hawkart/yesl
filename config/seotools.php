@@ -6,7 +6,7 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "Yesl", // set false to total remove
+            'title'        => "CampusTeam", // set false to total remove
             'description'  => "",
             'separator'    => ' - ',
             'keywords'     => [],
