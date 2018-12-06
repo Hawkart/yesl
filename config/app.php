@@ -160,6 +160,8 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        \ZoiloMora\AccessServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -225,7 +227,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

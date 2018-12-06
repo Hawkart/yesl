@@ -11,16 +11,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {!! SEO::generate(true) !!}
 
-    <!-- Main Font -->
-    <!--<script src="{{ asset('/js/webfontloader.min.js') }}"></script>
-    <script>
-        WebFont.load({
-            google: {
-                families: ['Roboto:300,400,500,700:latin']
-            }
-        });
-    </script>-->
-
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons:latin">
 
     <script>
@@ -311,9 +301,36 @@
         }
 
     </style>
+
+    @if (app()->environment() === 'production')
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130570614-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-130570614-1');
+        </script>
+
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-TB6VBHP');</script>
+        <!-- End Google Tag Manager -->
+    @endif
 </head>
 
 <body>
+
+@if (app()->environment() === 'production')
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TB6VBHP"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+@endif
 
 <div id="app">
 @include('_partials.dashboard.sidebar')
