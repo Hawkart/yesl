@@ -300,6 +300,10 @@
             padding: 8px 0;;
         }
 
+        .pull-right {
+            float: right;
+        }
+
     </style>
 
     @if (app()->environment() === 'production')
