@@ -69,9 +69,13 @@
                                 <form class="form-horizontal mt-10" method="GET">
                                     <div class="row">
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                            <div class="form-group label-floating is-select">
-                                                <label class="control-label">State</label>
-                                                {{ Form::select('state', $states, app('request')->input('state'), ['class' => 'selectpicker form-control']) }}
+                                            <div class="form-group">
+                                                <!--<label class="control-label">State:</label>-->
+                                                <div class="w-select pa-0">
+                                                    <fieldset class="form-group">
+                                                        {{ Form::select('state', $states, app('request')->input('state'), ['class' => 'selectpicker form-control']) }}
+                                                    </fieldset>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -110,8 +114,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <button class="btn btn-primary full-width mb-0">Search</button>
+                                        <div class="col col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                                            <button class="btn btn-primary full-width">Search</button>
+                                            <a href="{{route('universities')}}" class="full-width mb-0">Clear</a>
                                         </div>
                                     </div>
                                 </form>
