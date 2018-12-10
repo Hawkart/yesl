@@ -32,6 +32,7 @@ Vue.component('friend-possible-search', require('./components/FriendPossibleSear
 Vue.component('friend-possible-widget', require('./components/FriendPossibleWidget'));
 Vue.component('friend-requests-in', require('./components/FriendRequestsIn'));
 Vue.component('friend-requests-out', require('./components/FriendRequestsOut'));
+Vue.component('range-slider', require('./components/RangeSlider'));
 
 import {
     HasError,

@@ -101,6 +101,35 @@ class Group extends Model
                 $q->where('state', $request['state']);
             });
         }
+        if(!empty($request['in_state']) && $request['in_state']=='on')
+        {
+            $query->whereHas('university', function($q){
+                $q->whereRaw('cost_tuition_in_state < cost_tuition_out_of_state') ;
+            });
+
+            if(!empty($request['tution_from']) && !empty($request['tution_to']))
+            {
+                $query->whereHas('university', function($q) use ($request){
+                    $q->whereBetween('cost_tuition_in_state', [$request['tution_from'], $request['tution_to']]);
+                });
+            }
+
+        }else{
+            if(!empty($request['tution_from']) && !empty($request['tution_to']))
+            {
+                $query->whereHas('university', function($q) use ($request){
+                    $q->whereBetween('cost_tuition_out_of_state', [$request['tution_from'], $request['tution_to']]);
+                });
+            }
+        }
+
+        if(!empty($request['sat_from']) && !empty($request['sat_to']))
+        {
+            $query->whereHas('university', function($q) use ($request){
+                $q->whereBetween('sat_scores_average_overall', [$request['sat_from'], $request['sat_to']]);
+            });
+        }
+
         if(!empty($request['genre_id']))
         {
             $query->whereHas('game', function($q) use ($request){

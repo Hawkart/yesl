@@ -54,21 +54,41 @@ class GroupController extends Controller
             ->where('groupable_type', 'App\Models\University')
             ->search($request)->paginate(12);
 
-        $st = University::$states;
-        $states_id = University::where('nace', 1)->pluck('state')->toArray();
-        $states_id = array_unique($states_id);
-        $states = ['0' => 'Select state'];
-        foreach($st as $key=>$value)
-        {
-            if(in_array($key, $states_id))
+        $states = Cache::remember('state_list', 3600, function(){
+            $st = University::$states;
+            $states_id = University::where('nace', 1)->pluck('state')->toArray();
+            $states_id = array_unique($states_id);
+            $states = ['0' => 'Select state'];
+            foreach($st as $key=>$value)
             {
-                $states[$key] = $value;
+                if(in_array($key, $states_id))
+                {
+                    $states[$key] = $value;
+                }
             }
-        }
+
+            return $states;
+        });
+
+        $sat_min = Cache::remember('sat_min', 3600, function(){
+            return University::where('nace', 1)->min('sat_scores_average_overall');
+        });
+
+        $sat_max = Cache::remember('sat_max', 3600, function(){
+            return University::where('nace', 1)->max('sat_scores_average_overall');
+        });
+
+        $tution_min = Cache::remember('tution_min', 3600, function(){
+            return University::where('nace', 1)->min('cost_tuition_in_state');
+        });
+
+        $tution_max = Cache::remember('tution_max', 3600, function(){
+            return University::where('nace', 1)->max('cost_tuition_in_state');
+        });
 
         $this->seo()->setTitle("Universities");
 
-        return view('universities.index', compact('groups', 'states'));
+        return view('universities.index', compact('groups', 'states', 'sat_min', 'sat_max', 'tution_min', 'tution_max'));
     }
 
     /**
@@ -154,7 +174,6 @@ class GroupController extends Controller
         $user = Auth::user();
         $groups = $user->groups()->pluck('group_id')->toArray();
         $can_post = in_array($group->id, $groups) && $group->owner_id==$user->id;
-
 
         $twitts = TwitterHelper::getByStr($group->groupable->twitter_str);
 

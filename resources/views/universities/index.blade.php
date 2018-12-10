@@ -75,6 +75,41 @@
                                             </div>
                                         </div>
 
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="in_state" {{app('request')->input('in_state')=='on' ? 'checked' : ''}}>
+                                                    Special tuition and fees for in-state students
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <div><label class="control-label">SAT:</label></div>
+                                                <div class="btn-group bootstrap-select form-control mt-xxl-4">
+                                                    <range-slider aval="{{json_encode([app('request')->input('sat_from') ? app('request')->input('sat_from'): $sat_min, app('request')->input('sat_to') ? app('request')->input('sat_to'):$sat_max])}}" :min="{{$sat_min}}" :max="{{$sat_max}}" reff="Sat" name="sat"></range-slider>
+                                                </div>
+                                                <div class="range-bar">
+                                                    <span class="min">{{$sat_min}}</span>
+                                                    <span class="max pull-right">{{$sat_max}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <div><label class="control-label">Instate/outstate tution:</label></div>
+                                                <div class="btn-group bootstrap-select form-control mt-xxl-4">
+                                                    <range-slider aval="{{json_encode([app('request')->input('tution_from') ? app('request')->input('tution_from'): $tution_min, app('request')->input('tution_to') ? app('request')->input('tution_to'):$tution_max])}}" :min="{{$tution_min}}" :max="{{$tution_max}}" reff="Tution" name="tution"></range-slider>
+                                                </div>
+                                                <div class="range-bar">
+                                                    <span class="min">{{$tution_min}}</span>
+                                                    <span class="max pull-right">{{$tution_max}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
                                             <button class="btn btn-primary full-width mb-0">Search</button>
                                         </div>
