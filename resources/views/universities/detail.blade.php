@@ -63,7 +63,7 @@
                     <div class="ui-block-content">
                         <ul class="widget w-personal-info item-block">
                             <li>
-                                <a href="#" class="btn btn-success btn-sm full-width" id="apply-university-ga" target="_blank">APPLY NOW</a>
+                                <a href="//{{$group->groupable->url}}" class="btn btn-success btn-sm full-width" id="apply-university-ga" target="_blank">APPLY NOW</a>
                             </li>
 
                             @if(!empty($group->groupable->admission_rate_overall))
@@ -160,8 +160,14 @@
                             <img src="{{ Storage::disk('public')->url($group->groupable->es_team_image) }}" alt="{{$group->groupable->es_team_title}}">
                         </div>
                         <div class="ui-block-content">
-                            <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
-                            <button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>
+
+                            <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :classes="'pa-0 full-width mb-0'">
+                                <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
+                            </chat-dialog-button>
+
+                            <a href="//{{$group->groupable->url}}" target="_blank" class="btn btn-success btn-sm full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</a>
+
+                            <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
                         </div>
                     </div>
                 @endif

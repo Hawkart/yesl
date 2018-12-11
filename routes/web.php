@@ -11,7 +11,11 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', ['middleware' =>'guest', function(){
+    return view('auth.login');
+}]);
+
+Route::get('/feeds', ['uses' => 'HomeController@index', 'middleware' => 'auth'])->name('home');
 Route::get('/terms', 'HomeController@index')->name('terms');
 
 /**

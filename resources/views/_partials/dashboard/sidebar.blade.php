@@ -26,7 +26,7 @@
                 ],
                 [
                     'title' => 'NEWSFEED',
-                    'url' => '/',
+                    'url' => '/feeds',
                     'svg' => 'olymp-newsfeed-icon',
                     'xlink' => '/svg-icons/sprites/NewsFeed.svg',
                     'li_class' => ''

@@ -126,7 +126,8 @@ class Group extends Model
         if(!empty($request['sat_from']) && !empty($request['sat_to']))
         {
             $query->whereHas('university', function($q) use ($request){
-                $q->whereBetween('sat_scores_average_overall', [$request['sat_from'], $request['sat_to']]);
+                $q->whereBetween('sat_scores_average_overall', [$request['sat_from'], $request['sat_to']])
+                    ->orWhereNull('sat_scores_average_overall');
             });
         }
 
