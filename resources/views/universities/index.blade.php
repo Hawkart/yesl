@@ -10,7 +10,7 @@
                     <div class="ui-block">
                         <div class="your-profile">
                             <div class="ui-block-title ui-block-title-small">
-                                <h6 class="title">FILTER</h6>
+                                <h5 class="title">FILTER</h5>
                             </div>
                             <div class="ui-block-content">
                                 <form class="form-horizontal mt-10" method="GET">
@@ -28,7 +28,7 @@
 
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <div><label class="control-label">Avarage SAT score:</label></div>
+                                                <div><label class="control-label bold">Average SAT score:</label></div>
                                                 <div class="btn-group bootstrap-select form-control mt-30">
                                                     <range-slider aval="{{json_encode([app('request')->input('sat_from') ? app('request')->input('sat_from'): $sat_min, app('request')->input('sat_to') ? app('request')->input('sat_to'):$sat_max])}}" :min="{{$sat_min}}" :max="{{$sat_max}}" reff="Sat" name="sat"></range-slider>
                                                 </div>
@@ -41,7 +41,7 @@
 
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <div><label class="control-label">Instate/outstate tution:</label></div>
+                                                <div><label class="control-label bold">Instate/outstate tution:</label></div>
                                                 <div class="btn-group bootstrap-select form-control mt-30">
                                                     <range-slider aval="{{json_encode([app('request')->input('tution_from') ? app('request')->input('tution_from'): $tution_min, app('request')->input('tution_to') ? app('request')->input('tution_to'):$tution_max])}}" :min="{{$tution_min}}" :max="{{$tution_max}}" reff="Tution" name="tution"></range-slider>
                                                 </div>
@@ -117,8 +117,14 @@
                         <div class="row">
                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                 <nav aria-label="Page navigation">
-                                    {{ $groups->links() }}
+                                    {{ $groups->appends(request()->input())->links() }}
                                 </nav>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                No results, change the parameters of filter.
                             </div>
                         </div>
                     @endif
