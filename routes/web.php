@@ -120,7 +120,7 @@ Route::delete('/upload', 'UploadController@delete');
 /**
  * Majors
  */
-Route::resource('majors','majorController');
+Route::resource('majors','MajorController');
 
 /**
  * Personal cabinet
