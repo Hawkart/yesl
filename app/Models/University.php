@@ -136,6 +136,14 @@ class University extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function majors()
+    {
+        return $this->belongsToMany('App\Models\Major');
+    }
+
+    /**
      * Get group of university
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne

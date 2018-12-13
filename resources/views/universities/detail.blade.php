@@ -147,6 +147,21 @@
                                 </li>
                             @endif
 
+                            @if($group->groupable->majors->count()>0)
+                                @php
+                                $majors = $group->groupable->majors->sortBy(function($major){
+                                    return $major->title;
+                                });
+                                @endphp
+                                <li>
+                                    <span class="text"><strong>Majors: </strong></span>
+                                    <ol>
+                                        @foreach($majors as $major)
+                                            <li>{{$major->title}}</li>
+                                        @endforeach
+                                    </ol>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

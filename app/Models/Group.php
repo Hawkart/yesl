@@ -101,6 +101,16 @@ class Group extends Model
                 $q->where('state', $request['state']);
             });
         }
+
+        if(!empty($request['major_id']))
+        {
+            $query->whereHas('university', function($q) use ($request){
+                $q->whereHas('majors', function($qq) use ($request){
+                    $qq->where('major_id', $request['major_id']);
+                });
+            });
+        }
+
         if(!empty($request['in_state']) && $request['in_state']=='on')
         {
             $query->whereHas('university', function($q){

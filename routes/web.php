@@ -118,6 +118,11 @@ Route::post('/upload', 'UploadController@store');
 Route::delete('/upload', 'UploadController@delete');
 
 /**
+ * Majors
+ */
+Route::resource('majors','majorController');
+
+/**
  * Personal cabinet
  */
 Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {

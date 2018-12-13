@@ -280,3 +280,14 @@
 .ui-block-title.ui-block-title-small .title{
   font-size: 11px;
 }
+
+.select2-container--default .select2-selection--single{
+  border: 1px solid #e6ecf5;
+}
+
+.select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__arrow{
+  height: 40px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+  line-height: 40px;
+}

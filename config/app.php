@@ -161,7 +161,6 @@ return [
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        \ZoiloMora\AccessServiceProvider::class,
 
         /*
          * Application Service Providers...

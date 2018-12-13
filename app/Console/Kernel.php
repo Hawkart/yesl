@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use Guzzle\Http\QueryAggregator\CommaAggregator;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Psy\Command\Command;
 
 class Kernel extends ConsoleKernel
 {
@@ -22,6 +24,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportUniversityLogos::class,
         Commands\UniversityNaceSelect::class,
         Commands\ImportUniversityTeamLogos::class,
+        Commands\ImportMajors::class,
     ];
 
     /**

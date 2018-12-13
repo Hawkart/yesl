@@ -28,6 +28,16 @@
 
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
+                                                <div class="w-select pa-0">
+                                                    <fieldset class="form-group">
+                                                        <major-select val="{{app('request')->input('major_id')}}"></major-select>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
                                                 <div><label class="control-label bold">Average SAT score:</label></div>
                                                 <div class="btn-group bootstrap-select form-control mt-30">
                                                     <range-slider aval="{{json_encode([app('request')->input('sat_from') ? app('request')->input('sat_from'): $sat_min, app('request')->input('sat_to') ? app('request')->input('sat_to'):$sat_max])}}" :min="{{$sat_min}}" :max="{{$sat_max}}" reff="Sat" name="sat"></range-slider>
