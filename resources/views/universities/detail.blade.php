@@ -154,6 +154,7 @@
                                 })->pluck('title');
                                 @endphp
                                 <li>
+                                    <hr/>
                                     <span class="text"><strong>Majors: </strong></span>
                                     <ol>
                                         @foreach($majors as $key=>$major)
