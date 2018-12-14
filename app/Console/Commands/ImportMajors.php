@@ -37,6 +37,11 @@ class ImportMajors extends Command
         $a = array_intersect($ids, $units);
         dd(count($a));*/
 
+        DB::statement("SET foreign_key_checks=0");
+        Major::truncate();
+        MajorUniversity::truncate();
+        DB::statement("SET foreign_key_checks=1");
+
         $this->importMajor();
         $this->importMajorUniversity();
     }
@@ -64,7 +69,7 @@ class ImportMajors extends Command
 
     private function importMajorUniversity()
     {
-        $universities = University::pluck('id', 'score_id')->toArray();
+        $universities = University::where('nace', 1)->pluck('id', 'score_id')->toArray();
         $majors = Major::pluck('id', 'code')->toArray();
 
         $file_name = 'C2016_A.csv';
@@ -92,7 +97,7 @@ class ImportMajors extends Command
 
     private function addMajor($str)
     {
-        if(!empty($str[3]) && Major::where('code', $str[3])->count()==0)
+        if(!empty($str[3]) && Major::where('code', $str[3])->count()==0 && Major::where('title', $str[4])->count()==0)
         {
             Major::create([
                 'title' => $str[4],

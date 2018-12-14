@@ -142,24 +142,27 @@
                             @endif
 
                             @if(!empty($group->groupable->url))
-                                <li>
+                                <!--<li>
                                     <a href="//{{$group->groupable->url}}" target="_blank" class="btn btn-success btn-sm full-width mb-0">Website</a>
-                                </li>
+                                </li>-->
                             @endif
 
                             @if($group->groupable->majors->count()>0)
                                 @php
                                 $majors = $group->groupable->majors->sortBy(function($major){
                                     return $major->title;
-                                });
+                                })->pluck('title');
                                 @endphp
                                 <li>
                                     <span class="text"><strong>Majors: </strong></span>
                                     <ol>
-                                        @foreach($majors as $major)
-                                            <li>{{$major->title}}</li>
+                                        @foreach($majors as $key=>$major)
+                                            <li class="major-item"@if($key>9) style="display: none;" @endif>{{$major}}</li>
                                         @endforeach
                                     </ol>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" onclick="mshow('.major-item'); this.style.display='none'" class="btn btn-success btn-sm full-width mb-0 mt-0">show more</a>
                                 </li>
                             @endif
                         </ul>
@@ -284,4 +287,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function mshow(which){
+
+            var elems = document.querySelectorAll(which);
+
+            console.log(elems);
+
+            [].slice.call(elems).forEach(function(el) {
+                el.style.display = 'block';
+            });
+        }
+    </script>
 @endsection
