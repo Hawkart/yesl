@@ -29,6 +29,13 @@
         ]) !!};
     </script>
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('/img/logo.png') }}">
+    <link rel="icon" href="{{ asset('/img/logo.png') }}" type="image/x-icon">
+    <meta property="og:title" content="CampusTeam is varsity ESports social media, recruiting tool and tournament platform.">
+    <link rel="image_src" href="{{ asset('/img/logo.png') }}">
+    <meta property="og:image" content="{{ asset('/img/logo.png') }}">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-reboot.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap.css') }}">
@@ -53,9 +60,6 @@
 
         .landing-page .content-bg-wrap:before {
             background-color: rgba(0,58,80,0.8);
-        }
-        .bootstrap-select > .dropdown-toggle{
-            line-height: 1.8;
         }
     </style>
 

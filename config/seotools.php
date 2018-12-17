@@ -7,9 +7,9 @@ return [
          */
         'defaults'       => [
             'title'        => "CampusTeam", // set false to total remove
-            'description'  => "",
+            'description'  => "CampusTeam is varsity ESports social media, recruiting tool and tournament platform.",
             'separator'    => ' - ',
-            'keywords'     => [],
+            'keywords'     => ['ESports', 'social media', 'recruiting'],
             'canonical'    => false, // Set null for using Url::current(), set false to total remove
         ],
 

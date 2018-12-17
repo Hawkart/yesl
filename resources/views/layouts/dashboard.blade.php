@@ -29,6 +29,13 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/select2/4.0.0/css/select2.css">
     <link rel="stylesheet" type="text/css" href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css">
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('/img/logo.png') }}">
+    <link rel="icon" href="{{ asset('/img/logo.png') }}" type="image/x-icon">
+    <meta property="og:title" content="CampusTeam is varsity ESports social media, recruiting tool and tournament platform.">
+    <link rel="image_src" href="{{ asset('/img/logo.png') }}">
+    <meta property="og:image" content="{{ asset('/img/logo.png') }}">
+
     <!-- Main Styles CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fonts.min.css') }}">
