@@ -6,11 +6,11 @@
         <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="landing-content">
                 <h1>Are you looking for Esports scholarship ?</h1>
-                <h3>Here you will find the offers for Esports athletes gathered from more than 100 universities.</h3>
+                <h3>Here you will find all the offers for Esports athletes gathered from more than 100 universities.</h3>
                 <p>
                     Esports athletes are the privileged persons in US colleges.<br/>
-                    Everything is being done to make you play as well as you possibly can.<br/>
-                    Your academic schedule is well-planned around your Esports schedule.
+                    Everything will be done to make you play as well as you possibly can.<br/>
+                    Your academic schedule will be planned around your Esports schedule.
                 </p>
                 <p>Do you have an account?</p>
                 <p><a href="{{ route('login') }}" class="btn btn-md btn-border c-white">{{ __('Login') }} Now!</a></p>
@@ -20,7 +20,7 @@
         <div class="col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="registration-login-form">
 
-                <div class="title h6">{{ __('Register') }}</div>
+                <div class="title h6">Register as Athlete</div>
 
                 @if (session('status'))
                     <div class="alert alert-success">
@@ -115,7 +115,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-lg full-width" id="btn-reg">
-                                {{ __('Register') }}
+                                Register as Athlete
                             </button>
                         </div>
                     </div>

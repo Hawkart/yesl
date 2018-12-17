@@ -6,7 +6,6 @@
             <a href="{{url('/')}}" class="logo">
                 <div class="img-wrap">
                     <img src="/img/logo.png" alt="CampusTeam">
-                    <img src="/img/logo-colored-small.png" alt="CampusTeam" class="logo-colored">
                 </div>
                 <div class="title-block">
                     <h6 class="logo-title">Campus</h6>

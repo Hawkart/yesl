@@ -13,7 +13,6 @@ use App\Mail\EmailVerification;
 use DB;
 use Mail;
 use Illuminate\Http\Request;
-use App\Acme\Helpers\MailgunHelper;
 
 class RegisterController extends Controller
 {
@@ -60,7 +59,7 @@ class RegisterController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
-            'terms' => 'required',
+            'terms' => 'required|accepted',
             'gender' => 'required',
             'date_birth' => 'required|date_format:Y-m-d|before:today'
         ];
@@ -109,42 +108,41 @@ class RegisterController extends Controller
             $email = new EmailVerification(new User(['confirmation_code' => $user->confirmation_code, 'name' => $user->name]));
             Mail::to($user->email)->send($email);
             DB::commit();
-            return back()->with('status', "A confirmation link has been sent to your mail!");
+
+            if ($request->expectsJson() && $request->ajax())
+            {
+                return response()->json([
+                    "message" => "A confirmation link has been sent to your mail!"
+                ], 200);
+            }else{
+                return back()->with('status', "A confirmation link has been sent to your mail!");
+            }
         }
         catch(Exception $e)
         {
             DB::rollback();
-            return back();
+
+            if ($request->expectsJson() && $request->ajax())
+            {
+                return response()->json([
+                    "message" => "Something wrong!"
+                ], 422);
+            }else {
+                return back();
+            }
         }
     }
 
     public function verify($token)
     {
-        $result = [];
         $user = User::where('confirmation_code', $token)->firstOrFail();
-
-        $pass = str_random(10);
-        $mailbox = $user->nickname.'@'.getenv('MAILGUN_DOMAIN', '');
-
-        try
-        {
-            $result = MailgunHelper::create([
-                'account'  => $user->nickname,
-                'password' => $pass
-            ]);
-        }
-        catch(Exception $e) {
-        }
-
-        if($result)
-        {
-            $user->update([
-                'mailbox_email' => $mailbox,
-                'mailbox_password' => $pass
-            ]);
-            $user->verified();
-        }
+        $user->verified();
 
         return redirect('login')->with('status', "Your mail has been verified!");
+    }
+
+    public function showRegistrationCoachForm()
+    {
+        return view('auth.register_coach');
     }
 }

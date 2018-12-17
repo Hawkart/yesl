@@ -152,4 +152,14 @@ class University extends Model
     {
         return $this->morphOne('App\Models\Group', 'groupable');
     }
+
+
+    /**
+     * NACE univs
+     */
+    public function scopeNace($query)
+    {
+        $query->where('nace', 1);
+        return $query;
+    }
 }

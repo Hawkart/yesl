@@ -29,11 +29,8 @@ Route::group(['prefix' => 'admin'], function () {
  * Auth
  */
 Auth::routes();
+Route::get('/register-coach', ['uses' => 'Auth\RegisterController@showRegistrationCoachForm', 'middleware' => 'guest'])->name('register_coach');
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
-
-
-Route::get('/mailbox', '\App\Acme\Helpers\MailgunHelper@send2');
-
 
 /**
  * Users
@@ -171,10 +168,3 @@ Route::group(['prefix' => 'me', 'middleware' => 'auth'], function () {
 
 Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
 Route::get('500', ['as' => '500', 'uses' => 'ErrorController@fatal']);
-
-Route::group([
-    'prefix' => 'mailgun',
-    'middleware' => ['mailgun.webhook'],
-],function () {
-    Route::post('store', 'MailgunController@store');
-});

@@ -16,7 +16,6 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\Models\Media;
 use Hootlex\Friendships\Models\Friendship;
 use Cviebrock\EloquentSluggable\Sluggable;
-use App\Models\Mailbox;
 
 class User extends VoyagerUser implements HasMedia
 {
@@ -37,7 +36,8 @@ class User extends VoyagerUser implements HasMedia
     protected $fillable = ['role_id', 'name', 'email', 'avatar', 'password', 'remember_token',
         'settings', 'created_at', 'updated_at', 'api_token', 'first_name', 'last_name',
         'second_name', 'nickname', 'verified', 'confirmation_code', 'notify', 'overlay',
-        'description', 'timezone', 'contacts', 'university_id', 'date_birth', 'gender', 'mailbox_password', 'mailbox_email'];
+        'description', 'timezone', 'contacts', 'university_id', 'date_birth', 'gender',
+        'type', 'precreated'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -45,7 +45,7 @@ class User extends VoyagerUser implements HasMedia
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token', 'confirmation_code', 'mailbox_password', 'mailbox_email'
+        'password', 'remember_token', 'api_token', 'confirmation_code'
     ];
 
     /**
@@ -222,6 +222,34 @@ class User extends VoyagerUser implements HasMedia
     }
 
     /**
+     * Athletes
+     */
+    public function scopeAthlete($query)
+    {
+        $query->where('type', 1);
+        return $query;
+    }
+
+    /**
+     * Coaches
+     */
+    public function scopeCoach($query)
+    {
+        $query->where('type', 2);
+        return $query;
+    }
+
+    public function isAthlete()
+    {
+        return ($this->type==1);
+    }
+
+    public function isCoach()
+    {
+        return ($this->type==1);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Collection|Friendship[]
      */
     public function getPendingIncomingFriends($status = null)
@@ -246,35 +274,5 @@ class User extends VoyagerUser implements HasMedia
         }
 
         return $query;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getIncomingMailboxes()
-    {
-        return Mailbox::whereRecipient($this);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getOutgoingMailboxes()
-    {
-        return Mailbox::whereSender($this);
-    }
-
-    /**
-     * Returns count of unread mailboxes.
-     *
-     * @param int $userId
-     *
-     * @return int
-     */
-    public function unreadMailboxesCount($userId)
-    {
-        return $this->getIncomingMailboxes()
-            ->where('is_read', false)
-            ->count();
     }
 }

@@ -35,6 +35,7 @@ Vue.component('friend-requests-out', require('./components/FriendRequestsOut'));
 Vue.component('range-slider', require('./components/RangeSlider'));
 
 Vue.component('major-select', require('./components/MajorSelect'));
+Vue.component('register-coach', require('./components/RegisterCoach'));
 
 import {
     HasError,

@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
         Commands\UniversityNaceSelect::class,
         Commands\ImportUniversityTeamLogos::class,
         Commands\ImportMajors::class,
+        Commands\ImportCoaches::class,
     ];
 
     /**
