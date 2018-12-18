@@ -123,6 +123,10 @@ class User extends VoyagerUser implements HasMedia
             ->height(50);
     }
 
+    public function setDateBirthAttribute( $value ) {
+        $this->attributes['date_birth'] = (new Carbon($value))->format('Y-m-d');
+    }
+
     /**
      * Verify user after confirmation of email.
      */

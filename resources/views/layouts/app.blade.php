@@ -40,6 +40,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-reboot.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-grid.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/select2/4.0.0/css/select2.css">
+    <link rel="stylesheet" type="text/css" href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css">
 
     <!-- Main Styles CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
@@ -53,6 +55,9 @@
         body{
             background: #003a50;
         }
+        .pa-0{
+            padding: 0!important;
+        }
         .landing-page .content-bg-wrap{
             -webkit-animation: sidedownscroll 100s linear infinite;
             animation: sidedownscroll 100s linear infinite;
@@ -60,6 +65,42 @@
 
         .landing-page .content-bg-wrap:before {
             background-color: rgba(0,58,80,0.8);
+        }
+        .ui-block-title.ui-block-title-small .title{
+            font-size: 11px;
+        }
+
+        /**
+         ** Select-2
+         */
+        .select2-container--default .select2-selection--single{
+            border: 1px solid #e6ecf5;
+        }
+
+        .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__arrow{
+            height: 50px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            line-height: 50px;
+        }
+
+        .alert-dismissible .close{
+            top: 0;
+        }
+
+        /**
+         ** Calendar
+         */
+        .vdp-datepicker__calendar{
+            width: 260px !important;
+        }
+        .vdp-datepicker.is-invalid input
+        {
+            border-color: #dc3545;
+        }
+        .vdp-datepicker__calendar .cell{
+            height: 28px !important;
+            line-height: 28px !important;
         }
     </style>
 
@@ -119,10 +160,6 @@
     <script src="{{ asset('js/bootstrap-select.js') }}"></script>
     <script src="{{ asset('js/smooth-scroll.js') }}"></script>
     <script src="{{ asset('js/selectize.js') }}"></script>
-    <script src="{{ asset('js/moment.js') }}"></script>
-    <script src="{{ asset('js/daterangepicker.js') }}"></script>
-    <script src="{{ asset('js/simplecalendar.js') }}"></script>
-    <script src="{{ asset('js/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/isotope.pkgd.js') }}"></script>
     <script src="{{ asset('js/ajax-pagination.js') }}"></script>
     <script src="{{ asset('js/Chart.js') }}"></script>

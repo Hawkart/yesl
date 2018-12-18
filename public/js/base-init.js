@@ -392,7 +392,7 @@ CRUMINA.Bootstrap = function () {
 	 * Documentation about used plugin:
 	 * https://v4-alpha.getbootstrap.com/getting-started/introduction/
 	 * ---------------------------*/
-	var date_select_field = $('input[name="date_birth"]');
+	/*var date_select_field = $('input[name="date_birth"]');
 	if (date_select_field.length) {
 		var start = moment().subtract(29, 'days');
 
@@ -417,8 +417,7 @@ CRUMINA.Bootstrap = function () {
 				$(this).closest('.form-group').removeClass('is-focused');
 			}
 		});
-
-	}
+	}*/
 };
 
 $(document).ready(function () {

@@ -74,7 +74,7 @@
 
                                     <div class="form-group date-time-picker label-floating">
                                         <label class="control-label">Your Birthday</label>
-                                        <input class="{{ $errors->has('email') ? ' is-invalid' : '' }}" name="date_birth" value="{{ $user->date_birth ? $user->date_birth->toDateString() : '' }}" required/>
+                                        <datepicker name="date_birth" value="{{ $user->date_birth ? $user->date_birth->toDateString() : '' }}" format="yyyy-MM-dd" :required="true" :class="{{ $errors->has('date_birth') ? ' is-invalid' : '' }}"></datepicker>
                                         <span class="input-group-addon">
                                         <svg class="olymp-calendar-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-calendar-icon"></use></svg>
                                     </span>

@@ -246,13 +246,29 @@
 .ui-block-title.ui-block-title-small .title {
   font-size: 11px; }
 
+/**
+ ** Select-2
+ */
 .select2-container--default .select2-selection--single {
   border: 1px solid #e6ecf5; }
 
 .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__arrow {
-  height: 40px; }
+  height: 50px; }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-  line-height: 40px; }
+  line-height: 50px; }
+
+/**
+ ** Calendar
+ */
+.vdp-datepicker__calendar {
+  width: 260px !important; }
+
+.vdp-datepicker.is-invalid input {
+  border-color: #dc3545; }
+
+.vdp-datepicker__calendar .cell {
+  height: 28px !important;
+  line-height: 28px !important; }
 
 /*# sourceMappingURL=app.css.map */

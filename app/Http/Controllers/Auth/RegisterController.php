@@ -54,10 +54,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $data['date_birth'] = Carbon::parse($data['date_birth'])->format('Y-m-d');
+
         $rules = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',//|unique:users',
             'password' => 'required|string|min:6',
             'terms' => 'required|accepted',
             'gender' => 'required',
@@ -90,9 +92,7 @@ class RegisterController extends Controller
         $domain = substr($data['email'], strrpos($data['email'], '@') + 1);
         $universities = University::where('domain', $domain);
         if($universities->count()>0)
-        {
             $u['university_id'] =  $universities->first()->id;
-        }
 
         return User::create($u);
     }
@@ -101,35 +101,83 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
+        $data = $request->all();
+        $send_no_auto = false;
+        $errors = [];
+
+        //check coach
+        if(isset($data['type']) && $data['type']==2)
+        {
+            $domain = substr($data['email'], strrpos($data['email'], '@') + 1);
+
+            //check .edu email
+            if(stripos($domain, '.edu')===false)
+            {
+                $errors['email'] = "Coaches can register only with university's mailbox.";
+                return response()->json(['email' => "Coaches can register only with university's mailbox."], 422);
+            }else{
+
+                if(intval($data['university_id'])>0)
+                {
+                    $universities = University::whereId($data['university_id']);
+                }else{
+                    $universities = University::where('url', 'like', "%".$domain."%");
+                }
+
+                if($universities->count()==0)
+                {
+                    $errors['university_id'] = "You must choose which university coach you are.";
+                    return response()->json(['university_id' => 'You must choose which university coach you are.'], 422);
+                }else{
+                    $university = $universities->first();
+
+                    //check if need to send notify about coach with no auto chosen university
+                    if(stripos($university->url, $domain)===false)
+                        $send_no_auto = true;
+                }
+            }
+        }
+
         DB::beginTransaction();
         try
         {
-            $user = $this->create($request->all());
+            $users = User::whereEmail($data['email']);
+            if($users->count()>0)
+            {
+                $user = $users->first();
+
+                if($user->precreated && !$user->verified && $user->type==2)
+                {
+                    $data['confirmation_code'] = str_random(10);
+                    $user->update($data);
+                }else{
+                    return response()->json(['email' => 'The email has already been taken.'], 422);
+                }
+            }else{
+                $user = $this->create($request->all());
+            }
+
             $email = new EmailVerification(new User(['confirmation_code' => $user->confirmation_code, 'name' => $user->name]));
             Mail::to($user->email)->send($email);
             DB::commit();
 
-            if ($request->expectsJson() && $request->ajax())
-            {
-                return response()->json([
-                    "message" => "A confirmation link has been sent to your mail!"
-                ], 200);
-            }else{
-                return back()->with('status', "A confirmation link has been sent to your mail!");
-            }
+            $message = '';
+            if($data['type']==2)
+                $message = 'Dear coach of the university team. We are glad that you are with us! ';
+
+            $message.= "A confirmation link has been sent to your mail!";
+
+            return response()->json([
+                "message" => $message
+            ], 200);
         }
         catch(Exception $e)
         {
             DB::rollback();
 
-            if ($request->expectsJson() && $request->ajax())
-            {
-                return response()->json([
-                    "message" => "Something wrong!"
-                ], 422);
-            }else {
-                return back();
-            }
+            return response()->json([
+                "message" => "Something wrong!"
+            ], 422);
         }
     }
 

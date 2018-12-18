@@ -162,4 +162,22 @@ class University extends Model
         $query->where('nace', 1);
         return $query;
     }
+
+    /**
+     * Search by params
+     */
+    public function scopeSearch($query, $request)
+    {
+        if(!empty($request['title']))
+        {
+            $query->where('title', 'like', "%".$request['title']."%");
+        }
+        if(!empty($request['url']))
+        {
+            $domain = substr($request['url'], strrpos($request['url'], '@') + 1);
+            $query->where('url', 'like', "%".$domain."%");
+        }
+
+        return $query;
+    }
 }

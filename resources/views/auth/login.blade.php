@@ -5,13 +5,7 @@
     <div class="row display-flex">
         <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="landing-content">
-                <h1>Are you looking for Esports scholarship ?</h1>
-                <h3>Here you will find all the offers for Esports athletes gathered from more than 100 universities.</h3>
-                <p>
-                    Esports athletes are the privileged persons in US colleges.<br/>
-                    Everything will be done to make you play as well as you possibly can.<br/>
-                    Your academic schedule will be planned around your Esports schedule.
-                </p>
+                @include('auth._partials.welcome_text')
                 <a href="{{ route('register') }}" class="btn btn-md btn-border c-white mb-0 mr-lg-3">Register as Athlete</a>
                 <a href="{{ route('register_coach') }}" class="btn btn-md btn-border c-white">Register as Coach</a>
             </div>

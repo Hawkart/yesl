@@ -1,5 +1,5 @@
 <template>
-  <div class="checkbox form-control">
+  <div class="checkbox">
     <label>
       <input :name="name"
              :checked="internalValue"
@@ -61,3 +61,8 @@ export default {
   }
 }
 </script>
+<style>
+  .checkbox.is-invalid{
+    color: #dc3545;
+  }
+</style>

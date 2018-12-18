@@ -36,6 +36,10 @@ Vue.component('range-slider', require('./components/RangeSlider'));
 
 Vue.component('major-select', require('./components/MajorSelect'));
 Vue.component('register-coach', require('./components/RegisterCoach'));
+Vue.component('register-athlete', require('./components/RegisterAthlete'));
+
+import Datepicker from 'vuejs-datepicker'
+Vue.component('datepicker', Datepicker)
 
 import {
     HasError,
