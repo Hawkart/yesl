@@ -3,30 +3,15 @@
 @section('content')
 
     <div class="row display-flex">
-        <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <!--<div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="landing-content">
-                @include('auth._partials.welcome_text')
                 <a href="{{ route('register') }}" class="btn btn-md btn-border c-white mb-0 mr-lg-3">Register as Athlete</a>
                 <a href="{{ route('register_coach') }}" class="btn btn-md btn-border c-white">Register as Coach</a>
             </div>
-        </div>
+        </div>-->
 
-        <div class="col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12">
+        <div class="col-centered col-xl-6 col-lg-6 col-md-6 col-sm-12">
             <div class="registration-login-form">
-
-                <!--<ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="{{route('login')}}" role="tab">
-                            {{ __('Login') }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="{{ route('register') }}" role="tab">
-                            {{ __('Register') }}
-                        </a>
-                    </li>
-                </ul>-->
-
                 <div class="title h6">{{ __('Login') }}</div>
                 @if (session('status'))
                     <div class="alert alert-success">

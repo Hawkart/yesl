@@ -85,14 +85,18 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'gender' => intval($data['gender']),
             'date_birth' => Carbon::parse($data['date_birth']),
-            'confirmation_code' => str_random(10)
+            'confirmation_code' => str_random(10),
+            'type' => isset($data['type']) ? $data['type'] : 1
         ];
 
         //Check if email from university
-        $domain = substr($data['email'], strrpos($data['email'], '@') + 1);
-        $universities = University::where('domain', $domain);
-        if($universities->count()>0)
-            $u['university_id'] =  $universities->first()->id;
+        if(isset($data['type']) && $data['type']==2)
+        {
+            $domain = substr($data['email'], strrpos($data['email'], '@') + 1);
+            $universities = University::where('url', 'like', "%".$domain."%");
+            if($universities->count()>0)
+                $u['university_id'] =  $universities->first()->id;
+        }
 
         return User::create($u);
     }
@@ -185,6 +189,26 @@ class RegisterController extends Controller
     {
         $user = User::where('confirmation_code', $token)->firstOrFail();
         $user->verified();
+
+        if($user->university_id && $user->type==2)
+        {
+            $university = University::where('id', $user->university_id)->first();
+
+            if($university->group()->count()>0 && $university->group->owner_id==16) //now campus team profile
+            {
+                $university->group->update([
+                    'owner_id' => $user->id
+                ]);
+            }
+
+            if($university)
+            {
+                Mail::raw('New coach '.$user->name." from ".$university->title." registered.", function ($message) use ($university)  {
+                    $message->to('vladislav.ilchenko@gmail.com')
+                        ->subject('New coach from '.$university->title);
+                });
+            }
+        }
 
         return redirect('login')->with('status', "Your mail has been verified!");
     }

@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-reboot.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/dist/css/bootstrap-grid.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/select2/4.0.0/css/select2.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }}">
     <link rel="stylesheet" type="text/css" href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css">
 
     <!-- Main Styles CSS -->
@@ -59,8 +59,8 @@
             padding: 0!important;
         }
         .landing-page .content-bg-wrap{
-            -webkit-animation: sidedownscroll 100s linear infinite;
-            animation: sidedownscroll 100s linear infinite;
+            -webkit-animation: none;
+            animation: none;
         }
 
         .landing-page .content-bg-wrap:before {
@@ -125,7 +125,7 @@
     @endif
 </head>
 
-<body class="landing-page">
+<body class="landing-page pb-100">
     @if (app()->environment() === 'production')
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TB6VBHP"

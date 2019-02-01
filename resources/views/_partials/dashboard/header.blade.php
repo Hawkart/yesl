@@ -227,7 +227,6 @@
                     <div class="author-title">
                         {{Auth::user()->name}} <svg class="olymp-dropdown-arrow-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
                     </div>
-                    <span class="author-subtitle">SPACE COWBOY</span>
                 </a>
             </div>
 

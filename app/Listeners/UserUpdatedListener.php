@@ -17,14 +17,13 @@ class UserUpdatedListener
     {
         $user = $event->user;
 
-        app('log')->info($user);
-
         if($user->isDirty('verified'))
         {
             if($user->verified!==$user->getOriginal('verified') && intval($user->university_id)>0)
             {
-                $group = $user->university()->first()->group()->first();
-                $user->groups()->attach($group->id);
+                $group = $user->university->group;
+                if($group)
+                    $user->groups()->attach($group->id);
             }
         }
     }

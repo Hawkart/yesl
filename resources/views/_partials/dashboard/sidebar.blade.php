@@ -68,21 +68,21 @@
                 ],
                 [
                     'title' => 'TEAMS',
-                    'url' => '/',
+                    'url' => '#',
                     'svg' => 'olymp-newsfeed-icon',
                     'xlink' => '/svg-icons/sprites/Teams.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'TOURNAMENTS',
-                    'url' => '/',
+                    'url' => '#',
                     'svg' => 'olymp-newsfeed-icon',
                     'xlink' => '/svg-icons/sprites/Tournaments.svg',
                     'li_class' => ''
                 ],
                 [
                     'title' => 'Financial Aid',
-                    'url' => '/',
+                    'url' => '#',
                     'svg' => 'olymp-newsfeed-icon',
                     'xlink' => '/svg-icons/sprites/Donations.svg',
                     'li_class' => ''

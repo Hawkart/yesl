@@ -100,6 +100,45 @@ class GroupController extends Controller
     }
 
     /**
+     * @param $slug
+     * @param Request $request
+     */
+    public function universityVacancies($slug, Request $request)
+    {
+        $group = Group::where('slug', $slug)
+            ->firstOrFail();
+
+        $vacancies = [];
+        if($group->groupable instanceof \App\Models\University)
+            $vacancies = $group->groupable->vacancies;
+
+        $twitts = TwitterHelper::getByStr($group->groupable->twitter_str);
+        $this->seo()->setTitle($group->title." vacancies");
+
+        if(count($vacancies)>0)
+        {
+            $vs = [];
+            foreach($vacancies as $vacancy)
+            {
+                if(!isset($vs[$vacancy->game_id]))
+                {
+                    $vs[$vacancy->game_id] = [
+                        'game' => $vacancy->game,
+                        'data' => []
+                    ];
+                }
+
+                $vs[$vacancy->game_id]['data'][] = $vacancy;
+            }
+
+            $vacancies = $vs;
+            unset($vs);
+        }
+        
+        return view('universities.vacancy.index', compact('group', 'vacancies', 'twitts'));
+    }
+
+    /**
      * Display a listing of the games.
      *
      * @return \Illuminate\Http\Response

@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportUniversityTeamLogos::class,
         Commands\ImportMajors::class,
         Commands\ImportCoaches::class,
+        Commands\MailToCoaches::class,
     ];
 
     /**

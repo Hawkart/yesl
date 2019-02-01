@@ -11,12 +11,23 @@
 |
 */
 
-Route::get('/', ['middleware' =>'guest', function(){
-    return view('auth.login');
-}]);
+Route::get('/',  function() {
+    return view('welcome');
+});
 
 Route::get('/feeds', ['uses' => 'HomeController@index', 'middleware' => 'auth'])->name('home');
-Route::get('/terms', 'HomeController@index')->name('terms');
+Route::get('/terms', function() {
+    return view('terms');
+})->name('terms');
+Route::get('/legal/confidential', function() {
+    return view('policy');
+});
+Route::get('/legal/term-and-conditions', function() {
+    return view('terms_and_conditions');
+});
+Route::get('/legal/term-of-service', function() {
+    return view('term_of_service');
+});
 
 /**
  * Admin
@@ -76,6 +87,7 @@ Route::post('/groups/{id}/users', 'GroupController@join');
  */
 Route::get('/universities', 'GroupController@universities')->name('universities');
 Route::get('/universities/{slug}', 'GroupController@university')->name('university');
+Route::get('/universities/{slug}/vacancies', 'GroupController@universityVacancies');
 
 /**
  * Games

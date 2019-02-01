@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailFromChat;
 use App\Models\User;
 use Carbon\Carbon;
 use Cmgmyr\Messenger\Models\Message;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
 use Illuminate\Database\Eloquent\Builder;
+use Mail;
 
 class ThreadController extends Controller
 {
@@ -141,6 +143,31 @@ class ThreadController extends Controller
 
         // Dispatch an event. Will be broadcasted over Redis.
         event(new MessageSent($thread->id, $message));
+
+        //Send to participant email notify
+        $threadUserIds = $thread->participantsUserIds();
+        if($thread->messages()->count()==1)
+        {
+            if(($key = array_search($user->id, $threadUserIds)) !== FALSE)
+            {
+                unset($threadUserIds[$key]);
+
+                foreach($threadUserIds as $toid)
+                {
+                    $to = User::where('id', $toid)->first();
+                    $data = [];
+                    $data['from'] = $user;
+                    $data['count'] = $thread->userUnreadMessagesCount($to->id);
+                    $data['to'] = $to;
+
+                    try{
+                        Mail::to($to->email)->send(new EmailFromChat($data));
+                    } catch (\Exception $ex) {
+                        //to log echo $ex->getMessage();
+                    }
+                }
+            }
+        }
 
         return response()->json([
             'message' => $message,

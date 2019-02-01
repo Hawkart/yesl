@@ -13,10 +13,6 @@
                 </div>
             </a>
 
-            <a href="#" class="open-responsive-menu js-open-responsive-menu">
-                <svg class="olymp-menu-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
-            </a>
-
             <div class="nav nav-pills nav1 header-menu">
                 <div class="mCustomScrollbar">
                     <ul>
@@ -24,22 +20,10 @@
                             <a href="{{url('/')}}" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('terms')}}" class="nav-link">Terms & Conditions</a>
+                            <a href="/login" class="nav-link">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Privacy Policy</a>
-                        </li>
-                        <li class="close-responsive-menu js-close-responsive-menu">
-                            <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
-                        </li>
-                        <li class="nav-item js-expanded-menu">
-                            <a href="#" class="nav-link">
-                                <svg class="olymp-menu-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
-                                <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
-                            </a>
+                            <a href="/register" class="nav-link">Register</a>
                         </li>
                     </ul>
                 </div>

@@ -14965,3 +14965,48 @@ input[type=checkbox] {
 
 .swiper-container.auto-height .swiper-slide {
   height: auto !important; }
+
+
+.mb-25{
+  margin-bottom: 25px !important;
+}
+.mt-25{
+  margin-top: 25px !important;
+}
+
+.mb-50{
+  margin-bottom: 50px !important;
+}
+.mt-50{
+  margin-top: 50px !important;
+}
+
+.mb-100{
+  margin-bottom: 100px !important;
+}
+.mt-100{
+  margin-top: 100px !important;
+}
+
+.content {
+  height:100%;
+  min-height:100%;/*for mozilla*/
+}
+
+html>body .content {
+  height:auto;
+}
+
+.pb-100{
+  padding-bottom: 100px;
+}
+
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
+.header--standard-landing .header-menu .nav-item{
+  visibility: inherit;
+  opacity: 1;
+}

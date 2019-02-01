@@ -59,13 +59,9 @@
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
-                    <div class="ui-block-title"><h6 class="title">Info</h6></div>
+                    <div class="ui-block-title"><h6 class="title">Info about college</h6></div>
                     <div class="ui-block-content">
                         <ul class="widget w-personal-info item-block">
-                            <li>
-                                <a href="//{{$group->groupable->url}}" class="btn btn-success btn-sm full-width" id="apply-university-ga" target="_blank">APPLY NOW</a>
-                            </li>
-
                             @if(!empty($group->groupable->admission_rate_overall))
                                 <li>
                                     <span class="text">Admission rate: <strong>{{$group->groupable->admission_rate_overall*100}}%</strong></span>
@@ -101,7 +97,7 @@
                             @if(!empty($group->groupable->price_calculator_url))
                                 <li>
                                     <span class="text">
-                                        <a href="//{{$group->groupable->price_calculator_url}}" target="_blank" class="btn btn-primary btn-sm full-width">Net Price Calculator</a>
+                                        <a href="{{$group->groupable->price_calculator_url}}" target="_blank" class="btn btn-primary btn-sm full-width">Net Price Calculator</a>
                                     </span>
                                 </li>
                             @endif
@@ -184,7 +180,7 @@
                                 <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
                             </chat-dialog-button>
 
-                            <a href="//{{$group->groupable->url}}" target="_blank" class="btn btn-success btn-sm full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</a>
+                            <a href="/universities/{{$group->slug}}/vacancies" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">RECRUITING</a>
 
                             <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
                         </div>

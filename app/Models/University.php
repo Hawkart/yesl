@@ -153,6 +153,13 @@ class University extends Model
         return $this->morphOne('App\Models\Group', 'groupable');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function vacancies()
+    {
+        return $this->hasMany('App\Models\Vacancy');
+    }
 
     /**
      * NACE univs
