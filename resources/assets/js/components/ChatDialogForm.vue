@@ -59,14 +59,16 @@
 
         created() {
 
-            Event.listen("PrivateDialogMessage", (participant, group_id) => {
+            Event.listen("PrivateDialogMessage", (data) => {
+
                 this.hide_form = false;
-                this.form.participants = [participant.id];
-                this.form.group_id = group_id;
+                this.form.participants = [data.participant.id];
+                this.form.group_id = data.group_id;
 
                 console.log("Event listen PrivateDialogMessage");
-                console.log(participant);
-                console.log(group_id);
+                console.log(data);
+                console.log(data.participant);
+                console.log(data.group_id);
             })
         },
 

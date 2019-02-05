@@ -11,7 +11,10 @@
 
         methods: {
             setPrivateParticipant() {
-                Event.fire("PrivateDialogMessage", this.participant, this.group_id);
+                Event.fire("PrivateDialogMessage", {
+                    participant: this.participant,
+                    group_id: this.group_id
+                });
             }
         }
     }
