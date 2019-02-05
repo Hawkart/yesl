@@ -50,7 +50,8 @@
         data: () => ({
             form: new Form({
                 message: '',
-                participants: []
+                participants: [],
+                group_id: 0
             }),
             message: '',
             hide_form: false
@@ -58,9 +59,10 @@
 
         created() {
 
-            Event.listen("PrivateDialogMessage", (participant) => {
+            Event.listen("PrivateDialogMessage", (participant, group_id) => {
                 this.hide_form = false;
                 this.form.participants = [participant.id];
+                this.form.group_id = group_id;
             })
         },
 

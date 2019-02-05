@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\University;
 use App\Models\User;
+use App\Models\GroupMessage;
+use Cmgmyr\Messenger\Models\Message;
+use Cmgmyr\Messenger\Models\Participant;
+use Cmgmyr\Messenger\Models\Thread;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -194,11 +198,13 @@ class RegisterController extends Controller
         {
             $university = University::where('id', $user->university_id)->first();
 
-            if($university->group()->count()>0 && $university->group->owner_id==16) //now campus team profile
+            if($university->group()->count()>0 && strpos($university->group->owner->email, '@campusteam.tv')!==false) //now campus team profile
             {
                 $university->group->update([
                     'owner_id' => $user->id
                 ]);
+
+                $this->getBackGroupMessages($university->group, $user);
             }
 
             if($university)
@@ -216,5 +222,61 @@ class RegisterController extends Controller
     public function showRegistrationCoachForm()
     {
         return view('auth.register_coach');
+    }
+
+    /**
+     * Get messages from additional table from group to new admin user
+     *
+     * @param $group
+     * @param $user
+     */
+    public function getBackGroupMessages($group, $user)
+    {
+        try{
+            $messages = GroupMessage::where('group_id', $group->id);
+            if($messages->count()>0)
+            {
+                foreach($messages->get() as $omessage)
+                {
+                    $uids = [$omessage->from, $user->id];
+                    $th = Thread::between($uids);
+
+                    if($th->count()>0)
+                    {
+                        $thread = $th->first();
+                    }else{
+                        $subject = $user->name;
+
+                        $thread = Thread::create([
+                            'subject' => $subject,
+                        ]);
+
+                        // Recipients
+                        $thread->addParticipant([$user->id]);
+
+                        // Sender
+                        Participant::create([
+                            'thread_id' => $thread->id,
+                            'user_id' => $omessage->from,
+                            'last_read' => new Carbon,
+                        ]);
+                    }
+
+                    // Message
+                    $message = Message::create([
+                        'created_at' => Carbon::parse($omessage->created_at),
+                        'thread_id' => $thread->id,
+                        'user_id' => $omessage->from,
+                        'body' => $omessage->body,
+                    ]);
+
+                    //Mark all messages of chat read
+                    $thread->markAsRead($omessage->from);
+                }
+            }
+
+        } catch( \Exception $e) {
+
+        }
     }
 }

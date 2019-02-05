@@ -32,12 +32,20 @@ class MailToSpartaUsers extends Command
     {
         $file_name = 'sparta_users.csv';
         $path = Storage::path($file_name);
-        $data = array_map('str_getcsv', file($path));
+        $data = array_map(function($v){
+            return str_getcsv($v, ";");
+        },  file($path));
 
+        $c = 1;
         foreach($data as $key=>$str)
         {
-            if(strpos($str[2], '@sparta.games')===false)
-                $this->sendMail($str);
+            if(strpos($str[2], '@sparta.games')===false && $c<1000)
+            {
+                if($c>158 || ($c<158 && $c>75))
+                    $this->sendMail($str);
+
+                $c++;
+            }
         }
     }
 
@@ -48,7 +56,13 @@ class MailToSpartaUsers extends Command
             'email' => $u[2]
         ];
 
-        dd($data);
-        //Mail::to($data['email'])->send(new EmailToSpartaUser($data));
+        if(filter_var($data['email'], FILTER_VALIDATE_EMAIL) )
+        {
+            try {
+                Mail::to($data['email'])->send(new EmailToSpartaUser($data));
+            } catch (\Exception $exception){
+                //echo $exception->getMessage();
+            }
+        }
     }
 }

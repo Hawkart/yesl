@@ -169,23 +169,23 @@
 
             <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
 
-                @if(!empty($group->groupable->es_team_image))
-                    <div class="ui-block">
+                <div class="ui-block">
+                    @if(!empty($group->groupable->es_team_image))
                         <div class="post-thumb mb-0" style="max-height: 300px">
                             <img src="{{ Storage::disk('public')->url($group->groupable->es_team_image) }}" alt="{{$group->groupable->es_team_title}}">
                         </div>
-                        <div class="ui-block-content">
-
-                            <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :classes="'pa-0 full-width mb-0'">
+                    @endif
+                    <div class="ui-block-content">
+                        @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->owner->email)) || strpos($group->owner->email, '@campusteam.tv')===false)
+                            <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id="{{$group->id}}" :classes="'pa-0 full-width mb-0'">
                                 <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
                             </chat-dialog-button>
 
                             <a href="/universities/{{$group->slug}}/vacancies" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">RECRUITING</a>
-
-                            <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
-                        </div>
+                        @endif
+                        <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
                     </div>
-                @endif
+                </div>
 
                 <div class="ui-block">
                     <div class="ui-block-title">

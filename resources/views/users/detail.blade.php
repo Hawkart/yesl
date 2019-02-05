@@ -54,7 +54,7 @@
                                 </a>-->
 
                                 @if($user->id!=Auth::user()->id)
-                                    <chat-dialog-button :participant='{{json_encode($user->toArray()) }}' :classes="'btn-control bg-purple'">
+                                    <chat-dialog-button :participant='{{json_encode($user->toArray()) }}' :group_id="0" :classes="'btn-control bg-purple'">
                                         <img src="/svg-icons/sprites/Message_top.svg" style="width: 28px; height: 28px; margin-bottom: 5px;">
                                     </chat-dialog-button>
                                 @endif

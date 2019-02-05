@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\EmailFromChat;
+use App\Mail\EmailFromChatToCoachNotRegistered;
 use App\Models\User;
+use App\Models\Group;
+use App\Models\GroupMessage;
 use Carbon\Carbon;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
@@ -81,6 +84,47 @@ class ThreadController extends Controller
     {
         $input = $request->all();
         $user = $request->user();
+
+        //Save GroupMessage
+        if(isset($input['group_id']) && $input['group_id']>0)
+        {
+            $group = Group::findOrFail( $input['group_id']);
+
+            if(strpos($group->owner->email, '@campusteam.tv')===false)
+            {
+                GroupMessage::create([
+                    'from' => $user->id,
+                    'group_id' => $input['group_id'],
+                    'body' => $input['message'],
+                ]);
+
+                $gmc = GroupMessage::where('from', $user->id)->where('group_id', $input['group_id'])->count();
+
+                if($gmc==1 && !empty($group->coach_email))
+                {
+                    $unreadCount = GroupMessage::where('group_id', $input['group_id'])->groupBy('from')->count();
+
+                    try{
+                        $data = [];
+
+                        $data['from'] = $user;
+                        $data['count'] = $unreadCount;
+                        $data['to'] = [
+                            'name' => $group->coach_name,
+                            'last_name' => $group->coach_last_name,
+                            'email' => $group->coach_email
+                        ];
+
+                        Mail::to($group->coach_email)->send(new EmailFromChatToCoachNotRegistered($data));
+
+                    } catch (\Exception $ex) {
+                        //to log echo $ex->getMessage();
+                    }
+                }
+
+                return response()->json([], 200);
+            }
+        }
 
         if($channel_id>0)
         {

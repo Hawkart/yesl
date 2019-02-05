@@ -7,11 +7,11 @@
 
 <script>
     export default {
-        props: ['participant', 'classes'],
+        props: ['participant', 'classes', 'group_id'],
 
         methods: {
             setPrivateParticipant() {
-                Event.fire("PrivateDialogMessage", this.participant);
+                Event.fire("PrivateDialogMessage", this.participant, this.group_id);
             }
         }
     }
