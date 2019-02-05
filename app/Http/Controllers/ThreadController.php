@@ -90,7 +90,7 @@ class ThreadController extends Controller
         {
             $group = Group::findOrFail( $input['group_id']);
 
-            if(strpos($group->owner->email, '@campusteam.tv')===false)
+            if(strpos($group->owner->email, '@campusteam.tv')!==false)
             {
                 GroupMessage::create([
                     'from' => $user->id,

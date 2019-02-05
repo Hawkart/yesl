@@ -34,7 +34,7 @@ class ImportCoaches extends Command
     {
         $universities = University::nace()->pluck('id', 'ope6_id')->toArray();
 
-        $file_name = 'universities.csv';    //change name of file!!!
+        $file_name = 'coaches.csv';
         $path = Storage::path($file_name);
         $data = array_map(function($v){
             return str_getcsv($v, ";");
@@ -42,35 +42,21 @@ class ImportCoaches extends Command
 
         foreach($data as $key=>$str)
         {
-            if($key==0) continue;
-
-            //change numbers of cals according to table!!!
-            $unitid = $str[1];
-            $email = $str[3];
-            $name = $str[4];
+            $unitid = $str[0];
+            $email = $str[2];
+            $name = $str[1];
 
             if(isset($universities[$unitid]))
-                $this->createCoach($universities[$unitid], $email, $name);
+            {
+                $u = University::findOrFail($universities[$unitid]);
+                if($u->group->count()>0)
+                {
+                    $u->group->update([
+                        'coach_name' => $name,
+                        'coach_email' => $email
+                    ]);
+                }
+            }
         }
-    }
-
-    private function createCoach($id, $email, $name)
-    {
-        $university = University::firstOrFail($id);
-
-        $user = new User();
-        $user->create([
-            'name' => $name,
-            'first_name' => '',
-            'last_name' => '',
-            'type' => 2,
-            'email' => $email,
-            'university_id' => $university->id,
-            'precreated' => true,
-            'password' => Hash::make(str_random(10)),
-            'gender' => 1,
-            'date_birth' => Carbon::today(),
-            'confirmation_code' => str_random(10)
-        ]);
     }
 }

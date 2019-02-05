@@ -176,7 +176,7 @@
                         </div>
                     @endif
                     <div class="ui-block-content">
-                        @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->owner->email)) || strpos($group->owner->email, '@campusteam.tv')===false)
+                        @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false)
                             <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 full-width mb-0'">
                                 <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
                             </chat-dialog-button>

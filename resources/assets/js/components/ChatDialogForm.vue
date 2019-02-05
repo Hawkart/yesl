@@ -60,15 +60,9 @@
         created() {
 
             Event.listen("PrivateDialogMessage", (data) => {
-
                 this.hide_form = false;
                 this.form.participants = [data.participant.id];
                 this.form.group_id = data.group_id;
-
-                console.log("Event listen PrivateDialogMessage");
-                console.log(data);
-                console.log(data.participant);
-                console.log(data.group_id);
             })
         },
 
