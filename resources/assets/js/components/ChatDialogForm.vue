@@ -63,6 +63,10 @@
                 this.hide_form = false;
                 this.form.participants = [participant.id];
                 this.form.group_id = group_id;
+
+                console.log("Event listen PrivateDialogMessage");
+                console.log(participant);
+                console.log(group_id);
             })
         },
 
