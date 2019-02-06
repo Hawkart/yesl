@@ -16,7 +16,7 @@ class Group extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'image', 'cover', 'owner_id', 'description', 'groupable_type', 'groupable_id', 'slug'];
+    protected $fillable = ['title', 'image', 'cover', 'owner_id', 'description', 'groupable_type', 'groupable_id', 'slug', 'coach_name', 'coach_email'];
 
     /**
      * Return the sluggable configuration array for this model.

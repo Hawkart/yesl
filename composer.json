@@ -31,6 +31,7 @@
         "intervention/image": "^2.3",
         "j7mbo/twitter-api-php": "^1.0",
         "jrl05k/laravel-under-construction": "dev-master",
+        "kasp3r/link-preview": "^2.0",
         "laracademy/generators": "^1.3",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.6.*",

@@ -49,13 +49,31 @@
     <div class="container">
         <div class="row">
             <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
-                @if($can_post)
-                    <div class="ui-block">
-                        <post-form :user="{{json_encode(Auth::user()->toArray())}}" :group="{{json_encode($group->toArray())}}"></post-form>
-                    </div>
-                @endif
 
-                <post-list :user="{{json_encode(Auth::user()->toArray())}}" :group="{{json_encode($group->toArray())}}" type="group"></post-list>
+                @if(strpos($group->owner->email, '@campusteam.tv')===false)
+                    @if($can_post)
+                        <div class="ui-block">
+                            <post-form :user="{{json_encode(Auth::user()->toArray())}}" :group="{{json_encode($group->toArray())}}"></post-form>
+                        </div>
+                    @endif
+
+                    <post-list :user="{{json_encode(Auth::user()->toArray())}}" :group="{{json_encode($group->toArray())}}" type="group"></post-list>
+                @else
+                    @php
+                        $tw = $group->groupable->twitter_str;
+                        if(!empty($tw))
+                        {
+                            $tw = explode(',', $tw);
+                            $tw = $tw[0];
+                        }
+                    @endphp
+                    @if(!empty($tw))
+                        <a class="twitter-timeline" href="https://twitter.com/{{$tw}}">Tweets by {{$tw}}</a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    @else
+                        <div class="text-center mt-1">No results(:</div>
+                    @endif
+                @endif
             </div>
             <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
@@ -169,23 +187,25 @@
 
             <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
 
-                <div class="ui-block">
-                    @if(!empty($group->groupable->es_team_image))
-                        <div class="post-thumb mb-0" style="max-height: 300px">
-                            <img src="{{ Storage::disk('public')->url($group->groupable->es_team_image) }}" alt="{{$group->groupable->es_team_title}}">
-                        </div>
-                    @endif
-                    <div class="ui-block-content">
-                        @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false)
-                            <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 full-width mb-0'">
-                                <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
-                            </chat-dialog-button>
-
-                            <a href="/universities/{{$group->slug}}/vacancies" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">RECRUITING</a>
+                @if(!empty($group->groupable->es_team_image) || ((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false))
+                    <div class="ui-block">
+                        @if(!empty($group->groupable->es_team_image))
+                            <div class="post-thumb mb-0" style="max-height: 300px">
+                                <img src="{{ Storage::disk('public')->url($group->groupable->es_team_image) }}" alt="{{$group->groupable->es_team_title}}">
+                            </div>
                         @endif
-                        <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
+                        <div class="ui-block-content">
+                            @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false)
+                                <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 full-width mb-0'">
+                                    <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
+                                </chat-dialog-button>
+
+                                <a href="/universities/{{$group->slug}}/vacancies" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">RECRUITING</a>
+                            @endif
+                            <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="ui-block">
                     <div class="ui-block-title">
@@ -214,31 +234,31 @@
                     </div>
                 </div>
 
-                @if(count($twitts)>0)
-                <div class="ui-block">
-                    <div class="ui-block-title">
-                        <h6 class="title">Twitter Feed</h6>
-                    </div>
-                    <ul class="widget w-twitter">
-                        @php
-                            $twitterTitle = explode(',', $group->groupable->twitter_str)[0];
-                        @endphp
-                        @foreach($twitts as $twitt)
-                        <li class="twitter-item">
-                            <div class="author-folder">
-                                <img src="{{ $group->groupable->es_team_image ? Storage::disk('public')->url($group->groupable->es_team_image) : '/img/twitter-avatar1.png' }}" width="40">
-                                <div class="author">
-                                    <a href="#" class="author-name">{{"@".$twitterTitle }}</a>
-                                    <time class="group published">
-                                        {{Carbon\Carbon::parse($twitt['created_at'])->diffForHumans()}}
-                                    </time>
+                @if(count($twitts)>0 && strpos($group->owner->email, '@campusteam.tv')===false)
+                    <div class="ui-block">
+                        <div class="ui-block-title">
+                            <h6 class="title">Twitter Feed</h6>
+                        </div>
+                        <ul class="widget w-twitter">
+                            @php
+                                $twitterTitle = explode(',', $group->groupable->twitter_str)[0];
+                            @endphp
+                            @foreach($twitts as $twitt)
+                            <li class="twitter-item">
+                                <div class="author-folder">
+                                    <img src="{{ $group->groupable->es_team_image ? Storage::disk('public')->url($group->groupable->es_team_image) : '/img/twitter-avatar1.png' }}" width="40">
+                                    <div class="author">
+                                        <a href="#" class="author-name">{{"@".$twitterTitle }}</a>
+                                        <time class="group published">
+                                            {{Carbon\Carbon::parse($twitt['created_at'])->diffForHumans()}}
+                                        </time>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="mb-0">{!!$twitt['text']!!}</p>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
+                                <p class="mb-0">{!!$twitt['text']!!}</p>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 @endif
 
                 <div class="ui-block">

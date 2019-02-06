@@ -73,7 +73,7 @@
         </div>
 
         <div class="links pa-0" v-if="links!=null && links.length>0">
-            <link-prevue :url="link" v-for="link in links" :key="link">
+            <link-prevue :url="link" v-for="link in links" :key="link" apiUrl="/helpers/link_preview">
                 <template slot-scope="props">
                     <div class="post-video">
                         <div class="video-thumb mt-lg-4">

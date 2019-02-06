@@ -180,3 +180,5 @@ Route::group(['prefix' => 'me', 'middleware' => 'auth'], function () {
 
 Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
 Route::get('500', ['as' => '500', 'uses' => 'ErrorController@fatal']);
+
+Route::post('/helpers/link_preview', ['uses' => '\App\Acme\Helpers\LinkPreviewHelper@parse']);

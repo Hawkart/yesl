@@ -49,7 +49,7 @@ class ImportCoaches extends Command
             if(isset($universities[$unitid]))
             {
                 $u = University::findOrFail($universities[$unitid]);
-                if($u->group->count()>0)
+                if($u->group()->count()>0)
                 {
                     $u->group->update([
                         'coach_name' => $name,
