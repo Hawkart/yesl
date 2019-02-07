@@ -34,7 +34,7 @@ class ImportGamesAndGenres extends Command
     {
         DB::statement("SET foreign_key_checks=0");
         //Genre::truncate();
-        Game::truncate();
+        //Game::truncate();
         DB::statement("SET foreign_key_checks=1");
 
         //$genreClass = new GenreController();
@@ -42,5 +42,6 @@ class ImportGamesAndGenres extends Command
 
         $gameClass = new GameController();
         $gameClass->importByTwitchGiantbomb();
+        $gameClass->deleteNotAllowed();
     }
 }

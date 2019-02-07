@@ -252,12 +252,16 @@ class GameController extends Controller
 
     public function checkAllowed($title, $aliases)
     {
-        $names = ['Gears of War', 'Call Of Duty', 'HALO', 'League of Legends', 'Street Fighter', 'CS:GO', 'HEARTHSTONE', 'OVERWATCH', 'WORLD OF WARCRAFT',
-            'Star Wars Battlefront', 'DOTA2', 'FIFA', 'FORTNITE', 'PUBG', 'SMITE', 'PALADINS', 'Heroes of the Storm', 'Brawlhalla', 'Starcraft',
-            'Super Smash Bros', 'Tom Clancy\'s Rainbow Six Siege', 'Brawl Stars', 'Clash Royale', 'Metal Slug', 'Rocket League', 'Tekken', 'World of Tanks'
+        $names = ['League of Legends', 'Overwatch', 'Dota 2', 'Counter-Strike: Global Offensive', 'Madden NFL',
+            'Starcraft 2', 'Rocket League', 'Heroes of the Storm', 'Hearthstone', 'Super Smash Bros.', 'PUBG',
+            'Fortnite', 'NBA2K', 'FIFA'
         ];
 
         $allowed = false;
+
+        if(Game::where('title', $title)->count()>0)
+            return $allowed;
+
         foreach($names as $name)
         {
             if(stripos($title, $name)==0 && stripos($title, $name)!==false)
@@ -280,5 +284,20 @@ class GameController extends Controller
         }
 
         return $allowed;
+    }
+
+    public function deleteNotAllowed()
+    {
+        DB::statement("SET foreign_key_checks=0");
+        $groups = Group::where('groupable_type', 'App\Models\Game')->get();
+        foreach($groups as $group)
+        {
+            if(Game::where('id', $group->groupable_id)->count()==0)
+            {
+                Group::delete();
+                GroupUser::where('group_id', $group->groupable_id)->delete();
+            }
+        }
+        DB::statement("SET foreign_key_checks=1");
     }
 }
