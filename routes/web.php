@@ -88,6 +88,13 @@ Route::post('/groups/{id}/users', 'GroupController@join');
 Route::get('/universities', 'GroupController@universities')->name('universities');
 Route::get('/universities/{slug}', 'GroupController@university')->name('university');
 Route::get('/universities/{slug}/vacancies', 'GroupController@universityVacancies');
+Route::get('/universities/{slug}/teams', 'GroupController@universityTeams');
+
+Route::get('/universities/{id}/games', 'UniversityController@games');
+Route::post('/universities/{id}/games', 'UniversityController@gamesAdd');
+Route::delete('/universities/{id}/games/{gid}', 'UniversityController@gamesDelete');
+
+Route::get('/universities/{id}/vacancies', 'UniversityController@vacancies');
 
 /**
  * Games

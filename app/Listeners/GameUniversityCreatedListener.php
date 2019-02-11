@@ -17,7 +17,7 @@ class GameUniversityCreatedListener
      */
     public function handle(GameUniversityCreatedEvent $event)
     {
-        $gameUniversity = $event->gameUniversity;
+        /*$gameUniversity = $event->gameUniversity;
 
         if(!$user = Auth::user())
             $user = User::where('role_id', 1)->first();
@@ -29,6 +29,6 @@ class GameUniversityCreatedListener
             "groupable_id" => $gameUniversity->id
         ]);
 
-        $user->groups()->attach($group->id);
+        $user->groups()->attach($group->id);*/
     }
 }

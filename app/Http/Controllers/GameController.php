@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\Genre;
 use App\Models\Game;
 use App\Models\Group;
+use App\Models\GroupUser;
 use Storage;
 use Image;
 use File;
@@ -254,7 +255,7 @@ class GameController extends Controller
     {
         $names = ['League of Legends', 'Overwatch', 'Dota 2', 'Counter-Strike: Global Offensive', 'Madden NFL',
             'Starcraft 2', 'Rocket League', 'Heroes of the Storm', 'Hearthstone', 'Super Smash Bros.', 'PUBG',
-            'Fortnite', 'NBA2K', 'FIFA'
+            'Fortnite', 'NBA', 'FIFA'
         ];
 
         $allowed = false;
@@ -294,7 +295,7 @@ class GameController extends Controller
         {
             if(Game::where('id', $group->groupable_id)->count()==0)
             {
-                Group::delete();
+                $group->delete();
                 GroupUser::where('group_id', $group->groupable_id)->delete();
             }
         }

@@ -132,7 +132,7 @@ class University extends Model
      */
     public function games()
     {
-        return $this->belongsToMany('App\Models\Game');
+        return $this->belongsToMany('App\Models\Game', 'game_universities');
     }
 
     /**

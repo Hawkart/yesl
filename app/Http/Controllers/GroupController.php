@@ -139,6 +139,26 @@ class GroupController extends Controller
     }
 
     /**
+     * @param $slug
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function universityTeams($slug, Request $request)
+    {
+        $group = Group::where('slug', $slug)
+            ->firstOrFail();
+
+        $games = [];
+        if($group->groupable instanceof \App\Models\University)
+            $games = $group->groupable->games;
+
+        $twitts = TwitterHelper::getByStr($group->groupable->twitter_str);
+        $this->seo()->setTitle($group->title." teams");
+
+        return view('universities.teams.index', compact('group', 'games', 'twitts'));
+    }
+
+    /**
      * Display a listing of the games.
      *
      * @return \Illuminate\Http\Response
