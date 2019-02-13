@@ -12,7 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'mailgun/store',
-        'helpers/link_preview'
+        'mailgun/store'
     ];
 }

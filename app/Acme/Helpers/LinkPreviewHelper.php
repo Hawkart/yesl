@@ -14,18 +14,19 @@ class LinkPreviewHelper{
         $data = [];
 
         try{
-            $linkPreview = new LinkPreview($request->get('url'));
+            $linkPreview = new LinkPreview(urldecode($request->get('url')));
 
-            $data = Cache::remember('$linkPreview', 3600, function () use ($linkPreview)
+            $data = Cache::remember($request->get('url'), 3600, function () use ($linkPreview)
             {
                 $data = [];
                 $parsed = $linkPreview->getParsed();
-                foreach ($parsed as $parserName => $link) {
+                foreach ($parsed as $parserName => $link)
+                {
                     $images = [$link->getImage()];
-
+                    $gurl = $link->getUrl();
                     $data = [
                         'title' => $link->getTitle(),
-                        'url' => $link->getRealUrl(),
+                        'url' => $gurl,
                         'description' => $link->getDescription()
                     ];
 
@@ -35,15 +36,15 @@ class LinkPreviewHelper{
                         $images = array_merge($images, $link->getPictures());
                     }
 
-                    foreach ($images as $key => &$image) {
+                    foreach ($images as $key => &$image)
+                    {
                         if (empty($image)) {
                             unset($images[$key]);
                             continue;
                         }
 
-
                         if (filter_var($image, FILTER_VALIDATE_URL) === FALSE)
-                            $image = $link->getRealUrl() . $image;
+                            $image = $gurl . $image;
                     }
 
                     $images = array_values($images);

@@ -55,8 +55,15 @@ class MailToCoaches extends Command
 
                 if(count($coach)>0)
                 {
-                    $coach['title'] = mb_convert_case($coach['title'], MB_CASE_TITLE);
-                    Mail::to($coach['email'])->send(new EmailToCoach($coach));
+                    if(filter_var($coach['email'], FILTER_VALIDATE_EMAIL) )
+                    {
+                        try {
+                            $coach['title'] = mb_convert_case($coach['title'], MB_CASE_TITLE);
+                            Mail::to($coach['email'])->send(new EmailToCoach($coach));
+                        } catch (\Exception $exception){
+                            //echo $exception->getMessage();
+                        }
+                    }
                 }
             }
         }

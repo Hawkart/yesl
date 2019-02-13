@@ -41,6 +41,7 @@ Vue.component('register-athlete', require('./components/RegisterAthlete'));
 import Datepicker from 'vuejs-datepicker'
 Vue.component('datepicker', Datepicker)
 
+Vue.component('link-preview', require('./components/LinkPreview'))
 Vue.component('university-games', require('./components/UniversityGames'));
 Vue.component('university-game-add', require('./components/UniversityGameAdd'));
 

@@ -73,7 +73,7 @@
         </div>
 
         <div class="links pa-0" v-if="links!=null && links.length>0">
-            <link-prevue :url="link" v-for="link in links" :key="link" apiUrl="/helpers/link_preview">
+            <link-preview :url="link" v-for="link in links" :key="link">
                 <template slot-scope="props">
                     <div class="post-video">
                         <div class="video-thumb mt-lg-4">
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                 </template>
-            </link-prevue>
+            </link-preview>
         </div>
 
         <v-button :loading="form.busy" type="primary" :large="false" additional="btn-md-2">Post Comment</v-button>
@@ -108,14 +108,12 @@
     import VueEmoji from 'emoji-vue'
     import FileUpload from 'vue-upload-component'
     import axios from 'axios'
-    import LinkPrevue from 'link-prevue'
 
     export default {
         components: {
             VButton,
             VueEmoji,
-            FileUpload,
-            LinkPrevue
+            FileUpload
         },
         props: ['post_id', 'user', 'reply', 'group'],
         data: () => ({
