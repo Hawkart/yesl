@@ -33,6 +33,6 @@ class EmailToCoach extends Mailable
             ->with('data', $this->data)
             ->from($address, $name)
             ->replyTo($address, $name)
-            ->subject("CampusTeam is the new Esports headhunting tool");
+            ->subject("Esports athletes registration is now open on CampusTeam.tv");
     }
 }

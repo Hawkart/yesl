@@ -38,34 +38,42 @@ $style = [
 <!-- Greeting -->
 <p style="{{ $style['paragraph'] }}">
     Dear, Mr. {{ $data['title'] }}!
-</h1>
+</p>
+<p style="{{ $style['paragraph'] }}">
+We are happy to inform you that СampusTeam.tv has finally launched
+its service which is aimed at connecting varsity coaches with Esports athletes.
+</p>
 
 <p style="{{ $style['paragraph'] }}">
-    Would you mind getting the best Esports athletes on your team?
+The registration of Esports athletes is already open at <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">www.campusteam.tv</a>.
+Registered Esports athletes will be able to fill out the application form to the team and write a message to the Esports head coach.
 </p>
+
 <p style="{{ $style['paragraph'] }}">
-    Particularly for college Esports coaches, we have created the
-    <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a> service to select the brilliant Esports athletes and
-    attract them to your team.
+To make it easier for you to select the Esports athletes, we will provide you with
+access to database of athletes' resumes.<br/>
+So that the players do not disturb you repeatedly, they will be allowed
+to send messages directly only if they have fully completed the application form.
+You will be receiving these messages with athletes' names in your work mailbox
+sent from CampusTeam.tv domain.
 </p>
+
 <p style="{{ $style['paragraph'] }}">
-    You will be able to publish team vacancies and receive
-    filled applications from candidates by using <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
-    We will provide broad advertising campaign to attract outstanding
-    Esports players to <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a> website.
-</p>
-<p style="{{ $style['paragraph'] }}">
-    Our service is absolutely free-of-charge to coaches and athletes.
-</p>
-<p style="{{ $style['paragraph'] }}">
-    Please let me know if you are interested in using our service
-    so that I could provide you with the link for coach registration.
+To be able select the athletes, you are welcome to register on CampusTeam.tv website.
+    Here is the link for coach registration: <a style="{{ $style['anchor'] }}" href="https://campusteam.tv/register-coach" target="_blank">https://campusteam.tv/register-coach</a>
 </p>
 
 <!-- Salutation -->
 <p style="{{ $style['paragraph'] }}">
     <br>
-    Sincerely,<br><br>
+
+    In case you have any questions, please feel free to contact me,<br><br>
+
+    e-mail : vl@campusteam.tv<br>
+    Mobile:  +1 315 636 5354<br>
+    Skype:   vladislav.ilchenko<br>
+    Discord: Vlad_ILchenko<br>
+    LinkedIn: www.linkedin.com/in/vlad-ilchenko/<br><br>
 
     Vlad ILchenko<br>
     Founder of <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>
