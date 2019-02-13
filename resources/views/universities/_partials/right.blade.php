@@ -10,11 +10,13 @@
             <div class="ui-block-content">
                 @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false)
                     <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 full-width mb-0'">
-                        <button type="submit" class="btn btn-primary btn-xs full-width mt-0">WRITE LETTER TO COACH</button>
+                        <button type="submit" class="btn btn-primary btn-xs full-width mt-0">Write Message to the Coach</button>
                     </chat-dialog-button>
+                @endif
 
-                    <a href="/universities/{{$group->slug}}/vacancies" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">RECRUITING</a>
-            @endif
+                @if(strpos($group->owner->email, '@campusteam.tv')===false)
+                    <a href="/universities/{{$group->slug}}/vacancies" class="btn btn-success btn-xs full-width mt-lg-1 mb-0 btn-apply" id="apply-team-ga">Apply to the Team</a>
+                @endif
             <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
             </div>
         </div>
@@ -43,7 +45,6 @@
                     @endif
                 @endif
             </ul>
-            <group-subscribe :group_id = "{{$group->id}}" :user_id="{{Auth::id()}}"></group-subscribe>
         </div>
     </div>
 

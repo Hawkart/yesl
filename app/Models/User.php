@@ -254,6 +254,15 @@ class User extends VoyagerUser implements HasMedia
     }
 
     /**
+     * Coaches
+     */
+    public function scopeAdmin($query)
+    {
+        $query->where('role_id', 1);
+        return $query;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Collection|Friendship[]
      */
     public function getPendingIncomingFriends($status = null)

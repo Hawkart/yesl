@@ -49,7 +49,7 @@
 .top-header.top-header-favorit .top-header-author{
   transform: none;
   max-width: 100%;
-  z-index: 100;
+  z-index: 22;
 }
 .top-header.top-header-favorit .author-thumb{
   position: relative;
@@ -85,7 +85,7 @@
   right: 40px;
   top: 40px;
   left: inherit;
-  z-index: 101;
+  z-index: 22;
 }
 
 .top-header-thumb .top-header-overlay .fileupload span{
@@ -308,4 +308,30 @@
 .vdp-datepicker__calendar .cell{
   height: 28px !important;
   line-height: 28px !important;
+}
+
+
+.profile-section{
+    padding: 20px 0;
+    z-index: 30;
+}
+
+.isDisabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+.isDisabled > a {
+    display: inline-block;  /* For IE11/ MS Edge bug */
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.btn.btn-outline-primary {
+    color: #002650;
+}
+.btn.btn-outline-primary:hover{
+    color: #fff;
+}
+a.btn-apply{
+    padding: .5rem 1rem;
 }

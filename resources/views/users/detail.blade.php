@@ -8,15 +8,16 @@
                     <div class="top-header top-header-favorit">
                         <div class="top-header-thumb">
                             @if($user->id==Auth::user()->id)
-                                <overlay-upload :user='{{json_encode($user->toArray()) }}'></overlay-upload>
+                                <overlay-upload uimg="{{$user->overlay}}" uploadapi="/users/overlay" dataname="overlay"></overlay-upload>
                             @else
                                 <div class="top-header-overlay">
                                     <img src="{{ $user->overlay ? Storage::disk('public')->url($user->overlay) : "/img/top-header2.jpg" }}" alt="{{$user->name}}">
                                 </div>
                             @endif
+
                             <div class="top-header-author">
                                 @if($user->id==Auth::user()->id)
-                                    <avatar-upload :user='{{json_encode($user->toArray()) }}'></avatar-upload>
+                                    <avatar-upload uimg="{{$user->avatar}}" uploadapi="/users/avatar" dataname="avatar"></avatar-upload>
                                 @else
                                     <div class="author-thumb">
                                         <img src="{{ Storage::disk('public')->url($user->avatar) }}" alt="{{$user->name}}">

@@ -290,6 +290,15 @@ class UserController extends Controller
 
         $friends = $user->getFriends()->pluck('id')->toArray();
 
+        //Add admin id to
+        $admins = User::admin()->where('id', '<>', Auth::user()->id)->pluck('id')->toArray();
+
+        if(count($admins))
+        {
+            $friends = $friends + $admins;
+            $friends = array_unique($friends);
+        }
+
         $posts = Post::where('user_id', '<>', $user->id)
             ->whereIn('group_id', $groups)
             ->orWhere(function ($query) use ($friends) {

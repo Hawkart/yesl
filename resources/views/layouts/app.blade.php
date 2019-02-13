@@ -102,6 +102,20 @@
             height: 28px !important;
             line-height: 28px !important;
         }
+
+         .btn-blue {
+             background-color: #1b76bc;
+         }
+        .btn-blue:hover {
+            opacity: 1;
+            color: #fff;
+            background-color: #1a5d90;
+        }
+        .btn-lg{
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 0.975rem;
+        }
     </style>
 
     @if (app()->environment() === 'production')

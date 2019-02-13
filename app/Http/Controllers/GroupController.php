@@ -227,6 +227,106 @@ class GroupController extends Controller
     }
 
     /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateLogo($id, Request $request)
+    {
+        $group = Group::findOrFail($id);
+        $params = $request->all();
+
+        if(Auth::user()->id!=$group->owner_id)
+        {
+            return response()->json([
+                'error' => 'Only admin of group can update logo!'
+            ], 422);
+        }
+
+        if($group->image)
+        {
+            $path = public_path() . '/storage/' . $group->image;
+
+            if(file_exists($path) && !in_array($group->image, ['img/university-logo-default.jpg']))
+                unlink($path);
+        }
+
+        $path = Storage::disk('public')->putFile(
+            'groups', $request->file('files')
+        );
+
+        /**
+         * Crop & resize using client crop data
+         */
+
+        if($request->has('toCropImgH'))
+        {
+            $crop = [
+                'h' => (int)$params["toCropImgH"],
+                'w' => (int)$params["toCropImgW"],
+                'x' => (int)$params["toCropImgX"],
+                'y' => (int)$params["toCropImgY"]
+            ];
+        }else{
+            $crop = [
+                'h' => (int)$params["h"],
+                'w' => (int)$params["w"],
+                'x' => (int)$params["x"],
+                'y' => (int)$params["y"]
+            ];
+        }
+
+        $img = Image::make('storage/'.$path);
+        $img->crop($crop['h'], $crop['w'], $crop['x'], $crop['y']);
+        $img->resize(120, 120);
+        $img->save('storage/'.$path);
+        $img->destroy();
+
+        $group->image = $path;
+        $group->update();
+
+        return response()->json([
+            'data' => $group,
+            'message' => "Logo has been successfully updated."
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateCover($id, Request $request)
+    {
+        $group = Group::findOrFail($id);
+
+        if(Auth::user()->id!=$group->owner_id)
+        {
+            return response()->json([
+                'error' => 'Only admin of group can update cover!'
+            ], 422);
+        }
+
+        if($group->image)
+        {
+            $path = public_path() . '/storage/' . $group->cover;
+            if(file_exists($path) && !in_array($group->cover, ['img/university-overlay-default.jpg']))
+                unlink($path);
+        }
+
+        $path = Storage::disk('public')->putFile(
+            'groups', $request->file('files')
+        );
+        $group->cover = $path;
+        $group->update();
+
+        return response()->json([
+            'data' => $group,
+            'message' => "Cover has been successfully updated."
+        ]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  string  $slug

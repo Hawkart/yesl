@@ -79,6 +79,8 @@ Route::get('/groups/{slug}', 'GroupController@show')->name('group');
 Route::get('/groups/{id}/posts', 'GroupController@posts')->name('group.posts');
 Route::post('/groups/{id}/checkin', 'GroupController@checkUserIsMember');
 Route::post('/groups/{id}/users', 'GroupController@join');
+Route::post('/groups/{id}/logo', 'GroupController@updateLogo');
+Route::post('/groups/{id}/cover', 'GroupController@updateCover');
 //Route::get('/groups/{id}/users', 'GroupController@users')->name('group.users');
 
 
