@@ -254,9 +254,9 @@ class User extends VoyagerUser implements HasMedia
     }
 
     /**
-     * Coaches
+     * Admins
      */
-    public function scopeAdmin($query)
+    public function scopeAdmins($query)
     {
         $query->where('role_id', 1);
         return $query;

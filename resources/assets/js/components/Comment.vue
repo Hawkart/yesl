@@ -32,14 +32,14 @@
         <div class="links pa-0" v-if="comment.additional!=null && comment.additional.links!=null && comment.additional.links.length>0">
             <template v-for="link in comment.additional.links">
                 <div class="post-video">
-                    <div class="video-thumb mt-lg-4">
+                    <div class="embed-responsive embed-responsive-16by9" v-if="link.video!==undefined" v-html="link.video"></div>
+                    <div class="video-thumb full-width" v-else>
                         <img :src="link.img" :alt="link.title">
                     </div>
 
                     <div class="video-content">
-                        <a v-bind:href="link.url" class="h4 title">{{link.title}}</a>
+                        <h1><a v-bind:href="link.url" class="h4 title">{{link.title}}</a></h1>
                         <p>{{link.description}}</p>
-                        <a v-bind:href="link.url" class="link-site">{{link.url}}</a>
                     </div>
                 </div>
             </template>

@@ -52,19 +52,6 @@
 
             <div class="links" v-if="links!=null && links.length>0">
                 <link-preview :url="link" v-for="link in links" :key="link" @newLinkParsed="onNewLinkParsed">
-                    <template slot-scope="props">
-                        <div class="post-video">
-                            <div class="video-thumb mt-lg-4 ml-lg-3">
-                                <img :src="props.img" :alt="props.title">
-                            </div>
-
-                            <div class="video-content">
-                                <a v-bind:href="props.url" class="h4 title">{{props.title}}</a>
-                                <p>{{props.description}}</p>
-                                <a v-bind:href="props.url" class="link-site">{{link}}</a>
-                            </div>
-                        </div>
-                    </template>
                 </link-preview>
             </div>
 

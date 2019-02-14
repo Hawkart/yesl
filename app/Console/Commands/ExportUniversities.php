@@ -34,7 +34,7 @@ class ExportUniversities extends Command
      */
     public function handle()
     {
-        $data = University::orderBy('title')->where('nace', 1)->exclude('json')->get()->toArray();
+        $data = University::orderBy('title')->nace()->exclude('json')->get()->toArray();
 
         $title = [];
         foreach($data[0] as $key=>$value)

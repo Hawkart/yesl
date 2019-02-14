@@ -65,7 +65,7 @@ class GroupableCheckCreate extends Command
         {
             if($game->group()->count()==0)
             {
-                $user = User::where('role_id', 1)->first();
+                $user = User::admins()->first();
 
                 $group = Group::create([
                     'title' => $game->title,
@@ -84,7 +84,7 @@ class GroupableCheckCreate extends Command
         {
             if($gameUniversity->group()->count()==0)
             {
-                $user = User::where('role_id', 1)->first();
+                $user = User::admins()->first();
 
                 $group =  Group::create([
                     'title' => $gameUniversity->university->title.". ".$gameUniversity->game->title,

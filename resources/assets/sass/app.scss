@@ -114,11 +114,6 @@
 .post .links{
   padding: 0;
 }
-.post .links img{
-  max-height: 130px;
-  max-width: 200px;
-  width: auto;
-}
 .pa-0{
   padding: 0!important;
 }
@@ -328,4 +323,23 @@
 }
 a.btn-apply{
     padding: .5rem 1rem;
+}
+.label-recruting{
+    display: inline-block;
+    padding: 4px 15px;
+    color: #fff;
+    font-size: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 25px;
+    text-transform: uppercase;
+}
+
+.university-article .post-thumb a.label-recruting{
+    width: auto;
+}
+
+.university-article .post-thumb a.label-recruting:hover{
+    background: #002650 !important;
+    color: #fff;
 }

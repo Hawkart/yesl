@@ -107,6 +107,10 @@
                                                 <a href="{!! route('university', ['slug' => $group->slug]) !!}">
                                                     <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg'  }}" alt="{{$group->title}}">
                                                 </a>
+
+                                                @if($group->groupable->vacancies()->count()>0)
+                                                    <a href="/universities/{{$group->slug}}/vacancies" class="bg-violet label-recruting">Recruiting</a>
+                                                @endif
                                             </div>
 
                                             <div class="post-content">

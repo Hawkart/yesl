@@ -291,7 +291,7 @@ class UserController extends Controller
         $friends = $user->getFriends()->pluck('id')->toArray();
 
         //Add admin id to
-        $admins = User::admin()->where('id', '<>', Auth::user()->id)->pluck('id')->toArray();
+        $admins = User::admins()->where('id', '<>', Auth::user()->id)->pluck('id')->toArray();
 
         if(count($admins))
         {

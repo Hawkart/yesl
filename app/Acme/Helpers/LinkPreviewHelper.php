@@ -32,6 +32,7 @@ class LinkPreviewHelper{
 
                     if ($link instanceof VideoLink) {
                         $data['video'] = $link->getEmbedCode();
+                        $data['video'] = preg_replace( '/(width|height)="\d*"\s/', "", $data['video'] );
                     } else {
                         $images = array_merge($images, $link->getPictures());
                     }
@@ -43,7 +44,7 @@ class LinkPreviewHelper{
                             continue;
                         }
 
-                        if (filter_var($image, FILTER_VALIDATE_URL) === FALSE)
+                        if (filter_var($image, FILTER_VALIDATE_URL) === FALSE && strpos($image, '//')===false)
                             $image = $gurl . $image;
                     }
 
