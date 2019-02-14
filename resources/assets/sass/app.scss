@@ -326,13 +326,14 @@ a.btn-apply{
 }
 .label-recruting{
     display: inline-block;
-    padding: 4px 15px;
+    padding: 5px 40px 5px 20px;
     color: #fff;
     font-size: 10px;
     position: absolute;
-    bottom: 10px;
-    left: 25px;
+    top: 25px;
+    right: 0;
     text-transform: uppercase;
+    box-shadow: 5px 0 10px rgba(0,0,0,0.5);
 }
 
 .university-article .post-thumb a.label-recruting{
