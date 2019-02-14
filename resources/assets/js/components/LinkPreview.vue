@@ -16,9 +16,6 @@
                             <h1>{{response.title}}</h1>
                             <p>{{response.description}}</p>
                         </div>
-                        <div class="card-btn">
-                            <a href="javascript:;" v-if="showButton" @click="viewMore">View More</a>
-                        </div>
                     </div>
                 </div>
             </slot>
@@ -38,14 +35,6 @@
             cardWidth: {
                 type: String,
                 default: '400px'
-            },
-            onButtonClick: {
-                type: Function,
-                default: undefined
-            },
-            showButton: {
-                type: Boolean,
-                default: true
             }
         },
         watch: {
@@ -64,14 +53,6 @@
             }
         },
         methods: {
-            viewMore: function() {
-                if (this.onButtonClick !== undefined) {
-                    this.onButtonClick(this.response)
-                } else {
-                    const win = window.open(this.url, '_blank')
-                    win.focus()
-                }
-            },
             isValidUrl: function(url) {
                 const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
                 this.validUrl = regex.test(url)
@@ -79,21 +60,23 @@
             },
             getLinkPreview: function() {
                 if (this.isValidUrl(this.url)) {
-
                     axios.get('/helpers/link_preview', {
                         params: {
                             url: this.url
                         },
                     }).then(({ data }) => {
                         this.response = data;
-                    });
 
-                    /*this.httpRequest((response) => {
-                        this.response = JSON.parse(response)
-                    }, () => {
+                        if(data.title!=undefined)
+                        {
+                            data.img = data.images[0];
+                            //delete data.images;
+                            this.$emit('newLinkParsed', data);
+                        }
+                    }).catch(function (error) {
                         this.response = null
                         this.validUrl = false
-                    })*/
+                    });
                 }
             }
         }
@@ -101,8 +84,6 @@
 </script>
 
 <style scoped>
-    @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,600');
-
     .wrapper {
         overflow: auto;
         border-radius: 7px 7px 7px 7px;
@@ -142,11 +123,9 @@
         font-size: 24px;
         color: #474747;
         margin: 5px 0 5px 0;
-        font-family: 'Hind Siliguri', sans-serif;
     }
 
     .card-text p {
-        font-family: 'Hind Siliguri', sans-serif;
         color: #8d8d8d;
         font-size: 15px;
         overflow: hidden;
@@ -162,7 +141,6 @@
 
     .card-btn a {
         border-radius: 2em;
-        font-family: 'Hind Siliguri', sans-serif;
         font-size: 14px;
         letter-spacing: 0.1em;
         color: #ffffff;

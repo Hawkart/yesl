@@ -73,14 +73,12 @@
         </div>
 
         <div class="links pa-0" v-if="links!=null && links.length>0">
-            <link-preview :url="link" v-for="link in links" :key="link">
+            <link-preview :url="link" v-for="link in links" :key="link" @newLinkParsed="onNewLinkParsed">
                 <template slot-scope="props">
                     <div class="post-video">
                         <div class="video-thumb mt-lg-4">
                             <img :src="props.img" :alt="props.title">
                         </div>
-
-                        {{doSomething(props)}}
 
                         <div class="video-content">
                             <a v-bind:href="props.url" class="h4 title">{{props.title}}</a>
@@ -212,6 +210,9 @@
                     }
                     arr.push(m[0]);
                 }
+                arr = arr.filter(function onlyUnique(value, index, self) {
+                    return self.indexOf(value) === index;
+                });
                 return arr;
             },
             /**
@@ -286,7 +287,7 @@
                     }
                 }
             },
-            doSomething(prevue) {
+            onNewLinkParsed(prevue) {
                 if(prevue!==null)
                     this.parsedLinks.push(prevue);
             },
