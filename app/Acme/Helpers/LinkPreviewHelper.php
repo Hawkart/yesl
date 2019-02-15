@@ -33,6 +33,7 @@ class LinkPreviewHelper{
                     if ($link instanceof VideoLink) {
                         $data['video'] = $link->getEmbedCode();
                         $data['video'] = preg_replace( '/(width|height)="\d*"\s/', "", $data['video'] );
+                        $data['video'] = str_replace('http:', 'https:', $data['video']);
                     } else {
                         $images = array_merge($images, $link->getPictures());
                     }

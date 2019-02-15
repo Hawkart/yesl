@@ -130,7 +130,7 @@ class User extends VoyagerUser implements HasMedia
     /**
      * Verify user after confirmation of email.
      */
-    public function verified()
+    public function verify()
     {
         $this->verified = 1;
         $this->confirmation_code = null;
@@ -243,14 +243,28 @@ class User extends VoyagerUser implements HasMedia
         return $query;
     }
 
+    /**
+     * @return bool
+     */
     public function isAthlete()
     {
         return ($this->type==1);
     }
 
+    /**
+     * @return bool
+     */
     public function isCoach()
     {
-        return ($this->type==1);
+        return ($this->type==2);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVerified()
+    {
+        return ($this->verified==1);
     }
 
     /**

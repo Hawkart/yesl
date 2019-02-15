@@ -34,14 +34,14 @@
                         <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password" required>
                         <has-error :form="form" field="password"/>
                     </div>
-                    <div class="form-group date-time-picker label-floating">
+                    <!--<div class="form-group date-time-picker label-floating">
                         <label class="control-label">Your Birthday</label>
                         <datepicker v-model="form.date_birth" format="yyyy-MM-dd" :required="true" :class="{ 'is-invalid': form.errors.has('date_birth') }" name="date_birth"></datepicker>
                         <span class="input-group-addon">
                             <svg class="olymp-calendar-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-calendar-icon"></use></svg>
                         </span>
                         <has-error :form="form" field="date_birth"/>
-                    </div>
+                    </div>-->
                     <div class="form-group label-floating is-select">
                         <label class="control-label">Your Gender</label>
                         <select v-model="form.gender" name="gender" :class="{ 'is-invalid': form.errors.has('gender') }" class='selectpicker form-control'>
@@ -82,7 +82,7 @@
                 first_name: '',
                 last_name: '',
                 email: '',
-                date_birth: '',
+                //date_birth: '',
                 gender: 0,
                 password: '',
                 terms: true

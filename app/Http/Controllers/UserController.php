@@ -108,10 +108,13 @@ class UserController extends Controller
             'date_birth' => 'required|date_format:Y-m-d|before:today'
         ];
 
-        $request->validate($validator);
-        $user->update($request->all());
+        $data = $request->all();
+        $data['name'] = trim($data['first_name']." ".$data['last_name']);
 
-        return back()->with('status', "Personal info updated!");
+        $request->validate($validator);
+        $user->update();
+
+        return back()->with('status', "Personal info has been updated!");
     }
 
     /**
@@ -171,7 +174,7 @@ class UserController extends Controller
 
         return response()->json([
             'data' => $user,
-            'message' => "Avatar successfully updated."
+            'message' => "Avatar has been successfully updated."
         ]);
     }
 
@@ -202,7 +205,7 @@ class UserController extends Controller
 
         return response()->json([
             'data' => $user,
-            'message' => "Overlay successfully updated."
+            'message' => "Overlay has been successfully updated."
         ]);
     }
 

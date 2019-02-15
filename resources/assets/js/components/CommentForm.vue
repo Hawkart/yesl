@@ -90,14 +90,12 @@
 <script>
     import Form from 'vform'
     import VButton from "./Button"
-    import VueEmoji from 'emoji-vue'
     import FileUpload from 'vue-upload-component'
     import axios from 'axios'
 
     export default {
         components: {
             VButton,
-            VueEmoji,
             FileUpload
         },
         props: ['post_id', 'user', 'reply', 'group'],

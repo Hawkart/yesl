@@ -35,7 +35,7 @@
                         <has-error :form="form" field="password"/>
                     </div>
                 </div>
-                <div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <!--<div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group date-time-picker label-floating">
                         <label class="control-label">Your Birthday</label>
                         <datepicker v-model="form.date_birth" format="yyyy-MM-dd" :required="true" :class="{ 'is-invalid': form.errors.has('date_birth') }" name="date_birth"></datepicker>
@@ -44,7 +44,7 @@
                         </span>
                         <has-error :form="form" field="date_birth"/>
                     </div>
-                </div>
+                </div>-->
                 <div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-select">
                         <label class="control-label">Your Gender</label>
@@ -114,7 +114,7 @@
                 first_name: '',
                 last_name: '',
                 email: '',
-                date_birth: '',
+                //date_birth: '',
                 gender: 0,
                 password: '',
                 terms: true,

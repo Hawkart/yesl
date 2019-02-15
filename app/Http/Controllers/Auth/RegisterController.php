@@ -58,7 +58,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $data['date_birth'] = Carbon::parse($data['date_birth'])->format('Y-m-d');
+        //$data['date_birth'] = Carbon::parse($data['date_birth'])->format('Y-m-d');
 
         $rules = [
             'first_name' => 'required|string|max:255',
@@ -66,8 +66,8 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255',//|unique:users',
             'password' => 'required|string|min:6',
             'terms' => 'required|accepted',
-            'gender' => 'required',
-            'date_birth' => 'required|date_format:Y-m-d|before:today'
+            'gender' => 'required'//,
+            //'date_birth' => 'required|date_format:Y-m-d|before:today'
         ];
 
         return Validator::make($data, $rules);
@@ -88,7 +88,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'gender' => intval($data['gender']),
-            'date_birth' => Carbon::parse($data['date_birth']),
+            //'date_birth' => Carbon::parse($data['date_birth']),
             'confirmation_code' => str_random(10),
             'type' => isset($data['type']) ? $data['type'] : 1
         ];
@@ -189,12 +189,16 @@ class RegisterController extends Controller
         }
     }
 
+    /**
+     * @param $token
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function verify($token)
     {
         $user = User::where('confirmation_code', $token)->firstOrFail();
-        $user->verified();
+        $user->verify();
 
-        if($user->university_id && $user->type==2)
+        if($user->university_id && $user->isCoach())
         {
             $university = University::where('id', $user->university_id)->first();
 
@@ -210,7 +214,7 @@ class RegisterController extends Controller
             if($university)
             {
                 Mail::raw('New coach '.$user->name." from ".$university->title." registered.", function ($message) use ($university)  {
-                    $message->to('vladislav.ilchenko@gmail.com')
+                    $message->to('vl@campusteam.tv')
                         ->subject('New coach from '.$university->title);
                 });
             }
