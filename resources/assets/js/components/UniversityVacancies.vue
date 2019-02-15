@@ -18,15 +18,31 @@
                 </div>
             </div>
 
-            <div class="row" v-if="teams!==null && teams.length>0">
-                <div class="col col-lg-4 col-md-4 col-sm-6" v-for="team in teams">
-                    <img :src="getImageLink(team.logo)" :alt="team.title" :title="team.title">
-                    <a href="#" @click.prevent="del(team.id)" class="btn btn-grey-lighter btn-sm full-width"  v-if="user.id==group.owner_id">Delete</a>
+            <div v-if="vacancies">
+                <div class="row mb-25" v-for="(vacancy, gkey) in vacancies" :key="vacancy.game.id">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <h5 class="title">{{vacancy.game.title}}:</h5>
+                        <ul class="notification-list friend-requests" >
+                            <li v-for="(v, vkey) in vacancy.data" v-if="v!==undefined" :key="v.id">
+                                <div class="d-block">
+                                    <strong>Quantity for team:</strong> {{v.quantity}}<br/>
+                                    <strong>Description:</strong> {{v.description}}
+                                </div>
+                                <div class="d-block mt-2">
+                                    <chat-dialog-button :participant='group.owner' :classes="'pa-0 mb-0'">
+                                        <button type="submit" class="btn btn-sm btn-primary mt-0">Apply</button>
+                                    </chat-dialog-button>
+
+                                    <a href="#" @click.prevent="del(v.id, gkey, vkey)" class="btn btn-grey-lighter btn-sm"  v-if="user.id==group.owner_id">Delete</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div class="mt-1 text-center" v-else>
-                University hasn't teams yet!
+                University hasn't vacancies yet!
             </div>
         </div>
 
@@ -49,24 +65,17 @@
         methods: {
             openModalForm()
             {
-                Event.fire("UniversityGameAddModalOpen", {
-                    'teams': this.teams,
+                Event.fire("UniversityVacancyAddModalOpen", {
+                    'vacancies': this.vacancies,
                     'university': this.university
                 });
             },
-            del(id){
+            del(id, gkey, vkey){
+
                 axios.delete('/vacancies/'+id)
                     .then(({ data }) => {
                         this.message = data.message;
-
-                        var teams = this.teams.filter(function(team) {
-                            if(team.id!=id)
-                                return true;
-
-                            return false;
-                        });
-
-                        this.teams = teams;
+                        this.vacancies[gkey].data[vkey] = undefined;
                     })
             },
             close()

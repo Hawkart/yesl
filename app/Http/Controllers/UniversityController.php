@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\University;
 use App\Models\GameUniversity;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
@@ -99,6 +100,27 @@ class UniversityController extends Controller
     {
         $university = University::findOrFail($id);
         $items = $university->vacancies;
+
+        if(count($items)>0)
+        {
+            $vs = [];
+            foreach($items as $vacancy)
+            {
+                if(!isset($vs[$vacancy->game_id]))
+                {
+                    $vs[$vacancy->game_id] = [
+                        'game' => $vacancy->game,
+                        'data' => []
+                    ];
+                }
+
+                $vs[$vacancy->game_id]['data'][] = $vacancy;
+            }
+
+            $items = $vs;
+            unset($vs);
+        }
+
         return response()->json($items, 200);
     }
 
@@ -153,7 +175,7 @@ class UniversityController extends Controller
             {
                 return response()->json([
                     'data' => $university->games,
-                    'message' => "University's teams haave been successfully created!"
+                    'message' => "University's teams have been successfully created!"
                 ], 200);
             }
         }
@@ -186,5 +208,64 @@ class UniversityController extends Controller
         return response()->json([
             'message' => "Team has been deleted!"
         ]);
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function vacanciesAdd($id, Request $request)
+    {
+        $user = Auth::user();
+        $university = University::findOrFail($id);
+
+        if($university->group->owner_id!=$user->id)
+        {
+            return response()->json([
+                'user' => "Only admin of group can create team for university!"
+            ], 422);
+        }
+
+        $vacancy = Vacancy::create([
+            'university_id' => $university->id,
+            'game_id' => $request->get('game_id'),
+            'quantity' => $request->get('quantity'),
+            'description' => $request->get('description'),
+        ]);
+
+        if($vacancy)
+        {
+            $items = $university->vacancies;
+
+            if(count($items)>0)
+            {
+                $vs = [];
+                foreach($items as $vacancy)
+                {
+                    if(!isset($vs[$vacancy->game_id]))
+                    {
+                        $vs[$vacancy->game_id] = [
+                            'game' => $vacancy->game,
+                            'data' => []
+                        ];
+                    }
+
+                    $vs[$vacancy->game_id]['data'][] = $vacancy;
+                }
+
+                $items = $vs;
+                unset($vs);
+            }
+
+            return response()->json([
+                'data' => $items,
+                'message' => "University's vacancy have been successfully created!"
+            ], 200);
+        }
+
+        return response()->json([
+            'error' => 'Something wrong'
+        ], 422);
     }
 }

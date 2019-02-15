@@ -93,10 +93,12 @@ Route::get('/universities/{slug}/vacancies', 'GroupController@universityVacancie
 Route::get('/universities/{slug}/teams', 'GroupController@universityTeams');
 
 Route::get('/universities/{id}/games', 'UniversityController@games');
-Route::post('/universities/{id}/games', 'UniversityController@gamesAdd');
-Route::delete('/universities/{id}/games/{gid}', 'UniversityController@gamesDelete');
+Route::post('/universities/{id}/games', ['uses' => 'UniversityController@gamesAdd', 'middleware' => 'auth']);
+Route::delete('/universities/{id}/games/{gid}', ['uses' => 'UniversityController@gamesDelete', 'middleware' => 'auth']);
 
 Route::get('/universities/{id}/vacancies', 'UniversityController@vacancies');
+Route::post('/universities/{id}/vacancies', ['uses' => 'UniversityController@vacanciesAdd', 'middleware' => 'auth']);
+Route::delete('/vacancies/{id}', ['uses' => 'VacancyController@destroy', 'middleware' => 'auth']);
 
 /**
  * Games

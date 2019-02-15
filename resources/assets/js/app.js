@@ -44,6 +44,8 @@ Vue.component('datepicker', Datepicker)
 Vue.component('link-preview', require('./components/LinkPreview'))
 Vue.component('university-games', require('./components/UniversityGames'));
 Vue.component('university-game-add', require('./components/UniversityGameAdd'));
+Vue.component('university-vacancies', require('./components/UniversityVacancies'));
+Vue.component('university-vacancy-add', require('./components/UniversityVacancyAdd'));
 
 import {
     HasError,

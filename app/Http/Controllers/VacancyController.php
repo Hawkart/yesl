@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\University;
 use Illuminate\Http\Request;
 use App\Models\Vacancy;
+use Illuminate\Support\Facades\Auth;
 use Storage;
 use Image;
 use File;
@@ -86,6 +86,20 @@ class VacancyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $vacancy = Vacancy::findOrFail($id);
+
+        if($vacancy->university->group->owner_id!=$user->id)
+        {
+            return response()->json([
+                'user' => "Only admin of group can delete vacancy for university!"
+            ], 422);
+        }
+
+        $vacancy->delete();
+
+        return response()->json([
+            'message' => "Vacancy has been deleted!"
+        ]);
     }
 }

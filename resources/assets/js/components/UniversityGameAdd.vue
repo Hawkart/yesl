@@ -7,7 +7,7 @@
                     <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
                 </a>
                 <div class="modal-header">
-                    <h6 class="title">Choose games</h6>
+                    <h6 class="title">Add college's team</h6>
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="save" @keydown="form.onKeydown($event)">
@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div>
-                            <v-button :loading="form.busy" type="primary" :large="true" additional="full-width">Add teams!</v-button>
+                            <v-button :loading="form.busy" type="primary" :large="true" additional="full-width">Save</v-button>
 
                             <alert-errors :form="form"/>
                             <alert-success :form="form" :message="message"/>
