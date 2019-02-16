@@ -20,7 +20,7 @@ class GroupUserCreatedListener
         $group = $groupUser->group;
         $groupable = $group->groupable;
 
-        app('log')->info($groupable);
+        //app('log')->info($groupable);
 
         if($groupable instanceof \App\Models\Game)
         {

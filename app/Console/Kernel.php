@@ -28,7 +28,8 @@ class Kernel extends ConsoleKernel
         Commands\ImportCoaches::class,
         Commands\MailToCoaches::class,
         Commands\MailToSpartaUsers::class,
-        Commands\ImportTwitts::class
+        Commands\ImportTwitts::class,
+        Commands\MakeCoachOfUniversity::class
     ];
 
     /**
