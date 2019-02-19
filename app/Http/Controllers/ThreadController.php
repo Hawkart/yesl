@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Mail;
 
 class ThreadController extends Controller
@@ -100,6 +101,7 @@ class ThreadController extends Controller
 
                 $gmc = GroupMessage::where('from', $user->id)->where('group_id', $input['group_id'])->count();
 
+                //To unregistered coach
                 if($gmc==1 && !empty($group->coach_email))
                 {
                     $unreadCount = GroupMessage::where('group_id', $input['group_id'])->groupBy('from')->count();
@@ -109,6 +111,7 @@ class ThreadController extends Controller
 
                         $data['from'] = $user;
                         $data['count'] = $unreadCount;
+                        $data['message'] = Str::limit($input['message'], 45, ' ...');
                         $data['to'] = [
                             'name' => $group->coach_name,
                             'last_name' => $group->coach_last_name,
@@ -201,6 +204,7 @@ class ThreadController extends Controller
                     $to = User::where('id', $toid)->first();
                     $data = [];
                     $data['from'] = $user;
+                    $data['message'] = Str::limit($input['message'], 45, ' ...');
                     $data['count'] = $thread->userUnreadMessagesCount($to->id);
                     $data['to'] = $to;
 

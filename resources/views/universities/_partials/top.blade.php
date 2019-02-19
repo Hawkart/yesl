@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="ui-block">
 
                 <div class="top-header top-header-favorit">
@@ -39,9 +39,9 @@
                     </div>
                     <div class="profile-section">
                         <div class="row">
-                            <div class="col col-xl-3 m-auto col-lg-3 col-xs-12">
+                            <div class="col-xl-3 m-auto col-lg-3 col-xs-12">
                             </div>
-                            <div class="col col-xl-6 m-auto col-lg-6 col-xs-12">
+                            <div class="col-xl-6 m-auto col-lg-6 col-xs-12">
                                 <ul class="profile-menu">
                                     <li>
                                         <a href="/universities/{{$group->slug}}">Posts</a>
@@ -58,12 +58,12 @@
                                     </li>
                                     <li>
                                         @if(!$show) <span class="isDisabled">  @endif
-                                            <a href="/universities/{{$group->slug}}/vacancies" @if(!$show) class="disabled-link" @endif>Vacancies</a>
+                                            <a href="/universities/{{$group->slug}}/vacancies" @if(!$show) class="disabled-link" @endif>Players Needed</a>
                                         @if(!$show) </span>  @endif
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col col-xl-3 m-auto col-lg-3 col-xs-12">
+                            <div class="col-xl-3 m-auto col-lg-3 col-xs-12">
                                 <group-subscribe :group_id = "{{$group->id}}" :user_id="{{Auth::id()}}"></group-subscribe>
                             </div>
                         </div>

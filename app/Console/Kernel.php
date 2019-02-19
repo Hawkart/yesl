@@ -29,7 +29,8 @@ class Kernel extends ConsoleKernel
         Commands\MailToCoaches::class,
         Commands\MailToSpartaUsers::class,
         Commands\ImportTwitts::class,
-        Commands\MakeCoachOfUniversity::class
+        Commands\MakeCoachOfUniversity::class,
+        Commands\NotifyConfirmEmail::class
     ];
 
     /**
@@ -42,6 +43,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('users:notify-confirm-email')
+                    ->dailyAt('13:00')
+                    ->timezone('America/New_York');
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="ui-block">
                     <div class="top-header top-header-favorit">
                         <div class="top-header-thumb">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="profile-section">
                             <div class="row">
-                                <div class="col col-xl-8 m-auto col-lg-8 col-md-12">
+                                <div class="col-xl-8 m-auto col-lg-8 col-md-12">
                                     <ul class="profile-menu">
                                         <li>
                                             <a href="#">About</a>
@@ -50,10 +50,6 @@
                             </div>
 
                             <div class="control-block-button">
-                                <!--<a href="35-YourAccount-FriendsRequests.html" class="btn btn-control bg-blue">
-                                    <svg class="olymp-happy-face-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
-                                </a>-->
-
                                 @if($user->id!=Auth::user()->id)
                                     <chat-dialog-button :participant='{{json_encode($user->toArray()) }}' :group_id="0" :classes="'btn-control bg-purple'">
                                         <img src="/svg-icons/sprites/Message_top.svg" style="width: 28px; height: 28px; margin-bottom: 5px;">
@@ -83,7 +79,18 @@
     <div class="container">
         <div class="row">
 
-            <div class="col col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-6 order-xl-2 col-lg-12 order-lg-3 order-md-3 order-sm-3 order-3 col-sm-12 col-12">
+
+                @if($user->id==Auth::user()->id)
+                    <div class="ui-block">
+                        <post-form :group="[]" :user="{{json_encode($user->toArray())}}"></post-form>
+                    </div>
+                @endif
+
+                <post-list :group="[]" :user="{{json_encode($user->toArray())}}" type="wall"></post-list>
+            </div>
+
+            <div class="col-xl-3 order-xl-1 col-lg-6 order-lg-2 order-md-2 order-sm-2 order-2 col-md-12 col-sm-12 col-12">
                 @if($groups->total()>0)
                     <div class="ui-block">
                         <div class="ui-block-title">
@@ -122,19 +129,7 @@
                 @endif
             </div>
 
-            <div class="col col-xl-6 col-lg-12 col-sm-12 col-12">
-
-                @if($user->id==Auth::user()->id)
-                    <div class="ui-block">
-                        <post-form :group="[]" :user="{{json_encode($user->toArray())}}"></post-form>
-                    </div>
-                @endif
-
-                <post-list :group="[]" :user="{{json_encode($user->toArray())}}" type="wall"></post-list>
-            </div>
-
-
-            <div class="col col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-3 order-xl-3 col-lg-6 order-lg-1 col-md-12 order-md-1 order-sm-1 order-1 col-sm-12 col-12">
                 @if($friends->total()>0)
                     <div class="ui-block">
                         <div class="ui-block-title">

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Carbon\Carbon;
 use App\Mail\EmailVerification;
+use App\Mail\EmailNewCoachRegistered;
 use DB;
 use Mail;
 use Illuminate\Http\Request;
@@ -212,20 +213,44 @@ class RegisterController extends Controller
             }
 
             if($university)
-            {
-                Mail::raw('New coach '.$user->name." from ".$university->title." registered.", function ($message) use ($university)  {
-                    $message->to('vl@campusteam.tv')
-                        ->subject('New coach from '.$university->title);
-                });
-            }
+                $this->notifyAllAboutNewCoach();
         }
 
         return redirect('login')->with('status', "Your mail has been verified!");
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showRegistrationCoachForm()
     {
         return view('auth.register_coach');
+    }
+
+    /**
+     * Send notification to all users about new registered coach
+     * @param $coach
+     */
+    public function notifyAllAboutNewCoach($coach)
+    {
+        $university = $coach->university;
+        $when = now()->addMinutes(5);
+
+        $users = User::verified()->get();
+        foreach($users as $user)
+        {
+            $data = [
+                'user' => $user,
+                'coach' => $coach,
+                'university' => $university
+            ];
+
+            try{
+                Mail::to($user->email)->later($when, new EmailNewCoachRegistered($data));
+            } catch (\Exception $e) {
+
+            }
+        }
     }
 
     /**

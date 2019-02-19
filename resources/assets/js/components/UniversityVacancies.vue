@@ -1,10 +1,10 @@
 <template>
     <div class="ui-block">
         <div class="ui-block-title">
-            <h2 class="title">Vacancies</h2>
+            <h2 class="title">Players Wanted</h2>
 
             <div class="align-right" v-if="user.id==group.owner_id">
-                <a href="#" @click="openModalForm" data-toggle="modal" data-target="#create-university-vacancy" class="btn btn-primary btn-md-2">Add vacancy  +</a>
+                <a href="#" @click="openModalForm" data-toggle="modal" data-target="#create-university-vacancy" class="btn btn-primary btn-md-2">Add +</a>
             </div>
         </div>
 

@@ -77,12 +77,11 @@ $style = [
                                     <!-- Intro -->
 
                                     <p style="{{ $style['paragraph'] }}">
+                                        You are about to complete your registration on https://CampusTeam.tv/.<br>
                                         Click the button below to confirm your email address.
                                     </p>
 
-
                                     <!-- Action Button -->
-
                                     <table style="{{ $style['body_action'] }}" align="center" width="100%" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td align="center">
@@ -94,15 +93,22 @@ $style = [
                                                    style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
                                                    class="button"
                                                    target="_blank">
-                                                    Verify
+                                                    Verify Email
                                                 </a>
                                             </td>
                                         </tr>
                                     </table>
 
+                                    <p style="{{ $style['paragraph'] }}">
+                                        If you experience a problem when clicking the "Verify Email" button,
+                                        please copy and paste the URL below into your web browser:<br>
+                                        {{ url('register/verify/'.$user->confirmation_code) }}
+                                    </p>
+
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        <br>{{ config('app.name') }}
+                                        <br>Sincerely,<br>
+                                        CampusTeam crew
                                     </p>
                                 </td>
                             </tr>

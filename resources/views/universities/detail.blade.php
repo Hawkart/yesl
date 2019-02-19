@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
+            <div class="col-xl-6 order-xl-2 col-lg-12 order-lg-3 order-md-3 order-sm-3 order-3 col-sm-12 col-12">
 
                 @if(strpos($group->owner->email, '@campusteam.tv')===false)
                     @if($can_post)

@@ -76,15 +76,14 @@ $style = [
 
                                     <!-- Intro -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        <strong>You have {{trans_choice('emails.number_of_messages', ['count' => $data['count']]) }}</strong><br/>
-                                        Get the full messaging experience on <span style="{{ $style['anchor'] }}">{{ config('app.name') }}</span>
+                                        You have a new message from the CampusTeam user {{ $data['from']->name }}:<br>
+
+                                        {{$data['message']}}
+                                        <br>
                                     </p>
 
                                     <p style="{{ $style['paragraph'] }}">
-                                        <strong>
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('users/'.$data['from']->nickname) }}" target="_blank">{{ $data['from']->name }}</a>
-                                        </strong><br/>
-                                        {{$data['from']->description}}
+                                        To read full message and reply to it, please click the button below:
                                     </p>
 
                                     <!-- Action Button -->
@@ -105,9 +104,17 @@ $style = [
                                         </tr>
                                     </table>
 
+                                    <p style="{{ $style['paragraph'] }}">
+                                        If you experience a problem when clicking the "View message" button,
+                                        please copy and paste the URL below into your web browser:<br>
+                                        {{ url('im') }}
+                                    </p>
+                                    <br>
+
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        <br>{{ config('app.name') }}
+                                        <br>Sincerely,<br>
+                                        CampusTeam crew
                                     </p>
                                 </td>
                             </tr>

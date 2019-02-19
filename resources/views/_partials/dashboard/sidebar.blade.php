@@ -225,7 +225,7 @@
                                 </svg>
                                 <span class="left-menu-title">{{ ucfirst(strtolower($menu['title'])) }}</span>
                             </a>
-                        @endif;
+                        @endif
                     </li>
                 @endforeach
             </ul>

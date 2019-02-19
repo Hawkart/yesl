@@ -56,22 +56,11 @@
 }
 .fileupload{
   position: absolute !important;
-  top: 50px;
-  left: 40px;
+  top: 47px;
+  left: 33px;
 }
-.fileupload:hover{
-  color:#ff5e3a;
-}
-.fileupload span{
-  display: none;
-}
-.top-header-thumb .author-thumb:hover span{
-  display: block;
-  border: 1px solid;
-  padding: 3px 6px;
-  border-radius: 3px;
-  color: #fff;
-  cursor: pointer;
+.top-header-thumb .author-thumb btn{
+    padding: 5px 8px !important;
 }
 
 .top-header-thumb .top-header-overlay{
@@ -88,13 +77,21 @@
   z-index: 22;
 }
 
-.top-header-thumb .top-header-overlay .fileupload span{
-  display: block;
-  border: 1px solid;
-  padding: 3px 6px;
-  border-radius: 3px;
-  color: #fff;
-  cursor: pointer;
+.top-header-thumb .top-header-overlay .fileupload btn{
+    padding: 5px 8px !important;
+}
+.top-header-thumb .top-header-overlay .fileupload btn:hover,
+.top-header-thumb .author-thumb btn:hover{
+    color: #fefefe;
+}
+
+@media (max-width: 460px)
+{
+    .top-header.top-header-favorit .top-header-author {
+        bottom: 10px;
+        top: auto;
+        margin-top: 5px;
+    }
 }
 
 .friend-header-thumb{

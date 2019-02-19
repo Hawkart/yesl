@@ -76,37 +76,27 @@ $style = [
 
                                     <!-- Intro -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        <strong>You have {{trans_choice('emails.number_of_messages', ['count' => $data['count']]) }}</strong><br/>
-                                        Get the full messaging experience on <span style="{{ $style['anchor'] }}">{{ config('app.name') }}</span>
+                                        You have a new message from the CampusTeam user {{ $data['from']->name }}:<br>
+
+                                        {{$data['message']}}
+                                        <br>
                                     </p>
 
                                     <p style="{{ $style['paragraph'] }}">
-                                        <strong>
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('users/'.$data['from']->nickname) }}" target="_blank">{{ $data['from']->name }}</a> sent you a new message.
-                                        </strong><br/>
+                                        To read full message and reply to it, please register on CampusTeam website
+                                        following the link below:
+                                        <a style="{{ $style['anchor'] }}" href="https://campusteam.tv/register-coach" target="_blank">https://campusteam.tv/register-coach</a>
                                     </p>
 
-                                    <!-- Action Button -->
-                                    <table style="{{ $style['body_action'] }}" align="center" width="100%" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td align="center">
-                                                <?php
-                                                $actionColor = 'button--blue';
-                                                ?>
-
-                                                <a href="{{ url('im') }}"
-                                                   style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
-                                                   class="button"
-                                                   target="_blank">
-                                                    View message
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <p style="{{ $style['paragraph'] }}">
+                                        You have <strong>{{trans_choice('emails.number_of_messages', ['count' => $data['count']]) }}</strong> from CampusTeam users.
+                                    </p>
+                                    <br>
 
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        <br>{{ config('app.name') }}
+                                        <br>Sincerely,<br>
+                                        CampusTeam crew
                                     </p>
                                 </td>
                             </tr>

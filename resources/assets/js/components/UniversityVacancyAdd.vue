@@ -7,13 +7,13 @@
                     <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
                 </a>
                 <div class="modal-header">
-                    <h6 class="title">Add vacancy</h6>
+                    <h6 class="title">Players Wanted</h6>
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="save" @keydown="form.onKeydown($event)">
 
                         <div class="col col-12 col-xl-12 col-lg-12 col-md-6 col-sm-12">
-                            <div class="form-group label-floating is-select">
+                            <div class="form-group label-floating is-select" v-if="games">
                                 <label class="control-label">Game</label>
                                 <select v-model="form.game_id" name="game_id" class="selectpicker form-control"  :class="{ 'is-invalid': form.errors.has('game_id') }">
                                     <option :value="game.id" v-for="game in games">{{game.title}}</option>

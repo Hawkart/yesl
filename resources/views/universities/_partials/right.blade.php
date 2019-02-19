@@ -1,4 +1,4 @@
-<div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+<div class="col-xl-3 order-xl-3 col-lg-6 order-lg-1 col-md-12 order-md-1 order-sm-1 order-1 col-sm-12 col-12">
 
     @if(!empty($group->groupable->es_team_image) || ((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false))
         <div class="ui-block">
@@ -10,7 +10,7 @@
             <div class="ui-block-content">
                 @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false)
                     <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 full-width mb-0'">
-                        <button type="submit" class="btn btn-primary btn-xs full-width mt-0">Write Message to the Coach</button>
+                        <button type="submit" class="btn bg-violet btn-xs full-width mt-0">Write Message to the Coach</button>
                     </chat-dialog-button>
                 @endif
 
