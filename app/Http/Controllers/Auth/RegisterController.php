@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Carbon\Carbon;
 use App\Mail\EmailVerification;
 use App\Mail\EmailNewCoachRegistered;
+use App\Mail\EmailSuccessRegistrationAthlete;
 use DB;
 use Mail;
 use Illuminate\Http\Request;
@@ -213,8 +214,11 @@ class RegisterController extends Controller
             }
 
             if($university)
-                $this->notifyAllAboutNewCoach();
+                $this->notifyAllAboutNewCoach($user);
         }
+
+        if($user->isAthlete())
+            $this->athleteGuideEmail($user);
 
         return redirect('login')->with('status', "Your mail has been verified!");
     }
@@ -225,6 +229,19 @@ class RegisterController extends Controller
     public function showRegistrationCoachForm()
     {
         return view('auth.register_coach');
+    }
+
+    /**
+     * @param $user
+     */
+    public function athleteGuideEmail($user)
+    {
+        $data['user'] = $user;
+        try{
+            Mail::to($user->email)->send(new EmailSuccessRegistrationAthlete($data));
+        } catch (\Exception $e) {
+
+        }
     }
 
     /**
