@@ -30,4 +30,12 @@ class Vacancy extends Model
     {
         return $this->belongsTo('App\Models\Game');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applications()
+    {
+        return $this->hasMany('App\Models\Application');
+    }
 }

@@ -113,7 +113,6 @@ class RegisterController extends Controller
 
         $data = $request->all();
         $send_no_auto = false;
-        $errors = [];
 
         //check coach
         if(isset($data['type']) && $data['type']==2)
@@ -123,21 +122,19 @@ class RegisterController extends Controller
             //check .edu email
             if(stripos($domain, '.edu')===false)
             {
-                $errors['email'] = "Coaches can register only with university's mailbox.";
                 return response()->json(['email' => "Coaches can register only with university's mailbox."], 422);
             }else{
 
-                if(intval($data['university_id'])>0)
+                /*if(intval($data['university_id'])>0)
                 {
                     $universities = University::whereId($data['university_id']);
-                }else{
+                }else{*/
                     $universities = University::where('url', 'like', "%".$domain."%");
-                }
+                //}
 
                 if($universities->count()==0)
                 {
-                    $errors['university_id'] = "You must choose which university coach you are.";
-                    return response()->json(['university_id' => 'You must choose which university coach you are.'], 422);
+                    return response()->json(['university_id' => "University with such domain zone doesn't exist."], 422);
                 }else{
                     $university = $universities->first();
 

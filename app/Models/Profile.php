@@ -80,4 +80,12 @@ class Profile extends Model
     {
         return $this->belongsToMany('App\Models\Team');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applications()
+    {
+        return $this->hasMany('App\Models\Application');
+    }
 }
