@@ -92,14 +92,14 @@ class VacancyController extends Controller
         if($vacancy->university->group->owner_id!=$user->id)
         {
             return response()->json([
-                'user' => "Only admin of group can delete vacancy for university!"
+                'user' => "Only university group admin may delete vacancies."
             ], 422);
         }
 
         $vacancy->delete();
 
         return response()->json([
-            'message' => "Vacancy has been deleted!"
+            'message' => "Vacancy has been removed."
         ]);
     }
 }

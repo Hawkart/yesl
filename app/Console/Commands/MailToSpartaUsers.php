@@ -36,16 +36,10 @@ class MailToSpartaUsers extends Command
             return str_getcsv($v, ";");
         },  file($path));
 
-        $c = 1;
         foreach($data as $key=>$str)
         {
-            if(strpos($str[2], '@sparta.games')===false && $c<1000)
-            {
-                if($c>158 || ($c<158 && $c>75))
-                    $this->sendMail($str);
-
-                $c++;
-            }
+            if(strpos($str[2], '@sparta.games')===false)
+                $this->sendMail($str);
         }
     }
 

@@ -101,7 +101,7 @@ $style = [
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
                                         <br>Sincerely,<br>
-                                        CampusTeam crew
+                                        <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">CampusTeam</a>a> crew
                                     </p>
                                 </td>
                             </tr>

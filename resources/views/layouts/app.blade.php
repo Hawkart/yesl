@@ -154,6 +154,25 @@
     <div class="container" id="app">
         @yield('content')
         @include('_partials.landing.footer')
+
+        <!--
+        <div id="cookie_directive_container" class="container" style="display: none">
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+
+                <div class="container">
+                    <div class="navbar-inner navbar-content-center" id="cookie_accept">
+
+                        <a href="#" class="btn btn-default pull-right">Close</a>
+                        <p class="text-muted credit">
+                            By using our website you are consenting to our use of cookies in accordance with our <a href="/cookies">cookie policy</a>.
+                        </p>
+                        <br>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>-->
     </div>
 
     <script src="{{ mix('/js/app.js') }}"></script>
@@ -183,6 +202,7 @@
     <script src="{{ asset('js/run-chart.js') }}"></script>
 
     <script src="{{ asset('js/base-init.js') }}"></script>
+    <script src="{{ asset('js/cookie.js') }}"></script>
     <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>
     <script src="{{ asset('Bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
 </body>

@@ -1,7 +1,7 @@
 <template>
     <div class="ui-block">
         <div class="ui-block-title">
-            <h2 class="title">Players Wanted</h2>
+            <h2 class="title">Players Needed</h2>
 
             <div class="align-right" v-if="user.id==group.owner_id">
                 <a href="#" @click="openModalForm" data-toggle="modal" data-target="#create-university-vacancy" class="btn btn-primary btn-md-2">Add +</a>
@@ -19,24 +19,23 @@
             </div>
 
             <div v-if="vacancies">
-                <div class="row mb-25" v-for="(vacancy, gkey) in vacancies" :key="vacancy.game.id">
-                    <div class="col-lg-12 col-sm-12 col-12">
-                        <h5 class="title">{{vacancy.game.title}}:</h5>
-                        <ul class="notification-list friend-requests" >
-                            <li v-for="(v, vkey) in vacancy.data" v-if="v!==undefined" :key="v.id">
-                                <div class="d-block">
-                                    <strong>Quantity for team:</strong> {{v.quantity}}<br/>
-                                    <strong>Description:</strong> {{v.description}}
+
+                <div class="row">
+                    <div class="col col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12"  v-for="vacancy in vacancies" :key="vacancy.id">
+                        <div class="ui-block">
+                            <article class="hentry blog-post" data-mh="choose-item">
+                                <div class="post-thumb">
+                                    <img :src="getImageLink(vacancy.game.logo)" :alt="vacancy.game.title">
                                 </div>
-                                <div class="d-block mt-2">
-                                    <chat-dialog-button :participant='group.owner' :classes="'pa-0 mb-0'">
-                                        <button type="submit" class="btn btn-sm btn-primary mt-0">Apply</button>
+                                <div class="post-content pb-0">
+                                    <chat-dialog-button :participant='group.owner' :classes="'pa-0 mb-0 full-width'">
+                                        <button type="submit" class="btn btn-sm btn-primary full-width mt-0">Apply</button>
                                     </chat-dialog-button>
 
-                                    <a href="#" @click.prevent="del(v.id, gkey, vkey)" class="btn btn-grey-lighter btn-sm"  v-if="user.id==group.owner_id">Delete</a>
+                                    <a href="#" @click.prevent="del(vacancy.id)" class="btn btn-grey-lighter btn-sm full-width"  v-if="user.id==group.owner_id">Delete</a>
                                 </div>
-                            </li>
-                        </ul>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,12 +69,21 @@
                     'university': this.university
                 });
             },
-            del(id, gkey, vkey){
+            del(id){
 
                 axios.delete('/vacancies/'+id)
                     .then(({ data }) => {
+
                         this.message = data.message;
-                        this.vacancies[gkey].data[vkey] = undefined;
+
+                        var vacancies = this.vacancies.filter(function(vacancy) {
+                            if(vacancy.id!=id)
+                                return true;
+
+                            return false;
+                        });
+
+                        this.vacancies = vacancies;
                     })
             },
             close()

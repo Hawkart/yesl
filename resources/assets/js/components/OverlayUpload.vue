@@ -10,7 +10,7 @@
             extensions="png,gif,jpeg,jpg"
             :url="uploadUrl"
         >
-            <btn class="btn bg-violet btn-xs mt-0 mb-0">Change overlay</btn>
+            <button class="btn bg-violet btn-xs mt-0 mb-0">Change overlay</button>
         </vue-core-image-upload>
     </div>
 </template>

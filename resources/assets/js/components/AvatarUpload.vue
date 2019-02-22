@@ -10,7 +10,7 @@
             extensions="png,gif,jpeg,jpg"
             :url="uploadUrl"
         >
-            <btn class="btn bg-violet btn-xs mt-0 mb-0" data-toggle="tooltip" data-placement="right" data-original-title="Upload logo">Upload</btn>
+            <button class="btn bg-violet btn-xs mt-0 mb-0" data-toggle="tooltip" data-placement="right" data-original-title="Upload logo">Upload</button>
         </vue-core-image-upload>
     </div>
 </template>

@@ -7,7 +7,7 @@
                     <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
                 </a>
                 <div class="modal-header">
-                    <h6 class="title">Players Wanted</h6>
+                    <h6 class="title">Players Needed</h6>
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="save" @keydown="form.onKeydown($event)">
@@ -19,22 +19,6 @@
                                     <option :value="game.id" v-for="game in games">{{game.title}}</option>
                                 </select>
                                 <has-error :form="form" field="game_id"/>
-                            </div>
-                        </div>
-
-                        <div class="col col-12 col-xl-12 col-lg-12 col-md-6 col-sm-12">
-                            <div class="form-group label-floating">
-                                <label class="control-label">Quantity</label>
-                                <input v-model="form.quantity" :class="{ 'is-invalid': form.errors.has('quantity') }" class="form-control" type="number" name="quantity" required>
-                                <has-error :form="form" field="quantity"/>
-                            </div>
-                        </div>
-
-                        <div class="col col-12 col-xl-12 col-lg-12 col-md-6 col-sm-12">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label">Description</label>
-                                <textarea v-model="form.description" :class="{ 'is-invalid': form.errors.has('quantity') }" class="form-control" name="description"></textarea>
-                                <has-error :form="form" field="description"/>
                             </div>
                         </div>
 
@@ -65,8 +49,6 @@
             return {
                 form: new Form({
                     game_id: this.games!=null ? this.games[0].id : 0,
-                    quantity: 1,
-                    description: ''
                 }),
                 university: {},
                 message: ''

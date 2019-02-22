@@ -217,6 +217,24 @@ class User extends VoyagerUser implements HasMedia
     }
 
     /**
+     * Admins
+     */
+    public function scopeAdmins($query)
+    {
+        $query->where('role_id', 1);
+        return $query;
+    }
+
+    /**
+     * Admins
+     */
+    public function scopeSimpleUsers($query)
+    {
+        $query->where('role_id', 2);
+        return $query;
+    }
+
+    /**
      * Verified users
      */
     public function scopeVerified($query)
@@ -228,7 +246,7 @@ class User extends VoyagerUser implements HasMedia
     /**
      * Athletes
      */
-    public function scopeAthlete($query)
+    public function scopeAthletes($query)
     {
         $query->where('type', 1);
         return $query;
@@ -237,7 +255,7 @@ class User extends VoyagerUser implements HasMedia
     /**
      * Coaches
      */
-    public function scopeCoach($query)
+    public function scopeCoaches($query)
     {
         $query->where('type', 2);
         return $query;
@@ -262,18 +280,17 @@ class User extends VoyagerUser implements HasMedia
     /**
      * @return bool
      */
-    public function isVerified()
+    public function isAdmin()
     {
-        return ($this->verified==1);
+        return ($this->role_id==1);
     }
 
     /**
-     * Admins
+     * @return bool
      */
-    public function scopeAdmins($query)
+    public function isVerified()
     {
-        $query->where('role_id', 1);
-        return $query;
+        return ($this->verified==1);
     }
 
     /**

@@ -175,7 +175,7 @@ class UniversityController extends Controller
             {
                 return response()->json([
                     'data' => $university->games,
-                    'message' => "University's teams have been successfully created!"
+                    'message' => "Teams have been successfully added."
                 ], 200);
             }
         }
@@ -206,7 +206,7 @@ class UniversityController extends Controller
         $gu->delete();
 
         return response()->json([
-            'message' => "Team has been deleted!"
+            'message' => "Team has been deleted."
         ]);
     }
 
@@ -227,40 +227,23 @@ class UniversityController extends Controller
             ], 422);
         }
 
+        if(Vacancy::where('university_id', $university->id)->where('game_id', $request->get('game_id'))->count()>0)
+            return response()->json([
+                'game_id' => "Request with this game is already created!"
+            ], 422);
+
         $vacancy = Vacancy::create([
             'university_id' => $university->id,
-            'game_id' => $request->get('game_id'),
-            'quantity' => $request->get('quantity'),
-            'description' => $request->get('description'),
+            'game_id' => $request->get('game_id')
         ]);
 
         if($vacancy)
         {
-            $items = $university->vacancies;
-
-            if(count($items)>0)
-            {
-                $vs = [];
-                foreach($items as $vacancy)
-                {
-                    if(!isset($vs[$vacancy->game_id]))
-                    {
-                        $vs[$vacancy->game_id] = [
-                            'game' => $vacancy->game,
-                            'data' => []
-                        ];
-                    }
-
-                    $vs[$vacancy->game_id]['data'][] = $vacancy;
-                }
-
-                $items = $vs;
-                unset($vs);
-            }
+            $items = $university->vacancies()->with(['game'])->get();
 
             return response()->json([
                 'data' => $items,
-                'message' => "University's vacancy have been successfully created!"
+                'message' => "Vacancy has been successfully added."
             ], 200);
         }
 

@@ -102,7 +102,7 @@
                             @foreach($groups as $group)
                                 <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
                                     <div class="ui-block">
-                                        <article class="hentry blog-post university-article" data-mh="choose-item-2">
+                                        <article class="hentry blog-post university-article">
                                             <div class="post-thumb" data-mh="choose-item">
                                                 <a href="{!! route('university', ['slug' => $group->slug]) !!}">
                                                     <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg'  }}" alt="{{$group->title}}">
@@ -113,7 +113,7 @@
                                                 @endif
                                             </div>
 
-                                            <div class="post-content">
+                                            <div class="post-content" data-mh="choose-item-2">
                                                 <a href="{!! route('university', ['slug' => $group->slug]) !!}" class="h5 post-title" title="{{$group->title}}">
                                                     {{ str_limit($group->title, 50, '...') }}
                                                 </a>

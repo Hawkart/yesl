@@ -225,7 +225,7 @@ class UserController extends Controller
         {
             return response()->json([
                 'data' => $user,
-                'message' => "Password successfully updated."
+                'message' => "Your password has been successfully updated."
             ]);
         }
 
@@ -349,7 +349,7 @@ class UserController extends Controller
         if(Auth::user()->id!=$id)
         {
             return response()->json([
-                'message' => "You couldn't view chats of another user!"
+                'message' => "You don't have access to view these chats."
             ], 422);
         }
 

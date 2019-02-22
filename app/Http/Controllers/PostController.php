@@ -66,7 +66,7 @@ class PostController extends Controller
             if($group_id>0 && !in_array($group_id, $groups))
             {
                 return response()->json([
-                    'error' => 'You are not a member of this group!'
+                    'error' => 'Only group members have access to this page.'
                 ], 422);
             }
         }
@@ -74,7 +74,7 @@ class PostController extends Controller
         if(empty($request->get('text')) && !$request->has('links') && !$request->has('images'))
         {
             return response()->json([
-                'text' => "Post couldn't be empty!"
+                'text' => "Post can't be empty."
             ], 422);
         }
 
@@ -118,7 +118,7 @@ class PostController extends Controller
 
             return response()->json([
                 'data' => $post,
-                'message' => "Post successfully created."
+                'message' => "Post has been successfully created."
             ], 200);
         }
     }

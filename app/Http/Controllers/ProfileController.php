@@ -84,7 +84,7 @@ class ProfileController extends Controller
             {
                 return response()->json([
                     'data' => Auth::user()->profiles()->with(['game'])->get(),
-                    'message' => "Your games profiles created."
+                    'message' => "Your game profiles have been created."
                 ], 200);
             }
         }
@@ -144,7 +144,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'data' => $profile,
-            'message' => "Profile data updated!"
+            'message' => "Your ".$profile->game->title." profile has been updated!"
         ]);
     }
 
@@ -160,7 +160,7 @@ class ProfileController extends Controller
         $profile->delete();
 
         return response()->json([
-            'message' => "Profile deleted!"
+            'message' => "Your profile has been deleted!"
         ]);
     }
 }

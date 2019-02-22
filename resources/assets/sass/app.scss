@@ -56,8 +56,8 @@
 }
 .fileupload{
   position: absolute !important;
-  top: 47px;
-  left: 33px;
+  top: 45px;
+  left: 25px;
 }
 .top-header-thumb .author-thumb btn{
     padding: 5px 8px !important;
@@ -421,3 +421,27 @@ a.btn-apply{
     left: 15px;
 }
 //----------------------------------------------
+
+//Cookie
+.navbar-fixed-bottom,
+.navbar-fixed-top {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+}
+.navbar-default {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+}
+
+.navbar-fixed-bottom {
+    bottom: 0;
+    margin-bottom: 0;
+    border-width: 1px 0 0;
+}
+.navbar-fixed-bottom,
+.navbar-fixed-top {
+    border-radius: 0;
+}

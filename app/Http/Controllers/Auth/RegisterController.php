@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\University;
 use App\Models\User;
+use App\Models\Group;
 use App\Models\GroupMessage;
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Carbon\Carbon;
 use App\Mail\EmailVerification;
-use App\Mail\EmailNewCoachRegistered;
+use App\Mail\EmailNewCoachRegisteredToAthlete;
+use App\Mail\EmailNewCoachRegisteredToCoach;
 use App\Mail\EmailSuccessRegistrationAthlete;
+use App\Mail\EmailSuccessRegistrationCoach;
 use DB;
 use Mail;
 use Illuminate\Http\Request;
@@ -122,7 +125,7 @@ class RegisterController extends Controller
             //check .edu email
             if(stripos($domain, '.edu')===false)
             {
-                return response()->json(['email' => "Coaches can register only with university's mailbox."], 422);
+                return response()->json(['email' => "Coaches may register with  college/university email only."], 422);
             }else{
 
                 /*if(intval($data['university_id'])>0)
@@ -158,7 +161,7 @@ class RegisterController extends Controller
                     $data['confirmation_code'] = str_random(10);
                     $user->update($data);
                 }else{
-                    return response()->json(['email' => 'The email has already been taken.'], 422);
+                    return response()->json(['email' => 'This email has been already used.'], 422);
                 }
             }else{
                 $user = $this->create($request->all());
@@ -170,9 +173,9 @@ class RegisterController extends Controller
 
             $message = '';
             if($data['type']==2)
-                $message = 'Dear coach of the university team. We are glad that you are with us! ';
+                $message = 'Dear Esports team coach, We are glad you are with us!';
 
-            $message.= "A confirmation link has been sent to your mail!";
+            $message.= "A confirmation link has been sent to your mailbox. Please confirm your email by following the link provided.";
 
             return response()->json([
                 "message" => $message
@@ -201,7 +204,7 @@ class RegisterController extends Controller
         {
             $university = University::where('id', $user->university_id)->first();
 
-            if($university->group()->count()>0 && strpos($university->group->owner->email, '@campusteam.tv')!==false) //now campus team profile
+            if($university->group()->count()>0 && $university->group->owner->isAdmin())
             {
                 $university->group->update([
                     'owner_id' => $user->id
@@ -214,10 +217,9 @@ class RegisterController extends Controller
                 $this->notifyAllAboutNewCoach($user);
         }
 
-        if($user->isAthlete())
-            $this->athleteGuideEmail($user);
+        $this->sendGuide($user);
 
-        return redirect('login')->with('status', "Your mail has been verified!");
+        return redirect('login')->with('status', "Your mail has been verified! Now you can <a href='/login'>login</a> to the website");
     }
 
     /**
@@ -231,11 +233,15 @@ class RegisterController extends Controller
     /**
      * @param $user
      */
-    public function athleteGuideEmail($user)
+    public function sendGuide($user)
     {
         $data['user'] = $user;
+
         try{
-            Mail::to($user->email)->send(new EmailSuccessRegistrationAthlete($data));
+            if($user->isAthlete())
+                Mail::to($user->email)->send(new EmailSuccessRegistrationAthlete($data));
+            else
+                Mail::to($user->email)->send(new EmailSuccessRegistrationCoach($data));
         } catch (\Exception $e) {
 
         }
@@ -250,7 +256,7 @@ class RegisterController extends Controller
         $university = $coach->university;
         $when = now()->addMinutes(5);
 
-        $users = User::verified()->get();
+        $users = User::verified()->where('id', '<>', $coach->id)->get();
         foreach($users as $user)
         {
             $data = [
@@ -260,7 +266,35 @@ class RegisterController extends Controller
             ];
 
             try{
-                Mail::to($user->email)->later($when, new EmailNewCoachRegistered($data));
+
+                if($user->isAthlete())
+                {
+                    Mail::to($user->email)->later($when, new EmailNewCoachRegisteredToAthlete($data));
+                }else{
+                    Mail::to($user->email)->later($when, new EmailNewCoachRegisteredToCoach($data));
+                }
+
+            } catch (\Exception $e) {
+
+            }
+        }
+
+        $groups = Group::whereNotNull('coach_email')->whereHas('owner', function($q){
+            $q->admins();
+        })->get();
+        foreach($groups as $group)
+        {
+            $data = [
+                'user' => [
+                    'email' => $group->coach_email,
+                    'name' => $group->coach_name
+                ],
+                'coach' => $coach,
+                'university' => $university
+            ];
+
+            try{
+                Mail::to($data['user']['email'])->later($when, new EmailNewCoachRegisteredToCoachNotRegistered($data));
             } catch (\Exception $e) {
 
             }
