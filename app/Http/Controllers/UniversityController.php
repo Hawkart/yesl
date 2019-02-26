@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\University;
 use App\Models\GameUniversity;
 use App\Models\Vacancy;
+use App\Models\Team;
+use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Storage;
 use Image;
 use File;
@@ -15,6 +18,8 @@ use DB;
 
 class UniversityController extends Controller
 {
+    use SEOToolsTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +27,65 @@ class UniversityController extends Controller
      */
     public function index(Request $request)
     {
+        $universities = University::orderBy('title', 'asc')
+            ->select(['title', 'id'])
+            ->search($request)
+            ->paginate(30);
 
+        return response()->json($universities, 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function groups(Request $request)
+    {
+        $groups = Group::orderBy('title', 'asc')
+            ->where('groupable_type', 'App\Models\University')
+            ->search($request)->paginate(12);
+
+        $states = Cache::remember('state_list', 3600, function () {
+            $st = University::$states;
+            $states_id = University::where('nace', 1)->pluck('state')->toArray();
+            $states_id = array_unique($states_id);
+            $states = ['0' => 'Select state'];
+            foreach ($st as $key => $value) {
+                if (in_array($key, $states_id)) {
+                    $states[$key] = $value;
+                }
+            }
+
+            return $states;
+        });
+
+        $sat_min = Cache::remember('sat_min', 3600, function () {
+            return University::where('nace', 1)->min('sat_scores_average_overall');
+        });
+
+        $sat_max = Cache::remember('sat_max', 3600, function () {
+            return University::where('nace', 1)->max('sat_scores_average_overall');
+        });
+
+        $tution_min = Cache::remember('tution_min', 3600, function () {
+            return University::where('nace', 1)->min('cost_tuition_in_state');
+        });
+
+        $tution_max = Cache::remember('tution_max', 3600, function () {
+            return University::where('nace', 1)->max('cost_tuition_in_state');
+        });
+
+        $uids = $groups->pluck('groupable_id')->toArray();
+        $recruiting = Team::whereIn('university_id', $uids)
+                        ->where('players_needed', true)
+                        ->pluck('university_id')
+                        ->toArray();
+
+        $recruiting = array_unique($recruiting);
+
+        $this->seo()->setTitle("Universities");
+
+        return view('universities.index', compact('groups', 'states', 'sat_min', 'sat_max', 'tution_min', 'tution_max', 'recruiting'));
     }
 
     /**
@@ -245,6 +308,68 @@ class UniversityController extends Controller
                 'data' => $items,
                 'message' => "Vacancy has been successfully added."
             ], 200);
+        }
+
+        return response()->json([
+            'error' => 'Something wrong'
+        ], 422);
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function teamsAdd($id, Request $request)
+    {
+        $user = Auth::user();
+        $university = University::findOrFail($id);
+        $universityGames = $university->teams()->pluck('game_id')->toArray();
+
+        if($university->group->owner_id!=$user->id)
+        {
+            return response()->json([
+                'user' => "Only admin of group can create team for university!"
+            ], 422);
+        }
+
+        if(Team::where('university_id', $university->id)->where('game_id', $request->get('game_id'))->count()>0)
+            return response()->json([
+                'game_id' => "Request with this game is already created!"
+            ], 422);
+
+
+        $teams = [];
+        if($request->has('games'))
+        {
+            $games = $request->get('games');
+            $vacancies = $request->get('vacancies');
+
+            foreach($games as $game)
+            {
+                if(!in_array($game, $universityGames))
+                {
+                    $team = Team::create([
+                        'title' => $university->title." ".$game,
+                        'university_id' => $university->id,
+                        'game_id' => $game,
+                        'players_needed' => in_array($game, $vacancies),
+                        'status' => Team::STATUS_ACTIVE
+                    ]);
+
+                    $teams[] = $team;
+                }
+            }
+
+            if(count($teams)>0)
+            {
+                $items = $university->teams()->with(['game'])->get();
+
+                return response()->json([
+                    'data' => $items,
+                    'message' => "Teams have been successfully added."
+                ], 200);
+            }
         }
 
         return response()->json([

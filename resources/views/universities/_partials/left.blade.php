@@ -38,7 +38,7 @@
                 @if(!empty($group->groupable->price_calculator_url))
                     <li>
                                     <span class="text">
-                                        <a href="{{$group->groupable->price_calculator_url}}" target="_blank" class="btn btn-primary btn-sm full-width">Net Price Calculator</a>
+                                        <a href="//{{ str_replace(['https:', "http:", "//", "www."], '', $group->groupable->price_calculator_url)}}" target="_blank" class="btn btn-primary btn-sm full-width">Net Price Calculator</a>
                                     </span>
                     </li>
                 @endif
@@ -109,10 +109,7 @@
 </div>
 <script>
     function mshow(which){
-
         var elems = document.querySelectorAll(which);
-
-        console.log(elems);
 
         [].slice.call(elems).forEach(function(el) {
             el.style.display = 'block';

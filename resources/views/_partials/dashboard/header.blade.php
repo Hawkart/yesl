@@ -142,3 +142,17 @@
 
 <!-- ... end Responsive Header-BP -->
 <div class="header-spacer"></div>
+
+<div class="container">
+    @if(Auth::user()->isCoach() && Auth::user()->university->getRecruitingCount()==0)
+        <div class="alert alert-danger" role="alert">
+            As a reminder, you still have not selected the teams that you are now <a href="/universities/{{Auth::user()->university->group->slug}}/teams" class="alert-link">recruiting</a> in.
+        </div>
+    @endif
+
+    @if(!Auth::user()->isCoach() && Auth::user()->profiles()->count()==0)
+        <div class="alert alert-danger" role="alert">
+            Just a reminder, you still haven't completed your <a href="/settings/profiles" class="alert-link">Game Profile</a>.
+        </div>
+    @endif
+</div>

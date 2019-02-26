@@ -53,12 +53,7 @@
                                     @endphp
                                     <li>
                                         @if(!$show) <span class="isDisabled">  @endif
-                                            <a href="/universities/{{$group->slug}}/teams">Teams</a>
-                                        @if(!$show) </span>  @endif
-                                    </li>
-                                    <li>
-                                        @if(!$show) <span class="isDisabled">  @endif
-                                            <a href="/universities/{{$group->slug}}/vacancies" @if(!$show) class="disabled-link" @endif>Players Needed</a>
+                                            <a href="/universities/{{$group->slug}}/teams" @if(!$show) class="disabled-link" @endif>Players Needed</a>
                                         @if(!$show) </span>  @endif
                                     </li>
                                 </ul>

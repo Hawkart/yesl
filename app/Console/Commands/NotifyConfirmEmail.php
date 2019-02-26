@@ -5,6 +5,7 @@ use App\Mail\EmailVerificationNotify;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
+use Mail;
 
 class NotifyConfirmEmail extends Command
 {

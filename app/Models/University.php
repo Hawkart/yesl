@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use App\Traits\Excludable;
+use App\Models\Team;
 
 class University extends Model
 {
@@ -186,5 +187,13 @@ class University extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecruitingCount()
+    {
+        return $this->teams()->where('players_needed', true)->count();
     }
 }

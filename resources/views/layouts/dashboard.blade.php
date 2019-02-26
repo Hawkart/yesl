@@ -107,6 +107,59 @@
 
 <script src="{{ asset('js/base-init.js') }}"></script>
 <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>
-<script src="{{ asset('Bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
+
+<div class="modal fade dialog-vertical-center" id="myDialog" tabindex="-1" role="dialog"
+     aria-labelledby="chat-dialog-form" aria-hidden="true" data-keyboard="false" data-backdrop="static"
+>
+    <div class="modal-dialog  window-popup choose-from-my-photo" role="document">
+        <div class="modal-content">
+            <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
+            </a>
+            <div class="modal-header">
+                <h6 class="title">Welcome!</h6>
+            </div>
+            <div class="modal-body">
+                @if(Auth::user()->isCoach())
+                    <p>Dear {{Auth::user()->university->title}} coach!<br>
+                    Thank you for joining CampusTeam community.<br>
+                    </p><p>
+                    @if(Auth::user()->university->group()->count()>0)
+                        In order to make communication with prospective students more efficient,
+                        we suggest you go to the Teams section on the university page:<br>
+                        <u><a href="/universities/{{Auth::user()->university->group->slug}}/teams"  class="text-danger">
+                            {{url('/universities/'.Auth::user()->university->group->slug.'/teams')}}
+                        </a></u> select existing and future teams and mark those of them which you are currently recruiting players in.<br>
+                    @endif
+                    </p><p>
+                    You can change the logo and overlay on the university page if you need it.<br>
+                    To change Esports team logo, please send the new logo to support@campusteam.tv
+                    </p>
+                @else
+                    <p>Dear, <strong>{{Auth::user()->name}}</strong>!<br>
+                    Thank you for joining CampusTeam community.<br>
+                    </p><p>To make communication with varsity Esports coaches more efficient, we suggest that you fill out your <u><a href="/settings/profiles" class="text-danger">Game profile</a></u> and <u><a href="/settings/resume" class="text-danger">Resume</a></u> before you start chatting with coaches.<br>
+                    </p><p>To send message to the coach, select the university and click the button “Message to the Coach” on the university page.<br>
+                    </p><p>When applying to university Esports teams, a completed Game profile and Resume are required.<br>
+                        We recommend you to upload the foto and overlay on <u><a href="/users/{{Auth::user()->nickname}}"  class="text-danger">you page</a></u> to make it easier for your friends to find you in CampusTeam community.
+                    </p>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary mb-0" data-dismiss="modal" onclick="confirmWelcome()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    if (localStorage.getItem('confirm_welcome') === null)
+        $('#myDialog').modal({backdrop: 'static', keyboard: false, show: true});
+
+    function confirmWelcome() {
+        localStorage.setItem('confirm_welcome', true);
+    }
+</script>
+
 </body>
 </html>

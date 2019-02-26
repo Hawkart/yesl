@@ -163,7 +163,7 @@
                 var self = this;
                 $("#university_list").select2({
                     ajax: {
-                        url: '/universities',
+                        url: '/rest/universities',
                         dataType: 'json',
                         delay: 250,
                         data: function (params) {

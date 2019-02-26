@@ -3,29 +3,37 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use App\Traits\Excludable;
 
 class Team extends Model
 {
+    use Sluggable, Excludable;
+
+    public $timestamps = true;
+
+    const STATUS_PENDING = 0;
+    const STATUS_ACTIVE = 1;
+
     /**
+     * The attributes that aren't mass assignable.
+     *
      * @var array
      */
-    protected $fillable = ['coach_id', 'title', 'slug', 'image', 'capt_id', 'quantity', 'overlay',
-        'game_id', 'status', 'count_wins', 'count_losses', 'count_fights', 'schedule', 'created_id', 'university_id'];
+    protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
      */
-    public function coach()
+    public function sluggable()
     {
-        return $this->belongsTo('App\Models\Profile', 'coach_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function captain()
-    {
-        return $this->belongsTo('App\Models\Profile', 'capt_id');
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 
     /**
@@ -42,29 +50,5 @@ class Team extends Model
     public function university()
     {
         return $this->belongsTo('App\Models\University');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function profiles()
-    {
-        return $this->belongsToMany('App\Models\Profile');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function fights()
-    {
-        return $this->belongsToMany('App\Models\Fight');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tournaments()
-    {
-        return $this->belongsToMany('App\Models\Tournament');
     }
 }

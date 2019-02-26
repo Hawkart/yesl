@@ -116,6 +116,37 @@
             font-weight: 500;
             font-size: 0.975rem;
         }
+
+        /*Cookie*/
+          .cookiealert {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              margin: 0 !important;
+              z-index: 999;
+              opacity: 0;
+              border-radius: 0;
+              transform: translateY(100%);
+              transition: all 500ms ease-out;
+              color: #ecf0f1;
+              background: #212327;
+          }
+
+        .cookiealert.show {
+            opacity: 1;
+            transform: translateY(0%);
+            transition-delay: 1000ms;
+        }
+
+        .cookiealert a {
+            text-decoration: underline
+        }
+
+        .cookiealert .acceptcookies {
+            margin-left: 10px;
+            vertical-align: baseline;
+        }
     </style>
 
     @if (app()->environment() === 'production')
@@ -154,25 +185,14 @@
     <div class="container" id="app">
         @yield('content')
         @include('_partials.landing.footer')
+    </div>
 
-        <!--
-        <div id="cookie_directive_container" class="container" style="display: none">
-            <nav class="navbar navbar-default navbar-fixed-bottom">
-
-                <div class="container">
-                    <div class="navbar-inner navbar-content-center" id="cookie_accept">
-
-                        <a href="#" class="btn btn-default pull-right">Close</a>
-                        <p class="text-muted credit">
-                            By using our website you are consenting to our use of cookies in accordance with our <a href="/cookies">cookie policy</a>.
-                        </p>
-                        <br>
-
-                    </div>
-                </div>
-
-            </nav>
-        </div>-->
+    <div class="alert text-center cookiealert" role="alert">
+        Our website uses first-party and third-party cookies to improve our services and show you content and advertising according to your preferences through the analysis of your browsing habits.<br>
+        By continuing to browse this website you accept this use of cookies. For more information about cookies, please visit our <a href="/cookies-policy" class="text-white">сookies policy</a>.
+        <button type="button" class="btn btn-primary btn-sm acceptcookies mb-0" aria-label="Close">
+            I agree
+        </button>
     </div>
 
     <script src="{{ mix('/js/app.js') }}"></script>
@@ -187,23 +207,13 @@
     <script src="{{ asset('js/Headroom.js') }}"></script>
     <script src="{{ asset('js/velocity.js') }}"></script>
     <script src="{{ asset('js/ScrollMagic.js') }}"></script>
-    <script src="{{ asset('js/jquery.waypoints.js') }}"></script>
-    <script src="{{ asset('js/jquery.countTo.js') }}"></script>
     <script src="{{ asset('js/material.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-select.js') }}"></script>
     <script src="{{ asset('js/smooth-scroll.js') }}"></script>
     <script src="{{ asset('js/selectize.js') }}"></script>
     <script src="{{ asset('js/isotope.pkgd.js') }}"></script>
-    <script src="{{ asset('js/ajax-pagination.js') }}"></script>
-    <script src="{{ asset('js/Chart.js') }}"></script>
-    <script src="{{ asset('js/chartjs-plugin-deferred.js') }}"></script>
-    <script src="{{ asset('js/circle-progress.js') }}"></script>
-    <script src="{{ asset('js/loader.js') }}"></script>
-    <script src="{{ asset('js/run-chart.js') }}"></script>
-
     <script src="{{ asset('js/base-init.js') }}"></script>
     <script src="{{ asset('js/cookie.js') }}"></script>
     <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>
-    <script src="{{ asset('Bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
 </body>
 </html>

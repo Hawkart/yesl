@@ -47,6 +47,10 @@ Vue.component('university-game-add', require('./components/UniversityGameAdd'));
 Vue.component('university-vacancies', require('./components/UniversityVacancies'));
 Vue.component('university-vacancy-add', require('./components/UniversityVacancyAdd'));
 
+Vue.component('university-teams', require('./components/UniversityTeams'));
+Vue.component('university-team-add', require('./components/UniversityTeamAdd'));
+Vue.component('university-team-edit', require('./components/UniversityTeamEdit'));
+
 import {
     HasError,
     AlertError,

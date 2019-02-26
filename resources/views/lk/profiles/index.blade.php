@@ -10,4 +10,6 @@
             @include('lk._menu')
         </div>
     </div>
+
+    <profiles-add-component></profiles-add-component>
 @endsection

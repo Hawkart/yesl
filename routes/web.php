@@ -22,6 +22,10 @@ Route::get('/terms', function() {
 Route::get('/legal/confidential', function() {
     return view('policy');
 });
+Route::get('/cookies-policy', function() {
+    return view('cookies_policy');
+});
+
 Route::get('/legal/term-and-conditions', function() {
     return view('terms_and_conditions');
 });
@@ -87,24 +91,19 @@ Route::post('/groups/{id}/cover', 'GroupController@updateCover');
 /**
  * Universities
  */
-Route::get('/universities', 'GroupController@universities')->name('universities');
+Route::get('/rest/universities', 'UniversityController@index');
+Route::get('/universities', 'UniversityController@groups')->name('universities');
 Route::get('/universities/{slug}', 'GroupController@university')->name('university');
-Route::get('/universities/{slug}/vacancies', 'GroupController@universityVacancies');
 Route::get('/universities/{slug}/teams', 'GroupController@universityTeams');
-
-Route::get('/universities/{id}/games', 'UniversityController@games');
-Route::post('/universities/{id}/games', ['uses' => 'UniversityController@gamesAdd', 'middleware' => 'auth']);
-Route::delete('/universities/{id}/games/{gid}', ['uses' => 'UniversityController@gamesDelete', 'middleware' => 'auth']);
-
-Route::get('/universities/{id}/vacancies', 'UniversityController@vacancies');
-Route::post('/universities/{id}/vacancies', ['uses' => 'UniversityController@vacanciesAdd', 'middleware' => 'auth']);
-Route::delete('/vacancies/{id}', ['uses' => 'VacancyController@destroy', 'middleware' => 'auth']);
+Route::post('/universities/{id}/teams', ['uses' => 'UniversityController@teamsAdd', 'middleware' => 'auth']);
+Route::patch('/teams/{id}', ['uses' => 'TeamController@update', 'middleware' => 'auth']);
+Route::delete('/teams/{id}', ['uses' => 'TeamController@destroy', 'middleware' => 'auth']);
 
 /**
  * Games
  */
-Route::get('/games', 'GameController@index')->name('games');
-//Route::get('/games', 'GroupController@games')->name('games');
+Route::get('/games', 'GameController@groups')->name('games');
+Route::get('/rest/games', 'GameController@index')->name('games');
 Route::get('/games/{slug}', 'GroupController@game')->name('game');
 
 /**

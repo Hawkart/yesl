@@ -30,7 +30,8 @@ class Kernel extends ConsoleKernel
         Commands\MailToSpartaUsers::class,
         Commands\ImportTwitts::class,
         Commands\MakeCoachOfUniversity::class,
-        Commands\NotifyConfirmEmail::class
+        Commands\NotifyConfirmEmail::class,
+        Commands\ImportFromUniversityAndVacancyToTeams::class
     ];
 
     /**

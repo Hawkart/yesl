@@ -40,23 +40,6 @@ $(document).ready(function () {
 	}
 });
 
-/* -----------------------
- * COUNTER NUMBERS
- * --------------------- */
-
-
-$(document).ready(function () {
-	var $counter = $('.counter');
-
-	if ($counter.length) {
-		$counter.each(function () {
-			jQuery(this).waypoint(function () {
-				$(this.element).find('span').countTo();
-				this.destroy();
-			}, {offset: '95%'});
-		});
-	}
-});
 //Global var to avoid any conflicts
 var CRUMINA = {};
 
@@ -385,39 +368,6 @@ CRUMINA.Bootstrap = function () {
 	   * https://silviomoreto.github.io/bootstrap-select/
 	   * ---------------------------*/
 	$('.selectpicker').selectpicker();
-
-	/* -----------------------------
-	 * Date time picker input field
-	 * Script file: daterangepicker.min.js, moment.min.js
-	 * Documentation about used plugin:
-	 * https://v4-alpha.getbootstrap.com/getting-started/introduction/
-	 * ---------------------------*/
-	/*var date_select_field = $('input[name="date_birth"]');
-	if (date_select_field.length) {
-		var start = moment().subtract(29, 'days');
-
-		date_select_field.daterangepicker({
-			startDate: start,
-			autoUpdateInput: false,
-			singleDatePicker: true,
-			showDropdowns: true,
-			locale: {
-				format: 'YYYY-MM-DD'
-			}
-		});
-		date_select_field.on('focus', function () {
-			$(this).closest('.form-group').addClass('is-focused');
-		});
-		date_select_field.on('apply.daterangepicker', function (ev, picker) {
-			$(this).val(picker.startDate.format('YYYY-MM-DD'));
-			$(this).closest('.form-group').addClass('is-focused');
-		});
-		date_select_field.on('hide.daterangepicker', function () {
-			if ('' === $(this).val()){
-				$(this).closest('.form-group').removeClass('is-focused');
-			}
-		});
-	}*/
 };
 
 $(document).ready(function () {

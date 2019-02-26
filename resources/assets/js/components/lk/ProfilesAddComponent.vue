@@ -80,7 +80,7 @@
             },
             getGames: function()
             {
-                axios.get('/games').then((response) => {
+                axios.get('/rest/games').then((response) => {
                     this.$set(this, 'games', response.data);
 
                     this.$nextTick(function () {

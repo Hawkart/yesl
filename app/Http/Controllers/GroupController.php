@@ -43,79 +43,22 @@ class GroupController extends Controller
     }
 
     /**
-     * Display a listing of the universities.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function universities(Request $request)
-    {
-        if ($request->expectsJson() && $request->ajax())
-        {
-            $universities = University::orderBy('title', 'asc')
-                ->select(['title', 'id'])
-                ->search($request)
-                ->paginate(30);
-
-            return response()->json($universities, 200);
-        }else {
-
-            $groups = Group::orderBy('title', 'asc')
-                ->where('groupable_type', 'App\Models\University')
-                ->search($request)->paginate(12);
-
-            $states = Cache::remember('state_list', 3600, function () {
-                $st = University::$states;
-                $states_id = University::where('nace', 1)->pluck('state')->toArray();
-                $states_id = array_unique($states_id);
-                $states = ['0' => 'Select state'];
-                foreach ($st as $key => $value) {
-                    if (in_array($key, $states_id)) {
-                        $states[$key] = $value;
-                    }
-                }
-
-                return $states;
-            });
-
-            $sat_min = Cache::remember('sat_min', 3600, function () {
-                return University::where('nace', 1)->min('sat_scores_average_overall');
-            });
-
-            $sat_max = Cache::remember('sat_max', 3600, function () {
-                return University::where('nace', 1)->max('sat_scores_average_overall');
-            });
-
-            $tution_min = Cache::remember('tution_min', 3600, function () {
-                return University::where('nace', 1)->min('cost_tuition_in_state');
-            });
-
-            $tution_max = Cache::remember('tution_max', 3600, function () {
-                return University::where('nace', 1)->max('cost_tuition_in_state');
-            });
-
-            $this->seo()->setTitle("Universities");
-
-            return view('universities.index', compact('groups', 'states', 'sat_min', 'sat_max', 'tution_min', 'tution_max'));
-        }
-    }
-
-    /**
      * @param $slug
      * @param Request $request
      */
-    public function universityVacancies($slug, Request $request)
+    public function universityTeams($slug, Request $request)
     {
         $group = Group::where('slug', $slug)
             ->firstOrFail();
 
         $vacancies = [];
         if($group->groupable instanceof \App\Models\University)
-            $vacancies = $group->groupable->vacancies()->with(['game'])->get();
+            $teams = $group->groupable->teams()->with(['game'])->get();
 
         $twitts = TwitterHelper::getByStr($group->groupable->twitter_str);
-        $this->seo()->setTitle($group->title." vacancies");
+        $this->seo()->setTitle($group->title." teams");
 
-        return view('universities.vacancy.index', compact('group', 'vacancies', 'twitts'));
+        return view('universities.teams.index', compact('group', 'teams', 'twitts'));
     }
 
     /**
@@ -123,7 +66,7 @@ class GroupController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function universityTeams($slug, Request $request)
+    public function universityGames($slug, Request $request)
     {
         $group = Group::where('slug', $slug)
             ->firstOrFail();
@@ -135,7 +78,7 @@ class GroupController extends Controller
         $twitts = TwitterHelper::getByStr($group->groupable->twitter_str);
         $this->seo()->setTitle($group->title." teams");
 
-        return view('universities.teams.index', compact('group', 'games', 'twitts'));
+        return view('universities.games.index', compact('group', 'games', 'twitts'));
     }
 
     /**

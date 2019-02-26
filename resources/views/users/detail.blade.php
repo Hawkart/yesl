@@ -94,7 +94,7 @@
                 @if($groups->total()>0)
                     <div class="ui-block">
                         <div class="ui-block-title">
-                            <h6 class="title">Your Groups ({{count($groups)}})</h6>
+                            <h6 class="title">Your Groups ({{$groups->total()}})</h6>
                         </div>
                         <div class="ui-block-content">
                             <ul class="widget w-faved-page">
