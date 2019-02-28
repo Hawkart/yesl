@@ -25,7 +25,7 @@
                                 <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 py-1">
 
                                     <div class="ui-block">
-                                        <div class="birthday-item inline-items">
+                                        <div class="birthday-item inline-items" data-mh="choose-item">
                                             <div class="w-50px">
                                                 <a href="{!! route('university', ['slug' => $group->slug]) !!}">
                                                     <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg'  }}" alt="{{$group->title}}" class="w-100">
@@ -33,7 +33,7 @@
                                             </div>
                                             <div class="birthday-author-name ml-2">
                                                 <a href="{!! route('university', ['slug' => $group->slug]) !!}" class="h5 author-name" title="{{$group->title}}">
-                                                    {{$group->title}}
+                                                    {{ str_limit($group->title, 25, '...') }}
                                                 </a>
                                             </div>
 
