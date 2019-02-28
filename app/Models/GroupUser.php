@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class GroupUser extends Model
 {
     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'group_users';
-
-    /**
      * @var array
      */
     protected $fillable = ['group_id', 'user_id', 'type'];

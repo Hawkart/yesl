@@ -15,7 +15,7 @@
                 @endif
 
                 @if(strpos($group->owner->email, '@campusteam.tv')===false)
-                    <a href="/universities/{{$group->slug}}/vacancies" class="btn btn-success btn-xs full-width mt-lg-1 mb-0 btn-apply" id="apply-team-ga">Apply to the Team</a>
+                    <a href="/universities/{{$group->slug}}/teams" class="btn btn-success btn-xs full-width mt-lg-1 mb-0 btn-apply" id="apply-team-ga">Apply to the Team</a>
                 @endif
             <!--<button type="submit" class="btn btn-success btn-xs full-width mt-lg-1 mb-0" id="apply-team-ga">APPLY TO THE TEAM</button>-->
             </div>

@@ -1,4 +1,4 @@
-<div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
+<div class="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
     <div class="ui-block">
         <div class="your-profile">
             <div id="accordion" role="tablist" aria-multiselectable="true">

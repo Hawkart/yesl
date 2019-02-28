@@ -17,7 +17,7 @@
                         @csrf
 
                         <div class="row">
-                            <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group label-floating {{ old('email') ? ' ' : 'is-empty' }}">
                                     <label class="control-label">{{ __('E-Mail Address') }}</label>
                                     <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>

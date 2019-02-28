@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        <div class="top-header-author">
+                        <div class="top-header-author" @if($group->owner_id==Auth::user()->id) style="z-index: 22;" @endif>
 
                             @if($group->owner_id==Auth::user()->id)
                                 <avatar-upload dataname="image" uimg="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg' }}" uploadapi="/groups/{{$group->id}}/logo"></avatar-upload>

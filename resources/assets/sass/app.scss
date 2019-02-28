@@ -1,5 +1,6 @@
 // Variables
 @import 'variables';
+//@import "~bootstrap/scss/bootstrap.scss";
 
 .alert-dismissible .close{
   margin: 0;
@@ -74,7 +75,7 @@
   right: 40px;
   top: 40px;
   left: inherit;
-  z-index: 22;
+  z-index: 5;
 }
 
 .top-header-thumb .top-header-overlay .fileupload btn{
@@ -258,7 +259,7 @@
 }
 
 .w-personal-info li{
-  padding: 8px 0;;
+  padding: 8px 0;
 }
 
 .pull-right {
@@ -343,7 +344,9 @@ a.btn-apply{
 }
 
 
-//----------------Post Form--------------------
+/**
+ ** Post Form
+ */
 .emoji-invoker {
     position: absolute;
     top: 1.5rem;
@@ -420,4 +423,76 @@ a.btn-apply{
     top: 12px;
     left: 15px;
 }
-//----------------------------------------------
+
+.header-spacer {
+    display: block;
+    height: 90px;
+}
+
+/*Cookie*/
+.cookiealert {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0 !important;
+    z-index: 999;
+    opacity: 0;
+    border-radius: 0;
+    transform: translateY(100%);
+    transition: all 500ms ease-out;
+    color: #ecf0f1;
+    background: #212327;
+}
+
+.cookiealert.show {
+    opacity: 1;
+    transform: translateY(0%);
+    transition-delay: 1000ms;
+}
+
+.cookiealert a {
+    text-decoration: underline
+}
+
+.cookiealert .acceptcookies {
+    margin-left: 10px;
+    vertical-align: baseline;
+}
+
+/**Typography**/
+body, p{
+    font-size: 1rem;
+}
+.left-menu .left-menu-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #000;
+}
+.profile-menu li > div, .profile-menu li a {
+    font-size: 1em;
+}
+
+.pagination{
+    flex-wrap: wrap!important;
+}
+
+@media (max-width: 460px)
+{
+    #chatsDisplay.ps{
+        height: auto;
+        max-height: 150px;
+
+        ul li .notification-icon{
+            span{
+                display: none;
+            }
+
+            a.btn{
+                padding: 0.5rem;
+            }
+        }
+
+
+    }
+}

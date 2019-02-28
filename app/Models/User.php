@@ -167,7 +167,7 @@ class User extends VoyagerUser implements HasMedia
      */
     public function groups()
     {
-        return $this->belongsToMany('App\Models\Group', 'group_users');
+        return $this->belongsToMany('App\Models\Group');
     }
 
     /**

@@ -8,14 +8,14 @@
             <alert-success :form="form">{{message}}</alert-success>
 
             <div class="row" v-if="!confirmation_sent">
-                <div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">First Name</label>
                         <input v-model="form.first_name" :class="{ 'is-invalid': form.errors.has('first_name') }" class="form-control" type="text" name="first_name" required>
                         <has-error :form="form" field="first_name"/>
                     </div>
                 </div>
-                <div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">Last Name</label>
                         <input v-model="form.last_name" :class="{ 'is-invalid': form.errors.has('last_name') }" class="form-control" type="text" name="last_name" required>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">E-mail Address</label>
                         <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email" required>

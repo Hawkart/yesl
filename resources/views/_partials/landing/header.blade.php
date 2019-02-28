@@ -13,6 +13,10 @@
                 </div>
             </a>
 
+            <a href="#" class="open-responsive-menu js-open-responsive-menu">
+                <svg class="olymp-menu-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
+            </a>
+
             <div class="nav nav-pills nav1 header-menu">
                 <div class="mCustomScrollbar">
                     <ul>
@@ -24,6 +28,9 @@
                         </li>
                         <li class="nav-item">
                             <a href="/register" class="nav-link">Register</a>
+                        </li>
+                        <li class="close-responsive-menu js-close-responsive-menu">
+                            <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
                         </li>
                     </ul>
                 </div>

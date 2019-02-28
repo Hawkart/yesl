@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <form @submit.prevent="save" @keydown="form.onKeydown($event)">
 
-                        <div class="col col-12 col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                        <div class="col-12 col-xl-12 col-lg-12 col-md-6 col-sm-12">
                             <div class="form-group label-floating is-select" v-if="games">
                                 <label class="control-label">Game</label>
                                 <select v-model="form.game_id" name="game_id" class="selectpicker form-control"  :class="{ 'is-invalid': form.errors.has('game_id') }">
@@ -22,7 +22,7 @@
                             </div>
                         </div>
 
-                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <v-button :loading="form.busy" type="primary" :large="true" additional="full-width mb-2">Save</v-button>
 
                             <alert-errors :form="form"/>

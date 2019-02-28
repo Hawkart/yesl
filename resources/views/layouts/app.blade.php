@@ -116,37 +116,6 @@
             font-weight: 500;
             font-size: 0.975rem;
         }
-
-        /*Cookie*/
-          .cookiealert {
-              position: fixed;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              margin: 0 !important;
-              z-index: 999;
-              opacity: 0;
-              border-radius: 0;
-              transform: translateY(100%);
-              transition: all 500ms ease-out;
-              color: #ecf0f1;
-              background: #212327;
-          }
-
-        .cookiealert.show {
-            opacity: 1;
-            transform: translateY(0%);
-            transition-delay: 1000ms;
-        }
-
-        .cookiealert a {
-            text-decoration: underline
-        }
-
-        .cookiealert .acceptcookies {
-            margin-left: 10px;
-            vertical-align: baseline;
-        }
     </style>
 
     @if (app()->environment() === 'production')
@@ -187,14 +156,6 @@
         @include('_partials.landing.footer')
     </div>
 
-    <div class="alert text-center cookiealert" role="alert">
-        Our website uses first-party and third-party cookies to improve our services and show you content and advertising according to your preferences through the analysis of your browsing habits.<br>
-        By continuing to browse this website you accept this use of cookies. For more information about cookies, please visit our <a href="/cookies-policy" class="text-white">сookies policy</a>.
-        <button type="button" class="btn btn-primary btn-sm acceptcookies mb-0" aria-label="Close">
-            I agree
-        </button>
-    </div>
-
     <script src="{{ mix('/js/app.js') }}"></script>
 
     <!-- JS Scripts -->
@@ -213,7 +174,6 @@
     <script src="{{ asset('js/selectize.js') }}"></script>
     <script src="{{ asset('js/isotope.pkgd.js') }}"></script>
     <script src="{{ asset('js/base-init.js') }}"></script>
-    <script src="{{ asset('js/cookie.js') }}"></script>
     <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>
 </body>
 </html>

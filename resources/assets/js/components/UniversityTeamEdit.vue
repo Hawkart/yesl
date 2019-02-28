@@ -16,7 +16,7 @@
                             <alert-success :form="form" :message="message"/>
                         </div>
                         <div class="row ml-0 mr-0" v-if="team.game!=undefined">
-                            <div class="col col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="ui-block">
                                     <article class="hentry blog-post" data-mh="choose-item">
                                         <div class="post-thumb">
@@ -25,7 +25,7 @@
                                     </article>
                                 </div>
                             </div>
-                            <div class="col col-xl-8 col-lg-8 col-md-8 col-sm-6 col-12">
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-12">
                                 <div class="checkbox">
                                     <label>
                                         Players needed?

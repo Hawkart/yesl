@@ -7,9 +7,6 @@
 html {
   font-size: 16px; }
 
-html {
-  font-size: 13px; }
-
 @media (min-width: 540px) {
   html {
     font-size: 13px; } }

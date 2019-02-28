@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+            <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
                 <div class="ui-block">
                     <div class="ui-block-title">
                         <h6 class="title">Personal Information</h6>
@@ -22,7 +22,7 @@
 
                             <div class="row">
 
-                                <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">First Name</label>
                                         <input type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ $user->first_name }}" required>
@@ -34,7 +34,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Last Name</label>
                                         <input type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ $user->last_name }}" required>
@@ -46,7 +46,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col col-6 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">{{ __('E-Mail Address') }}</label>
                                         <input id="email" type="email" disabled="disabled" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $user->email }}" required>
@@ -58,7 +58,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Nickname</label>
                                         <input type="text" class="form-control{{ $errors->has('nickname') ? ' is-invalid' : '' }}" name="nickname" value="{{ $user->nickname }}" required>
@@ -70,7 +70,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 
                                     <div class="form-group date-time-picker label-floating">
                                         <label class="control-label">Your Birthday</label>
@@ -86,24 +86,24 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group label-floating is-select">
                                         <label class="control-label">Your Gender</label>
                                         {{ Form::select('gender', [0 => 'Male', 1 => 'Female'], $user->gender, ['class' => 'selectpicker form-control']) }}
                                     </div>
                                 </div>
 
-                                <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
+                                <div class="col-lg-12 col-md-6 col-sm-12 col-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Write a little description about you</label>
                                         <textarea name="description" class="form-control" placeholder="">{{$user->description}}</textarea>
                                     </div>
                                 </div>
 
-                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="col-md-6 col-sm-12 col-12">
                                     <button class="btn btn-secondary btn-lg full-width">Restore all Attributes</button>
                                 </div>
-                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="col-md-6 col-sm-12 col-12">
                                     <button class="btn btn-primary btn-lg full-width">Save all Changes</button>
                                 </div>
 

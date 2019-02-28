@@ -4778,7 +4778,6 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
 /*================= Responsive Mode ============*/
 @media (max-width: 1023px) {
   .registration-login-form {
-    padding-top: 71px;
     padding-left: 0; }
   .registration-login-form .nav-tabs {
     bottom: auto;

@@ -10,7 +10,7 @@
 
         <div class="row" v-if="requests!=null && requests.length>0">
 
-            <div class="col col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6" v-for="(friendship, index) in requests" :key="friendship.id">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6" v-for="(friendship, index) in requests" :key="friendship.id">
                 <div class="ui-block">
 
                     <div class="friend-item">

@@ -15,7 +15,7 @@
                                 </div>
                             @endif
 
-                            <div class="top-header-author">
+                            <div class="top-header-author"  @if($user->id==Auth::user()->id) style="z-index: 22;" @endif>
                                 @if($user->id==Auth::user()->id)
                                     <avatar-upload uimg="{{$user->avatar}}" uploadapi="/users/avatar" dataname="avatar"></avatar-upload>
                                 @else

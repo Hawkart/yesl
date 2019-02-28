@@ -1,4 +1,4 @@
-<div class="col col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 responsive-display-none">
+<div class="col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 responsive-display-none">
     <div class="ui-block">
         <div class="your-profile">
             <div class="ui-block-title ui-block-title-small">

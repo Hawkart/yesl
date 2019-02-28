@@ -131,6 +131,12 @@ Route::resource('comments','CommentController');
 Route::resource('likes','LikeController');
 
 /**
+ * Countries
+ */
+Route::resource('countries','CountryController');
+Route::get('/countries/{slug}/states', 'CountryController@states');
+
+/**
  * Upload
  */
 Route::post('/upload', 'UploadController@store');

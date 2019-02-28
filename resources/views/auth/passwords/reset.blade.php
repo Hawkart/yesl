@@ -14,7 +14,7 @@
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="row">
-                            <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
                                 <div class="form-group label-floating {{ old('email') ? ' ' : 'is-empty' }}">
                                     <label class="control-label">{{ __('E-Mail Address') }}</label>

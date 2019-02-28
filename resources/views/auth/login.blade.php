@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row display-flex">
-        <!--<div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="landing-content">
                 <a href="{{ route('register') }}" class="btn btn-md btn-border c-white mb-0 mr-lg-3">Register as Athlete</a>
                 <a href="{{ route('register_coach') }}" class="btn btn-md btn-border c-white">Register as Coach</a>
@@ -21,7 +21,7 @@
                 <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" class="content">
                     @csrf
                     <div class="row">
-                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group label-floating {{ old('email') ? ' ' : 'is-empty' }}">
                                 <label class="control-label">{{ __('E-Mail Address') }}</label>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autocomplete="off" autocapitalize="off" required>

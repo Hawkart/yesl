@@ -113,9 +113,6 @@
 >
     <div class="modal-dialog  window-popup choose-from-my-photo" role="document">
         <div class="modal-content">
-            <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
-                <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
-            </a>
             <div class="modal-header">
                 <h6 class="title">Welcome!</h6>
             </div>
@@ -151,6 +148,18 @@
         </div>
     </div>
 </div>
+
+<div class="alert text-center cookiealert" role="alert">
+    <p>
+    Our website uses first-party and third-party cookies to improve our services and show you content and advertising according to your preferences through the analysis of your browsing habits.<br>
+    By continuing to browse this website you accept this use of cookies. For more information about cookies, please visit our <a href="/cookies-policy" class="text-white">сookies policy</a>.
+    <button type="button" class="btn btn-primary btn-sm acceptcookies mb-0" aria-label="Close">
+        I agree
+    </button>
+    </p>
+</div>
+
+<script src="{{ asset('js/cookie.js') }}"></script>
 
 <script>
     if (localStorage.getItem('confirm_welcome') === null)

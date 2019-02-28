@@ -10,7 +10,7 @@
 
         <div class="ui-block-content">
             <div class="row" v-if="message">
-                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <div role="alert" class="alert alert-success alert-dismissible">
                         <button type="button" aria-label="Close" class="close" @click.prevent="close"><span aria-hidden="true">×</span></button>
                         <div>{{message}}</div>
@@ -21,7 +21,7 @@
             <div v-if="teams">
 
                 <div class="row">
-                    <div class="col col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12"  v-for="team in teams" :key="team.id">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12"  v-for="team in teams" :key="team.id">
                         <div class="ui-block">
                             <article class="hentry blog-post" data-mh="choose-item">
                                 <div class="post-thumb">

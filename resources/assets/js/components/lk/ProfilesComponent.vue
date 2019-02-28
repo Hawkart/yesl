@@ -10,7 +10,7 @@
         </div>
 
         <div class="row" v-if="message">
-            <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div role="alert" class="alert alert-success alert-dismissible">
                     <button type="button" aria-label="Close" class="close" @click.prevent="close"><span aria-hidden="true">×</span></button>
                     <div>{{message}}</div>

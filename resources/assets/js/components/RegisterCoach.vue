@@ -8,14 +8,14 @@
             <alert-success :form="form">{{message}}</alert-success>
 
             <div class="row" v-if="!confirmation_sent">
-                <div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">First Name</label>
                         <input v-model="form.first_name" :class="{ 'is-invalid': form.errors.has('first_name') }" class="form-control" type="text" name="first_name" required>
                         <has-error :form="form" field="first_name"/>
                     </div>
                 </div>
-                <div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">Last Name</label>
                         <input v-model="form.last_name" :class="{ 'is-invalid': form.errors.has('last_name') }" class="form-control" type="text" name="last_name" required>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">E-mail Address</label>
                         <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" @blur="onEmailChange" class="form-control" type="email" name="email" required>
@@ -35,7 +35,7 @@
                         <has-error :form="form" field="password"/>
                     </div>
                 </div>
-                <!--<div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <!--<div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group date-time-picker label-floating">
                         <label class="control-label">Your Birthday</label>
                         <datepicker v-model="form.date_birth" format="yyyy-MM-dd" :required="true" :class="{ 'is-invalid': form.errors.has('date_birth') }" name="date_birth"></datepicker>
@@ -45,7 +45,7 @@
                         <has-error :form="form" field="date_birth"/>
                     </div>
                 </div>-->
-                <div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-select">
                         <label class="control-label">Your Gender</label>
                         <select v-model="form.gender" name="gender" :class="{ 'is-invalid': form.errors.has('gender') }" class='selectpicker form-control'>
@@ -56,7 +56,7 @@
                         <has-error :form="form" field="gender"/>
                     </div>
                 </div>
-                <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
                     <span v-if="show_welcome"></span>
 
@@ -82,7 +82,7 @@
                     </div>
                     -->
                 </div>
-                <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div class="form-group label-floating">
                         <checkbox v-model="form.terms" name="terms" :class="{ 'is-invalid': form.errors.has('terms') }">
                             I accept the <a href="/terms">Terms and Conditions</a> of the website

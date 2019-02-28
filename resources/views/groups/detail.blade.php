@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
+            <div class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
                 @if($can_post)
                     <div class="ui-block">
                         <post-form :group="{{json_encode($group->toArray())}}" :user="{{json_encode(Auth::user()->toArray())}}"></post-form>
@@ -12,7 +12,7 @@
 
                 <post-list :group="{{json_encode($group->toArray())}}" :user="{{json_encode(Auth::user()->toArray())}}" type="group"></post-list>
             </div>
-            <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
                     <div class="post-thumb mb-0" style="height: 300px">
                         <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}">
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
                     <div class="ui-block-title">
                         <h6 class="title">Members ({{$group->users()->count()}})</h6>

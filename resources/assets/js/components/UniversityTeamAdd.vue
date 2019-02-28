@@ -14,7 +14,7 @@
                         <div id="game-list-container" v-if="games!=null && games.length>0">
 
                             <div class="row ml-0 mr-0" v-if="!gamesIds.includes(game.id)" v-for="game in games">
-                                <div class="col col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="ui-block">
                                         <article class="hentry blog-post" data-mh="choose-item">
                                             <div class="post-thumb">
@@ -23,19 +23,19 @@
                                         </article>
                                     </div>
                                 </div>
-                                <div class="col col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="checkbox">
                                         <label>
-                                            Create team?
                                             <input type="checkbox" v-model="form.games" :value="game.id">
+                                            Current or future team
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="checkbox">
                                         <label>
-                                            Players needed?
                                             <input type="checkbox" v-model="form.vacancies" :value="game.id">
+                                            Now recruiting to this team
                                         </label>
                                     </div>
                                 </div>

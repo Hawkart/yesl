@@ -6,7 +6,7 @@
         <div class="container">
 
             <div class="row">
-                <div class="col col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <div class="ui-block">
                         <div class="your-profile">
                             <div class="ui-block-title ui-block-title-small">
@@ -15,7 +15,7 @@
                             <div class="ui-block-content">
                                 <form class="form-horizontal mt-10" method="GET">
                                     <div class="row">
-                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <!--<label class="control-label">State:</label>-->
                                                 <div class="w-select pa-0">
@@ -26,7 +26,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <div class="w-select pa-0">
                                                     <fieldset class="form-group">
@@ -36,7 +36,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <div><label class="control-label bold">Average SAT score:</label></div>
                                                 <div class="btn-group bootstrap-select form-control mt-30">
@@ -49,7 +49,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <div><label class="control-label bold">Instate/outstate tution:</label></div>
                                                 <div class="btn-group bootstrap-select form-control mt-30">
@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" name="in_state" {{app('request')->input('in_state')=='on' ? 'checked' : ''}}>
@@ -71,7 +71,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
                                             <button class="btn btn-primary full-width">Search</button>
                                             <a href="{{route('universities')}}" class="full-width mb-0">Clear</a>
                                         </div>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 
                     <div class="ui-block responsive-flex">
                         <div class="ui-block-title">
@@ -100,7 +100,7 @@
                     @if($groups->count()>0)
                         <div class="row">
                             @foreach($groups as $group)
-                                <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
                                     <div class="ui-block">
                                         <article class="hentry blog-post university-article">
                                             <div class="post-thumb" data-mh="choose-item">

@@ -6,7 +6,7 @@
     <div class="container">
 
         <div class="row">
-            <div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+            <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
 
                 <div class="ui-block responsive-flex">
                     <div class="ui-block-title">
@@ -25,7 +25,7 @@
                 @if($groups->count())
                     <div class="row">
                         @foreach($groups as $group)
-                            <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="ui-block">
                                     <article class="hentry blog-post university-article" data-mh="choose-item-2">
                                         <div class="post-thumb" data-mh="choose-item">

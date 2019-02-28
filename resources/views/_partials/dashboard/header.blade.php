@@ -54,9 +54,21 @@
 
                             <ul class="account-settings">
                                 <li>
+                                    <a href="{{route('settings.games_profiles')}}">
+                                        <i class="fas fa-gamepad"  style="margin-right: 15px; width: 20px; height: 20px;"></i>
+                                        <span>Gamer Profiles</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{{route('settings')}}">
-                                        <svg class="olymp-menu-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
-                                        <span>Profile Settings</span>
+                                        <i class="far fa-user-circle"  style="margin-right: 15px; width: 20px; height: 20px;"></i>
+                                        <span>Resume</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('settings.password')}}">
+                                        <i class="fas fa-cog"  style="margin-right: 15px; width: 20px; height: 20px;"></i>
+                                        <span>Settings</span>
                                     </a>
                                 </li>
                                 <li>
@@ -84,6 +96,7 @@
                             <ul>
                                 <li>
                                     <chat-dialog-button :participant='{{json_encode(\App\Models\User::where('id', getenv('ADMIN_SUPPORT_ID', 16))->first()->toArray()) }}' :group_id = "0" :classes="'pa-0 mb-0 text-left'">
+                                        <i class="far fa-life-ring" style="margin-right: 15px; width: 20px; height: 20px;"></i>
                                         <span>Support</span>
                                     </chat-dialog-button>
                                 </li>
@@ -124,15 +137,6 @@
                         @if($requestInCount>0)
                             <div class="label-avatar bg-primary">{{$requestInCount}}</div>
                         @endif
-                    </div>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('settings')}}" class="nav-link">
-                    <div class="author-thumb control-icon has-items">
-                        <img alt="author" src="{{ Storage::disk('public')->url(Auth::user()->avatar) }}" alt="{{Auth::user()->name}}" style="width: 40px; height: 40px " class="avatar">
-                        <span class="icon-status online"></span>
                     </div>
                 </a>
             </li>

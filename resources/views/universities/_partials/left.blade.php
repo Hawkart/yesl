@@ -17,7 +17,7 @@
 
                 @if(!empty($group->groupable->demographics_female_share))
                     <li>
-                        <span class="text">Female students: <strong>{{$group->groupable->demographics_female_share*100}}%</strong></span>
+                        <span class="text">Female/Male students: <strong>{{$group->groupable->demographics_female_share*100}}%/{{100-$group->groupable->demographics_female_share*100}}%</strong></span>
                     </li>
                 @endif
 
@@ -29,17 +29,17 @@
 
                 @if(!empty($group->groupable->cost_tuition_in_state))
                     <li>
-                                    <span class="text">In-state/ Out-of-state tuition and fees:
-                                        <strong>${{number_format($group->groupable->cost_tuition_in_state)}}/${{number_format($group->groupable->cost_tuition_out_of_state)}}</strong>
-                                    </span>
+                        <span class="text">In-state/ Out-of-state tuition and fees:
+                            <strong>${{number_format($group->groupable->cost_tuition_in_state)}}/${{number_format($group->groupable->cost_tuition_out_of_state)}}</strong>
+                        </span>
                     </li>
                 @endif
 
                 @if(!empty($group->groupable->price_calculator_url))
                     <li>
-                                    <span class="text">
-                                        <a href="//{{ str_replace(['https:', "http:", "//", "www."], '', $group->groupable->price_calculator_url)}}" target="_blank" class="btn btn-primary btn-sm full-width">Net Price Calculator</a>
-                                    </span>
+                        <span class="text">
+                            <a href="//{{ str_replace(['https:', "http:", "//", "www."], '', $group->groupable->price_calculator_url)}}" target="_blank" class="btn btn-primary btn-sm full-width">Net Price Calculator</a>
+                        </span>
                     </li>
                 @endif
 
@@ -57,18 +57,18 @@
 
                 @if($group->groupable->ownership)
                     <li>
-                                    <span class="text">
-                                        <strong>
-                                        @if($group->groupable->ownership==1)
-                                                Public
-                                            @elseif($group->groupable->ownership==2)
-                                                Private nonprofit
-                                            @elseif($group->groupable->ownership==3)
-                                                Private for-profit
-                                            @endif
-                                        </strong>
-                                            institution
-                                    </span>
+                        <span class="text">
+                            <strong>
+                            @if($group->groupable->ownership==1)
+                                    Public
+                                @elseif($group->groupable->ownership==2)
+                                    Private nonprofit
+                                @elseif($group->groupable->ownership==3)
+                                    Private for-profit
+                                @endif
+                            </strong>
+                                institution
+                        </span>
                     </li>
                 @endif
 
