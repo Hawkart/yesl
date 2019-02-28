@@ -135,7 +135,7 @@
                 @else
                     <p>Dear, <strong>{{Auth::user()->name}}</strong>!<br>
                     Thank you for joining CampusTeam community.<br>
-                    </p><p>To make communication with varsity Esports coaches more efficient, we suggest that you fill out your <u><a href="/settings/profiles" class="text-danger">Game profile</a></u> and <u><a href="/settings/resume" class="text-danger">Resume</a></u> before you start chatting with coaches.<br>
+                    </p><p>To make communication with varsity Esports coaches more efficient, we suggest that you fill out your <u><a href="/settings/profiles" class="text-danger">Game profile</a></u> and <u><a href="/settings" class="text-danger">Resume</a></u> before you start chatting with coaches.<br>
                     </p><p>To send message to the coach, select the university and click the button “Message to the Coach” on the university page.<br>
                     </p><p>When applying to university Esports teams, a completed Game profile and Resume are required.<br>
                         We recommend you to upload the foto and overlay on <u><a href="/users/{{Auth::user()->nickname}}"  class="text-danger">you page</a></u> to make it easier for your friends to find you in CampusTeam community.

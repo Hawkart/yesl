@@ -94,6 +94,8 @@ Route::post('/groups/{id}/cover', 'GroupController@updateCover');
 Route::get('/rest/universities', 'UniversityController@index');
 Route::get('/universities', 'UniversityController@groups')->name('universities');
 Route::get('/universities/{slug}', 'GroupController@university')->name('university');
+Route::get('/write-to-coach', 'UniversityController@groupsWithCoach')->name('universities.write_to_coach');
+Route::get('/apply-to-team', 'UniversityController@groupsApplyToTeam')->name('universities.apply_to_team');
 Route::get('/universities/{slug}/teams', 'GroupController@universityTeams');
 Route::post('/universities/{id}/teams', ['uses' => 'UniversityController@teamsAdd', 'middleware' => 'auth']);
 Route::patch('/teams/{id}', ['uses' => 'TeamController@update', 'middleware' => 'auth']);

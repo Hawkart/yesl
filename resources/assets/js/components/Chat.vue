@@ -1,7 +1,7 @@
 <template>
 
     <div class="row">
-        <div class="col-md-12 col-sm-12" v-bind:class="isActiveChannel">
+        <div class="col-md-6 col-sm-12 mb-25" v-bind:class="isActiveChannel">
             <chat-channel-list :channels="channels"
                            :active-channel="activeChannel"
                            :user="user"
@@ -9,7 +9,7 @@
                            @channelUserChanged="onChannelUserChanged"></chat-channel-list>
         </div>
 
-        <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12 padding-l-0" v-if="activeChannel!=null">
+        <div class="col-lg-6 col-md-6 col-sm-12 padding-l-0 mb-25" v-if="activeChannel!=null">
             <div class="chat-field">
                 <div class="ui-block-title">
                     <h6 class="title" v-if="!activeChannel.is_user">

@@ -50,7 +50,7 @@
 .top-header.top-header-favorit .top-header-author{
   transform: none;
   max-width: 100%;
-  z-index: 22;
+  z-index: 5;
 }
 .top-header.top-header-favorit .author-thumb{
   position: relative;
@@ -462,12 +462,15 @@ a.btn-apply{
 
 /**Typography**/
 body, p{
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 .left-menu .left-menu-title {
     font-weight: 500;
     font-size: 14px;
     color: #000;
+}
+.left-menu a .left-menu-title:hover{
+    color: #002650;
 }
 .profile-menu li > div, .profile-menu li a {
     font-size: 1em;
@@ -479,6 +482,9 @@ body, p{
 
 @media (max-width: 460px)
 {
+    body, p{
+        font-size: 1rem;
+    }
     #chatsDisplay.ps{
         height: auto;
         max-height: 150px;
@@ -492,7 +498,18 @@ body, p{
                 padding: 0.5rem;
             }
         }
-
-
     }
+
+    .birthday-item .btn{
+        float: none;
+        width: 100%;
+    }
+}
+
+.birthday-item .btn{
+    max-width: none;
+}
+
+.w-50px{
+    width: 50px;
 }

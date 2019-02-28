@@ -14,7 +14,8 @@ class UniqueFieldsInGroupUserTable extends Migration
      */
     public function up()
     {
-        Schema::rename('group_users', 'group_user');
+        if (Schema::hasTable('group_users'))
+            Schema::rename('group_users', 'group_user');
 
         $this->deleteDuplicates();
 

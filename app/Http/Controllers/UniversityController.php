@@ -155,6 +155,37 @@ class UniversityController extends Controller
     }
 
     /**
+     * @param Request $request
+     */
+    public function groupsWithCoach(Request $request)
+    {
+        $groups = Group::orderBy('title', 'asc')
+            ->where('groupable_type', 'App\Models\University')
+            ->whereNotNull('coach_email')
+            ->search($request)->paginate(24);
+
+        $this->seo()->setTitle("Write message to the coach");
+
+        return view('universities.write_to_coach', compact('groups'));
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function groupsApplyToTeam(Request $request)
+    {
+        $groups = Group::orderBy('title', 'asc')
+            ->where('groupable_type', 'App\Models\University')
+            ->whereHas('owner', function($q){
+                $q->where('role_id', '<>', 1);
+            })->search($request)->paginate(24);
+
+        $this->seo()->setTitle("Apply to team");
+
+        return view('universities.apply_to_team', compact('groups'));
+    }
+
+    /**
      * @param $id
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

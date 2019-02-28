@@ -108,7 +108,7 @@
                                                     <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg'  }}" alt="{{$group->title}}">
                                                 </a>
 
-                                                @if(in_array($group->groupable->id, $recruiting))
+                                                @if(!$group->owner->isAdmin() && $group->owner->isCoach()/*in_array($group->groupable->id, $recruiting)*/)
                                                     <a href="/universities/{{$group->slug}}/vacancies" class="bg-violet label-recruting">Recruiting</a>
                                                 @endif
                                             </div>
