@@ -48,6 +48,7 @@
         </div>
     </div>
 
+    {{--
     @if(count($twitts)>0 && strpos($group->owner->email, '@campusteam.tv')===false)
         <div class="ui-block">
             <div class="ui-block-title">
@@ -74,6 +75,7 @@
             </ul>
         </div>
     @endif
+    --}}
 
     <div class="ui-block">
         <div class="ui-block-title">
