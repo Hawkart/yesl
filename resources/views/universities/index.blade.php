@@ -109,7 +109,7 @@
                                                 </a>
 
                                                 @if(!$group->owner->isAdmin() && $group->owner->isCoach()/*in_array($group->groupable->id, $recruiting)*/)
-                                                    <a href="/universities/{{$group->slug}}/vacancies" class="bg-violet label-recruting">Recruiting</a>
+                                                    <a href="/universities/{{$group->slug}}/teams" class="bg-violet label-recruting">Recruiting</a>
                                                 @endif
                                             </div>
 
