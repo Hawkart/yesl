@@ -26,10 +26,11 @@
                             {
                                 $tw = $tw[1];
                             }else{
-                                $tw = $tw[0];
+                                if(isset($tw[0]))
+                                    $tw = $tw[0];
                             }
-                            
-                            if(empty($tw))
+
+                            if(empty($tw) && isset($tw[0]))
                                 $tw = $tw[0];
                         }
                     @endphp
