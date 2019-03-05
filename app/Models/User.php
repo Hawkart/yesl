@@ -29,15 +29,11 @@ class User extends VoyagerUser implements HasMedia
     protected $table = 'users';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['role_id', 'name', 'email', 'avatar', 'password', 'remember_token',
-        'settings', 'created_at', 'updated_at', 'api_token', 'first_name', 'last_name',
-        'second_name', 'nickname', 'verified', 'confirmation_code', 'notify', 'overlay',
-        'description', 'timezone', 'contacts', 'university_id', 'date_birth', 'gender',
-        'type', 'precreated'];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.

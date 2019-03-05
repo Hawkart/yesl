@@ -513,3 +513,12 @@ body, p{
 .w-50px{
     width: 50px;
 }
+
+.form-group.required .control-label:after {
+    content:"*";
+    color: #d00;
+    margin-left: 5px;
+}
+select.form-control:not([size]):not([multiple]){
+    height: auto;
+}

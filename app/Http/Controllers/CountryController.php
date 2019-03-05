@@ -19,6 +19,8 @@ class CountryController extends Controller
             return $countries;
         });
 
+        asort($countries);
+
         if ($request->expectsJson() && $request->ajax())
             return response()->json($countries);
         else
@@ -50,9 +52,12 @@ class CountryController extends Controller
      */
     public function states($slug, Request $request)
     {
-        $states = Cache::remember('country_states'.$slug, 36000, function () {
-            return CountryState::getStates('US');
+        $states = Cache::remember('country_states'.$slug, 36000, function () use ($slug) {
+            return CountryState::getStates($slug);
         });
+
+        if(!empty($states))
+            asort($states);
 
         if ($request->expectsJson() && $request->ajax())
             return response()->json($states);

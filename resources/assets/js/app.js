@@ -6,6 +6,7 @@ Vue.component('change-password-component', require('./components/lk/ChangePasswo
 Vue.component('profiles-component', require('./components/lk/ProfilesComponent'));
 Vue.component('profiles-add-component', require('./components/lk/ProfilesAddComponent'));
 Vue.component('profiles-edit-component', require('./components/lk/ProfilesEditComponent'));
+Vue.component('resume', require('./components/lk/Resume'));
 Vue.component('post-form', require('./components/PostForm'));
 Vue.component('post-list', require('./components/PostList'));
 Vue.component('post', require('./components/Post'));

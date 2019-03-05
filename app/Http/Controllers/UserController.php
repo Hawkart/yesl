@@ -46,7 +46,7 @@ class UserController extends Controller
      */
     public function edit()
     {
-        $this->seo()->setTitle('Personal settings');
+        $this->seo()->setTitle('Resume');
         $user = Auth::user();
         return view('lk.personal', compact('user'));
     }
@@ -104,17 +104,36 @@ class UserController extends Controller
         $validator = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'gender' => 'required',
-            'date_birth' => 'required|date_format:Y-m-d|before:today'
+            'discord_nickname' => 'required',
+            'apply_as' => 'required',
+            'gpa' => 'required|numeric',
+            'country' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'postal_code' => 'required'
         ];
+
+        if($request->get('is_foreign'))
+            $validator['toefl_paper'] = 'required_without_all:toefl_computer,toefl_internet';
+
+        if($request->get('apply_as')==0)
+            $validator['act_scored'] = 'required_without:sat_scored';
+        else
+            $validator['transfer_hours'] = 'required|numeric';
 
         $data = $request->all();
         $data['name'] = trim($data['first_name']." ".$data['last_name']);
 
         $request->validate($validator);
-        $user->update();
+        $user->update($data);
 
-        return back()->with('status', "Personal info has been updated!");
+        if ($request->expectsJson() && $request->ajax())
+            return response()->json([
+                'message' => 'Resume has been updated!',
+                'data' => $data
+            ]);
+        else
+            abort(404);
     }
 
     /**
