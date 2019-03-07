@@ -106,7 +106,7 @@ class UserController extends Controller
             'last_name' => 'required|string|max:255',
             'discord_nickname' => 'required',
             'apply_as' => 'required',
-            'gpa' => 'required|numeric',
+            'gpa' => 'required|numeric|min:1',
             'country' => 'required',
             'street' => 'required',
             'city' => 'required',
@@ -119,7 +119,7 @@ class UserController extends Controller
         if($request->get('apply_as')==0)
             $validator['act_scored'] = 'required_without:sat_scored';
         else
-            $validator['transfer_hours'] = 'required|numeric';
+            $validator['transfer_hours'] = 'required|numeric|min:1';
 
         $data = $request->all();
         $data['name'] = trim($data['first_name']." ".$data['last_name']);

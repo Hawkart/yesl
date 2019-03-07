@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProfileRequest;
 use Storage;
 use Image;
 use File;
@@ -44,9 +45,16 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $profiles = Auth::user()->profiles()->with(['game'])->get();
+
+        if ($request->expectsJson())
+        {
+            return response()->json([], 200);
+        }else{
+            return view('lk.profiles.add', compact(['profiles']));
+        }
     }
 
     /**
@@ -55,38 +63,21 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProfileRequest $request)
     {
         $user = Auth::user();
         $userGames = $user->profiles()->pluck('game_id')->toArray();
-        $profiles = [];
 
-        if($request->has('games'))
+        $data = $request->all();
+        $data['user_id'] = $user->id;
+        $data['type'] = Profile::PLAYER;
+
+        if($profile = Profile::create($data))
         {
-            $games = $request->get('games');
-
-            foreach($games as $game)
-            {
-                if(!in_array($game, $userGames))
-                {
-                    $profile = Profile::create([
-                        'user_id' => $user->id,
-                        'game_id' => $game,
-                        'nickname' => $user->nickname,
-                        'type' => Profile::PLAYER
-                    ]);
-
-                    $profiles[] = $profile;
-                }
-            }
-
-            if(count($profiles)>0)
-            {
-                return response()->json([
-                    'data' => Auth::user()->profiles()->with(['game'])->get(),
-                    'message' => "Your game profiles have been created."
-                ], 200);
-            }
+            return response()->json([
+                'data' => $profile,
+                'message' => "Your game profiles have been created."
+            ], 200);
         }
 
         return response()->json([
@@ -130,16 +121,9 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfileRequest $request, $id)
     {
         $profile = Auth::user()->profiles()->findOrFail($id);
-
-        $validator = [
-            'nickname' => 'required|string|max:255',
-            'link' => 'url'
-        ];
-
-        $request->validate($validator);
         $profile->update($request->all());
 
         return response()->json([

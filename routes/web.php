@@ -105,8 +105,9 @@ Route::delete('/teams/{id}', ['uses' => 'TeamController@destroy', 'middleware' =
  * Games
  */
 Route::get('/games', 'GameController@groups')->name('games');
-Route::get('/rest/games', 'GameController@index')->name('games');
 Route::get('/games/{slug}', 'GroupController@game')->name('game');
+Route::get('/rest/games', 'GameController@index');
+Route::get('/rest/games/{id}', 'GameController@show');
 
 /**
  * Profiles
@@ -161,7 +162,8 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
     Route::get('/personal', ['as' => 'settings.personal', 'uses' => 'UserController@edit']);
     Route::get('/password', ['as' => 'settings.password', 'uses' => 'UserController@password']);
     Route::get('/profiles', ['as' => 'settings.games_profiles', 'uses' => 'UserController@profiles']);
-    Route::get('/profiles/{id}', ['as' => 'settings.profile.edit', 'uses' => 'ProfileController@edit']);
+    Route::get('/profiles/add', ['as' => 'settings.profile.add', 'uses' => 'ProfileController@create']);
+    Route::get('/profiles/{id}/edit', ['as' => 'settings.profile.edit', 'uses' => 'ProfileController@edit']);
 });
 
 /**

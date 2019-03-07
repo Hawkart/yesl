@@ -7,6 +7,9 @@ Vue.component('profiles-component', require('./components/lk/ProfilesComponent')
 Vue.component('profiles-add-component', require('./components/lk/ProfilesAddComponent'));
 Vue.component('profiles-edit-component', require('./components/lk/ProfilesEditComponent'));
 Vue.component('resume', require('./components/lk/Resume'));
+Vue.component('gamer-profiles', require('./components/lk/GamerProfiles'));
+Vue.component('gamer-profile-add', require('./components/lk/GamerProfileAdd'));
+Vue.component('gamer-profile-edit', require('./components/lk/GamerProfileEdit'));
 Vue.component('post-form', require('./components/PostForm'));
 Vue.component('post-list', require('./components/PostList'));
 Vue.component('post', require('./components/Post'));

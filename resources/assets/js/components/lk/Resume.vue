@@ -8,6 +8,18 @@
             <form class="form-horizontal mt-10" @submit.prevent="update" @keydown="form.onKeydown($event)">
                 <div class="row">
 
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <avatar-upload :uimg="user.avatar" uploadapi="/users/avatar" dataname="avatar"></avatar-upload>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group label-floating required" :class="{ 'is-empty': form.description=='' }">
+                            <label class="control-label">Summary about yourself</label>
+                            <textarea v-model="form.description" :class="{ 'is-invalid': form.errors.has('description') }" class="form-control" type="text" name="description"></textarea>
+                            <has-error :form="form" field="description"/>
+                        </div>
+                    </div>
+
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group label-floating required" :class="{ 'is-empty': form.first_name=='' }">
                             <label class="control-label">First Name</label>
@@ -222,7 +234,8 @@
                 street: '',
                 city: '',
                 state: '',
-                postal_code: ''
+                postal_code: '',
+                description: ''
             }),
             apply_list:[
                 {

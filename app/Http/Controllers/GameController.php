@@ -99,7 +99,14 @@ class GameController extends Controller
      */
     public function show($id, Request $request)
     {
+        $game = Game::findOrFail($id);
 
+        if ($request->expectsJson() && $request->ajax())
+        {
+            return response()->json($game, 200);
+        }else{
+            abort(404);
+        }
     }
 
     /**

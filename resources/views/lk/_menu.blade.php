@@ -21,9 +21,11 @@
                             <li>
                                 <a href="{{route('settings')}}">Resume</a>
                             </li>
+                            @if(!Auth::user()->isCoach())
                             <li>
                                 <a href="{{route('settings.games_profiles')}}">Gamer profiles</a>
                             </li>
+                            @endif
                             <li>
                                 <a href="{{route('settings.password')}}">Change Password</a>
                             </li>
