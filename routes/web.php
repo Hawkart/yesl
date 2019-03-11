@@ -92,6 +92,7 @@ Route::post('/groups/{id}/cover', 'GroupController@updateCover');
  * Universities
  */
 Route::get('/rest/universities', 'UniversityController@index');
+Route::get('/rest/universities/{id}', 'UniversityController@show');
 Route::get('/universities', 'UniversityController@groups')->name('universities');
 Route::get('/universities/{slug}', 'GroupController@university')->name('university');
 Route::get('/write-to-coach', 'UniversityController@groupsWithCoach')->name('universities.write_to_coach');

@@ -101,25 +101,35 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $validator = [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'discord_nickname' => 'required',
-            'apply_as' => 'required',
-            'gpa' => 'required|numeric|min:1',
-            'country' => 'required',
-            'street' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required'
-        ];
+        if($user->isCoach())
+        {
+            $validator = [
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'description' => 'required'
+            ];
+        }else{
+            $validator = [
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'description' => 'required',
+                'discord_nickname' => 'required',
+                'apply_as' => 'required',
+                'gpa' => 'required|numeric|min:1',
+                'country' => 'required',
+                'street' => 'required',
+                'city' => 'required',
+                'postal_code' => 'required'
+            ];
 
-        if($request->get('is_foreign'))
-            $validator['toefl_paper'] = 'required_without_all:toefl_computer,toefl_internet';
+            if($request->get('is_foreign'))
+                $validator['toefl_paper'] = 'required_without_all:toefl_computer,toefl_internet';
 
-        if($request->get('apply_as')==0)
-            $validator['act_scored'] = 'required_without:sat_scored';
-        else
-            $validator['transfer_hours'] = 'required|numeric|min:1';
+            if($request->get('apply_as')==0)
+                $validator['act_scored'] = 'required_without:sat_scored';
+            else
+                $validator['transfer_hours'] = 'required|numeric|min:1';
+        }
 
         $data = $request->all();
         $data['name'] = trim($data['first_name']." ".$data['last_name']);

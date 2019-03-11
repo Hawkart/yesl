@@ -265,9 +265,6 @@
                 //this.form.apply_as = 0;
         },
         mounted(){
-
-            console.log(this.user);
-
             this.getCountries();
             this.getStates(this.form.country);
         },

@@ -117,7 +117,8 @@ class UniversityController extends Controller
      */
     public function show($id, Request $request)
     {
-
+        $university = University::findOrFail($id);
+        return response()->json($university, 200);
     }
 
     /**

@@ -60,7 +60,8 @@ class User extends VoyagerUser implements HasMedia
      */
     protected $casts = [
         'contacts' => 'array',
-        'settings' => 'array'
+        'settings' => 'array',
+        'experience' => 'array'
     ];
 
     /**
