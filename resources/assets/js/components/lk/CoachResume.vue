@@ -43,8 +43,8 @@
 
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                         <div class="form-group">
-                            <label class="control-label">Current</label>
-                            <span v-if="university">{{this.university.title}}</span>
+                            <label class="control-label d-block">Current college/university</label>
+                            <span class="d-block mt-4" v-if="university">{{this.university.title}}</span>
                         </div>
                     </div>
 
