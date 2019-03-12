@@ -19,6 +19,7 @@ use App\Mail\EmailNewCoachRegisteredToAthlete;
 use App\Mail\EmailNewCoachRegisteredToCoach;
 use App\Mail\EmailSuccessRegistrationAthlete;
 use App\Mail\EmailSuccessRegistrationCoach;
+use App\Http\Requests\UserRequest;
 use DB;
 use Mail;
 use Illuminate\Http\Request;
@@ -56,29 +57,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        //$data['date_birth'] = Carbon::parse($data['date_birth'])->format('Y-m-d');
-
-        $rules = [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',//|unique:users',
-            'password' => 'required|string|min:6',
-            'terms' => 'required|accepted',
-            'gender' => 'required'//,
-            //'date_birth' => 'required|date_format:Y-m-d|before:today'
-        ];
-
-        return Validator::make($data, $rules);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
@@ -110,7 +88,11 @@ class RegisterController extends Controller
         return User::create($u);
     }
 
-    public function register(Request $request)
+    /**
+     * @param UserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(UserRequest $request)
     {
         $this->validator($request->all())->validate();
 
@@ -165,6 +147,7 @@ class RegisterController extends Controller
                 }
             }else{
                 $user = $this->create($request->all());
+                $user->setDefaultAvatar();
             }
 
             $email = new EmailVerification(new User(['confirmation_code' => $user->confirmation_code, 'name' => $user->name]));

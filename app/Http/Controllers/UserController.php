@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Post;
@@ -97,44 +98,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UserRequest $request)
     {
         $user = Auth::user();
-
-        if($user->isCoach())
-        {
-            $validator = [
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'description' => 'required'
-            ];
-        }else{
-            $validator = [
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'description' => 'required',
-                'discord_nickname' => 'required',
-                'apply_as' => 'required',
-                'gpa' => 'required|numeric|min:1',
-                'country' => 'required',
-                'street' => 'required',
-                'city' => 'required',
-                'postal_code' => 'required'
-            ];
-
-            if($request->get('is_foreign'))
-                $validator['toefl_paper'] = 'required_without_all:toefl_computer,toefl_internet';
-
-            if($request->get('apply_as')==0)
-                $validator['act_scored'] = 'required_without:sat_scored';
-            else
-                $validator['transfer_hours'] = 'required|numeric|min:1';
-        }
-
         $data = $request->all();
         $data['name'] = trim($data['first_name']." ".$data['last_name']);
-
-        $request->validate($validator);
         $user->update($data);
 
         if ($request->expectsJson() && $request->ajax())
@@ -160,11 +128,9 @@ class UserController extends Controller
         if($user->avatar)
         {
             $path = public_path() . '/storage/' . $user->avatar;
-
-            if(file_exists($path) && !in_array($user->avatar, ['default/avatar_team.jpg', 'default/avatar_user.jpg', 'users/default.png']))
-            {
+            $defaults = ['default/avatar_team.jpg', 'default/avatar_user.jpg'];
+            if(file_exists($path) && !in_array($user->avatar, $defaults) && strpos($user->avatar, 'users/default')===false)
                 unlink($path);
-            }
         }
 
         $path = Storage::disk('public')->putFile(

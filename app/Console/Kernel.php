@@ -31,7 +31,9 @@ class Kernel extends ConsoleKernel
         Commands\ImportTwitts::class,
         Commands\MakeCoachOfUniversity::class,
         Commands\NotifyConfirmEmail::class,
-        Commands\ImportFromUniversityAndVacancyToTeams::class
+        Commands\ImportFromUniversityAndVacancyToTeams::class,
+        Commands\VarsityParser::class,
+        Commands\UsersAvatarUpdate::class
     ];
 
     /**

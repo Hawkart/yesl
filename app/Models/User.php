@@ -316,4 +316,24 @@ class User extends VoyagerUser implements HasMedia
 
         return $query;
     }
+
+    /**
+     * Set random default avatar
+     */
+    public function setDefaultAvatar()
+    {
+        if(strpos($this->avatar, 'users/default')!==false || empty($this->avatar))
+        {
+            $n = rand (1, 8);
+
+            if(intval($this->gender)==1)
+            {
+                $avatar = 'users/default_girl_'.$n.'.jpg';
+            }else{
+                $avatar = 'users/default_boy_'.$n.'.jpg';
+            }
+
+            $this->update(['avatar' => $avatar]);
+        }
+    }
 }

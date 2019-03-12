@@ -47,7 +47,7 @@
 
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : 'checked' }}>
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
