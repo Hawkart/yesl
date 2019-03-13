@@ -1,10 +1,11 @@
 <?php
 namespace App\Console\Commands;
 
-use GuzzleHttp\Psr7;
+use App\Mail\EmailToVarsityUser;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Storage;
+use Mail;
 
 class VarsityParser extends Command
 {
@@ -32,7 +33,7 @@ class VarsityParser extends Command
         $client = new Client(['cookies' => true]);
         $uri = 'https://www.varsityesports.com/api/user/getUserProfile';
 
-        for($userId = 1; $userId < 100; $userId++)
+        for($userId = 1; $userId < 100000; $userId++)
         {
             echo $userId."\n";
             try {
@@ -42,18 +43,34 @@ class VarsityParser extends Command
                     ]
                 ]);
                 $res = json_decode($res->getBody()->getContents(), true);
-                //print_r($res);
 
                 if(isset($res['user']))
                 {
-                    $user = $res['user'];   //name, email
+                    $user = $res['user'];
                     $this->add($res);
+
+                    if(isset($user['email']))
+                    {
+                        $data = [
+                            'name' => stristr($user['name'], '"')!==false ? stristr($user['name'], '"', true) : $user['name']
+                        ];
+                        if (preg_match('/"([^"]+)"/', $user['name'], $m))
+                        {
+                            $data['nickname'] = $m[1];
+                        }else{
+                            $data['nickname'] = $user['name'];
+                        }
+                        
+                        Mail::to($user['email'])->send(new EmailToVarsityUser($data));
+                    }
                 }
 
                 sleep(1);
             } catch (\Exception $e) {
-               break;
+
             }
+
+            break;
         }
     }
 
@@ -68,6 +85,7 @@ class VarsityParser extends Command
             Storage::disk('local')->put($dir.'/'.$filename, '');
 
         $content = json_decode(file_get_contents($path), true);
+        $content['page'] = $data['user']['id'];
         $content[] = $data;
         file_put_contents($path, json_encode($content));
     }
