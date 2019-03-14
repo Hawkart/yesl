@@ -116,10 +116,44 @@
             font-weight: 500;
             font-size: 0.975rem;
         }
+        .socials i, .socials svg{
+            font-size: 22px!important;
+        }
+        .btn{
+            white-space: inherit;
+        }
+
+        .a2a_vertical_style{
+            right:0;
+            top:150px;
+        }
+
+        @media (max-width: 460px)
+        {
+            .a2a_vertical_style {
+                bottom: 0;
+                top: auto;
+                position: fixed;
+                text-align: center;
+                width: 100%;
+            }
+
+            .a2a_vertical_style a{
+                display: inline-block!important;
+                clear: none!important;
+            }
+
+            .a2a_floating_style{
+                border-radius: 0!important;
+            }
+        }
+        p{
+            font-size: 0.95rem;
+        }
     </style>
 
     @if (app()->environment() === 'production')
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130570614-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -136,10 +170,27 @@
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-TB6VBHP');</script>
         <!-- End Google Tag Manager -->
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(52789489, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true,
+                webvisor:true
+            });
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/52789489" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
     @endif
 </head>
 
-<body class="landing-page pb-100">
+<body class="landing-page">
+
     @if (app()->environment() === 'production')
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TB6VBHP"
@@ -153,8 +204,9 @@
 
     <div class="container" id="app">
         @yield('content')
-        @include('_partials.landing.footer')
+
     </div>
+    @include('_partials.landing.footer')
 
     <script src="{{ mix('/js/app.js') }}"></script>
 

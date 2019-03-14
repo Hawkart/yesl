@@ -15,7 +15,6 @@ Route::get('/',  function() {
     return view('welcome');
 })->middleware('guest');
 
-Route::get('/feeds', ['uses' => 'HomeController@index', 'middleware' => 'auth'])->name('home');
 Route::get('/terms', function() {
     return view('terms');
 })->name('terms');
@@ -32,6 +31,12 @@ Route::get('/legal/term-and-conditions', function() {
 Route::get('/legal/term-of-service', function() {
     return view('term_of_service');
 });
+Route::get('/about', function() {
+    return view('about');
+});
+Route::get('/contacts', function() {
+    return view('contacts');
+});
 
 /**
  * Admin
@@ -47,19 +52,24 @@ Auth::routes();
 Route::get('/register-coach', ['uses' => 'Auth\RegisterController@showRegistrationCoachForm', 'middleware' => 'guest'])->name('register_coach');
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 
+
+Route::get('/feeds', ['uses' => 'HomeController@index', 'middleware' => 'auth'])->name('home');
+
 /**
  * Users
  */
-Route::patch('/users',  ['as' => 'users.update', 'uses' => 'UserController@update', 'middleware' => 'auth']);
-Route::patch('/users/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword', 'middleware' => 'auth']);
-Route::get('/users/{slug}', 'UserController@show')->name('user');
-Route::get('/users/{id}/feeds', 'UserController@feeds');
-Route::get('/users/{id}/wall', 'UserController@wall');
-Route::get('/users/{id}/groups', ['as' => 'user.groups', 'uses' => 'UserController@groups']);
-Route::get('/users/{id}/threads', ['as' => 'user.threads', 'uses' => 'UserController@threads']);
-Route::post('/users/{id}/threads', ['as' => 'user.threads.search', 'uses' => 'UserController@threads']);
-Route::post('/users/avatar', 'UserController@updateAvatar');
-Route::post('/users/overlay', 'UserController@updateOverlay');
+Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
+    Route::get('/{slug}', 'UserController@show')->name('user');
+    Route::get('/{id}/feeds', 'UserController@feeds');
+    Route::get('/{id}/wall', 'UserController@wall');
+    Route::get('/{id}/groups', ['as' => 'user.groups', 'uses' => 'UserController@groups']);
+    Route::get('/{id}/threads', ['as' => 'user.threads', 'uses' => 'UserController@threads']);
+    Route::patch('/',  ['as' => 'users.update', 'uses' => 'UserController@update']);
+    Route::patch('/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword']);
+    Route::post('/{id}/threads', ['as' => 'user.threads.search', 'uses' => 'UserController@threads']);
+    Route::post('/avatar', 'UserController@updateAvatar');
+    Route::post('/overlay', 'UserController@updateOverlay');
+});
 
 /**
  * Channels
@@ -76,37 +86,44 @@ Route::group(['prefix' => 'channels', 'middleware' => 'auth'], function () {
 /**
  * Groups
  */
-Route::get('/groups', ['as' => 'my.groups', 'uses' => 'UserController@myGroups', 'middleware' => 'auth']);
-Route::get('/groups/search', 'GroupController@index')->name('groups');
-Route::get('/groups/popular', 'GroupController@show')->name('groups.popular');
-Route::get('/groups/{slug}', 'GroupController@show')->name('group');
-Route::get('/groups/{id}/posts', 'GroupController@posts')->name('group.posts');
-Route::post('/groups/{id}/checkin', 'GroupController@checkUserIsMember');
-Route::post('/groups/{id}/users', 'GroupController@join');
-Route::post('/groups/{id}/logo', 'GroupController@updateLogo');
-Route::post('/groups/{id}/cover', 'GroupController@updateCover');
-//Route::get('/groups/{id}/users', 'GroupController@users')->name('group.users');
-
+Route::group(['prefix' => 'groups', 'middleware' => 'auth'], function () {
+    Route::get('/', ['as' => 'my.groups', 'uses' => 'UserController@myGroups']);
+    Route::get('/search', 'GroupController@index')->name('groups');
+    Route::get('/popular', 'GroupController@show')->name('groups.popular');
+    Route::get('/{slug}', 'GroupController@show')->name('group');
+    Route::get('/{id}/posts', 'GroupController@posts')->name('group.posts');
+    Route::post('/{id}/checkin', 'GroupController@checkUserIsMember');
+    Route::post('/{id}/users', 'GroupController@join');
+    Route::post('/{id}/logo', 'GroupController@updateLogo');
+    Route::post('/{id}/cover', 'GroupController@updateCover');
+    //Route::get('/groups/{id}/users', 'GroupController@users')->name('group.users');
+});
 
 /**
  * Universities
  */
+Route::group(['prefix' => 'universities', 'middleware' => 'auth'], function () {
+    Route::get('/', 'UniversityController@groups')->name('universities');
+    Route::get('/{slug}', 'GroupController@university')->name('university');
+    Route::get('/{slug}/teams', 'GroupController@universityTeams');
+    Route::post('/{id}/teams', ['uses' => 'UniversityController@teamsAdd']);
+});
+
 Route::get('/rest/universities', 'UniversityController@index');
 Route::get('/rest/universities/{id}', 'UniversityController@show');
-Route::get('/universities', 'UniversityController@groups')->name('universities');
-Route::get('/universities/{slug}', 'GroupController@university')->name('university');
-Route::get('/write-to-coach', 'UniversityController@groupsWithCoach')->name('universities.write_to_coach');
-Route::get('/apply-to-team', 'UniversityController@groupsApplyToTeam')->name('universities.apply_to_team');
-Route::get('/universities/{slug}/teams', 'GroupController@universityTeams');
-Route::post('/universities/{id}/teams', ['uses' => 'UniversityController@teamsAdd', 'middleware' => 'auth']);
+Route::get('/write-to-coach', ['uses' => 'UniversityController@groupsWithCoach', 'middleware' => 'auth'])->name('universities.write_to_coach');
+Route::get('/apply-to-team', ['uses' => 'UniversityController@groupsApplyToTeam', 'middleware' => 'auth'])->name('universities.apply_to_team');
 Route::patch('/teams/{id}', ['uses' => 'TeamController@update', 'middleware' => 'auth']);
 Route::delete('/teams/{id}', ['uses' => 'TeamController@destroy', 'middleware' => 'auth']);
 
 /**
  * Games
  */
-Route::get('/games', 'GameController@groups')->name('games');
-Route::get('/games/{slug}', 'GroupController@game')->name('game');
+Route::group(['prefix' => 'games', 'middleware' => 'auth'], function () {
+    Route::get('/', 'GameController@groups')->name('games');
+    Route::get('/{slug}', 'GroupController@game')->name('game');
+});
+
 Route::get('/rest/games', 'GameController@index');
 Route::get('/rest/games/{id}', 'GameController@show');
 
@@ -199,7 +216,7 @@ Route::group(['prefix' => 'me', 'middleware' => 'auth'], function () {
     Route::post('/denyFriend', ['uses' => 'UserController@denyFriendRequest']);
 });
 
-Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
-Route::get('500', ['as' => '500', 'uses' => 'ErrorController@fatal']);
+//Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
+//Route::get('500', ['as' => '500', 'uses' => 'ErrorController@fatal']);
 
 Route::get('/helpers/link_preview', ['uses' => '\App\Acme\Helpers\LinkPreviewHelper@parse']);

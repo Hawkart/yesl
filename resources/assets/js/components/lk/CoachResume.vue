@@ -7,7 +7,7 @@
 
             <form class="form-horizontal mt-10" @submit.prevent="update" @keydown="form.onKeydown($event)">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 lk-avatar">
                         <avatar-upload :uimg="user.avatar" uploadapi="/users/avatar" dataname="avatar"></avatar-upload>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">

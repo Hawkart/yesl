@@ -21,6 +21,9 @@
                     </div>
                     @if($groups->count()>0)
                         <div class="row">
+                            @php
+                                $countProfiles = Auth::user()->profiles()->count();
+                            @endphp
                             @foreach($groups as $group)
                                 <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 py-1">
 
@@ -37,7 +40,11 @@
                                                 </a>
                                             </div>
 
-                                            <a href="/universities/{{$group->slug}}/teams" class="btn btn-success btn-md btn-apply" id="apply-team-ga">Apply to the Team</a>
+                                            @if($countProfiles>0 && !empty(Auth::user()->desccription))
+                                                <a href="/universities/{{$group->slug}}/teams" class="btn btn-success btn-md btn-apply" id="apply-team-ga">Apply to the Team</a>
+                                            @else
+                                                <a href="#" data-toggle="modal" data-target="#warning-resume-profile" class="btn btn-success btn-md btn-apply" id="apply-team-ga">Apply to the Team</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

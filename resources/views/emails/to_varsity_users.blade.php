@@ -33,9 +33,9 @@ $style = [
     'body_sub' => 'margin-top: 25px; padding-top: 25px; border-top: 1px solid #EDEFF2;',
     /* Type ------------------------------ */
     'anchor' => 'color: #3869D4;',
-    'header-1' => 'margin-top: 0; color: #2F3133; font-size: 19px; font-weight: bold; text-align: left;',
-    'paragraph' => 'margin-top: 0; color: #74787E; font-size: 16px; line-height: 1.5em;',
-    'paragraph-sub' => 'margin-top: 0; color: #74787E; font-size: 12px; line-height: 1.5em;',
+    'header-1' => 'margin-top: 0; color: #000; font-size: 19px; font-weight: bold; text-align: left;',
+    'paragraph' => 'margin-top: 0; color: #000; font-size: 16px; line-height: 1.5em;',
+    'paragraph-sub' => 'margin-top: 0; color: #000; font-size: 12px; line-height: 1.5em;',
     'paragraph-center' => 'text-align: center;',
     /* Buttons ------------------------------ */
     'button' => 'display: block; display: inline-block; width: 200px; min-height: 20px; padding: 10px;
@@ -54,16 +54,6 @@ $style = [
     <tr>
         <td style="{{ $style['email-wrapper'] }}" align="center">
             <table width="100%" cellpadding="0" cellspacing="0">
-                <!-- Logo -->
-                <tr>
-                    <td style="{{ $style['email-masthead'] }}">
-                        <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                            {{ config('app.name') }}
-                        </a>
-                    </td>
-                </tr>
-
-                <!-- Email Body -->
                 <tr>
                     <td style="{{ $style['email-body'] }}" width="100%">
                         <table style="{{ $style['email-body_inner'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
@@ -89,7 +79,7 @@ $style = [
 
                                     <p style="{{ $style['paragraph'] }}">
                                         For you and your friends, we have collected US universities and colleges
-                                        with Esports programs in one place <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">www.СampusTeam.tv</a>.
+                                        with Esports programs in one place <a style="{{ $style['anchor'] }}" href="{{ url('/?utm_source=email&utm_medium=email&utm_campaign=varsityesports') }}" target="_blank">www.СampusTeam.tv</a>.
                                     </p>
 
                                     <p style="{{ $style['paragraph'] }}">
@@ -104,9 +94,28 @@ $style = [
                                         Registration is free, and there is no monthly fee for keeping your resume
                                         in the database.
                                     </p>
+
+                                    <!-- Action Button -->
+                                    <table style="{{ $style['body_action'] }}" align="center" width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="center">
+                                                <?php
+                                                $actionColor = 'button--blue';
+                                                ?>
+
+                                                <a href="{{ url('register?utm_source=email&utm_medium=email&utm_campaign=varsityesports') }}"
+                                                   style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
+                                                   class="button"
+                                                   target="_blank">
+                                                    Register
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
                                     <p style="{{ $style['paragraph'] }}">
                                         If you have any questions you can reach me via email VL@CampusTeam.tv
-                                        or by Discord Vlad_ILchenko#2047, and I will try to get back to you shortly.
+                                        or by Discord Vlad_ILchenko#2047,<br> and I will try to get back to you shortly.
                                     </p>
 
                                     <p style="{{ $style['paragraph'] }}">
@@ -115,43 +124,26 @@ $style = [
                                     <br>
 
                                     <!-- Salutation -->
-                                    <p style="{{ $style['paragraph'] }}">
-                                        <br>
-                                        <table width="100%" cellpadding="0" cellspacing="0">
-                                            <!-- Logo -->
-                                            <tr>
-                                                <td width="30%">
-                                                    <img src="{{url('/storage/vlad.jpeg')}}"/>
-                                                </td>
-                                                <td>
+                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                        <!-- Logo -->
+                                        <tr>
+                                            <td width="60px">
+                                                <img src="{{url('/storage/vlad.jpeg')}}" style="width: 50px; padding-right: 20px"/>
+                                            </td>
+                                            <td>
+                                                <p style="{{ $style['paragraph'] }}">
                                                     Vlad ILchenko<br>
                                                     CEO at CampusTeam
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </p>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br>
 
                                     <p style="{{ $style['paragraph-sub'] }}">
                                         We are sending this email to you as we think that the information
                                         about esports scholarships could be interesting for you.
                                         Please let us know if you do not want to get emails from us in the future.
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <!-- Footer -->
-                <tr>
-                    <td>
-                        <table style="{{ $style['email-footer'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
-                                    <p style="{{ $style['paragraph-sub'] }}">
-                                        &copy; {{ date('Y') }}
-                                        <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
-                                        All rights reserved.
                                     </p>
                                 </td>
                             </tr>

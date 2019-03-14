@@ -2,13 +2,7 @@
 
 @section('content')
 
-    <div class="row display-flex">
-        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-            <div class="landing-content">
-                <a href="{{ route('register') }}" class="btn btn-md btn-border c-white mb-0 mr-lg-3">Register as Athlete</a>
-                <a href="{{ route('register_coach') }}" class="btn btn-md btn-border c-white">Register as Coach</a>
-            </div>
-        </div>-->
+    <div class="row display-flex pb-lg-5">
 
         <div class="col-centered col-xl-6 col-lg-6 col-md-6 col-sm-12">
             <div class="registration-login-form">

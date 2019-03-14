@@ -60,6 +60,22 @@
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-TB6VBHP');</script>
         <!-- End Google Tag Manager -->
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(52789489, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true,
+                webvisor:true
+            });
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/52789489" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
     @endif
 </head>
 
@@ -135,9 +151,9 @@
                 @else
                     <p>Dear, <strong>{{Auth::user()->name}}</strong>!<br>
                     Thank you for joining CampusTeam community.<br>
-                    </p><p>To make communication with varsity Esports coaches more efficient, we suggest that you fill out your <u><a href="/settings/profiles" class="text-danger">Game profile</a></u> and <u><a href="/settings" class="text-danger">Resume</a></u> before you start chatting with coaches.<br>
+                    </p><p>To make communication with varsity Esports coaches more efficient, we suggest that you fill out your <u><a href="/settings/profiles" class="text-danger">Gamer profile</a></u> and <u><a href="/settings" class="text-danger">Resume</a></u> before you start chatting with coaches.<br>
                     </p><p>To send message to the coach, select the university and click the button “Message to the Coach” on the university page.<br>
-                    </p><p>When applying to university Esports teams, a completed Game profile and Resume are required.<br>
+                    </p><p>When applying to university Esports teams, a completed Gamer profile and Resume are required.<br>
                         We recommend you to upload the foto and overlay on <u><a href="/users/{{Auth::user()->nickname}}"  class="text-danger">you page</a></u> to make it easier for your friends to find you in CampusTeam community.
                     </p>
                 @endif
@@ -169,6 +185,16 @@
         localStorage.setItem('confirm_welcome', true);
     }
 </script>
+
+<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style">
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_reddit"></a>
+    <a class="a2a_button_telegram"></a>
+</div>
+
+<script async src="https://static.addtoany.com/menu/page.js"></script>
 
 </body>
 </html>

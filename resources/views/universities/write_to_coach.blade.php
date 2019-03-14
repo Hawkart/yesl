@@ -20,6 +20,11 @@
                         </div>
                     </div>
                     @if($groups->count()>0)
+
+                        @php
+                            $countProfiles = Auth::user()->profiles()->count();
+                        @endphp
+
                         <div class="row">
                             @foreach($groups as $group)
                                 <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 py-1">
@@ -38,9 +43,13 @@
                                             </div>
 
                                             @if(!$group->owner->isAdmin() || !empty($group->coach_email))
-                                                <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 mb-0'">
-                                                    <button type="submit" class="btn bg-violet btn-md mt-0">Write Message to the Coach</button>
-                                                </chat-dialog-button>
+                                                @if($countProfiles>0)
+                                                    <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 mb-0'">
+                                                        <button type="submit" class="btn bg-violet btn-md mt-0">Write Message to the Coach</button>
+                                                    </chat-dialog-button>
+                                                @else
+                                                    <a href="#" data-toggle="modal" data-target="#warning-profile" class="btn bg-violet btn-md mt-1">Write Message to the Coach</a>
+                                                @endif
                                             @endif
                                         </div>
                                     </div>

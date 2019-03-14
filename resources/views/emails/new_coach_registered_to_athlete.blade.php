@@ -86,7 +86,7 @@ $style = [
                                             To send message to the coach, go to the university page:
                                             {{ url('universities/'.$data['university']->group->slug) }}
                                             and click the button “Message to the Coach” there.
-                                            Your fully completed Game Profile on CampusTeam will
+                                            Your fully completed Gamer Profile on CampusTeam will
                                             speed up response from the coach.
                                         </p>
                                     @endif

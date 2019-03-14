@@ -94,8 +94,6 @@ class RegisterController extends Controller
      */
     public function register(UserRequest $request)
     {
-        $this->validator($request->all())->validate();
-
         $data = $request->all();
         $send_no_auto = false;
 

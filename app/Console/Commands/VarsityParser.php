@@ -33,7 +33,7 @@ class VarsityParser extends Command
         $client = new Client(['cookies' => true]);
         $uri = 'https://www.varsityesports.com/api/user/getUserProfile';
 
-        for($userId = 1; $userId < 100000; $userId++)
+        for($userId = 100; $userId < 1000; $userId++)
         {
             echo $userId."\n";
             try {
@@ -60,17 +60,15 @@ class VarsityParser extends Command
                         }else{
                             $data['nickname'] = $user['name'];
                         }
-                        
+
                         Mail::to($user['email'])->send(new EmailToVarsityUser($data));
                     }
                 }
 
-                sleep(1);
+                usleep(300000); //0,3 sec
             } catch (\Exception $e) {
 
             }
-
-            break;
         }
     }
 

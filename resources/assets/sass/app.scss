@@ -480,6 +480,11 @@ body, p{
     flex-wrap: wrap!important;
 }
 
+.a2a_vertical_style{
+    right:0px;
+    top:150px;
+}
+
 @media (max-width: 460px)
 {
     body, p{
@@ -504,6 +509,22 @@ body, p{
         float: none;
         width: 100%;
     }
+
+    .a2a_vertical_style{
+        bottom: 0;
+        top: auto;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+
+        .a2a_vertical_style a{
+            display: inline-block!important;
+            clear: none!important;
+        }
+    }
+    .a2a_floating_style{
+        border-radius: 0!important;
+    }
 }
 
 .birthday-item .btn{
@@ -518,6 +539,14 @@ body, p{
     content:"*";
     color: #d00;
     margin-left: 5px;
+}
+.lk-avatar .author-thumb{
+    width: 132px;
+    height: 132px;
+}
+
+.socials i, .socials svg{
+    font-size: 18px!important;
 }
 select.form-control:not([size]):not([multiple]){
     height: auto;

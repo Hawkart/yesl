@@ -24,6 +24,12 @@
                             <a href="{{url('/')}}" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{url('/about')}}" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('/contacts')}}" class="nav-link">Contacts</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/login" class="nav-link">Login</a>
                         </li>
                         <li class="nav-item">

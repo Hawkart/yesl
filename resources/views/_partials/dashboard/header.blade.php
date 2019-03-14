@@ -53,12 +53,14 @@
                             </div>
 
                             <ul class="account-settings">
+                                @if(!Auth::user()->isCoach())
                                 <li>
                                     <a href="{{route('settings.games_profiles')}}">
                                         <i class="fas fa-gamepad"  style="margin-right: 15px; width: 20px; height: 20px;"></i>
                                         <span>Gamer Profiles</span>
                                     </a>
                                 </li>
+                                @endif
                                 <li>
                                     <a href="{{route('settings')}}">
                                         <i class="far fa-user-circle"  style="margin-right: 15px; width: 20px; height: 20px;"></i>
@@ -156,7 +158,7 @@
 
     @if(!Auth::user()->isCoach() && Auth::user()->profiles()->count()==0)
         <div class="alert alert-danger" role="alert">
-            Just a reminder, you still haven't completed your <a href="/settings/profiles" class="alert-link">Game Profile</a>.
+            Just a reminder, you still haven't completed your <a href="/settings/profiles" class="alert-link">Gamer Profile</a>.
         </div>
     @endif
 </div>
