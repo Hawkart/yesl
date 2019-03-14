@@ -26,7 +26,7 @@
 
     @if($countProfiles==0 || empty(Auth::user()->description))
         <div class="modal fade" id="warning-resume-profile" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog window-popup" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h6 class="title">Warning</h6>
