@@ -56,6 +56,8 @@ Vue.component('university-teams', require('./components/UniversityTeams'));
 Vue.component('university-team-add', require('./components/UniversityTeamAdd'));
 Vue.component('university-team-edit', require('./components/UniversityTeamEdit'));
 
+Vue.component('apply-dialog', require('./components/ApplyDialog'));
+
 import {
     HasError,
     AlertError,

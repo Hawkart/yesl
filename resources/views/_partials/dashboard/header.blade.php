@@ -60,6 +60,12 @@
                                         <span>Gamer Profiles</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{route('settings.applications')}}">
+                                        <i class="fas fa-address-card"  style="margin-right: 15px; width: 20px; height: 20px;"></i>
+                                        <span>Applications</span>
+                                    </a>
+                                </li>
                                 @endif
                                 <li>
                                     <a href="{{route('settings')}}">

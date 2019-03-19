@@ -40,7 +40,7 @@
                                                 </a>
                                             </div>
 
-                                            @if($countProfiles>0 && !empty(Auth::user()->desccription))
+                                            @if($countProfiles>0 && !empty(Auth::user()->description))
                                                 <a href="/universities/{{$group->slug}}/teams" class="btn btn-success btn-md btn-apply" id="apply-team-ga">Apply to the Team</a>
                                             @else
                                                 <a href="#" data-toggle="modal" data-target="#warning-resume-profile" class="btn btn-success btn-md btn-apply" id="apply-team-ga">Apply to the Team</a>

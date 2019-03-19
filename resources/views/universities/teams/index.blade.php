@@ -20,4 +20,6 @@
 
     <university-team-add :games="{{json_encode($group->groupable->games->toArray())}}"></university-team-add>
     <university-team-edit></university-team-edit>
+
+    <apply-dialog :user="{{json_encode(Auth::user()->toArray())}}"></apply-dialog>
 @endsection

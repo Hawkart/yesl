@@ -6,6 +6,8 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Game;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserPasswordUpdateRequest;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
@@ -241,6 +243,54 @@ class UserController extends Controller
         $profiles = $user->profiles()->with(['game'])->get();
 
         return view('lk.profiles.index', compact(['user', 'profiles']));
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function applications(Request $request)
+    {
+        $user = Auth::user();
+        $applications = [];
+
+        if(!$user->isCoach())
+        {
+            $applications = $user->applications()
+                                ->search($request->all())
+                                ->with(['user', 'team', 'profile', 'team.university', 'team.game'])
+                                ->get();
+
+            return view('lk.applications', compact(['user', 'applications']));
+        }else{
+            if($user->university)
+                $teams = $user->university->teams()->pluck('id')->toArray();
+            else
+                $teams = [];
+
+            if($teams)
+                $applications = Application::whereIn('team_id', $teams)->search($request->all())
+                    ->with(['user', 'team', 'profile', 'team.university', 'team.game'])
+                    ->paginate(12);
+
+            $games = [0 => 'Select game'] + Game::all()->pluck('title', 'id')->toArray();
+
+            return view('applications.index', compact(['user', 'applications', 'games']));
+        }
+    }
+
+    /**
+     * Profiles of user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function apiProfiles()
+    {
+        $user = Auth::user();
+        $profiles = $user->profiles()->with(['game'])->get();
+
+        return response()->json($profiles, 200);
     }
 
     /**

@@ -42,7 +42,7 @@
                             @if(empty(Auth::user()->description))
                                 @if($countProfiles==0) and @endif
 
-                                fill <a href="/settings/profiles" class="alert-link">Resume</a>.
+                                fill <a href="/settings" class="alert-link">Resume</a>.
                             @endif
                         </div>
                     </div>

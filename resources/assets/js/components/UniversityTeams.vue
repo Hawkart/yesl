@@ -29,9 +29,15 @@
                                     <a href="javascript:void(0)" class="bg-violet label-recruting" v-if="team.players_needed">Recruiting</a>
                                 </div>
                                 <div class="post-content pb-0">
-                                    <chat-dialog-button :participant='group.owner' :classes="'pa-0 mb-0 full-width'" v-if="team.players_needed && user.id!=group.owner_id && user.type==1">
+
+                                    <!--<chat-dialog-button :participant='group.owner' :classes="'pa-0 mb-0 full-width'" v-if="team.players_needed && user.id!=group.owner_id && user.type==1">
                                         <button type="submit" class="btn btn-sm btn-primary full-width mt-0">Apply</button>
-                                    </chat-dialog-button>
+                                    </chat-dialog-button>-->
+
+                                    <a href="#" @click="applyModalForm(team)"
+                                       data-toggle="modal" data-target="#apply-modal-form"
+                                       v-if="team.players_needed && user.id!=group.owner_id && user.type==1"
+                                       class="btn btn-sm btn-primary full-width mt-0">Apply</a>
 
                                     <a href="#" @click.prevent="edit(team)" data-toggle="modal" data-target="#edit-university-teams" class="btn btn-primary btn-sm full-width"  v-if="user.id==group.owner_id">Edit</a>
                                     <a href="#" @click.prevent="del(team.id)" class="btn btn-grey-lighter btn-sm full-width"  v-if="user.id==group.owner_id">Delete</a>
@@ -79,6 +85,12 @@
                 Event.fire("UniversityTeamAddModalOpen", {
                     'teams': this.teams,
                     'university': this.university
+                });
+            },
+            applyModalForm(team)
+            {
+                Event.fire("ApplyModalOpen", {
+                    'team': team
                 });
             },
             del(id){

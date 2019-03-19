@@ -51,4 +51,12 @@ class Team extends Model
     {
         return $this->belongsTo('App\Models\University');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applications()
+    {
+        return $this->hasMany('App\Models\Application');
+    }
 }

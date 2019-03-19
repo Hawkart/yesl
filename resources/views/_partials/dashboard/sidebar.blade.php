@@ -16,8 +16,21 @@
                     'svg' => 'olymp-menu-icon',
                     'xlink' => '/svg-icons/sprites/icons.svg#olymp-menu-icon',
                     'li_class' => 'js-sidebar-open'
-                ],
-                [
+                ]
+            ];
+
+            if(Auth::user()->isCoach())
+            {
+                $menus[] = [
+                    'title' => 'APPLICATIONS',
+                    'url' => route('applications'),
+                    'svg' => 'fas fa-address-card',
+                    'xlink' => '',
+                    'li_class' => ''
+                ];
+            }
+
+            $menus = array_merge($menus, [[
                     'title' => 'SELECT COLLEGE/UNIVERSITY',
                     'url' => route('universities'),
                     'svg' => 'olymp-newsfeed-icon',
@@ -102,10 +115,11 @@
                     'xlink' => '/svg-icons/sprites/Donations.svg',
                     'li_class' => ''
                 ],*/
-            ];
+            ]);
 
             $pendingFriendsCount = Auth::user()->getPendingIncomingFriends(0)->count();
-            $unreadMessageCount = Auth::user()->unreadMessagesCount(); //newThreadsCount();
+            $unreadMessageCount = Auth::user()->unreadMessagesCount();
+            $applicationsCount = Auth::user()->getCoachApplicationsCount();
         @endphp
 
         <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -130,6 +144,10 @@
 
                             @if($menu['url']=='/im' && $unreadMessageCount>0)
                                 <span class="label-avatar bg-purple">{{$unreadMessageCount}}</span>
+                            @endif
+
+                            @if($menu['url']=='/applications' && $applicationsCount>0)
+                                <span class="label-avatar bg-purple">{{$applicationsCount}}</span>
                             @endif
                         </a>
                         @endif

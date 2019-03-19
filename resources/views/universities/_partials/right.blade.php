@@ -12,6 +12,10 @@
                     $countProfiles = Auth::user()->profiles()->count();
                 @endphp
 
+                @if(Auth::user()->checkUniversityApplicationsExists($group->groupable->id))
+                    <p class="text-danger text-center">You've applied already</p>
+                @endif
+
                 @if((strpos($group->owner->email, '@campusteam.tv')!==false && !empty($group->coach_email)) || strpos($group->owner->email, '@campusteam.tv')===false)
 
                     @if($countProfiles>0)
@@ -24,7 +28,7 @@
                 @endif
 
                 @if(strpos($group->owner->email, '@campusteam.tv')===false)
-                    @if($countProfiles>0 && !empty(Auth::user()->desccription))
+                    @if($countProfiles>0 && !empty(Auth::user()->description))
                         <a href="/universities/{{$group->slug}}/teams" class="btn btn-success btn-xs full-width mt-lg-1 mb-0 btn-apply" id="apply-team-ga">Apply to the Team</a>
                     @else
                         <a href="#" data-toggle="modal" data-target="#warning-resume-profile" class="btn btn-success btn-xs full-width mt-lg-1 mb-0 btn-apply" id="apply-team-ga">Apply to the Team</a>

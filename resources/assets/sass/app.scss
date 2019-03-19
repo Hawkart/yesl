@@ -551,3 +551,6 @@ body, p{
 select.form-control:not([size]):not([multiple]){
     height: auto;
 }
+.forums-table thead {
+    background-color: #003a50;
+}

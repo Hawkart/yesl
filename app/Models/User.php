@@ -16,6 +16,7 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\Models\Media;
 use Hootlex\Friendships\Models\Friendship;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\Application;
 
 class User extends VoyagerUser implements HasMedia
 {
@@ -141,6 +142,14 @@ class User extends VoyagerUser implements HasMedia
     public function university()
     {
         return $this->belongsTo('App\Models\University');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applications()
+    {
+        return $this->hasMany('App\Models\Application');
     }
 
     /**
@@ -335,5 +344,34 @@ class User extends VoyagerUser implements HasMedia
 
             $this->update(['avatar' => $avatar]);
         }
+    }
+
+    public function getCoachApplicationsCount()
+    {
+        if($this->isCoach())
+        {
+            if($this->university)
+                $teams = $this->university->teams()->pluck('id')->toArray();
+            else
+                return 0;
+
+            if($teams)
+                return Application::whereIn('team_id', $teams)
+                            ->where('status', Application::STATUS_PENDING)
+                            ->count();
+        }else{
+            return 0;
+        }
+    }
+
+    /**
+     * @param $university_id
+     * @return bool
+     */
+    public function checkUniversityApplicationsExists($university_id)
+    {
+        return $this->applications()->whereHas('team', function($q) use ($university_id){
+            $q->where('university_id', $university_id);
+        })->count()>0 ? true : false;
     }
 }

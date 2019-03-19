@@ -25,6 +25,9 @@
                             <li>
                                 <a href="{{route('settings.games_profiles')}}">Gamer profiles</a>
                             </li>
+                            <li>
+                                <a href="{{route('settings.applications')}}">Applications</a>
+                            </li>
                             @endif
                             <li>
                                 <a href="{{route('settings.password')}}">Change Password</a>

@@ -64,11 +64,17 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
     Route::get('/{id}/wall', 'UserController@wall');
     Route::get('/{id}/groups', ['as' => 'user.groups', 'uses' => 'UserController@groups']);
     Route::get('/{id}/threads', ['as' => 'user.threads', 'uses' => 'UserController@threads']);
+    Route::get('/{id}/profiles', 'UserController@apiProfiles');
     Route::patch('/',  ['as' => 'users.update', 'uses' => 'UserController@update']);
     Route::patch('/password',  ['as' => 'users.password.update', 'uses' => 'UserController@updatePassword']);
     Route::post('/{id}/threads', ['as' => 'user.threads.search', 'uses' => 'UserController@threads']);
     Route::post('/avatar', 'UserController@updateAvatar');
     Route::post('/overlay', 'UserController@updateOverlay');
+});
+
+Route::group(['prefix' => 'applications', 'middleware' => 'auth'], function () {
+    Route::get('/', 'UserController@applications')->name('applications');
+    Route::post('/', 'ApplicationController@store');
 });
 
 /**
@@ -182,6 +188,7 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
     Route::get('/profiles', ['as' => 'settings.games_profiles', 'uses' => 'UserController@profiles']);
     Route::get('/profiles/add', ['as' => 'settings.profile.add', 'uses' => 'ProfileController@create']);
     Route::get('/profiles/{id}/edit', ['as' => 'settings.profile.edit', 'uses' => 'ProfileController@edit']);
+    Route::get('/applications', ['as' => 'settings.applications', 'uses' => 'UserController@applications']);
 });
 
 /**
@@ -217,6 +224,10 @@ Route::group(['prefix' => 'me', 'middleware' => 'auth'], function () {
 });
 
 //Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
+
 //Route::get('500', ['as' => '500', 'uses' => 'ErrorController@fatal']);
 
 Route::get('/helpers/link_preview', ['uses' => '\App\Acme\Helpers\LinkPreviewHelper@parse']);
+Route::any('/404', function() {
+    return View::make('errors.404', [], 404);
+});
