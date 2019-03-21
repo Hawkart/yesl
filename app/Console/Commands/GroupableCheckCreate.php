@@ -34,10 +34,10 @@ class GroupableCheckCreate extends Command
      */
     public function handle()
     {
-        DB::statement("SET foreign_key_checks=0");
+        /*DB::statement("SET foreign_key_checks=0");
         Group::truncate();
         GroupUser::truncate();
-        DB::statement("SET foreign_key_checks=1");
+        DB::statement("SET foreign_key_checks=1");*/
 
         $universities = University::where('nace', 1)->get();
 

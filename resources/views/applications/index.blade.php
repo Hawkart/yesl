@@ -50,10 +50,10 @@
                                             Date
                                         </th>
                                         <th class="topics text-left">
-                                            Team
+                                            Application
                                         </th>
-                                        <th class="posts text-left">
-                                            Profile
+                                        <th class="topics text-left">
+                                            Team
                                         </th>
                                         <th class="forum">
                                             Message
@@ -70,17 +70,17 @@
                                                     {{$application->created_at->format('Y-m-d')}}
                                                 </td>
                                                 <td class="forum">
-                                                    <a href="/universities/{{$application->team->university->slug}}">
-                                                        {{$application->team->university->title}}
+                                                    <a href="/applications/{{$application->id}}" target="_blank" class="btn btn-primary btn-xs">
+                                                        Resume + Gamer Profile
                                                     </a>
                                                 </td>
                                                 <td class="forum">
-                                                    <a href="/settings/profiles/{{$application->profile_id}}/edit">
+                                                    <a href="/universities/{{$application->team->university->slug}}">
                                                         {{$application->team->game->title}}
                                                     </a>
                                                 </td>
                                                 <td class="forum">
-                                                    {{$application->message}}
+                                                    <a href="#" onclick="document.getElementById('application-message').innerHTML='{{$application->message}}'" data-toggle="modal" data-target="#application-message-modal" class="btn btn-success btn-xs">Show message</a>
                                                 </td>
                                                 <td class="freshness">
                                                     {{App\Models\Application::getStatusTitle($application->status)}}

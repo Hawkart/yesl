@@ -283,6 +283,9 @@
                 });
             },
             addNewTournament: function () {
+                if(this.tournaments==null)
+                    this.tournaments = [];
+
                 this.tournaments.push(Vue.util.extend({}, this.tournament));
                 this.$nextTick(function () {
                     this.materialInit();

@@ -74,6 +74,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'applications', 'middleware' => 'auth'], function () {
     Route::get('/', 'UserController@applications')->name('applications');
+    Route::get('/{id}', 'ApplicationController@show')->name('application');
     Route::post('/', 'ApplicationController@store');
 });
 
@@ -223,11 +224,9 @@ Route::group(['prefix' => 'me', 'middleware' => 'auth'], function () {
     Route::post('/denyFriend', ['uses' => 'UserController@denyFriendRequest']);
 });
 
-//Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
-
-//Route::get('500', ['as' => '500', 'uses' => 'ErrorController@fatal']);
-
 Route::get('/helpers/link_preview', ['uses' => '\App\Acme\Helpers\LinkPreviewHelper@parse']);
+Route::get('/y-combinator', ['uses' => 'HomeController@demoAuth']);
+
 Route::any('/404', function() {
     return View::make('errors.404', [], 404);
 });

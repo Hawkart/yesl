@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.discord_nickname=='' }">
+                        <div class="form-group label-floating" :class="{ 'is-empty': form.discord_nickname=='' }">
                             <label class="control-label">Discord username</label>
                             <input v-model="form.discord_nickname" :class="{ 'is-invalid': form.errors.has('discord_nickname') }" class="form-control" type="text" name="discord_nickname">
                             <has-error :form="form" field="discord_nickname"/>
@@ -134,7 +134,7 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.apply_as==0 || form.apply_as==1">
                         <div class="form-group label-floating required">
-                            <label class="control-label">Сumulative weighted GPA</label>
+                            <label class="control-label">GPA</label>
                             <vue-numeric v-bind:precision="2" v-model="form.gpa" :class="{ 'is-invalid': form.errors.has('gpa') }" class="form-control" name="gpa"></vue-numeric>
                             <has-error :form="form" field="gpa"/>
                         </div>

@@ -52,6 +52,19 @@
     @endif
 @endif
 
+<div class="modal fade" id="application-message-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">Message</h6>
+            </div>
+            <div class="modal-body">
+                <p id="application-message"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <a class="back-to-top" href="#">
     <img src="/svg-icons/back-to-top.svg" alt="arrow" class="back-icon">
 </a>

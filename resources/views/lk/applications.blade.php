@@ -47,7 +47,7 @@
                                                 </a>
                                             </td>
                                             <td class="forum">
-                                                {{$application->message}}
+                                                <a href="#" onclick="document.getElementById('application-message').innerHTML='{{$application->message}}'" data-toggle="modal" data-target="#application-message-modal" class="btn btn-success btn-xs">Show message</a>
                                             </td>
                                             <td class="freshness">
                                                 {{App\Models\Application::getStatusTitle($application->status)}}

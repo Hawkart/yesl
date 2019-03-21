@@ -60,7 +60,6 @@ class UserRequest extends FormRequest {
                             'first_name' => 'required|string|max:255',
                             'last_name' => 'required|string|max:255',
                             'description' => 'required',
-                            'discord_nickname' => 'required',
                             'apply_as' => 'required',
                             'gpa' => 'required|numeric|min:1',
                             'country' => 'required',
