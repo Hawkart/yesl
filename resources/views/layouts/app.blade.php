@@ -150,8 +150,20 @@
         p{
             font-size: 0.95rem;
         }
-        .text-lemon{
-            color: lemonchiffon;
+        .heading-title{
+            color: #c3ebf7;
+        }
+        .section-white{
+            background: #c3ebf7;
+        }
+        .section-white h2.heading-title.text-lemon{
+            color: #003a50;
+        }
+        .section-white .heading-text{
+            color:#000;
+        }
+        .section-white a.text-lemon{
+            color:#fff;
         }
     </style>
 
@@ -225,9 +237,8 @@
 
     <div class="content-bg-wrap"></div>
 
-    <div class="container" id="app">
+    <div @if(Route::currentRouteName()!='welcome') class="container" @endif id="app">
         @yield('content')
-
     </div>
     @include('_partials.landing.footer')
 

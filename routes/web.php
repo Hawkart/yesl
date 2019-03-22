@@ -13,7 +13,7 @@
 
 Route::get('/',  function() {
     return view('welcome');
-})->middleware('guest');
+})->middleware('guest')->name('welcome');
 
 Route::get('/terms', function() {
     return view('terms');

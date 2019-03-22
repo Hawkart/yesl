@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 order-md-0">
                     <div class="landing-content mb-0">
-                        <h2 class="heading-title text-lemon">You surely want to become a pro in Esports?</h2>
+                        <h2 class="heading-title">You surely want to become a pro in Esports?</h2>
 
                         <h4 class="heading-text">With varsity Esports program you will achieve great results under guidance of experienced coaches.
                             Performing for the college Esports team may be the first step
@@ -21,7 +21,7 @@
         </div>
     </section>
 
-    <section class="medium-padding80">
+    <section class="medium-padding80 section-white">
         <div class="container">
             <div class="row display-flex">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -61,7 +61,7 @@
         </div>
     </section>
 
-    <section class="medium-padding80">
+    <section class="medium-padding80 section-white">
         <div class="container">
             <div class="row display-flex">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -101,7 +101,7 @@
         </div>
     </section>
 
-    <section class="medium-padding80">
+    <section class="medium-padding80 section-white">
         <div class="container">
             <div class="row display-flex">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
