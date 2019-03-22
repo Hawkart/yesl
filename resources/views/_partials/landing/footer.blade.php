@@ -17,13 +17,12 @@
                         </div>
                     </a>
 
-                    <p>CampusTeam is the social media around varsity Esports.</p>
+                    <p>CampusTeam is a social media around varsity Esports.</p>
                     <p>
-                        <strong>Address:</strong>
                         220 East 23rd Street, New York, NY 10010
                     </p>
                     <p>
-                        <strong>Phone Number:</strong> (315) 636-5354
+                        (315) 636-5354
                     </p>
                     <ul class="socials">
                         <li>
@@ -32,7 +31,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://twitter.com/campusteam1" target="_blank">
                                 <i class="fab fa-twitter" aria-hidden="true"></i>
                             </a>
                         </li>
@@ -48,9 +47,6 @@
                         </li>
                     </ul>
                 </div>
-
-                <!-- ... end Widget About -->
-
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -59,7 +55,7 @@
                 <!-- Widget List -->
 
                 <div class="widget w-list">
-                    <h6 class="title">Main Links</h6>
+                    <h6 class="title">Let’s get started</h6>
                     <ul>
                         <li>
                             <a href="/">Home</a>
@@ -68,17 +64,17 @@
                             <a href="/login">Login</a>
                         </li>
                         <li>
-                            <a href="/register">Register as Athlete</a>
+                            <a href="/register">Register as an Athlete</a>
                         </li>
                         <li>
-                            <a href="/register-coach">Register as Coach</a>
+                            <a href="/register-coach">Register as a Coach</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                 <div class="widget w-list">
-                    <h6 class="title">Features</h6>
+                    <h6 class="title">What’s next</h6>
                     <ul>
                         <li>
                             <a href="/universities">Select college/university</a>
@@ -87,10 +83,10 @@
                             <a href="/write-to-coach">Write message to the coach</a>
                         </li>
                         <li>
-                            <a href="/apply-to-team">Apply to team</a>
+                            <a href="/apply-to-team">Apply to a team</a>
                         </li>
                         <li>
-                            <a href="/feeds">Read newsfeed</a>
+                            <a href="/feeds">Read the newsfeed</a>
                         </li>
                     </ul>
                 </div>
@@ -106,10 +102,10 @@
                             <a href="/friends">Find friends</a>
                         </li>
                         <li>
-                            <a href="/im">Send message</a>
+                            <a href="/im">Exchange messages</a>
                         </li>
                         <li>
-                            <a href="/games">Games</a>
+                            <a href="/games">Explore Games</a>
                         </li>
                     </ul>
                 </div>
@@ -124,7 +120,7 @@
                             <a href="/about">About</a>
                         </li>
                         <li>
-                            <a href="/contacts">Contacts</a>
+                            <a href="/contacts">Contact us</a>
                         </li>
                         <li>
                             <a href="/legal/confidential">Privacy Policy</a>

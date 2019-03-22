@@ -200,7 +200,7 @@ class RegisterController extends Controller
 
         $this->sendGuide($user);
 
-        return redirect('login')->with('status', "Your mail has been verified! Now you can <a href='/login'>login</a> to the website");
+        return redirect('login')->with('status', "Your mail has been verified! Now you can login to the website");
     }
 
     /**

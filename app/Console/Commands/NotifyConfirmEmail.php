@@ -31,7 +31,11 @@ class NotifyConfirmEmail extends Command
     public function handle()
     {
         $now = Carbon::now()->format('d');
-        $users = User::where('verified', 0)->whereDay('created_at', '<', $now);
+        $from = Carbon::now()->subDays(3)->format('d');
+
+        $users = User::where('verified', 0)
+            ->whereDay('created_at', '<', $now)
+            ->whereDay('created_at', '>=', $from);
 
         if($users->count()>0)
         {

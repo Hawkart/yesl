@@ -150,6 +150,9 @@
         p{
             font-size: 0.95rem;
         }
+        .text-lemon{
+            color: lemonchiffon;
+        }
     </style>
 
     @if (app()->environment() === 'production')
