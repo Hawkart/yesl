@@ -230,3 +230,29 @@ Route::get('/y-combinator', ['uses' => 'HomeController@demoAuth']);
 Route::any('/404', function() {
     return View::make('errors.404', [], 404);
 });
+
+
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+    Route::get('/search', [
+        'as' => 'api.search',
+        'uses' => 'Api\SearchController@search'
+    ]);
+
+    /*Route::apiResource('channels', 'Api\ChannelController');
+    Route::apiResource('comments', 'Api\CommentController');
+    Route::apiResource('games', 'Api\GameController');
+    Route::apiResource('genres', 'Api\GenreController');        //done
+    Route::apiResource('groups', 'Api\GroupController');
+    Route::apiResource('likes', 'Api\LikeController');
+    Route::apiResource('majors', 'Api\MajorController');
+    Route::apiResource('medias', 'Api\MediaController');
+    Route::apiResource('messages', 'Api\MessageController');
+    Route::apiResource('posts', 'Api\PostController');
+    Route::apiResource('profiles', 'Api\ProfileController');
+    Route::apiResource('teams', 'Api\TeamController');
+    Route::apiResource('tournaments', 'Api\TournamentController');
+    Route::get('universities/filter', 'Api\UniversityController@filter');
+    Route::apiResource('universities', 'Api\UniversityController');
+    Route::apiResource('states', 'Api\StateController');        //done
+    Route::apiResource('users', 'Api\UserController');*/
+});

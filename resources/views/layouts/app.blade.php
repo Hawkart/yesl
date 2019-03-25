@@ -257,7 +257,6 @@
     <script src="{{ asset('js/material.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-select.js') }}"></script>
     <script src="{{ asset('js/smooth-scroll.js') }}"></script>
-    <script src="{{ asset('js/selectize.js') }}"></script>
     <script src="{{ asset('js/isotope.pkgd.js') }}"></script>
     <script src="{{ asset('js/base-init.js') }}"></script>
     <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>

@@ -77,10 +77,10 @@
                     <h6 class="title">What’s next</h6>
                     <ul>
                         <li>
-                            <a href="/universities">Select college/university</a>
+                            <a href="/universities">Select a college/university</a>
                         </li>
                         <li>
-                            <a href="/write-to-coach">Write message to the coach</a>
+                            <a href="/write-to-coach">Write message to a coach</a>
                         </li>
                         <li>
                             <a href="/apply-to-team">Apply to a team</a>

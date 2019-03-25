@@ -33,16 +33,20 @@ class VarsityParser extends Command
         $client = new Client(['cookies' => true]);
         $uri = 'https://www.varsityesports.com/api/user/getUserProfile';
 
-        for($userId = 100; $userId < 1000; $userId++)
+        $userId = intval($this->getLastUserId())+1;
+        while($userId>0)
         {
             echo $userId."\n";
             try {
                 $res = $client->post($uri, [
                     'form_params' => [
-                        'userId' => $userId//13174
+                        'userId' => $userId
                     ]
                 ]);
                 $res = json_decode($res->getBody()->getContents(), true);
+
+                if($res==null)
+                    break;
 
                 if(isset($res['user']))
                 {
@@ -65,14 +69,18 @@ class VarsityParser extends Command
                     }
                 }
 
-                usleep(300000); //0,3 sec
+                usleep(200000); //0,3 sec
+                $userId++;
             } catch (\Exception $e) {
 
             }
         }
     }
 
-    private function add($data)
+    /**
+     * @return string
+     */
+    protected function getFilePath()
     {
         $dir = 'public';
         Storage::makeDirectory($dir);
@@ -82,9 +90,28 @@ class VarsityParser extends Command
         if(!file_exists($path))
             Storage::disk('local')->put($dir.'/'.$filename, '');
 
+        return $path;
+    }
+
+    /**
+     * @param $data
+     */
+    private function add($data)
+    {
+        $path = $this->getFilePath();
         $content = json_decode(file_get_contents($path), true);
         $content['page'] = $data['user']['id'];
         $content[] = $data;
         file_put_contents($path, json_encode($content));
+    }
+
+    /**
+     * @return int
+     */
+    private function getLastUserId()
+    {
+        $path = $this->getFilePath();
+        $content = json_decode(file_get_contents($path), true);
+        return $content['page'] ? $content['page'] : 0;
     }
 }

@@ -133,20 +133,10 @@
 <script src="{{ asset('js/Headroom.js') }}"></script>
 <script src="{{ asset('js/velocity.js') }}"></script>
 <script src="{{ asset('js/ScrollMagic.js') }}"></script>
-<script src="{{ asset('js/jquery.waypoints.js') }}"></script>
-<script src="{{ asset('js/jquery.countTo.js') }}"></script>
 <script src="{{ asset('js/material.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-select.js') }}"></script>
 <script src="{{ asset('js/smooth-scroll.js') }}"></script>
-<script src="{{ asset('js/selectize.js') }}"></script>
 <script src="{{ asset('js/isotope.pkgd.js') }}"></script>
-<script src="{{ asset('js/ajax-pagination.js') }}"></script>
-<script src="{{ asset('js/Chart.js') }}"></script>
-<script src="{{ asset('js/chartjs-plugin-deferred.js') }}"></script>
-<script src="{{ asset('js/circle-progress.js') }}"></script>
-<script src="{{ asset('js/loader.js') }}"></script>
-<script src="{{ asset('js/run-chart.js') }}"></script>
-
 <script src="{{ asset('js/base-init.js') }}"></script>
 <script defer src="{{ asset('fonts/fontawesome-all.js') }}"></script>
 
