@@ -20,7 +20,7 @@
 
                     @if($countProfiles>0)
                         <chat-dialog-button :participant='{{json_encode($group->owner->toArray()) }}' :group_id = "{{$group->id}}" :classes="'pa-0 full-width mb-0'">
-                            <button type="submit" class="btn bg-violet btn-xs full-width mt-0">Write Message to the Coach</button>
+                            <button type="submit" class="btn bg-violet btn-xs full-width mt-0">Write Message to a Coach</button>
                         </chat-dialog-button>
                     @else
                         <a href="#" data-toggle="modal" data-target="#warning-profile" class="btn bg-violet btn-xs full-width mt-0">Write Message to the Coach</a>

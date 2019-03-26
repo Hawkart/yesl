@@ -51,8 +51,8 @@ class Kernel extends ConsoleKernel
                     ->dailyAt('13:00')
                     ->timezone('America/New_York');
 
-        $schedule->command('users:varsity-parser')
-                    ->hourly();
+        //$schedule->command('users:varsity-parser')
+                    //->hourly();
     }
 
     /**

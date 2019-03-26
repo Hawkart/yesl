@@ -60,16 +60,17 @@ class ApplicationController extends Controller
         {
             $result->load(['team.university', 'team.university.owner', 'team.game', 'user']);
             $university = $result->team->university;
+            $group = $university->group;
 
-            if(strpos($university->owner->email, 'campusteam.tv')===false)
+            if(isset($group->owner) && strpos($group->owner->email, 'campusteam.tv')===false)
             {
                 $data = [
                     'game' => $result->team_game,
                     'user' => $result->user,
-                    'coach' => $university->owner,
+                    'coach' => $group->owner,
                     'application' => $result
                 ];
-                Mail::to($university->owner->email)->send(new EmailApplicationToCoach($data));
+                Mail::to($group->owner->email)->send(new EmailApplicationToCoach($data));
             }
 
             return response()->json([
@@ -125,7 +126,15 @@ class ApplicationController extends Controller
         if($application->team->university->group->owner_id==Auth::user()->id)
         {
             $application->update($request->only('status'));
-            return redirect('applications')->with('status', "Application status has been updated");
+
+            if($request->get('status')==1)
+            {
+                $message = "Application status has been updated. Write message to athlete about datetime of interview.";
+            }else{
+                $message = "Application status has been updated.";
+            }
+
+            return redirect('applications')->with('status', $message);
         }else{
             abort(404);
         }

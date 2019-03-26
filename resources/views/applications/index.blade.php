@@ -84,6 +84,12 @@
                                                 </td>
                                                 <td class="freshness">
                                                     {{App\Models\Application::getStatusTitle($application->status)}}
+
+                                                    @if($application->status==1)
+                                                        <chat-dialog-button :participant='{{json_encode($application->user->toArray()) }}' :group_id = "0" :classes="'pa-0 full-width mb-0'">
+                                                            <button type="submit" class="btn bg-violet btn-xs full-width mt-0">Write Message to the Athlete</button>
+                                                        </chat-dialog-button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
