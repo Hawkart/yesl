@@ -25,7 +25,7 @@ class UniversityResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'nace' => $this->nace,
-            'image' => $this->image,        //Todo: add link to image
+            'image' => $this->image ? Storage::disk('public')->url($this->image) : '',
             'logo' =>  $this->logo ? Storage::disk('public')->url($this->logo) : '/img/university-logo-default.jpg',
             'overlay' => $this->overlay,
             'slug' => $this->slug,
@@ -72,6 +72,7 @@ class UniversityResource extends JsonResource
             'grad_students' => $this->grad_students,
             'degrees_awarded_highest' => $this->degrees_awarded_highest,
             'twitter_str' => $this->twitter_str,
+
             'group' => new GroupResource($this->whenLoaded('group')),
             'posts' => PostResource::collection($this->whenLoaded('posts')),
             'teams' => TeamResource::collection($this->whenLoaded('teams')),

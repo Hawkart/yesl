@@ -14,6 +14,13 @@ class GameUniversityResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'university_id' => $this->university_id,
+            'game_id' => $this->game_id,
+
+            'game' => new GameResource($this->whenLoaded('group')),
+            'university' => new UniversityResource($this->whenLoaded('university'))
+        ];
     }
 }

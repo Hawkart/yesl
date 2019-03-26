@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GameRoleResource extends JsonResource
+class ThreadResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,12 @@ class GameRoleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'image' => $this->image ? Storage::disk('public')->url($this->image) : '',
-            'game_id' => $this->game_id,
+            'subject' => $this->subject,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
 
-            'game' => new GameResource($this->whenLoaded('game'))
+            'messages' => MessageResource::collection($this->whenLoaded('messages')),
         ];
     }
 }

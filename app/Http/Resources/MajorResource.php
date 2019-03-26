@@ -19,6 +19,7 @@ class MajorResource extends JsonResource
             'title' => $this->title,
             'code' => $this->code,
             'sort' => $this->sort,
+
             'universities' => UniversityResource::collection($this->whenLoaded('universities')),
         ];
     }

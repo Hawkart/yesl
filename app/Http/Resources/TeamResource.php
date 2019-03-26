@@ -14,6 +14,14 @@ class TeamResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'university_id' => $this->university_id,
+            'game_id' => $this->game_id,
+
+            'university' => new UniversityResource($this->whenLoaded('university')),
+            'game' => new GameResource($this->whenLoaded('game'))
+        ];
     }
 }

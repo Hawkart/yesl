@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LikeResource extends JsonResource
+class ParticipantResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +16,14 @@ class LikeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'likeable_type' => $this->likeable_type,
-            'likeable_id' => $this->likeable_id,
+            'thread_id' => $this->thread_id,
             'user_id' => $this->user_id,
-            'deleted_at' => $this->deleted_at,
+            'last_read' => $this->last_read,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
 
+            'thread' => new ThreadResource($this->whenLoaded('thread')),
             'user' => new UserResource($this->whenLoaded('user'))
         ];
     }

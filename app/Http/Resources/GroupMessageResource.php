@@ -3,8 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\PostResource;
+use Storage;
 
-class LikeResource extends JsonResource
+class GroupMessageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,14 +19,13 @@ class LikeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'likeable_type' => $this->likeable_type,
-            'likeable_id' => $this->likeable_id,
-            'user_id' => $this->user_id,
-            'deleted_at' => $this->deleted_at,
+            'from' => $this->from,
+            'body' => $this->body,
+            'group_id' => $this->group_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
-            'user' => new UserResource($this->whenLoaded('user'))
+            'group' => new GroupResource($this->whenLoaded('group'))
         ];
     }
 }

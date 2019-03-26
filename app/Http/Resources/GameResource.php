@@ -37,13 +37,15 @@ class GameResource extends JsonResource
             'overlay' => $this->overlay,
             'cross_block' => $this->cross_block,
             'social_provider' => $this->social_provider,
+            'rank_in' => $this->rank_in,
+            'main_profile_name' => $this->main_profile_name,
+            'additional_profile_name' => $this->additional_profile_name,
+            'dev_company' => $this->dev_company,
 
             'group' => new GroupResource($this->whenLoaded('group')),
             'genre' => new GenreResource($this->whenLoaded('genre')),
             'roles' => GameRoleResource::collection($this->whenLoaded('roles')),
             'profiles' => ProfileResource::collection($this->whenLoaded('profiles')),
-            //'fights' => FightResource::collection($this->whenLoaded('fights')),
-            'tournaments' => TournamentResource::collection($this->whenLoaded('tournaments')),
             'teams' => TeamResource::collection($this->whenLoaded('teams')),
             'universities' => UniversityResource::collection($this->whenLoaded('universities')),
         ];

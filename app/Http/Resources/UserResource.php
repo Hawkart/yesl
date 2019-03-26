@@ -33,7 +33,7 @@ class UserResource extends JsonResource
             'email' => $this->when(Auth::user() && Auth::user()->id==$this->id, $this->email),
             'role_id' => $this->role_id,
             'avatar' => $this->avatar ? Storage::disk('public')->url($this->avatar) : '',
-            'overlay' => $this->overlay,    //Todo: add link to overlay
+            'overlay' => $this->overlay ? Storage::disk('public')->url($this->overlay) : '/img/top_header2.jpg',
             'confirmation_code' => $this->confirmation_code,
             'notify' => $this->notify,
             'timezone' => $this->timezone,

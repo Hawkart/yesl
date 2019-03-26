@@ -21,7 +21,7 @@ class GroupResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'image' => $this->image ? Storage::disk('public')->url($this->image) : '/img/author-main1.jpg',
-            'cover' => $this->cover,    //Todo: add link to cover
+            'cover' => $this->cover ? Storage::disk('public')->url($this->cover) : '/img/top_header2.jpg',
             'owner_id' => $this->owner_id,
             'description' => $this->description,
             'groupable_type' => $this->groupable_type,
@@ -30,6 +30,9 @@ class GroupResource extends JsonResource
             'coach_last_name' => $this->coach_last_name,
             'coach_email' => $this->coach_email,
             'slug' => $this->slug,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+
             'owner' => new UserResource($this->whenLoaded('owner')),
             'posts' => PostResource::collection($this->whenLoaded('posts')),
         ];

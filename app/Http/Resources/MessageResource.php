@@ -21,7 +21,10 @@ class MessageResource extends JsonResource
             'body' => $this->body,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at
+            'deleted_at' => $this->deleted_at,
+
+            'thread' => new ThreadResource($this->whenLoaded('thread')),
+            'user' => new UserResource($this->whenLoaded('user'))
         ];
     }
 }

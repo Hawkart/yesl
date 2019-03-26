@@ -23,6 +23,7 @@ class GenreResource extends JsonResource
             'image' => $this->image,
             'desc' => $this->desc,
             'video_count' => $this->video_count,
+
             'games' => GameResource::collection($this->whenLoaded('games'))
         ];
     }

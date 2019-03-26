@@ -14,6 +14,13 @@ class MajorUniversityResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'major_id' => $this->major_id,
+            'university_id' => $this->university_id,
+
+            'major' => new MajorResource($this->whenLoaded('major')),
+            'university' => new UniversityResource($this->whenLoaded('university'))
+        ];
     }
 }

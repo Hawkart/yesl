@@ -31,6 +31,9 @@ class ProfileResource extends JsonResource
             'rank_image' => $this->rank_image,
             'progress' => $this->progress,
             'have_banned' => $this->have_banned,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
 
             'user' => new UserResource($this->whenLoaded('user')),
             'game' => new GameResource($this->whenLoaded('game')),

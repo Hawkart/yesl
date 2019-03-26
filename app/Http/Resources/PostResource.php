@@ -23,6 +23,7 @@ class PostResource extends JsonResource
             'group_id' => $this->group_id,
             'parent_id' => $this->parent_id,
             'additional' => $this->additional,
+
             'user' => new UserResource($this->whenLoaded('user')),
             'group' => new GroupResource($this->whenLoaded('group')),
             'parent' => new PostResource($this->whenLoaded('parent')),
