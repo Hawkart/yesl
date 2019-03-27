@@ -120,6 +120,7 @@ $style = [
                             <tr>
                                 <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
                                     <p style="{{ $style['paragraph-sub'] }}">
+                                        <a href="%tag_unsubscribe_url%" style="{{$style['paragraph-center']}}">Unsubscribe</a><br>
                                         &copy; {{ date('Y') }}
                                         <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
                                         All rights reserved.

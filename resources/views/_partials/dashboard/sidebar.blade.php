@@ -38,7 +38,7 @@
                     'li_class' => ''
                 ],
                 [
-                    'title' => 'Write Message to the Coach',
+                    'title' => 'Write Message to a Coach',
                     'url' => route('universities.write_to_coach'),
                     'svg' => 'far fa-envelope',
                     'xlink' => '',

@@ -30,6 +30,9 @@
                             <a href="{{url('/contacts')}}" class="nav-link">Contacts</a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{url('/news')}}" class="nav-link">News</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/login" class="nav-link">Login</a>
                         </li>
                         <li class="nav-item">

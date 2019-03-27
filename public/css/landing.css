@@ -1,0 +1,139 @@
+.registration-login-form{
+    padding-left: 0;
+    border-radius: 0;
+    min-height: 200px;
+}
+body{
+    background: #003a50;
+}
+.pa-0{
+    padding: 0!important;
+}
+.landing-page .content-bg-wrap{
+    -webkit-animation: none;
+    animation: none;
+}
+
+.landing-page .content-bg-wrap:before {
+    background-color: rgba(0,58,80,0.8);
+}
+.ui-block-title.ui-block-title-small .title{
+    font-size: 11px;
+}
+
+/**
+ ** Select-2
+ */
+.select2-container--default .select2-selection--single{
+    border: 1px solid #e6ecf5;
+}
+
+.select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 50px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 50px;
+}
+
+.alert-dismissible .close{
+    top: 0;
+}
+
+/**
+ ** Calendar
+ */
+.vdp-datepicker__calendar{
+    width: 260px !important;
+}
+.vdp-datepicker.is-invalid input
+{
+    border-color: #dc3545;
+}
+.vdp-datepicker__calendar .cell{
+    height: 28px !important;
+    line-height: 28px !important;
+}
+
+.btn-blue {
+    background-color: #1b76bc;
+}
+.btn-blue:hover {
+    opacity: 1;
+    color: #fff;
+    background-color: #1a5d90;
+}
+.btn-lg{
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.975rem;
+}
+.socials i, .socials svg{
+    font-size: 22px!important;
+}
+.btn{
+    white-space: inherit;
+}
+
+.a2a_vertical_style{
+    right:0;
+    top:150px;
+}
+
+@media (max-width: 460px)
+{
+    .a2a_vertical_style {
+        bottom: 0;
+        top: auto;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+    }
+
+    .a2a_vertical_style a{
+        display: inline-block!important;
+        clear: none!important;
+    }
+
+    .a2a_floating_style{
+        border-radius: 0!important;
+    }
+
+    .header--standard-wrap {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+    }
+
+    .open-responsive-menu{
+        position: absolute;
+        top: 20px;
+        right: 0;
+    }
+
+    .header-spacer--standard {
+        height: 30px;
+    }
+
+    .sub-footer-copyright{
+        margin-top: 0;
+    }
+}
+p{
+    font-size: 0.95rem;
+}
+.heading-title{
+    color: #c3ebf7;
+}
+.section-white{
+    background: #c3ebf7;
+}
+.section-white h2.heading-title.text-lemon{
+    color: #003a50;
+}
+.section-white .heading-text{
+    color:#000;
+}
+.section-white a.text-lemon{
+    color:#fff;
+}

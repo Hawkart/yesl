@@ -38,6 +38,9 @@ Route::get('/contacts', function() {
     return view('contacts');
 });
 
+Route::get('/news', 'NewsController@index')->name('news');
+Route::get('/news/{slug}', 'NewsController@show')->name('news-post');
+
 /**
  * Admin
  */
