@@ -17,10 +17,12 @@
                             </a>
 
                             <a href="{!! route('news-post', ['slug' => $post->slug]) !!}" class="h4 post-title">
-                                {{$post->sub_title}}
+                                {{$post->subtitle}}
                             </a>
 
-                            <p>{{$post->body}}</p>
+                            <div>
+                                {!!$post->body!!}
+                            </div>
 
                             <div class="author-date">
                                 <a class="h6 post__author-name fn" href="#">{{$post->city}}, {{$post->country}}</a>
@@ -57,6 +59,9 @@
                                         <div class="post-content">
                                             <a href="{!! route('news-post', ['slug' => $post->slug]) !!}" class="h4 post-title">
                                                 {{$post->title}}
+                                            </a>
+                                            <a href="{!! route('news-post', ['slug' => $post->slug]) !!}" class="h5 post-title">
+                                                {{$post->subtitle}}
                                             </a>
                                             <div class="author-date">
                                                 <a class="h6 post__author-name fn" href="#">{{$post->city}}, {{$post->country}}</a>

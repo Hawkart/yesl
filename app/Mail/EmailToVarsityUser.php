@@ -33,6 +33,6 @@ class EmailToVarsityUser extends Mailable
             ->with('data', $this->data)
             ->from($address, $name)
             ->replyTo($address, $name)
-            ->subject("For ".$this->data['nickname']." Esports scholarships opportunities");
+            ->subject("For ".$this->data->nickname." Esports scholarships opportunities");
     }
 }

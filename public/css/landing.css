@@ -137,3 +137,8 @@ p{
 .section-white a.text-lemon{
     color:#fff;
 }
+
+.h5.post-title{
+    font-weight: 300;
+    font-size: 1.2rem;
+}

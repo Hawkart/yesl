@@ -61,7 +61,7 @@ $style = [
                                 <td style="{{ $fontFamily }} {{ $style['email-body_cell'] }}">
                                     <!-- Greeting -->
                                     <h1 style="{{ $style['header-1'] }}">
-                                        Dear {{$data['name']}},
+                                        Dear {{$data->name}},
                                     </h1>
 
                                     <!-- Intro -->

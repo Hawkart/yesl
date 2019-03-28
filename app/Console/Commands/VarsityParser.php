@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 use App\Mail\EmailToVarsityUser;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
+use App\Models\VarsityUser;
 use Storage;
 use Mail;
 
@@ -33,7 +34,10 @@ class VarsityParser extends Command
         $client = new Client(['cookies' => true]);
         $uri = 'https://www.varsityesports.com/api/user/getUserProfile';
 
+        $this->migrateToDb();
+
         $userId = intval($this->getLastUserId())+1;
+
         while($userId>0)
         {
             echo $userId."\n";
@@ -50,26 +54,13 @@ class VarsityParser extends Command
 
                 if(isset($res['user']))
                 {
-                    $user = $res['user'];
-                    $this->add($res);
+                    $user = $this->add($res);
 
-                    if(isset($user['email']))
-                    {
-                        $data = [
-                            'name' => stristr($user['name'], '"')!==false ? stristr($user['name'], '"', true) : $user['name']
-                        ];
-                        if (preg_match('/"([^"]+)"/', $user['name'], $m))
-                        {
-                            $data['nickname'] = $m[1];
-                        }else{
-                            $data['nickname'] = $user['name'];
-                        }
-
-                        Mail::to($user['email'])->send(new EmailToVarsityUser($data));
-                    }
+                    if(!empty($user->email))
+                        Mail::to($user->email)->send(new EmailToVarsityUser($user));
                 }
 
-                usleep(200000); //0,3 sec
+                usleep(200000); //0,2 sec
                 $userId++;
             } catch (\Exception $e) {
 
@@ -94,24 +85,66 @@ class VarsityParser extends Command
     }
 
     /**
-     * @param $data
-     */
-    private function add($data)
-    {
-        $path = $this->getFilePath();
-        $content = json_decode(file_get_contents($path), true);
-        $content['page'] = $data['user']['id'];
-        $content[] = $data;
-        file_put_contents($path, json_encode($content));
-    }
-
-    /**
      * @return int
      */
     private function getLastUserId()
     {
-        $path = $this->getFilePath();
-        $content = json_decode(file_get_contents($path), true);
-        return $content['page'] ? $content['page'] : 0;
+        if($u = VarsityUser::all()->last())
+            return $u->varsity_id;
+
+        return 0;
+    }
+
+    /**
+     * Migrate from file to DB
+     */
+    private function migrateToDb()
+    {
+        if(VarsityUser::all()->count()==0)
+        {
+            $path = $this->getFilePath();
+            $content = json_decode(file_get_contents($path), true);
+
+            foreach($content as $key=>$res)
+            {
+                $this->add($res);
+            }
+        }
+    }
+
+    /**
+     * @param $res
+     */
+    private function add($res)
+    {
+        if(isset($res['user']))
+        {
+            $user = $res['user'];
+
+            if (VarsityUser::where('varsity_id', $user['id'])->count() == 0 && isset($user['name']))
+            {
+                $name = stristr($user['name'], '"') !== false ? stristr($user['name'], '"', true) : $user['name'];
+                $nickname = $user['name'];
+
+                if (preg_match('/"([^"]+)"/', $user['name'], $m))
+                    $nickname = $m[1];
+
+                if(strlen($nickname)>100)
+                    $nickname = substr($nickname, 0, 100);
+
+                echo $nickname."\n";
+
+                return VarsityUser::create([
+                    'varsity_id' => $user['id'],
+                    'name' => trim($name),
+                    'nickname' => $nickname,
+                    'email' => isset($user['email']) ? $user['email'] : '',
+                    'club_id' => count($res['clubs']) > 0 ? $res['clubs'][0]['clubId'] : 0,
+                    'json' => $res
+                ]);
+            }
+        }
+
+        return false;
     }
 }

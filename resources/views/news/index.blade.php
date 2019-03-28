@@ -20,6 +20,9 @@
                                     <a href="{!! route('news-post', ['slug' => $post->slug]) !!}" class="h4 post-title">
                                        {{$post->title}}
                                     </a>
+                                    <a href="{!! route('news-post', ['slug' => $post->slug]) !!}" class="h5 post-title">
+                                        {{$post->subtitle}}
+                                    </a>
                                     <p>{{$post->excerpt}}</p>
 
                                     <div class="author-date">

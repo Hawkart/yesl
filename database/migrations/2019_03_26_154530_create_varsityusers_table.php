@@ -15,6 +15,13 @@ class CreateVarsityusersTable extends Migration
     {
         Schema::create('varsityusers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('varsity_id');
+            $table->string('name');
+            $table->string('nickname')->nullable();
+            $table->string('email')->nullable();
+            $table->integer("club_id")->nullable();
+            $table->text("json");
+
             $table->timestamps();
         });
     }
