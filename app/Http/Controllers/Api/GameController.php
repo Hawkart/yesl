@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use \GiantBomb\Client\GiantBombClient;
-use App\Acme\Helpers\TwitchHelper;
-use Illuminate\Support\Str;
 use App\Models\Genre;
 use App\Models\Game;
 use App\Models\Group;
+use App\Models\GroupUser;
 use Storage;
 use Image;
 use File;
@@ -16,6 +15,7 @@ use Cache;
 use DB;
 use App\Http\Resources\GameResource;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\Filter;
 
 class GameController extends Controller
 {
@@ -26,37 +26,11 @@ class GameController extends Controller
      */
     public function index(Request $request)
     {
-        /*$games = Game::all();
-
-        if ($request->expectsJson() && $request->ajax())
-        {
-            return response()->json($games, 200);
-        }else{
-            $groups = Group::orderBy('id', 'asc')
-                ->where('groupable_type', 'App\Models\Game')
-                ->search($request)->paginate(12);
-
-            $genres_id = Game::pluck('genre_id')->toArray();
-            $genres_id = array_unique($genres_id);
-            $genres = Genre::whereIn('id', $genres_id)->pluck('title', 'id')->toArray();
-            $genres = ['0' => 'Select genres'] + $genres;
-
-            $this->seo()->setTitle("Games");
-
-            return view('games.index', compact('groups', 'genres'));
-        }*/
-
         $games = QueryBuilder::for(Game::class)
             ->allowedIncludes(['group'])
-            ->search($request);
-            //->allowedFilters('name');
-
-        if($request->has('page'))
-        {
-            $games = $games->paginate($request->has('limit') ? $request->get('limit') : 12);
-        }else{
-            $games = $games->get();
-        }
+            ->search($request)
+            //->allowedFilters('name')
+            ->jsonPaginate();
 
         return GameResource::collection($games);
     }
@@ -69,7 +43,6 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -78,9 +51,12 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game)
+    public function show($id)      //Game $game
     {
-        $game->load(['group']);
+        $game = QueryBuilder::for(Game::class)
+            ->allowedIncludes(['group'])
+            ->findOrFail($id);
+
         return new GameResource($game);
     }
 
@@ -93,7 +69,6 @@ class GameController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -104,29 +79,24 @@ class GameController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 
     /**
      * Import games from Giantbomb.com and Twitch by API.
-     *
-     * @throws \TwitchApi\Exceptions\ClientIdRequiredException
-     * @throws \TwitchApi\Exceptions\InvalidLimitException
-     * @throws \TwitchApi\Exceptions\InvalidOffsetException
      */
     public function importByTwitchGiantbomb()
     {
         $arGenres = Genre::all()->pluck('id', 'giantbomb_id');
-        
+
         $twitchClient = new \TwitchApi\TwitchApi([
             'client_id' => env('TWITCH_API_CLIENT_ID'),
         ]);
-        
+
         $giantbombClient = GiantBombClient::factory([
             'apiKey' => env('GIANTBOMB_API_CLIENT'),
-        	'cache'  => null
+            'cache'  => null
         ]);
-        
+
         $count = 0;
         $limit = 100;
         $offset = 0;
@@ -135,7 +105,7 @@ class GameController extends Controller
             $responseTwitch = $twitchClient->getTopGames((int)$limit, (int)$offset);
             $total = intval($responseTwitch['_total']);
             $games = $responseTwitch["top"];
-            
+
             foreach($games as $arGame)
             {
                 $giantbomb_id = $arGame["game"]["giantbomb_id"];
@@ -143,8 +113,8 @@ class GameController extends Controller
 
                 //Get Game by Giant id
                 $response = $giantbombClient->getGame(['id' => $giantbomb_id]);
-                if( $response->getStatusCode() === 1 ) 
-                {        
+                if( $response->getStatusCode() === 1 )
+                {
                     $game = $response->getResults();
 
                     if(Game::where('title', $game->getName())->count()>0)
@@ -174,7 +144,7 @@ class GameController extends Controller
                     {
                         $path = str_replace("https", "http", $arGame['game']['box']['large']);
                         $extension = strtolower(File::extension(basename($path)));
-                        
+
                         if(in_array($extension, ["jpg", "jpeg", "png"]) && !empty($path))
                         {
                             $logo = 'games/'.basename($path);
@@ -185,7 +155,7 @@ class GameController extends Controller
 
                     //Make array images
                     $arImages = [];
-                    $images = $game->getImages();                
+                    $images = $game->getImages();
                     foreach($images as $arImage)
                     {
                         $path = $arImage['medium_url'];
@@ -196,7 +166,7 @@ class GameController extends Controller
                             $image = str_replace(array("%", "+", ":"), "", $image);
                             Image::make($path)->save(public_path("storage/".$image));
                             $arImages[] = $image;
-                            
+
                             if(count($arImages)==10) break;
                         }
                     }
@@ -213,7 +183,7 @@ class GameController extends Controller
                             $image = str_replace(array("%", "+", ":"), "", $image);
                             Image::make($path)->save(public_path("storage/".$image));
                             $overlay = $image;
-                            
+
                             break;
                         }
                     }
@@ -229,16 +199,16 @@ class GameController extends Controller
                         'genre_id'    => $arGenres[$genre_id],
                         'images'      => json_encode($arImages),
                         'logo'        => $logo,
-                        'overlay'     => $overlay,  
+                        'overlay'     => $overlay,
                         'body'        => $game->getDeck(),
                         'online'      => true,
                         'alias'       => $aliases[0]
-        	        ];
-    
-        	        Game::create($data);
+                    ];
+
+                    Game::create($data);
                 }
             }
-            
+
             $count+= $limit;//count($games);
             $offset+= $limit;
 
@@ -254,12 +224,16 @@ class GameController extends Controller
      */
     public function checkAllowed($title, $aliases)
     {
-        $names = ['Gears of War', 'Call Of Duty', 'HALO', 'League of Legends', 'Street Fighter', 'CS:GO', 'HEARTHSTONE', 'OVERWATCH', 'WORLD OF WARCRAFT',
-            'Star Wars Battlefront', 'DOTA2', 'FIFA', 'FORTNITE', 'PUBG', 'SMITE', 'PALADINS', 'Heroes of the Storm', 'Brawlhalla', 'Starcraft',
-            'Super Smash Bros', 'Tom Clancy\'s Rainbow Six Siege', 'Brawl Stars', 'Clash Royale', 'Metal Slug', 'Rocket League', 'Tekken', 'World of Tanks'
+        $names = ['League of Legends', 'Overwatch', 'Dota 2', 'Counter-Strike: Global Offensive', 'Madden NFL',
+            'Starcraft 2', 'Rocket League', 'Heroes of the Storm', 'Hearthstone', 'Super Smash Bros.', 'PUBG',
+            'Fortnite', 'NBA', 'FIFA'
         ];
 
         $allowed = false;
+
+        if(Game::where('title', $title)->count()>0)
+            return $allowed;
+
         foreach($names as $name)
         {
             if(stripos($title, $name)==0 && stripos($title, $name)!==false)
@@ -282,5 +256,23 @@ class GameController extends Controller
         }
 
         return $allowed;
+    }
+
+    /**
+     * Delete all games we don't need
+     */
+    public function deleteNotAllowed()
+    {
+        DB::statement("SET foreign_key_checks=0");
+        $groups = Group::where('groupable_type', 'App\Models\Game')->get();
+        foreach($groups as $group)
+        {
+            if(Game::where('id', $group->groupable_id)->count()==0)
+            {
+                $group->delete();
+                GroupUser::where('group_id', $group->groupable_id)->delete();
+            }
+        }
+        DB::statement("SET foreign_key_checks=1");
     }
 }

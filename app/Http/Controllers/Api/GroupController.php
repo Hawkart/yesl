@@ -9,18 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
 use App\Models\GroupUser;
 use App\Models\Game;
-use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Storage;
 use Image;
 use File;
 use Cache;
-use App\Acme\Helpers\TwitterHelper;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class GroupController extends Controller
 {
-    use SEOToolsTrait;
-
     /**
      * Create a new controller instance.
      *
@@ -38,10 +34,11 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::orderBy('title', 'desc')
+        $groups = QueryBuilder::for(Group::class)
+            ->orderBy('title', 'desc')
             ->search($request)
-            ->with(['owner'])
-            ->paginate(12);
+            ->allowedIncludes(['owner', 'posts', 'groupable'])
+            ->jsonPaginate();
 
         return GroupResource::collection($groups);
     }
@@ -120,16 +117,6 @@ class GroupController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -169,69 +156,6 @@ class GroupController extends Controller
         $this->seo()->setTitle($group->title);
 
         return view ('groups.detail', compact(['group', 'similar_groups', 'can_post']));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  string  $slug
-     * @return \Illuminate\Http\Response
-     */
-    public function university($slug, Request $request)
-    {
-        $group = Group::where('slug', $slug)
-            ->firstOrFail();
-
-        $similar_groups = [];
-        $user = Auth::user();
-        $groups = $user->groups()->pluck('group_id')->toArray();
-        $can_post = in_array($group->id, $groups) && $group->owner_id==$user->id;
-
-        $twitts = TwitterHelper::getByStr($group->groupable->twitter_str);
-
-        $this->seo()->setTitle($group->title);
-
-        return view ('universities.detail', compact(['group', 'similar_groups', 'can_post', 'twitts']));
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  string  $slug
-     * @return \Illuminate\Http\Response
-     */
-    public function game($slug, Request $request)
-    {
-        $group = Group::where('slug', $slug)
-            ->firstOrFail();
-
-        $similar_groups = [];
-        $genre_id = $group->groupable->genre_id;
-        $games = Game::where('genre_id', $genre_id)->where('id', "<>", $group->groupable->id)->limit(5)->get();
-        foreach($games as $game)
-        {
-            $similar_groups[] = $game->group;
-        }
-
-        $user = Auth::user();
-        $groups = $user->groups()->pluck('group_id')->toArray();
-        $can_post = in_array($group->id, $groups) && $group->owner_id==$user->id;
-
-        $this->seo()->setTitle($group->title);
-
-        return view ('games.detail', compact(['group', 'similar_groups', 'can_post']));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

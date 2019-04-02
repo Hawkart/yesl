@@ -35,7 +35,6 @@ class VarsityParser extends Command
         $uri = 'https://www.varsityesports.com/api/user/getUserProfile';
 
         $this->migrateToDb();
-
         $userId = intval($this->getLastUserId())+1;
 
         while($userId>0)
@@ -132,6 +131,9 @@ class VarsityParser extends Command
                 if(strlen($nickname)>100)
                     $nickname = substr($nickname, 0, 100);
 
+                if(strlen($name)>100)
+                    $name = substr($name, 0, 100);
+
                 echo $nickname."\n";
 
                 return VarsityUser::create([
@@ -146,5 +148,28 @@ class VarsityParser extends Command
         }
 
         return false;
+    }
+
+    /**
+     * Delete duplicate users
+     */
+    private function checkToDelete()
+    {
+        VarsityUser::chunk(100, function($users)
+        {
+            foreach ($users as $user)
+            {
+                $delUsers = VarsityUser::where('varsity_id', $user['varsity_id'])
+                    ->where('id', '<>', $user->id);
+
+                if($delUsers->count()>0)
+                {
+                    foreach($delUsers->get() as $delUser)
+                    {
+                        $delUser->delete();
+                    }
+                }
+            }
+        });
     }
 }

@@ -235,15 +235,20 @@ Route::any('/404', function() {
 });
 
 
-Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'api', 'middleware' => 'auth', 'namespace' => 'Api'], function () {
+
     Route::get('/search', [
         'as' => 'api.search',
-        'uses' => 'Api\SearchController@search'
+        'uses' => 'SearchController@search'
     ]);
+
+    Route::apiResource('games', 'GameController');
+
+    Route::apiResource('users', 'UserController');
 
     /*Route::apiResource('channels', 'Api\ChannelController');
     Route::apiResource('comments', 'Api\CommentController');
-    Route::apiResource('games', 'Api\GameController');
+
     Route::apiResource('genres', 'Api\GenreController');        //done
     Route::apiResource('groups', 'Api\GroupController');
     Route::apiResource('likes', 'Api\LikeController');

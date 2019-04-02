@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +10,6 @@ use App\Models\Game;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserPasswordUpdateRequest;
-use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Illuminate\Support\Facades\Storage;
 use Image;
 use Cmgmyr\Messenger\Models\Message;
@@ -20,8 +19,6 @@ use Hootlex\Friendships\Models\Friendship;
 
 class UserController extends Controller
 {
-    use SEOToolsTrait;
-
     /**
      * Create a new controller instance.
      *
@@ -39,19 +36,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('home');
     }
 
     /**
-     * Show the personal form.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return UserResource
      */
-    public function edit()
+    public function me(Request $request)
     {
-        $this->seo()->setTitle('Resume');
-        $user = Auth::user();
-        return view('lk.personal', compact('user'));
+        $user = $request->user();
+        return new UserResource($user);
     }
 
     /**
@@ -60,24 +54,19 @@ class UserController extends Controller
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($slug, Request $request)
+    public function show(User $user)
     {
-        $user = User::where('nickname', $slug)
-            ->firstOrFail();
-
-        $groups = $user->groups()->paginate(10);
+        $user->load(['groups']);
         $friends = $user->getFriends(10);
 
         if(Auth::user()->id!=$user->id)
         {
-            $mutual = $user->getMutualFriends(Auth::user());
+            $mutual = $user->getMutualFriends($user);
         }else{
             $mutual = [];
         }
 
-        $this->seo()->setTitle($user->name);
-
-        return view ('users.detail', compact(['user', 'groups', 'friends', 'mutual']));
+        return new UserResource($user);
     }
 
     /**

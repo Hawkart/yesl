@@ -53,6 +53,7 @@
         "sofa/eloquence-mutable": "^5.5",
         "spatie/laravel-backup": "^5.11",
         "spatie/laravel-medialibrary": "7.0.0",
+        "spatie/laravel-query-builder": "^1.17",
         "tcg/voyager": "1.1.*",
         "torann/geoip": "^1.0@dev",
         "tymon/jwt-auth": "^1.0",

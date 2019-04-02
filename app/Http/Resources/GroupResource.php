@@ -3,8 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\PostResource;
 use Storage;
 
 class GroupResource extends JsonResource
@@ -33,8 +31,26 @@ class GroupResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
+            'groupable' => $this->getGroupable(),
             'owner' => new UserResource($this->whenLoaded('owner')),
             'posts' => PostResource::collection($this->whenLoaded('posts')),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getGroupable()
+    {
+        if(!empty($this->groupable_type))
+        {
+            $string = explode('\\', $this->groupable_type);
+            $str = $string[count($string)-1];
+            $cname = "App\\Http\\Resources\\".$str."Resource";
+
+            return new $cname($this->whenLoaded('groupable'));
+        }else{
+            return [];
+        }
     }
 }
