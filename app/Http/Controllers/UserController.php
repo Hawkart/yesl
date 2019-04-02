@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
@@ -10,15 +10,16 @@ use App\Models\Game;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserPasswordUpdateRequest;
+use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Illuminate\Support\Facades\Storage;
 use Image;
-use Cmgmyr\Messenger\Models\Message;
-use Cmgmyr\Messenger\Models\Participant;
 use Cmgmyr\Messenger\Models\Thread;
 use Hootlex\Friendships\Models\Friendship;
 
 class UserController extends Controller
 {
+    use SEOToolsTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -36,16 +37,19 @@ class UserController extends Controller
      */
     public function index()
     {
+        return view('home');
     }
 
     /**
-     * @param Request $request
-     * @return UserResource
+     * Show the personal form.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function me(Request $request)
+    public function edit()
     {
-        $user = $request->user();
-        return new UserResource($user);
+        $this->seo()->setTitle('Resume');
+        $user = Auth::user();
+        return view('lk.personal', compact('user'));
     }
 
     /**
@@ -54,19 +58,24 @@ class UserController extends Controller
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($slug, Request $request)
     {
-        $user->load(['groups']);
+        $user = User::where('nickname', $slug)
+            ->firstOrFail();
+
+        $groups = $user->groups()->paginate(10);
         $friends = $user->getFriends(10);
 
         if(Auth::user()->id!=$user->id)
         {
-            $mutual = $user->getMutualFriends($user);
+            $mutual = $user->getMutualFriends(Auth::user());
         }else{
             $mutual = [];
         }
 
-        return new UserResource($user);
+        $this->seo()->setTitle($user->name);
+
+        return view ('users.detail', compact(['user', 'groups', 'friends', 'mutual']));
     }
 
     /**
@@ -246,9 +255,9 @@ class UserController extends Controller
         if(!$user->isCoach())
         {
             $applications = $user->applications()
-                                ->search($request->all())
-                                ->with(['user', 'team', 'profile', 'team.university', 'team.game'])
-                                ->get();
+                ->search($request->all())
+                ->with(['user', 'team', 'profile', 'team.university', 'team.game'])
+                ->get();
 
             return view('lk.applications', compact(['user', 'applications']));
         }else{

@@ -14,6 +14,7 @@ use Image;
 use File;
 use Cache;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\Filter;
 
 class GroupController extends Controller
 {
@@ -35,9 +36,10 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $groups = QueryBuilder::for(Group::class)
-            ->orderBy('title', 'desc')
-            ->search($request)
+            ->defaultSort('-title')
+            ->allowedSorts('title')
             ->allowedIncludes(['owner', 'posts', 'groupable'])
+            ->allowedFilters([Filter::scope('type')])
             ->jsonPaginate();
 
         return GroupResource::collection($groups);

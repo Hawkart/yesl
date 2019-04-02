@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
-use App\Models\University;
-use App\Models\Game;
+use Illuminate\Database\Eloquent\Builder;
 
 class Group extends Model
 {
@@ -16,7 +15,8 @@ class Group extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'image', 'cover', 'owner_id', 'description', 'groupable_type', 'groupable_id', 'slug', 'coach_name', 'coach_email'];
+    protected $fillable = ['title', 'image', 'cover', 'owner_id', 'description',
+        'groupable_type', 'groupable_id', 'slug', 'coach_name', 'coach_email'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -148,5 +148,16 @@ class Group extends Model
             });
         }
         return $query;
+    }
+
+
+    /**
+     * Filter by class (type)
+     */
+    public function scopeType(Builder $query, $type): Builder
+    {
+        $type = ucfirst(strtolower($type));
+        $cname = "App\\Models\\".$type;
+        return $query->where('groupable_type', $cname);
     }
 }

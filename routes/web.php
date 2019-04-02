@@ -243,7 +243,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth', 'namespace' => 'Api'], 
     ]);
 
     Route::apiResource('games', 'GameController');
-
+    Route::apiResource('groups', 'GroupController');
     Route::apiResource('users', 'UserController');
 
     /*Route::apiResource('channels', 'Api\ChannelController');
