@@ -57,7 +57,26 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->user();
+        $participants = $request->get('participants');
+        //$users = User::whereIn('id', $participants)->get();
+        $subject = $request->get('subject');
 
+        $thread = Thread::create([
+            'subject' => $subject,
+        ]);
+
+        // Recipients
+        $thread->addParticipant($participants);
+
+        // Sender
+        Participant::create([
+            'thread_id' => $thread->id,
+            'user_id' => $user->id,
+            'last_read' => new Carbon,
+        ]);
+
+        return response()->json($thread, 200);
     }
 
     public function participants($channel_id, Request $request)

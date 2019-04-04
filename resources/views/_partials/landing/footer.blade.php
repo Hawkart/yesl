@@ -50,10 +50,6 @@
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-
-
-                <!-- Widget List -->
-
                 <div class="widget w-list">
                     <h6 class="title">Let’s get started</h6>
                     <ul>
@@ -139,6 +135,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="sub-footer-copyright">
 					<span>
+                        <a href="#" data-toggle="modal" data-target="#youtubeModal" class="btn btn-md btn-blue c-white">
+                            Look inside without registration
+                        </a><br>
 						Copyright CampusTeam All Rights Reserved 2018<br>
                         info@campusteam.tv
 					</span>
@@ -157,3 +156,25 @@
 </div>
 
 <script async src="https://static.addtoany.com/menu/page.js"></script>
+
+<div class="modal fade" id="youtubeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog w-100" role="document">
+        <div class="modal-content w-100">
+            <div class="modal-body">
+                <div class="videoWrapper">
+                    <div id="play"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//www.youtube.com/player_api"></script>
+<script>
+    function onYouTubePlayerAPIReady() {
+        play = new YT.Player('play', {videoId: 'SW8w3IPaQlU'});
+        $('#youtubeModal').on('hidden.bs.modal', function () {
+            play.pauseVideo();
+        });
+    }
+</script>

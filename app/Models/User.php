@@ -165,7 +165,7 @@ class User extends VoyagerUser implements HasMedia
      */
     public function posts()
     {
-        return $this->hasMany('App\Models\Post', 'author_id');
+        return $this->hasMany('App\Models\Post', 'user_id');
     }
 
     /**

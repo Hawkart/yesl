@@ -12,7 +12,7 @@
                         <avatar-upload :uimg="user.avatar" uploadapi="/users/avatar" dataname="avatar"></avatar-upload>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.description=='' }">
+                        <div class="form-group required" :class="{ 'is-empty': form.description=='' }">
                             <label class="control-label">Summary about yourself</label>
                             <textarea v-model="form.description" :class="{ 'is-invalid': form.errors.has('description') }" class="form-control" type="text" name="description"></textarea>
                             <has-error :form="form" field="description"/>
@@ -20,14 +20,14 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.first_name=='' }">
+                        <div class="form-group required" :class="{ 'is-empty': form.first_name=='' }">
                             <label class="control-label">First Name</label>
                             <input v-model="form.first_name" :class="{ 'is-invalid': form.errors.has('first_name') }" class="form-control" type="text" name="first_name">
                             <has-error :form="form" field="first_name"/>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.last_name=='' }">
+                        <div class="form-group required" :class="{ 'is-empty': form.last_name=='' }">
                             <label class="control-label">Last Name</label>
                             <input v-model="form.last_name" :class="{ 'is-invalid': form.errors.has('last_name') }" class="form-control" type="text" name="last_name">
                             <has-error :form="form" field="last_name"/>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating" :class="{ 'is-empty': form.second_name=='' }">
+                        <div class="form-group" :class="{ 'is-empty': form.second_name=='' }">
                             <label class="control-label">Middle Name</label>
                             <input v-model="form.second_name" :class="{ 'is-invalid': form.errors.has('second_name') }" class="form-control" type="text" name="second_name">
                             <has-error :form="form" field="second_name"/>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating" :class="{ 'is-empty': form.discord_nickname=='' }">
+                        <div class="form-group" :class="{ 'is-empty': form.discord_nickname=='' }">
                             <label class="control-label">Discord username</label>
                             <input v-model="form.discord_nickname" :class="{ 'is-invalid': form.errors.has('discord_nickname') }" class="form-control" type="text" name="discord_nickname">
                             <has-error :form="form" field="discord_nickname"/>
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.email=='' }">
+                        <div class="form-group required" :class="{ 'is-empty': form.email=='' }">
                             <label class="control-label">Primary Email</label>
                             <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" disabled="disabled" name="email">
                             <has-error :form="form" field="email"/>
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating" :class="{ 'is-empty': form.phone=='' }">
+                        <div class="form-group" :class="{ 'is-empty': form.phone=='' }">
                             <label class="control-label">Phone Number</label>
                             <input v-model="form.phone" :class="{ 'is-invalid': form.errors.has('phone') }" class="form-control" type="text" name="phone">
                             <has-error :form="form" field="phone"/>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                        <div class="form-group label-floating">
+                        <div class="form-group">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="is_foreign"  v-model="form.is_foreign">
@@ -78,21 +78,21 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.is_foreign">
-                        <div class="form-group label-floating">
+                        <div class="form-group">
                             <label class="control-label">TOEFL paper</label>
                             <vue-numeric v-model="form.toefl_paper" :class="{ 'is-invalid': form.errors.has('toefl_paper') }" class="form-control" name="toefl_paper"></vue-numeric>
                             <has-error :form="form" field="toefl_paper"/>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.is_foreign">
-                        <div class="form-group label-floating">
+                        <div class="form-group">
                             <label class="control-label">TOEFL computer based</label>
                             <vue-numeric v-model="form.toefl_computer" :class="{ 'is-invalid': form.errors.has('toefl_computer') }" class="form-control" name="toefl_computer"></vue-numeric>
                             <has-error :form="form" field="toefl_computer"/>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.is_foreign">
-                        <div class="form-group label-floating">
+                        <div class="form-group">
                             <label class="control-label">TOEFL internet</label>
                             <vue-numeric v-model="form.toefl_internet" :class="{ 'is-invalid': form.errors.has('toefl_internet') }" class="form-control" name="toefl_internet"></vue-numeric>
                             <has-error :form="form" field="toefl_internet"/>
@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.apply_as==0">
-                        <div class="form-group label-floating">
+                        <div class="form-group">
                             <label class="control-label">ACT scores</label>
                             <vue-numeric v-model="form.act_scored" :class="{ 'is-invalid': form.errors.has('act_scored') }" class="form-control" name="act_scored"></vue-numeric>
                             <has-error :form="form" field="act_scored"/>
@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.apply_as==0">
-                        <div class="form-group label-floating">
+                        <div class="form-group">
                             <label class="control-label">SAT scores</label>
                             <vue-numeric v-model="form.sat_scored" :class="{ 'is-invalid': form.errors.has('sat_scored') }" class="form-control" name="sat_scored"></vue-numeric>
                             <has-error :form="form" field="sat_scored"/>
@@ -125,7 +125,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.apply_as==1">
-                        <div class="form-group label-floating">
+                        <div class="form-group">
                             <label class="control-label">Transferable college credit hours</label>
                             <vue-numeric v-model="form.transfer_hours" :class="{ 'is-invalid': form.errors.has('transfer_hours') }" class="form-control" name="transfer_hours"></vue-numeric>
                             <has-error :form="form" field="transfer_hours"/>
@@ -133,7 +133,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="form.apply_as==0 || form.apply_as==1">
-                        <div class="form-group label-floating required">
+                        <div class="form-group required">
                             <label class="control-label">GPA</label>
                             <vue-numeric v-bind:precision="2" v-model="form.gpa" :class="{ 'is-invalid': form.errors.has('gpa') }" class="form-control" name="gpa"></vue-numeric>
                             <has-error :form="form" field="gpa"/>
@@ -145,7 +145,7 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required">
+                        <div class="form-group required">
                             <label class="control-label">Country</label>
                             <select v-model="form.country" name="country" class="form-control"  :class="{ 'is-invalid': form.errors.has('country') }" @change="selectCountry">
                                 <option :value="value" v-for="(title, value) in countries">{{title}}</option>
@@ -153,9 +153,25 @@
                             <has-error :form="form" field="country"/>
                         </div>
                     </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group required" :class="{ 'is-empty': form.city=='' }">
+                            <label class="control-label">City</label>
+                            <input v-model="form.city" :class="{ 'is-invalid': form.errors.has('city') }" class="form-control" type="text" name="city">
+                            <has-error :form="form" field="city"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group required" :class="{ 'is-empty': form.street=='' }">
+                            <label class="control-label">Street</label>
+                            <textarea v-model="form.street" :class="{ 'is-invalid': form.errors.has('street') }" class="form-control" type="text" name="street"></textarea>
+                            <has-error :form="form" field="street"/>
+                        </div>
+                    </div>
 
                     <div class="col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12" v-if="Object.keys(states).length>0">
-                        <div class="form-group label-floating required">
+                        <div class="form-group required">
                             <label class="control-label">State</label>
                             <select v-model="form.state" name="state" class="form-control"  :class="{ 'is-invalid': form.errors.has('state') }">
                                 <option :value="value" v-for="(title, value) in states">{{title}}</option>
@@ -163,26 +179,9 @@
                             <has-error :form="form" field="state"/>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.street=='' }">
-                            <label class="control-label">Street</label>
-                            <input v-model="form.street" :class="{ 'is-invalid': form.errors.has('street') }" class="form-control" type="text" name="street">
-                            <has-error :form="form" field="street"/>
-                        </div>
-                    </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.city=='' }">
-                            <label class="control-label">City</label>
-                            <input v-model="form.city" :class="{ 'is-invalid': form.errors.has('city') }" class="form-control" type="text" name="city">
-                            <has-error :form="form" field="city"/>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group label-floating required" :class="{ 'is-empty': form.postal_code=='' }">
+                        <div class="form-group required" :class="{ 'is-empty': form.postal_code=='' }">
                             <label class="control-label">Postal Code</label>
                             <input v-model="form.postal_code" :class="{ 'is-invalid': form.errors.has('postal_code') }" class="form-control" type="text" name="postal_code">
                             <has-error :form="form" field="postal_code"/>

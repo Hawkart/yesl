@@ -33,7 +33,8 @@ class Kernel extends ConsoleKernel
         Commands\NotifyConfirmEmail::class,
         Commands\ImportFromUniversityAndVacancyToTeams::class,
         Commands\VarsityParser::class,
-        Commands\UsersAvatarUpdate::class
+        Commands\UsersAvatarUpdate::class,
+        Commands\DeleteUserPosts::class
     ];
 
     /**

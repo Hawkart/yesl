@@ -83,5 +83,17 @@ class UniversityNaceSelect extends Command
                 $user->groups()->attach($group->id);
             }
         }
+
+        $universities = University::where('nace', 1)->get();
+        foreach($universities as $university)
+        {
+            if($university->group()->where('owner_id', 4)->count()>0)
+            {
+               $group = $university->group;
+               $group->update([
+                   'owner_id' => 16
+               ]);
+            }
+        }
     }
 }

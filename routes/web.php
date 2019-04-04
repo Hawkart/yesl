@@ -37,6 +37,9 @@ Route::get('/about', function() {
 Route::get('/contacts', function() {
     return view('contacts');
 });
+Route::get('/PitchDeck', function() {
+    return view('pitchdeck');
+});
 
 Route::get('/news', 'NewsController@index')->name('news');
 Route::get('/news/{slug}', 'NewsController@show')->name('news-post');
@@ -229,6 +232,8 @@ Route::group(['prefix' => 'me', 'middleware' => 'auth'], function () {
 
 Route::get('/helpers/link_preview', ['uses' => '\App\Acme\Helpers\LinkPreviewHelper@parse']);
 Route::get('/y-combinator', ['uses' => 'HomeController@demoAuth']);
+Route::get('/forcoaches', ['uses' => 'HomeController@demoAuth']);
+Route::get('/forvcdemo', ['uses' => 'HomeController@demoAuth']);
 
 Route::any('/404', function() {
     return View::make('errors.404', [], 404);
