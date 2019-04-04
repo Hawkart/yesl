@@ -7,7 +7,7 @@ return [
          */
         'defaults'       => [
             'title'        => "CampusTeam", // set false to total remove
-            'description'  => "CampusTeam is varsity ESports social media, recruiting tool and tournament platform.",
+            'description'  => "CampusTeam is professional social network for Esports community",
             'separator'    => ' - ',
             'keywords'     => ['ESports', 'social media', 'recruiting'],
             'canonical'    => false, // Set null for using Url::current(), set false to total remove
@@ -30,10 +30,10 @@ return [
          */
         'defaults' => [
             'title'       => false, //'Over 9000 Thousand!', // set false to total remove
-            'description' => false, //'For those who helped create the Genki Dama', // set false to total remove
+            'description' => 'CampusTeam is professional social network for Esports community', //'For those who helped create the Genki Dama', // set false to total remove
             'url'         => false, // Set null for using Url::current(), set false to total remove
             'type'        => false,
-            'site_name'   => false,
+            'site_name'   => 'CampusTeam',
             'images'      => [],
         ],
     ],

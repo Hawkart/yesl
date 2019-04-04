@@ -32,7 +32,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/img/logo.png') }}">
     <link rel="icon" href="{{ asset('/img/logo.png') }}" type="image/x-icon">
-    <meta property="og:title" content="CampusTeam is varsity ESports social media, recruiting tool and tournament platform.">
+    <meta property="og:title" content="CampusTeam is professional social network for Esports community">
     <link rel="image_src" href="{{ asset('/img/logo.png') }}">
     <meta property="og:image" content="{{ asset('/img/logo.png') }}">
 

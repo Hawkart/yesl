@@ -33,6 +33,6 @@ class EmailDigestNews extends Mailable
             ->with('data', $this->data)
             ->from($address, $name)
             ->replyTo($address, $name)
-            ->subject("Digest news of CampusTeam.tv");
+            ->subject("New Esports Scholarship opportunities opened in March-April 2019");
     }
 }

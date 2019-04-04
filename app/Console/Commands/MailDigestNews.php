@@ -61,7 +61,7 @@ class MailDigestNews extends Command
     {
         $cname = "App\\Models\\".$cname;
 
-        $cname::chunk(200, function ($users) use ($sendedEmails, $news)
+        $cname::athletes()->chunk(200, function ($users) use ($sendedEmails, $news)
         {
             foreach ($users as $user)
             {

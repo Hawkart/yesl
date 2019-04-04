@@ -135,7 +135,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="sub-footer-copyright">
 					<span>
-                        <a href="#" data-toggle="modal" data-target="#youtubeModal" class="btn btn-md btn-blue c-white">
+                        <a href="#" data-toggle="modal" data-target="#youtubeModal" id="youtube-watch-btn" class="btn btn-md btn-blue c-white">
                             Look inside without registration
                         </a><br>
 						Copyright CampusTeam All Rights Reserved 2018<br>

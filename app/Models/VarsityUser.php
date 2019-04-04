@@ -30,4 +30,12 @@ class VarsityUser extends Model
     protected $casts = [
         'json' => 'array'
     ];
+
+    /**
+     * Athletes
+     */
+    public function scopeAthletes($query)
+    {
+        return $query;
+    }
 }

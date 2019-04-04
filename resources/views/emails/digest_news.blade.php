@@ -76,36 +76,33 @@ $style = [
 
                                     <!-- Intro -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        We have collected five recent Esports news for you!
+                                        Last month was prolific for newly opened Esports scholarship opportunities
+                                        at American universities and colleges.<br>
+                                        For your convenience, we have enlisted 136 schools with Esports programs
+                                        on <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">CampusTeam</a> website.<br>
+                                        Here you can find the recent news from them:
                                     </p>
 
-                                    <p style="{{ $style['paragraph'] }}">
-                                        US universities go on adding Esports programs for fall 2019 and hire Esports coaches.<br>
-                                        Scholarships are available – apply to university/college team you have always wanted to go to.<br>
-                                        Have a nice weekend!<br><br>
-                                    </p>
-
-                                    @foreach($data->news as $post)
-                                        <p style="{{ $style['paragraph'] }}">
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('/news/'.$post->slug) }}" target="_blank">{{$post->title}}</a>
-                                        </p>
-                                    @endforeach
+                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                        @foreach($data->news as $post)
+                                            <tr>
+                                                <td width="100px">
+                                                    <img src="{{Storage::disk('public')->url($post->image)}}" style="width: 100px; padding-right: 20px"/>
+                                                </td>
+                                                <td>
+                                                    <p style="{{ $style['paragraph'] }}">
+                                                        <a style="{{ $style['anchor'] }}" href="{{ url('/news/'.$post->slug) }}" target="_blank">{{$post->title}}</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
 
                                     <!-- Salutation -->
-                                    <table width="100%" cellpadding="0" cellspacing="0">
-                                        <!-- Logo -->
-                                        <tr>
-                                            <td width="60px">
-                                                <img src="{{url('/storage/vlad.jpeg')}}" style="width: 50px; padding-right: 20px"/>
-                                            </td>
-                                            <td>
-                                                <p style="{{ $style['paragraph'] }}">
-                                                    Vlad ILchenko<br>
-                                                    CEO at CampusTeam
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <p style="{{ $style['paragraph'] }}">
+                                        <br>Your<br>
+                                        <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">CampusTeam</a>a> crew
+                                    </p>
                                 </td>
                             </tr>
                         </table>
