@@ -21,6 +21,15 @@ class News extends Model
         'updated_at'
     ];
 
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => \App\Events\NewsCreatedEvent::class,
+        'updated' => \App\Events\NewsUpdatedEvent::class,
+    ];
+
     /**
      * @Relation
      */

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Carbon\Carbon;
 
 class Post extends Model implements HasMedia
 {
@@ -99,5 +100,35 @@ class Post extends Model implements HasMedia
     public function media()
     {
         return $this->morphMany('App\Models\Media', 'model');
+    }
+
+    /**
+     * @param $post
+     */
+    public function createFromNews($post)
+    {
+        $text = $post->title;
+
+        if(!empty($post->subtitle))
+            $text.="<br>".$post->subtitle;
+
+        $text.="<br>".$post->body;
+
+        $data = [
+            'user_id' => 16,
+            'group_id' => 0,
+            'text' => $text,
+            'created_at' => Carbon::parse($post->created_at)
+        ];
+
+        if($result = Post::create($data))
+        {
+            if(!empty($post->image))
+            {
+                $result
+                    ->addMedia(public_path($post->image))
+                    ->toMediaCollection('images');
+            }
+        }
     }
 }

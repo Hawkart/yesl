@@ -52,6 +52,11 @@ class Kernel extends ConsoleKernel
                     ->dailyAt('13:00')
                     ->timezone('America/New_York');
 
+        /*$schedule->command('mail:digest-news')
+            ->fridays()
+            ->dailyAt('13:00')
+            ->timezone('America/New_York');*/
+
         $schedule->command('users:varsity-parser')
                     ->hourly();
     }
