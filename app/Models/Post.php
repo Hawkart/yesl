@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Carbon\Carbon;
+use Storage;
 
 class Post extends Model implements HasMedia
 {
@@ -105,7 +106,7 @@ class Post extends Model implements HasMedia
     /**
      * @param $post
      */
-    public function createFromNews($post)
+    public static function createFromNews($post)
     {
         $text = $post->title;
 
@@ -118,7 +119,8 @@ class Post extends Model implements HasMedia
             'user_id' => 16,
             'group_id' => 0,
             'text' => $text,
-            'created_at' => Carbon::parse($post->created_at)
+            'created_at' => Carbon::parse($post->created_at),
+            'additional' => []
         ];
 
         if($result = Post::create($data))
@@ -126,7 +128,7 @@ class Post extends Model implements HasMedia
             if(!empty($post->image))
             {
                 $result
-                    ->addMedia(public_path($post->image))
+                    ->addMediaFromUrl(Storage::disk('public')->url($post->image))
                     ->toMediaCollection('images');
             }
         }

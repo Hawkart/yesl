@@ -34,7 +34,9 @@ class Kernel extends ConsoleKernel
         Commands\ImportFromUniversityAndVacancyToTeams::class,
         Commands\VarsityParser::class,
         Commands\UsersAvatarUpdate::class,
-        Commands\DeleteUserPosts::class
+        Commands\DeleteUserPosts::class,
+        Commands\NewsToPostsMigrate::class,
+        Commands\MailDigestNews::class
     ];
 
     /**

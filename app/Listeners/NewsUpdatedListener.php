@@ -20,7 +20,7 @@ class NewsUpdatedListener
         if($post->isDirty('status'))
         {
             if($post->status!==$post->getOriginal('status') && intval($post->status)==1)
-                Post::createFormNews($post);
+                Post::createFromNews($post);
         }
     }
 }

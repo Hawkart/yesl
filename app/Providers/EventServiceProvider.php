@@ -31,6 +31,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\GroupUserCreatedEvent' => [
             'App\Listeners\GroupUserCreatedListener',
         ],
+        'App\Events\NewsCreatedEvent' => [
+            'App\Listeners\NewsCreatedListener',
+        ],
+        'App\Events\NewsUpdatedEvent' => [
+            'App\Listeners\NewsUpdatedListener',
+        ],
     ];
 
     /**
