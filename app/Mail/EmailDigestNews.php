@@ -26,8 +26,8 @@ class EmailDigestNews extends Mailable
      */
     public function build()
     {
-        $address = 'vl@campusteam.tv';
-        $name = 'Vlad ILchenko';
+        $address = 'newscampusteam@campusteam.tv';
+        $name = 'CampusTeam crew';
 
         return $this->view('emails.digest_news')
             ->with('data', $this->data)

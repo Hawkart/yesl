@@ -34,13 +34,12 @@ class MailDigestNews extends Command
     {
         $sendedEmails = [];
 
-        $now = Carbon::now()->format('d');
         $from = Carbon::now()->subDays(6)->format('d');
 
         $news = News::where('status', 1)
-            ->whereDay('created_at', '<', $now)
-            ->whereDay('created_at', '>=', $from)
-            ->limit(5);
+            //->whereDay('created_at', '>=', $from)
+            ->orderBy('created_at', 'desc')
+            ->limit(6);
 
         if($news->count()>0)
         {
@@ -65,7 +64,7 @@ class MailDigestNews extends Command
         {
             foreach ($users as $user)
             {
-                if(filter_var($user->email, FILTER_VALIDATE_EMAIL) && !in_array($user->email, $sendedEmails))
+                if(filter_var($user->email, FILTER_VALIDATE_EMAIL) && !in_array($user->email, $sendedEmails) && strpos($user->email, '@gmail')===false)
                 {
                     $data = [
                         'name' => $user->name,
@@ -73,7 +72,7 @@ class MailDigestNews extends Command
                     ];
 
                     try {
-                        //Mail::to($user->email)->send(new EmailDigestNews($data));
+                        Mail::to($user->email)->send(new EmailDigestNews($data));
 
                         $sendedEmails[] = $user->email;
 

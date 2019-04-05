@@ -46,7 +46,7 @@ class NewsController extends Controller
         $news = News::where('status', 1)->where('id', '<>', $post->id)
             ->orderBy('created_at', 'desc')->limit(4)->get();
 
-        $this->seo()->setTitle($post->seo_title);
+        $this->seo()->setTitle($post->seo_title ? $post->seo_title : $post->title);
         $this->seo()->setDescription($post->meta_description);
 
         return view('news.detail', compact('post', 'news'));

@@ -35,6 +35,14 @@
                         </div>
                     </article>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 text-center">
+                        <a href="/news" class="btn btn-md btn-blue c-white mb-5 mt-2">
+                            More News
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">

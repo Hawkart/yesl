@@ -57,9 +57,21 @@ $style = [
                 <!-- Logo -->
                 <tr>
                     <td style="{{ $style['email-masthead'] }}">
-                        <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                            <img src="{{url('/img/logo.png')}}" style="width: 50px; padding-right: 15px"/> {{ config('app.name') }}
-                        </a>
+
+                        <table align="center" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td>
+                                    <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
+                                        <img src="{{url('/img/logo.png')}}" style="width: 50px; padding-right: 15px"/>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
+                                        {{ config('app.name') }}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
 
@@ -84,12 +96,12 @@ $style = [
                                     </p>
 
                                     <table width="100%" cellpadding="0" cellspacing="0">
-                                        @foreach($data->news as $post)
+                                        @foreach($data['news'] as $post)
                                             <tr>
-                                                <td width="100px">
-                                                    <img src="{{Storage::disk('public')->url($post->image)}}" style="width: 100px; padding-right: 20px"/>
+                                                <td width="100px" style="padding-bottom: 20px">
+                                                    <img src="{{Storage::disk('public')->url($post->image)}}" style="width: 100px; padding-right: 20px;"/>
                                                 </td>
-                                                <td>
+                                                <td style="padding-bottom: 20px">
                                                     <p style="{{ $style['paragraph'] }}">
                                                         <a style="{{ $style['anchor'] }}" href="{{ url('/news/'.$post->slug) }}" target="_blank">{{$post->title}}</a>
                                                     </p>
@@ -101,7 +113,7 @@ $style = [
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
                                         <br>Your<br>
-                                        <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">CampusTeam</a>a> crew
+                                        <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">CampusTeam</a> crew
                                     </p>
                                 </td>
                             </tr>
