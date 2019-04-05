@@ -36,7 +36,8 @@ class Kernel extends ConsoleKernel
         Commands\UsersAvatarUpdate::class,
         Commands\DeleteUserPosts::class,
         Commands\NewsToPostsMigrate::class,
-        Commands\MailDigestNews::class
+        Commands\MailDigestNews::class,
+        Commands\UniversityGroupSync::class,
     ];
 
     /**
@@ -59,8 +60,11 @@ class Kernel extends ConsoleKernel
             ->dailyAt('13:00')
             ->timezone('America/New_York');*/
 
-        $schedule->command('users:varsity-parser')
-                    ->hourly();
+        $schedule->command('university:group-sync')
+                    ->dailyAt('01:00');
+
+        //$schedule->command('users:varsity-parser')
+                    //->hourly();
     }
 
     /**
