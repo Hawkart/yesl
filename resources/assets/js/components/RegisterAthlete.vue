@@ -7,6 +7,10 @@
 
             <alert-success :form="form">{{message}}</alert-success>
 
+            <a href="/social/facebook" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fab fa-facebook-f" aria-hidden="true"></i>Login with Facebook</a>
+
+            <div class="or"></div>
+
             <div class="row" v-if="!confirmation_sent">
                 <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-empty">
@@ -23,17 +27,21 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">E-mail Address</label>
                         <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email" required>
                         <has-error :form="form" field="email"/>
                     </div>
+                </div>
+                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">Password</label>
                         <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password" required>
                         <has-error :form="form" field="password"/>
                     </div>
+                </div>
+                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <!--<div class="form-group date-time-picker label-floating">
                         <label class="control-label">Your Birthday</label>
                         <datepicker v-model="form.date_birth" format="yyyy-MM-dd" :required="true" :class="{ 'is-invalid': form.errors.has('date_birth') }" name="date_birth"></datepicker>

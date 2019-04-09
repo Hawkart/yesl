@@ -15,7 +15,7 @@
                 <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" class="content">
                     @csrf
                     <div class="row">
-                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group label-floating {{ old('email') ? ' ' : 'is-empty' }}">
                                 <label class="control-label">{{ __('E-Mail Address') }}</label>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autocomplete="off" autocapitalize="off" required>
@@ -26,6 +26,8 @@
                                     </span>
                                 @endif
                             </div>
+                        </div>
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group label-floating is-empty">
                                 <label class="control-label">{{ __('Password') }}</label>
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="off" autocapitalize="off" required>
@@ -36,8 +38,9 @@
                                 </span>
                                 @endif
                             </div>
-
-                            <div class="remember">
+                        </div>
+                        <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="remember mt-2">
 
                                 <div class="checkbox">
                                     <label>
@@ -53,6 +56,10 @@
                             <button type="submit" class="btn btn-lg btn-primary full-width">
                                 {{ __('Login') }}
                             </button>
+
+                            <div class="or"></div>
+
+                            <a href="/social/facebook" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fab fa-facebook-f" aria-hidden="true"></i>Login with Facebook</a>
 
                             <!--<div class="or"></div>
 

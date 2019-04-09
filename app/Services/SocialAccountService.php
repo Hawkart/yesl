@@ -4,11 +4,8 @@ namespace App\Services;
 
 use App\Models\SocialUser;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Acme\Helpers\TwitchHelper;
-use Google_Client;
-use Google_Service_People;
 
 class SocialAccountService
 {
@@ -20,7 +17,9 @@ class SocialAccountService
      */
     public function createOrGetUser($providerObj, $providerName, Request $request)
     {
-        $providerUser = $providerObj->user();
+        $providerUser = $providerObj->stateless()->user();
+        //dd($providerUser);
+
         $account = SocialUser::whereProvider($providerName)
             ->whereProviderUserId($providerUser->getId())
             ->first();
@@ -28,74 +27,19 @@ class SocialAccountService
         if ($account)
         {
             return $account->user;
-        }
-        else
-        {
-            $providerUser->contacts = [];
-            if($providerName=="google")
+        } else {
+
+            $user = [];
+            $email = $providerUser->getEmail();
+            if(!empty($email))
             {
-                // Установим токен в  Google API PHP Client
-                $google_client_token = [
-                    'access_token' => $providerUser->token
-                ];
-
-                $client = new Google_Client();
-                $client->setApplicationName(env("GOOGLE_APP_NAME"));
-                $client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
-                $client->setAccessToken(json_encode($google_client_token));
-                // Запросим контакты пользователя
-                $service = new Google_Service_People($client);
-
-                $optParams = array('requestMask.includeField' => 'person.phone_numbers,person.names,person.email_addresses');
-                $results = $service->people_connections->listPeopleConnections('people/me',$optParams);
-
-                $contacts = [];
-                foreach($results->connections as $connection)
-                {
-                    $contact = [];
-                    if(isset($connection->names))
-                    {
-                        $contact['name'] = $connection->names[0]->displayName;
-                    }
-
-                    if(isset($connection->phoneNumbers))
-                    {
-                        $contact['phone'] = $connection->phoneNumbers[0]->canonicalForm;
-                    }
-
-                    if(isset($connection->emailAddresses))
-                    {
-                        $contact['email'] = $connection->emailAddresses[0]->value;
-                    }
-
-                    $contacts[] = $contact;
-                }
-                $providerUser->contacts = $contacts;
+                $users = User::where('email', $email);
+                if($users->count()>0)
+                    $user = $users->first();
             }
 
-            $nickname = $providerUser->getNickname();
-            $user = User::createBySocialProvider($providerUser);
-
-            if($providerName=='twitch')
-            {
-                $streams = [];
-                $data = TwitchHelper::getVideosByUsername($nickname);
-                foreach($data as $stream)
-                {
-                    $streams[] = $stream['url'];
-                }
-
-                $user->update([
-                    'streams' => $streams
-                ]);
-            }
-
-            if($providerName=="google")
-            {
-                $user->update([
-                    'contacts' => $providerUser->contacts
-                ]);
-            }
+            if(empty($user))
+                $user = User::createBySocialProvider($providerUser);
 
             $account = new SocialUser([
                 'provider_user_id' => $providerUser->getId(),
