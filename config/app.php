@@ -161,6 +161,7 @@ return [
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        //Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...

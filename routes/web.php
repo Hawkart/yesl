@@ -58,6 +58,12 @@ Auth::routes();
 Route::get('/register-coach', ['uses' => 'Auth\RegisterController@showRegistrationCoachForm', 'middleware' => 'guest'])->name('register_coach');
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 
+/**
+ * oAuth social
+ */
+Route::get('/social/{provider}', 'SocialController@login')->name('social.auth');
+Route::get('/social/{provider}/callback', 'SocialController@callback');
+
 
 Route::get('/feeds', ['uses' => 'HomeController@index', 'middleware' => 'auth'])->name('home');
 

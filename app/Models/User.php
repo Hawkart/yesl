@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Cache;
 use File;
 use Image;
+use Illuminate\Support\Facades\Hash;
 // These two come from Media Library
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -373,5 +374,63 @@ class User extends VoyagerUser implements HasMedia
         return $this->applications()->whereHas('team', function($q) use ($university_id){
             $q->where('university_id', $university_id);
         })->count()>0 ? true : false;
+    }
+
+    /**
+     * Create user from social account
+     */
+    public static function createBySocialProvider($providerUser)
+    {
+        $email = $providerUser->getEmail();
+        if(empty($email))
+        {
+            if(filter_var($providerUser->getNickname(), FILTER_VALIDATE_EMAIL))
+            {
+                $email = $providerUser->getNickname();
+            }else{
+                $email = self::generateEmail($providerUser);
+            }
+        }
+
+        $avatar = $providerUser->getAvatar();
+        if(!empty($avatar))
+        {
+            $extension = strtolower(File::extension(basename($avatar)));
+            if(in_array($extension, ["jpg", "jpeg", "png"]) && !empty($avatar) && @getimagesize($avatar))
+            {
+                $image = 'avatars/'.basename($avatar);
+                $image = str_replace(array("%", "+", ":"), "", $image);
+                Image::make($avatar)->save(public_path("storage/".$image));
+                $avatar = $image;
+            }
+        }else{
+            $avatar = null;
+        }
+
+        $data = [
+            'email' => $email,
+            'nickname' => $providerUser->getNickname(),
+            'name' => $providerUser->getName() ? $providerUser->getName() : $providerUser->getNickname(),
+            'first_name' => $providerUser->getName() ? $providerUser->getName() : $providerUser->getNickname(),
+            'last_name' => $providerUser->getName() ? $providerUser->getName() : $providerUser->getNickname(),
+            'password' => Hash::make(str_random(10)),
+            'avatar' => $avatar,
+            'type' => 1,
+            'verified' => 1
+        ];
+
+        return self::create($data);
+    }
+
+    /**
+     * @param $providerUser
+     * @return string
+     */
+    public static function generateEmail($providerUser)
+    {
+        $site = env('APP_URL', "");
+        $site = str_replace(["http://", "https://"], "", $site);
+        $email = $providerUser->getId().$providerUser->getNickname()."@".$site;
+        return $email;
     }
 }
