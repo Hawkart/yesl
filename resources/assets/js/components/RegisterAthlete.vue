@@ -8,6 +8,7 @@
             <alert-success :form="form">{{message}}</alert-success>
 
             <a href="/social/facebook" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fab fa-facebook-f" aria-hidden="true"></i>Login with Facebook</a>
+            <a href="/social/google" class="btn btn-lg bg-google full-width btn-icon-left"><i class="fab fa-google-plus-g" aria-hidden="true"></i>Login with Gmail</a>
 
             <div class="or"></div>
 
