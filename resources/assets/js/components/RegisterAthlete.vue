@@ -7,10 +7,12 @@
 
             <alert-success :form="form">{{message}}</alert-success>
 
-            <a href="/social/facebook" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fab fa-facebook-f" aria-hidden="true"></i>Login with Facebook</a>
-            <a href="/social/google" class="btn btn-lg bg-google full-width btn-icon-left"><i class="fab fa-google-plus-g" aria-hidden="true"></i>Login with Gmail</a>
+            <div v-if="form.terms && form.subscription">
+                <a href="/social/facebook" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fab fa-facebook-f" aria-hidden="true"></i>Login with Facebook</a>
+                <!--<a href="/social/google" class="btn btn-lg bg-google full-width btn-icon-left"><i class="fab fa-google-plus-g" aria-hidden="true"></i>Login with Gmail</a>-->
 
-            <div class="or"></div>
+                <div class="or"></div>
+            </div>
 
             <div class="row" v-if="!confirmation_sent">
                 <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -65,7 +67,18 @@
                             I accept the <a href="/terms">Terms and Conditions</a> of the website
                         </checkbox>
                     </div>
-                    <v-button :loading="form.busy" class="btn-lg full-width mb-0" id="btn-reg">
+                    <div class="form-group label-floating">
+                        <checkbox v-model="form.subscription" name="subscription">
+                            I agree to receive information from CampusTeam,
+                            including newsletters, messages from members, coaches,
+                            admission offices and scouting agencies.
+                        </checkbox>
+                    </div>
+                    <div v-if="!form.terms || !form.subscription" class="alert alert-danger" role="alert">
+                        Tick all boxes to continue your registration.
+                    </div>
+
+                    <v-button :loading="form.busy" class="btn-lg full-width mb-0" id="btn-reg" v-if="form.terms && form.subscription">
                         Register as Athlete
                     </v-button>
                 </div>
@@ -94,7 +107,8 @@
                 //date_birth: '',
                 gender: 0,
                 password: '',
-                terms: true
+                terms: true,
+                subscription: true
             }),
             confirmation_sent: false,
             selected: null,

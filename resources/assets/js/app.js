@@ -58,6 +58,7 @@ Vue.component('university-team-edit', require('./components/UniversityTeamEdit')
 
 Vue.component('apply-dialog', require('./components/ApplyDialog'));
 Vue.component('search-form', require('./components/SearchForm'));
+Vue.component('login-form', require('./components/LoginForm'));
 
 import {
     HasError,

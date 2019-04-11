@@ -36,7 +36,7 @@
 
             <div class="author-page author vcard inline-items more">
                 <div class="author-thumb">
-                    <img alt="author" src="{{ Storage::disk('public')->url(Auth::user()->avatar) }}" alt="{{Auth::user()->name}}" width="36px" class="avatar">
+                    <img alt="author" src="{{ strpos(Auth::user()->avatar, 'https:')===false ? Storage::disk('public')->url(Auth::user()->avatar) : Auth::user()->avatar }}" alt="{{Auth::user()->name}}" width="36px" class="avatar">
                     <span class="icon-status online"></span>
 
                     <div class="more-dropdown more-with-triangle">

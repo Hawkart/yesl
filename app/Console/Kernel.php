@@ -48,9 +48,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
-
         $schedule->command('users:notify-confirm-email')
                     ->dailyAt('13:00')
                     ->timezone('America/New_York');
@@ -61,7 +58,8 @@ class Kernel extends ConsoleKernel
             ->timezone('America/New_York');*/
 
         $schedule->command('university:group-sync')
-                    ->dailyAt('01:00');
+                    ->dailyAt('02:00')
+                    ->timezone('Europe/Moscow');
 
         //$schedule->command('users:varsity-parser')
                     //->hourly();
