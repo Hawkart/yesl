@@ -26,7 +26,7 @@ class EmailApplicationToCoach extends Mailable
      */
     public function build()
     {
-        $address = 'newapp@campusteam.tv';
+        $address = 'newapp@campusteam.info';
         $name = 'CampusTeam crew';
 
         return $this->view('emails.application_to_coach')

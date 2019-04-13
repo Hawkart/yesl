@@ -26,7 +26,7 @@ class EmailToCoach extends Mailable
      */
     public function build()
     {
-        $address = 'vl@campusteam.tv';
+        $address = 'vl@campusteam.info';
         $name = 'Vlad ILchenko';
 
         return $this->view('emails.to_coach')

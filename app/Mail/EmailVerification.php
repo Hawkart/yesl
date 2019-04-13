@@ -26,7 +26,12 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
+        $address = 'info@campusteam.info';
+        $name = 'CampusTeam MailServer';
+
         return $this->view('emails.verification')
+            ->from($address, $name)
+            ->replyTo($address, $name)
             ->subject("Verify email");
     }
 }

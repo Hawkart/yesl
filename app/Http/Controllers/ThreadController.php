@@ -138,6 +138,7 @@ class ThreadController extends Controller
                         ];
 
                         Mail::to($group->coach_email)->send(new EmailFromChatToCoachNotRegistered($data));
+                        Mail::to(env('ADMIN_EMAIL'))->send(new EmailFromChatToCoachNotRegistered($data));
 
                     } catch (\Exception $ex) {
                         //to log echo $ex->getMessage();
@@ -229,6 +230,13 @@ class ThreadController extends Controller
 
                     try{
                         Mail::to($to->email)->send(new EmailFromChat($data));
+
+
+                        if($to->isCoach())
+                        {
+                            Mail::to(env('ADMIN_EMAIL'))->send(new EmailFromChat($data));
+                        }
+
                     } catch (\Exception $ex) {
                         //to log echo $ex->getMessage();
                     }

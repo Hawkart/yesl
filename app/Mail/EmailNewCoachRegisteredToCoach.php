@@ -29,7 +29,7 @@ class EmailNewCoachRegisteredToCoach extends Mailable implements ShouldQueue
     {
         $data = $this->data;
 
-        $address = 'news@campusteam.tv';
+        $address = 'news@campusteam.info';
         $name = 'CampusTeam News';
 
         return $this->view('emails.new_coach_registered_to_coach')

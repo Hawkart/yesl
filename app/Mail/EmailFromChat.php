@@ -26,9 +26,14 @@ class EmailFromChat extends Mailable
      */
     public function build()
     {
+        $address = 'chat@campusteam.info';
+        $name = 'CampusTeam creaw';
+
         $data = $this->data;
         return $this->view('emails.from_chat')
             ->with('data', $this->data)
+            ->from($address, $name)
+            ->replyTo($address, $name)
             ->subject($data['from']->name." sent you a new message");
     }
 }

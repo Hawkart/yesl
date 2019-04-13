@@ -36,7 +36,9 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::orderBy('title', 'desc')->search($request)->paginate(12);
+        $groups = Group::orderBy('title', 'desc')->active()
+                        ->whereNull('groupable_type')
+                        ->search($request)->paginate(12);
         $this->seo()->setTitle("Groups");
 
         return view('groups.search', compact('groups'));
@@ -95,16 +97,6 @@ class GroupController extends Controller
         $this->seo()->setTitle("Games");
 
         return view('universities.index', compact('groups'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**

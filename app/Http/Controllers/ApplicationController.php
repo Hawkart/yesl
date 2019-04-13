@@ -53,7 +53,6 @@ class ApplicationController extends Controller
      */
     public function store(ApplicationRequest $request)
     {
-        $user = Auth::user();
         $data = $request->all();
 
         if($result = Application::create($data))
@@ -71,6 +70,7 @@ class ApplicationController extends Controller
                     'application' => $result
                 ];
                 Mail::to($group->owner->email)->send(new EmailApplicationToCoach($data));
+                Mail::to(env('ADMIN_EMAIL'))->send(new EmailApplicationToCoach($data));
             }
 
             return response()->json([

@@ -10,13 +10,17 @@ class Group extends Model
 {
     use Sluggable;
 
+    const STATUS_PENDING = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_CANCELED = 2;
+
     public $timestamps = true;
 
     /**
      * @var array
      */
     protected $fillable = ['title', 'image', 'cover', 'owner_id', 'description',
-        'groupable_type', 'groupable_id', 'slug', 'coach_name', 'coach_email'];
+        'groupable_type', 'groupable_id', 'slug', 'coach_name', 'coach_email', 'status'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -75,7 +79,7 @@ class Group extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function posts()
     {
@@ -159,5 +163,14 @@ class Group extends Model
         $type = ucfirst(strtolower($type));
         $cname = "App\\Models\\".$type;
         return $query->where('groupable_type', $cname);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
     }
 }

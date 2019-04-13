@@ -4,14 +4,16 @@
 
 <section class="blog-post-wrap">
     <div class="container">
-
         <div class="row">
             <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
 
                 <div class="ui-block responsive-flex">
                     <div class="ui-block-title">
                         <div class="h6 title">My Groups ({{$groups->total()}})</div>
-                        <form class="w-search">
+                        <a href="#" class="btn btn-primary btn-sm btn-right float-right">Create group +</a>
+                    </div>
+                    <div class="ui-block-title">
+                        <form class="w-search w-100">
                             <div class="form-group with-button">
                                 <input class="form-control" name="q" type="text" placeholder="Search Groups..." value="{{ app('request')->input('q') }}">
                                 <button>
@@ -23,47 +25,27 @@
                 </div>
 
                 @if($groups->count())
-                    <div class="row">
-                        @foreach($groups as $group)
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="ui-block">
-                                    <article class="hentry blog-post university-article" data-mh="choose-item-2">
-                                        <div class="post-thumb" data-mh="choose-item">
+                    <div class="ui-block">
+                        <div class="row">
+                            @foreach($groups as $group)
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="birthday-item inline-items" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)">
+                                        <div class="author-thumb w-50px">
                                             <a href="{!! route('group', ['slug' => $group->slug]) !!}">
                                                 <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="cover image">
                                             </a>
                                         </div>
-
-                                        <div class="post-content">
-
-                                            <div class="inline-items">
-                                                <div>
-                                                    @if($group->groupable instanceof \App\Models\University)
-                                                        <a href="#" class="post-category bg-blue-light">The college</a>
-                                                    @elseif($group->groupable instanceof \App\Models\Game)
-                                                        <a href="#" class="post-category bg-primary">The game</a>
-                                                    @else
-                                                        <a href="#" class="post-category bg-purple">The college's game</a>
-                                                    @endif
-                                                </div>
-
-                                                <div class="comments-shared" style="float:right; margin-top: 4px">
-                                                    @if($group->groupable instanceof \App\Models\University)
-                                                        <i class="fas fa-users"></i> {{ intval($group->groupable->enrollment_all) }}
-                                                    @else
-                                                        <i class="fas fa-users"></i> {{$group->users()->count()}}
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h4 post-title" title="{{$group->title}}">
+                                        <div class="birthday-author-name ml-2">
+                                            <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h5 author-name" title="{{$group->title}}">
                                                 {{ str_limit($group->title, 50, '...') }}
-                                            </a>
+                                            </a><br>
+                                            <i class="fas fa-users"></i> {{$group->users()->count()}}
                                         </div>
-                                    </article>
+                                        <a href="#" data-toggle="modal" data-target="#warning-resume-profile" class="btn btn-success btn-md btn-apply">Apply to the Team</a>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
 
                     <div class="row">
