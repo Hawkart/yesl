@@ -10,7 +10,7 @@
                 <div class="ui-block responsive-flex">
                     <div class="ui-block-title">
                         <div class="h6 title">My Groups ({{$groups->total()}})</div>
-                        <a href="#" class="btn btn-primary btn-sm btn-right float-right">Create group +</a>
+                        <a href="#" data-toggle="modal" data-target="#create-group" class="btn btn-primary btn-sm btn-right float-right">Create group +</a>
                     </div>
                     <div class="ui-block-title">
                         <form class="w-search w-100">
@@ -41,7 +41,9 @@
                                             </a><br>
                                             <i class="fas fa-users"></i> {{$group->users()->count()}}
                                         </div>
+                                        <!--
                                         <a href="#" data-toggle="modal" data-target="#warning-resume-profile" class="btn btn-success btn-md btn-apply">Apply to the Team</a>
+                                        -->
                                     </div>
                                 </div>
                             @endforeach
@@ -61,5 +63,7 @@
             @include('groups._menu')
         </div>
     </div>
+
+    <group-add></group-add>
 </section>
 @endsection

@@ -173,4 +173,9 @@ class Group extends Model
     {
         return $query->where('status', self::STATUS_ACTIVE);
     }
+
+    public function isActivated()
+    {
+        return $this->status==self::STATUS_ACTIVE;
+    }
 }

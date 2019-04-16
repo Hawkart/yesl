@@ -38,6 +38,7 @@ class Kernel extends ConsoleKernel
         Commands\NewsToPostsMigrate::class,
         Commands\MailDigestNews::class,
         Commands\UniversityGroupSync::class,
+        Commands\MailCheck::class,
     ];
 
     /**

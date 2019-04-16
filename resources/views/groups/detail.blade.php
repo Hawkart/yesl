@@ -2,6 +2,57 @@
 
 @section('content')
     <div class="container">
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block">
+
+                    <div class="top-header top-header-favorit">
+                        <div class="top-header-thumb">
+
+                            @if($group->owner_id==Auth::user()->id)
+                                <overlay-upload uimg="{{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/university-overlay-default.jpg' }}" uploadapi="/groups/{{$group->id}}/cover" dataname="cover"></overlay-upload>
+                            @else
+                                <div class="top-header-overlay">
+                                    <img src="{{ $group->cover ? Storage::disk('public')->url($group->cover) : '/img/university-overlay-default.jpg' }}" alt="{{$group->title}}">
+                                </div>
+                            @endif
+
+                            <div class="top-header-author" @if($group->owner_id==Auth::user()->id) style="z-index: 22;" @endif>
+
+                                @if($group->owner_id==Auth::user()->id)
+                                    <avatar-upload dataname="image" uimg="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg' }}" uploadapi="/groups/{{$group->id}}/logo"></avatar-upload>
+                                @else
+                                    <div class="author-thumb">
+                                        <img src="{{ $group->image ? Storage::disk('public')->url($group->image) : '/img/university-logo-default.jpg' }}" alt="{{$group->title}}">
+                                    </div>
+                                @endif
+
+                                <div class="author-content">
+                                    <a href="#" class="h3 author-name">{{$group->title}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col-xl-3 m-auto col-lg-3 col-xs-12">
+                                </div>
+                                <div class="col-xl-6 m-auto col-lg-6 col-xs-12">
+                                </div>
+                                <div class="col-xl-3 m-auto col-lg-3 col-xs-12">
+                                    <group-subscribe :group_id = "{{$group->id}}" :user_id="{{Auth::id()}}"></group-subscribe>
+                                </div>
+                            </div>
+
+                            <div class="control-block-button">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
                 @if($can_post)
@@ -10,49 +61,21 @@
                     </div>
                 @endif
 
+                @if($group->status!=1)
+                    <div class="alert alert-danger" role="alert">
+                        After moderation, your group will be activated.
+                    </div>
+                @endif
+
                 <post-list :group="{{json_encode($group->toArray())}}" :user="{{json_encode(Auth::user()->toArray())}}" type="group"></post-list>
             </div>
             <div class="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
                 <div class="ui-block">
-                    <div class="post-thumb mb-0" style="height: 300px">
-                        <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg'  }}" alt="{{$group->title}}">
+                    <div class="ui-block-title">
+                        <h6 class="title">Description</h6>
                     </div>
                     <div class="ui-block-content">
-
-                        <h6 class="title">{{$group->title}}</h6>
-
-                        @if($group->groupable instanceof \App\Models\University)
-                            <a href="#" class="post-category bg-blue-light mb-xxl-1">The college</a>
-
-                            @if(!empty($group->groupable->location_lat))
-                                <pin-popup-google-map :university="{{json_encode($group->groupable->toArray())}}"></pin-popup-google-map>
-                            @endif
-
-                            <ul class="widget w-personal-info item-block">
-                                <li>
-                                    <span class="title">Address:</span>
-                                    <span class="text">{{$group->groupable->address}}</span>
-                                </li>
-                                <li>
-                                    <span class="title">Website:</span>
-                                    <a href="//{{$group->groupable->url}}" target="_blank" class="text">{{$group->groupable->url}}</a>
-                                </li>
-                            </ul>
-                        @elseif($group->groupable instanceof \App\Models\Game)
-                            <a href="#" class="post-category bg-primary">The game</a>
-
-                            <ul class="widget w-personal-info item-bloc mb-xxl-1k">
-                                <li>
-                                    <span class="text">{{$group->groupable->body}}</span>
-                                </li>
-                                <li>
-                                    <span class="title">Genre:</span>
-                                    <span class="text">{{$group->groupable->genre->title}}</span>
-                                </li>
-                            </ul>
-                        @else
-                            <a href="#" class="post-category bg-purple">The college's game</a>
-                        @endif
+                        {{$group->description}}
                     </div>
                 </div>
             </div>
@@ -65,7 +88,6 @@
                     <div class="ui-block-content">
                         <ul class="widget w-faved-page">
                             @if($group->users()->count()>0)
-
                                 @foreach($group->users as $user)
                                     <li>
                                         <a href="#">
@@ -81,7 +103,6 @@
                                 @endif
                             @endif
                         </ul>
-                        <group-subscribe :group_id = "{{$group->id}}" :user_id="{{Auth::id()}}"></group-subscribe>
                     </div>
                 </div>
 
@@ -102,29 +123,6 @@
                         </ul>
                     </div>
                 </div>
-
-                @if(count($similar_groups)>0)
-                <div class="ui-block">
-                    <div class="ui-block-title">
-                        <h6 class="title">Similar groups</h6>
-                    </div>
-
-                    <ul class="widget w-friend-pages-added notification-list friend-requests">
-                        @foreach($similar_groups as $sgroup)
-                        <li class="inline-items">
-                            <div>
-                                <img src="{{ Storage::disk('public')->url($sgroup->image) }}" alt="{{$sgroup->title}}" width="36">
-                            </div>
-                            <div class="notification-event mt-lg-3">
-                                <a href="{!! route('group', ['slug' => $sgroup->slug]) !!}" class="h6 notification-friend">{{$sgroup->title}}</a>
-                                <!--<span class="chat-message-item">{{$group->groupable->body}}</span>-->
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-
             </div>
         </div>
     </div>

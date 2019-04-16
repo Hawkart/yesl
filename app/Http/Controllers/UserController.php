@@ -300,7 +300,12 @@ class UserController extends Controller
     public function myGroups(Request $request)
     {
         $user = Auth::user();
-        $groups = $user->groups()->search($request)->orderBy('id', 'desc')->paginate(12);
+
+        $groups = $user->groups()
+            ->where(function($q) use ($user) {
+                $q->active()
+                    ->orWhere('owner_id', $user->id);
+            })->search($request)->orderBy('id', 'desc')->paginate(12);
 
         return view('groups.index', compact(['user', 'groups']));
     }

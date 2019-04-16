@@ -9,11 +9,14 @@ use App\Models\Group;
 use App\Models\GroupUser;
 use App\Models\Game;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
+use Illuminate\Support\Facades\Mail;
 use Storage;
 use Image;
 use File;
 use Cache;
 use App\Acme\Helpers\TwitterHelper;
+use App\Http\Requests\GroupRequest;
+use App\Mail\EmailGroupModerate;
 
 class GroupController extends Controller
 {
@@ -36,9 +39,11 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
         $groups = Group::orderBy('title', 'desc')->active()
                         ->whereNull('groupable_type')
                         ->search($request)->paginate(12);
+
         $this->seo()->setTitle("Groups");
 
         return view('groups.search', compact('groups'));
@@ -100,14 +105,27 @@ class GroupController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param GroupRequest $request
      */
-    public function store(Request $request)
+    public function store(GroupRequest $request)
     {
-        //
+        $user = Auth::user();
+
+        $group = Group::create([
+            'owner_id' => $user->id,
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            'status' => Group::STATUS_PENDING
+        ]);
+
+        $user->groups()->attach($group->id);
+
+        Mail::to(env("ADMIN_EMAIL"))->send(new EmailGroupModerate($group));
+
+        return response()->json([
+            'data' => $group,
+            'message' => "After moderation, your group will be activated."
+        ], 200);
     }
 
     /**
@@ -118,7 +136,13 @@ class GroupController extends Controller
      */
     public function show($slug, Request $request)
     {
+        $user = Auth::user();
+
         $group = Group::where('slug', $slug)
+            ->where(function($q) use ($user) {
+                $q->active()
+                    ->orWhere('owner_id', $user->id);
+            })
             ->firstOrFail();
 
         $similar_groups = [];
@@ -132,9 +156,8 @@ class GroupController extends Controller
             }
         }
 
-        $user = Auth::user();
         $groups = $user->groups()->pluck('group_id')->toArray();
-        $can_post = in_array($group->id, $groups);
+        $can_post = in_array($group->id, $groups) && $group->isActivated();
 
         $this->seo()->setTitle($group->title);
 

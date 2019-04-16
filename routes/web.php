@@ -115,6 +115,7 @@ Route::group(['prefix' => 'groups', 'middleware' => 'auth'], function () {
     Route::post('/{id}/users', 'GroupController@join');
     Route::post('/{id}/logo', 'GroupController@updateLogo');
     Route::post('/{id}/cover', 'GroupController@updateCover');
+    Route::post('/', 'GroupController@store');
     //Route::get('/groups/{id}/users', 'GroupController@users')->name('group.users');
 });
 

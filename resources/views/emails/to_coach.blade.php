@@ -78,7 +78,7 @@ To be able select the athletes, you are welcome to register on CampusTeam.tv web
     Vlad ILchenko<br>
     Founder of <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>
 
-    <a href="%tag_unsubscribe_url%" style="{{$style['paragraph-center']}}">Unsubscribe</a><br>
+    <a href="<%asm_global_unsubscribe_raw_url%>" style="{{$style['paragraph-center']}}">Unsubscribe</a><br>
 </p>
 </body>
 </html>

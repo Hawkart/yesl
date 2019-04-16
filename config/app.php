@@ -173,6 +173,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\JsonApiPaginateServiceProvider::class,
+        Sichikawa\LaravelSendgridDriver\SendgridTransportServiceProvider::class,
     ],
 
     /*
