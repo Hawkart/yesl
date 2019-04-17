@@ -28,15 +28,29 @@
                     <div class="ui-block">
                         <div class="row">
                             @foreach($groups as $group)
+
+                                @php
+                                    if(empty($group->groupable_type))
+                                    {
+                                        $type = 'group';
+                                    }
+                                    else if($group->groupable_type=="App\Models\Game")
+                                    {
+                                        $type = 'game';
+                                    }else{
+                                        $type = 'university';
+                                    }
+                                @endphp
+
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="birthday-item inline-items" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)">
                                         <div class="author-thumb w-50px">
-                                            <a href="{!! route('group', ['slug' => $group->slug]) !!}">
+                                            <a href="{!! route($type, ['slug' => $group->slug]) !!}">
                                                 <img src="{{  $group->image ? Storage::disk('public')->url($group->image) : '/img/author-main1.jpg' }}" alt="cover image">
                                             </a>
                                         </div>
                                         <div class="birthday-author-name ml-2">
-                                            <a href="{!! route('group', ['slug' => $group->slug]) !!}" class="h5 author-name" title="{{$group->title}}">
+                                            <a href="{!! route($type, ['slug' => $group->slug]) !!}" class="h5 author-name" title="{{$group->title}}">
                                                 {{ str_limit($group->title, 50, '...') }}
                                             </a><br>
                                             <i class="fas fa-users"></i> {{$group->users()->count()}}

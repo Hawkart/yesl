@@ -60,6 +60,7 @@ Vue.component('apply-dialog', require('./components/ApplyDialog'));
 Vue.component('search-form', require('./components/SearchForm'));
 Vue.component('login-form', require('./components/LoginForm'));
 Vue.component('group-add', require('./components/GroupAdd'));
+Vue.component('group-edit', require('./components/GroupEdit'));
 
 import {
     HasError,

@@ -75,7 +75,7 @@
                         <h6 class="title">Description</h6>
                     </div>
                     <div class="ui-block-content">
-                        {{$group->description}}
+                        <group-edit :group="{{json_encode($group->toArray())}}"  :user="{{json_encode(Auth::user()->toArray())}}"></group-edit>
                     </div>
                 </div>
             </div>

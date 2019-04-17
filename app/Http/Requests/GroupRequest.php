@@ -42,7 +42,9 @@ class GroupRequest extends FormRequest {
             case 'PUT':
             case 'PATCH':
                 {
-
+                    return [
+                        'description' => 'required|string|min:10'
+                    ];
                 }
             default:break;
         }

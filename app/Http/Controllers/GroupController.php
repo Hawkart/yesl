@@ -245,7 +245,7 @@ class GroupController extends Controller
             ], 422);
         }
 
-        if($group->image)
+        if(!empty($group->cover))
         {
             $path = public_path() . '/storage/' . $group->cover;
             if(file_exists($path) && !in_array($group->cover, ['img/university-overlay-default.jpg']))
@@ -334,9 +334,25 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GroupRequest $request, $id)
     {
-        //
+        $group = Group::findOrFail($id);
+
+        if(Auth::user()->id!=$group->owner_id)
+        {
+            return response()->json([
+                'error' => 'Only admin of group can update info.!'
+            ], 422);
+        }
+
+        $group->update([
+            'description' => $request->get('description')
+        ]);
+
+        return response()->json([
+            'data' => $group,
+            'message' => "Group's description has been updated."
+        ], 200);
     }
 
     /**
