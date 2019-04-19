@@ -55,6 +55,7 @@ class HomeController extends Controller
             'from' => $request->get("from"),
             'subject' => $request->get("subject"),
             'html' => $request->get("html"),
+            'text' => $request->get("text"),
             "attachments" => $request->get("attachments")
         ]);
     }
