@@ -39,7 +39,7 @@ class MailDigestNews extends Command
         $news = News::where('status', 1)
             //->whereDay('created_at', '>=', $from)
             ->orderBy('created_at', 'desc')
-            ->limit(6);
+            ->limit(4);
 
         if($news->count()>0)
         {
@@ -58,26 +58,43 @@ class MailDigestNews extends Command
      */
     private function sendEmail($cname, $sendedEmails, $news)
     {
-        $cname = "App\\Models\\".$cname;
+        $c = "App\\Models\\".$cname;
 
-        $cname::athletes()->chunk(200, function ($users) use ($sendedEmails, $news)
+        $unsubscribed = ['david.balvantin@headwaters.org', "ericmaw0@icloud.com", "ivanszasz@icloud.com", "jackson_mcknight@yahoo.com",
+            "jacobd900@yahoo.com", "jorgeny11@icloud.com", "matthewhurt99@yahoo.com", "xdaltonlovex@outlook.com"];
+
+        $c::athletes()->chunk(200, function ($users) use ($sendedEmails, $news, $cname, $unsubscribed)
         {
             foreach ($users as $user)
             {
                 if(filter_var($user->email, FILTER_VALIDATE_EMAIL) && !in_array($user->email, $sendedEmails) && strpos($user->email, '@gmail')===false)
                 {
-                    $data = [
-                        'name' => $user->name,
-                        'news' => $news
-                    ];
+                    if(strpos($user->email, 'highschoolesportsleague.com')===false &&
+                        strpos($user->email, 'varsityesports.com')===false &&
+                        !in_array($user->email, $unsubscribed) &&
+                        ($cname!="VarsityUser" || (
+                            $cname=="VarsityUser" &&
+                            $user->varsity_id<=41000 &&
+                            (
+                                !isset($user->json['school_details']['school_year']) ||
+                                (isset($user->json['school_details']['school_year']) && $user->json['school_details']['school_year']!='staff')
+                            )
+                        ))
+                    )
+                    {
+                        $data = [
+                            'name' => $user->name,
+                            'news' => $news
+                        ];
 
-                    try {
-                        Mail::to($user->email)->send(new EmailDigestNews($data));
+                        try {
+                            Mail::to($user->email)->send(new EmailDigestNews($data));
 
-                        $sendedEmails[] = $user->email;
+                            $sendedEmails[] = $user->email;
 
-                    } catch (\Exception $exception){
-                        //echo $exception->getMessage();
+                        } catch (\Exception $exception){
+                            //echo $exception->getMessage();
+                        }
                     }
                 }
             }

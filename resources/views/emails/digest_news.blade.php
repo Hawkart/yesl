@@ -61,14 +61,9 @@ $style = [
                         <table align="center" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td>
-                                    <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                                        <img src="{{url('/img/logo.png')}}" style="width: 50px; padding-right: 15px"/>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
+                                    <span style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}">
                                         {{ config('app.name') }}
-                                    </a>
+                                    </span>
                                 </td>
                             </tr>
                         </table>
@@ -88,32 +83,35 @@ $style = [
 
                                     <!-- Intro -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        Last month was prolific for newly opened Esports scholarship opportunities
-                                        at American universities and colleges.<br>
-                                        For your convenience, we have enlisted 136 schools with Esports programs
-                                        on <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">CampusTeam</a> website.<br>
-                                        Here you can find the recent news from them:
+                                        We keep bringing you the latest news about Esports and
+                                        Esports scholarship opportunities at American universities and colleges.<br>
+                                        You can find the most recent news below:
                                     </p>
 
                                     <table width="100%" cellpadding="0" cellspacing="0">
                                         @foreach($data['news'] as $post)
                                             <tr>
-                                                <td width="100px" style="padding-bottom: 20px">
-                                                    <img src="{{Storage::disk('public')->url($post->image)}}" style="width: 100px; padding-right: 20px;"/>
-                                                </td>
                                                 <td style="padding-bottom: 20px">
                                                     <p style="{{ $style['paragraph'] }}">
-                                                        <a style="{{ $style['anchor'] }}" href="{{ url('/news/'.$post->slug) }}" target="_blank">{{$post->title}}</a>
+                                                        <a style="{{ $style['anchor'] }}" href="https://esportsathletes.net/news/{{$post->slug}}" target="_blank">{{$post->title}}</a>
                                                     </p>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </table>
 
+                                    <p style="{{ $style['paragraph'] }}">
+                                        Check you opportunities to get Esports scholarship by applying to the teams on
+                                        CampusTeam website.<br>
+                                        Should you have any questions about varsity Esports teams and scholarships, please do not
+                                        hestitate to contact coaches directly or CampusTeam support by email:<br>
+                                        support@campusteam.tv
+                                    </p>
+
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
                                         <br>Your<br>
-                                        <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">CampusTeam</a> crew
+                                        <span style="{{ $style['anchor'] }}">CampusTeam</span> crew
                                     </p>
                                 </td>
                             </tr>
@@ -130,7 +128,7 @@ $style = [
                                     <p style="{{ $style['paragraph-sub'] }}">
                                         <a href="<%asm_global_unsubscribe_raw_url%>" style="{{$style['paragraph-center']}}">Unsubscribe</a><br>
                                         &copy; {{ date('Y') }}
-                                        <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
+                                        <span style="{{ $style['anchor'] }}">{{ config('app.name') }}</span>.
                                         All rights reserved.
                                     </p>
                                 </td>

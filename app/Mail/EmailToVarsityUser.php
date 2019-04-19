@@ -26,8 +26,8 @@ class EmailToVarsityUser extends Mailable
      */
     public function build()
     {
-        $address = 'info24@campusteam.info';
-        $name = 'Campus Team';
+        $address = 'scolarship@campusteam.tv';
+        $name = 'CampusTeam crew';
 
         return $this->view('emails.to_varsity_users')
             ->with('data', $this->data)

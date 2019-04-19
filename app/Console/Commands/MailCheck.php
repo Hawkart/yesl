@@ -32,25 +32,6 @@ class MailCheck extends Command
      */
     public function handle()
     {
-        $emails = ['segezhagroup.it@gmail.com', 'veronika.ilchenko@gmail.com', 'campus.team.tv@gmail.com'];
-        $domains = ['campusteam.info', 'campusteam.net', 'collegeteam.info'];
-
-        foreach($emails as $email)
-        {
-            foreach($domains as $domain)
-            {
-                $from = "info@".$domain;
-                $name = "Campusteam crew";
-
-                echo $from."\n";
-
-                Mail::raw("Testing of Campusteam mail", function ($message) use ($email, $from, $name) {
-                    $message->to($email)
-                        ->from($from, $name)
-                        ->subject("Testing of Campusteam mail");
-                });
-            }
-        }
 
     }
 }

@@ -26,7 +26,7 @@ class EmailGroupModerate extends Mailable
      */
     public function build()
     {
-        $address = 'newgroup@campusteam.info';
+        $address = 'newgroup@campusteam.tv';
         $name = 'CampusTeam crew';
 
         return $this->view('emails.new_group_notify')

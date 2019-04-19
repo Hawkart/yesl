@@ -27,8 +27,8 @@ class EmailVerificationNotify extends Mailable
      */
     public function build()
     {
-        $address = 'confirm_mail@campusteam.info';
-        $name = 'CampusTeam MailServer';
+        $address = 'confirm_mail@campusteam.tv';
+        $name = 'CampusTeam crew';
 
         return $this->view('emails.verification_notify')
             ->from($address, $name)

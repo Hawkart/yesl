@@ -156,7 +156,11 @@ class RegisterController extends Controller
             if($data['type']==2)
                 $message = 'Dear Esports team coach, We are glad you are with us!';
 
-            $message.= "A confirmation link has been sent to your mailbox. Please confirm your email by following the link provided.";
+            $message.= "You need to make just one more step to complete your registration.<br>
+                        Please find the 'CampusTeam Registration' message in your inbox
+                        and confirm your email address by clicking the  <u>\"Verify Email\"</u> button in it.<br>
+                        If you cannot find this message, please check your Spam box, spot it there, 
+                        mark it as <u>'Not spam'</u> and then confirm your email address";
 
             return response()->json([
                 "message" => $message
@@ -217,10 +221,11 @@ class RegisterController extends Controller
     public function sendGuide($user)
     {
         $data['user'] = $user;
+        $when = now()->addDays(2);
 
         try{
             if($user->isAthlete())
-                Mail::to($user->email)->send(new EmailSuccessRegistrationAthlete($data));
+                Mail::to($user->email)->later($when, new EmailSuccessRegistrationAthlete($data));
             else
                 Mail::to($user->email)->send(new EmailSuccessRegistrationCoach($data));
         } catch (\Exception $e) {

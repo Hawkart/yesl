@@ -26,7 +26,7 @@ class EmailToSpartaUser extends Mailable
      */
     public function build()
     {
-        $address = 'info@campusteam.info';
+        $address = 'info@campusteam.tv';
         $name = 'Команда CampusTeam';
 
         return $this->view('emails.to_sparta_user')

@@ -5,14 +5,14 @@
 
         <form @submit.prevent="login" @keydown="form.onKeydown($event)" aria-label="Register" class="content">
             <div class="row">
-                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">E-mail Address</label>
                         <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email" required>
                         <has-error :form="form" field="email"/>
                     </div>
                 </div>
-                <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div class="form-group label-floating is-empty">
                         <label class="control-label">Password</label>
                         <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password" required>

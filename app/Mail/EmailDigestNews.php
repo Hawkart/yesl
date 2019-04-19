@@ -26,13 +26,13 @@ class EmailDigestNews extends Mailable
      */
     public function build()
     {
-        $address = 'newscampusteam@campusteam.info';
-        $name = 'Esports News from CampusTeam';
+        $address = 'news@esportsathletes.net';
+        $name = 'Esports Newsletter';
 
         return $this->view('emails.digest_news')
             ->with('data', $this->data)
             ->from($address, $name)
             ->replyTo($address, $name)
-            ->subject("New Esports Scholarship opportunities opened in March-April 2019");
+            ->subject("Esports News for ".$this->data['name']);
     }
 }

@@ -26,7 +26,7 @@ class EmailFromChat extends Mailable
      */
     public function build()
     {
-        $address = 'chat@campusteam.info';
+        $address = 'no-reply@campusteam.tv';
         $name = 'CampusTeam creaw';
 
         $data = $this->data;
