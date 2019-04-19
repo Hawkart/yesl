@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inbox;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -42,5 +43,19 @@ class HomeController extends Controller
         if(Auth::loginUsingId($user->id)){
             return redirect('/');
         }
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function parseInbox(Request $request)
+    {
+        Inbox::create([
+            'to' => $request->get("to"),
+            'from' => $request->get("from"),
+            'subject' => $request->get("subject"),
+            'html' => $request->get("html"),
+            "attachments" => $request->get("attachments")
+        ]);
     }
 }

@@ -247,6 +247,7 @@ Route::any('/404', function() {
     return View::make('errors.404', [], 404);
 });
 
+Route::post('/sendgrid/store', ['uses' => 'HomeController@parseInbox']);
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth', 'namespace' => 'Api'], function () {
 
